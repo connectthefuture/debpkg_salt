@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -133,21 +134,18 @@
 <tr class="field-even field"><th class="field-name">configuration:</th><td class="field-body"><p class="first">In order to connect to LDAP, certain configuration is required
 in the minion config on the LDAP server. The minimum configuration items
 that must be set are:</p>
-<div class="highlight-python"><div class="highlight"><pre>ldap.basedn: dc=acme,dc=com (example values, adjust to suit)
-</pre></div>
+<div class="highlight-python"><pre>ldap.basedn: dc=acme,dc=com (example values, adjust to suit)</pre>
 </div>
 <p>If your LDAP server requires authentication then you must also set:</p>
-<div class="highlight-python"><div class="highlight"><pre>ldap.binddn: admin
-ldap.bindpw: password
-</pre></div>
+<div class="highlight-python"><pre>ldap.binddn: admin
+ldap.bindpw: password</pre>
 </div>
 <p>In addition, the following optional values may be set:</p>
-<div class="last highlight-python"><div class="highlight"><pre>ldap.server: localhost (default=localhost, see warning below)
+<div class="last highlight-python"><pre>ldap.server: localhost (default=localhost, see warning below)
 ldap.port: 389 (default=389, standard port)
 ldap.tls: False (default=False, no TLS)
 ldap.scope: 2 (default=2, ldap.SCOPE_SUBTREE)
-ldap.attrs: [saltAttr] (default=None, return all attributes)
-</pre></div>
+ldap.attrs: [saltAttr] (default=None, return all attributes)</pre>
 </div>
 </td>
 </tr>

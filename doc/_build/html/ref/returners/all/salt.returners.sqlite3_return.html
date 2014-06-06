@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -141,14 +142,13 @@ have the appropriate schema defined, and be accessible to the
 user whom the minion process is running as. This returner
 requires the following values configured in the master or
 minion config:</p>
-<div class="highlight-python"><div class="highlight"><pre>returner.sqlite3.database: /usr/lib/salt/salt.db
-returner.sqlite3.timeout: 5.0
-</pre></div>
+<div class="highlight-python"><pre>returner.sqlite3.database: /usr/lib/salt/salt.db
+returner.sqlite3.timeout: 5.0</pre>
 </div>
 <p>Use the commands to create the sqlite3 database and tables:</p>
-<div class="highlight-python"><div class="highlight"><pre>sqlite3 /usr/lib/salt/salt.db &lt;&lt; EOF
+<div class="highlight-python"><pre>sqlite3 /usr/lib/salt/salt.db &lt;&lt; EOF
 --
--- Table structure for table &#39;jids&#39;
+-- Table structure for table 'jids'
 --
 
 CREATE TABLE jids (
@@ -157,7 +157,7 @@ CREATE TABLE jids (
   );
 
 --
--- Table structure for table &#39;salt_returns&#39;
+-- Table structure for table 'salt_returns'
 --
 
 CREATE TABLE salt_returns (
@@ -169,8 +169,7 @@ CREATE TABLE salt_returns (
   full_ret TEXT NOT NULL,
   success TEXT NOT NULL
   );
-EOF
-</pre></div>
+EOF</pre>
 </div>
 <dl class="function">
 <dt id="salt.returners.sqlite3_return.get_fun">

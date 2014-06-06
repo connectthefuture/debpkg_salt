@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -124,9 +125,8 @@
 <dl class="function">
 <dt id="salt.runners.state.orchestrate">
 <tt class="descclassname">salt.runners.state.</tt><tt class="descname">orchestrate</tt><big>(</big><em>mods</em>, <em>saltenv='base'</em>, <em>test=None</em>, <em>exclude=None</em>, <em>pillar=None</em><big>)</big><a class="headerlink" href="#salt.runners.state.orchestrate" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 <p>Execute a state run from the master, used as a powerful orchestration
 system.</p>
 <p>CLI Examples:</p>
@@ -134,17 +134,15 @@ system.</p>
 salt-run state.orchestrate webserver <span class="nv">saltenv</span><span class="o">=</span>dev <span class="nb">test</span><span class="o">=</span>True
 </pre></div>
 </div>
-<div class="versionchanged">
-<p><span class="versionmodified">Changed in version 2014.1.1: </span>Runner renamed from <tt class="docutils literal"><span class="pre">state.sls</span></tt> to <tt class="docutils literal"><span class="pre">state.orchestrate</span></tt></p>
-</div>
+<p class="versionchanged">
+<span class="versionmodified">Changed in version 2014.1.1.</span></p>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.runners.state.over">
 <tt class="descclassname">salt.runners.state.</tt><tt class="descname">over</tt><big>(</big><em>saltenv='base'</em>, <em>os_fn=None</em><big>)</big><a class="headerlink" href="#salt.runners.state.over" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 0.11.0.</span></p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 0.11.0.</span></p>
 <p>Execute an overstate sequence to orchestrate the executing of states
 over a group of systems</p>
 <p>CLI Examples:</p>
@@ -156,9 +154,8 @@ over a group of systems</p>
 <dl class="function">
 <dt id="salt.runners.state.show_stages">
 <tt class="descclassname">salt.runners.state.</tt><tt class="descname">show_stages</tt><big>(</big><em>saltenv='base'</em>, <em>os_fn=None</em><big>)</big><a class="headerlink" href="#salt.runners.state.show_stages" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 0.11.0.</span></p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 0.11.0.</span></p>
 <p>Display the OverState's stage data</p>
 <p>CLI Examples:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt-run state.show_stages

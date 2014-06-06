@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -123,7 +124,7 @@
 <div class="section" id="configuration-of-the-alternatives-system">
 <h2>Configuration of the alternatives system<a class="headerlink" href="#configuration-of-the-alternatives-system" title="Permalink to this headline">¶</a></h2>
 <p>Control the alternatives system</p>
-<div class="highlight-yaml"><div class="highlight"><pre>{% set my_hadoop_conf = &#39;/opt/hadoop/conf&#39; %}
+<div class="highlight-yaml"><pre>{% set my_hadoop_conf = '/opt/hadoop/conf' %}
 
 {{ my_hadoop_conf }}:
   file.directory
@@ -140,15 +141,13 @@ hadoop-0.20-conf:
 hadoop-0.20-conf:
   alternatives.remove:
       - name: hadoop-0.20-conf
-      - path: {{ my_hadoop_conf }}
-</pre></div>
+      - path: {{ my_hadoop_conf }}</pre>
 </div>
 <dl class="function">
 <dt id="salt.states.alternatives.auto">
 <tt class="descclassname">salt.states.alternatives.</tt><tt class="descname">auto</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.states.alternatives.auto" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 <p>Instruct alternatives to use the highest priority
 path for &lt;name&gt;</p>
 <dl class="docutils">
@@ -195,11 +194,10 @@ or fallback to default alternative, if some defined before.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="salt.states.alternatives.set_">
-<tt class="descclassname">salt.states.alternatives.</tt><tt class="descname">set_</tt><big>(</big><em>name</em>, <em>path</em><big>)</big><a class="headerlink" href="#salt.states.alternatives.set_" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<dt id="salt.states.alternatives.set">
+<tt class="descclassname">salt.states.alternatives.</tt><tt class="descname">set</tt><big>(</big><em>name</em>, <em>path</em><big>)</big><a class="headerlink" href="#salt.states.alternatives.set" title="Permalink to this definition">¶</a></dt>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 <p>Sets alternative for &lt;name&gt; to &lt;path&gt;, if &lt;path&gt; is defined
 as an alternative for &lt;name&gt;.</p>
 <dl class="docutils">

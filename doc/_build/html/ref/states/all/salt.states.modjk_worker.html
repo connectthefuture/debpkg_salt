@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -140,13 +141,12 @@ execution module <a class="reference internal" href="../../modules/all/salt.modu
 <dd><p>Activate the named worker from the lbn load balancers at the targeted
 minions</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>disable-before-deploy:
+<div class="highlight-python"><pre>disable-before-deploy:
   modjk_worker.activate:
-    - name: {{ grains[&#39;id&#39;] }}
+    - name: {{ grains['id'] }}
     - lbn: application
-    - target: &#39;roles:balancer&#39;
-    - expr_form: grain
-</pre></div>
+    - target: 'roles:balancer'
+    - expr_form: grain</pre>
 </div>
 </dd></dl>
 
@@ -158,13 +158,12 @@ minions.
 The worker will get traffic only for current sessions and won't get new
 ones.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>disable-before-deploy:
+<div class="highlight-python"><pre>disable-before-deploy:
   modjk_worker.disable:
-    - name: {{ grains[&#39;id&#39;] }}
+    - name: {{ grains['id'] }}
     - lbn: application
-    - target: &#39;roles:balancer&#39;
-    - expr_form: grain
-</pre></div>
+    - target: 'roles:balancer'
+    - expr_form: grain</pre>
 </div>
 </dd></dl>
 
@@ -174,13 +173,12 @@ ones.</p>
 <dd><p>Stop the named worker from the lbn load balancers at the targeted minions
 The worker won't get any traffic from the lbn</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>disable-before-deploy:
+<div class="highlight-python"><pre>disable-before-deploy:
   modjk_worker.stop:
-    - name: {{ grains[&#39;id&#39;] }}
+    - name: {{ grains['id'] }}
     - lbn: application
-    - target: &#39;roles:balancer&#39;
-    - expr_form: grain
-</pre></div>
+    - target: 'roles:balancer'
+    - expr_form: grain</pre>
 </div>
 </dd></dl>
 

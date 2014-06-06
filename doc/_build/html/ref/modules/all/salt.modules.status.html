@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -158,8 +159,7 @@ Warning: There is a LOT here!</p>
 <tt class="descclassname">salt.modules.status.</tt><tt class="descname">custom</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.status.custom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a custom composite of status data and info for this minion,
 based on the minion config file. An example config like might be:</p>
-<div class="highlight-python"><div class="highlight"><pre>status.cpustats.custom: [ &#39;cpu&#39;, &#39;ctxt&#39;, &#39;btime&#39;, &#39;processes&#39; ]
-</pre></div>
+<div class="highlight-python"><pre>status.cpustats.custom: [ 'cpu', 'ctxt', 'btime', 'processes' ]</pre>
 </div>
 <p>Where status refers to status.py, cpustats is the function
 where we get our data, and custom is this function It is followed
@@ -189,8 +189,7 @@ include, there can be a LOT here!</p>
 <tt class="descclassname">salt.modules.status.</tt><tt class="descname">diskusage</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#salt.modules.status.diskusage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the disk usage for this minion</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt &#39;*&#39; status.diskusage [paths and/or filesystem types]
-</pre></div>
+<div class="highlight-python"><pre>salt '*' status.diskusage [paths and/or filesystem types]</pre>
 </div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> status.diskusage         <span class="c"># usage for all filesystems</span>

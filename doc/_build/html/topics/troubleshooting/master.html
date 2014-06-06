@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -163,9 +164,8 @@ will need to be raised. For example, in an environment with 1800 minions, the
 <tt class="docutils literal"><span class="pre">nofile</span></tt> limit should be set to no less than 3600. This can be done by
 creating the file <tt class="docutils literal"><span class="pre">/etc/security/limits.d/99-salt.conf</span></tt>, with the following
 contents:</p>
-<div class="highlight-python"><div class="highlight"><pre>root        hard    nofile        4096
-root        soft    nofile        4096
-</pre></div>
+<div class="highlight-python"><pre>root        hard    nofile        4096
+root        soft    nofile        4096</pre>
 </div>
 <p>Replace <tt class="docutils literal"><span class="pre">root</span></tt> with the user under which the master runs, if different.</p>
 <p>If your master does not have an <tt class="docutils literal"><span class="pre">/etc/security/limits.d</span></tt> directory, the lines
@@ -175,8 +175,7 @@ current shell and open another shell to run <tt class="docutils literal"><span c
 the changes were applied correctly. Additionally, if your master is running
 upstart, it may be necessary to specify the <tt class="docutils literal"><span class="pre">nofile</span></tt> limit in
 <tt class="docutils literal"><span class="pre">/etc/default/salt-master</span></tt> if upstart isn't respecting your resource limits:</p>
-<div class="highlight-python"><div class="highlight"><pre>limit nofile 4096 4096
-</pre></div>
+<div class="highlight-python"><pre>limit nofile 4096 4096</pre>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>

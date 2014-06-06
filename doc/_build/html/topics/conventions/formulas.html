@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -151,7 +152,7 @@ following ways.</p>
 <h3>Adding a Formula as a GitFS remote<a class="headerlink" href="#adding-a-formula-as-a-gitfs-remote" title="Permalink to this headline">¶</a></h3>
 <p>One design goal of Salt's GitFS fileserver backend was to facilitate reusable
 States so this is a quick and natural way to use Formulas.</p>
-<div class="admonition seealso">
+<div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><a class="reference internal" href="../tutorials/gitfs.html#tutorial-gitfs"><em>Setting up GitFS</em></a></p>
 </div>
@@ -267,7 +268,7 @@ email to the Salt mailing list.</p>
 <div class="section" id="repository-structure">
 <h3>Repository structure<a class="headerlink" href="#repository-structure" title="Permalink to this headline">¶</a></h3>
 <p>A basic Formula repository should have the following layout:</p>
-<div class="highlight-python"><div class="highlight"><pre>foo-formula
+<div class="highlight-python"><pre>foo-formula
 |-- foo/
 |   |-- map.jinja
 |   |-- init.sls
@@ -276,10 +277,9 @@ email to the Salt mailing list.</p>
 |-- LICENSE
 |-- pillar.example
 |-- README.rst
-`-- VERSION
-</pre></div>
+`-- VERSION</pre>
 </div>
-<div class="admonition seealso">
+<div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <p><tt class="xref py py-formula docutils literal"><span class="pre">template-formula</span></tt></p>
 <p class="last">The <tt class="xref py py-formula docutils literal"><span class="pre">template-formula</span></tt> repository has a pre-built layout that
@@ -344,7 +344,7 @@ modified to be more readable and less terse.</p>
 <a class="reference internal" href="../../ref/modules/all/salt.modules.grains.html#salt.modules.grains.filter_by" title="salt.modules.grains.filter_by"><tt class="xref py py-func docutils literal"><span class="pre">grains.filter_by</span></tt></a> function then does
 a lookup on that table using the <tt class="docutils literal"><span class="pre">os_family</span></tt> grain (by default) and sets the
 result to a variable that can be used throughout the formula.</p>
-<div class="admonition seealso">
+<div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><a class="reference internal" href="../../ref/modules/all/salt.modules.grains.html#salt.modules.grains.filter_by" title="salt.modules.grains.filter_by"><tt class="xref py py-func docutils literal"><span class="pre">grains.filter_by</span></tt></a></p>
 </div>
@@ -414,7 +414,7 @@ from the call above.</p>
 </div>
 <p>Any of the values defined above can be fetched for the current platform in any
 state file using the following syntax:</p>
-<div class="highlight-yaml"><div class="highlight"><pre>{% from &quot;mysql/map.jinja&quot; import mysql with context %}
+<div class="highlight-yaml"><pre>{% from "mysql/map.jinja" import mysql with context %}
 
 mysql-server:
   pkg:
@@ -432,8 +432,7 @@ mysql-config:
     - name: {{ mysql.config }}
     - source: salt://mysql/conf/my.cnf
     - watch:
-      - service: mysql-server
-</pre></div>
+      - service: mysql-server</pre>
 </div>
 </div>
 <div class="section" id="sls-files">
@@ -446,7 +445,7 @@ in child states build on top of the basic states.</p>
 <p>For example, the root Apache should only install the Apache httpd server and
 make sure the httpd service is running. It can then be used by more advanced
 states:</p>
-<div class="highlight-python"><div class="highlight"><pre># apache/init.sls
+<div class="highlight-python"><pre># apache/init.sls
 httpd:
   pkg:
     - installed
@@ -464,14 +463,13 @@ mod_wsgi:
       - pkg: apache
 
 # apache/debian/vhost_setup.sls
-{% if grains[&#39;os_family&#39;] == &#39;Debian&#39; %}
+{% if grains['os_family'] == 'Debian' %}
 a2dissite 000-default:
   cmd.run:
     - onlyif: test -L /etc/apache2/sites-enabled/000-default
     - require:
       - pkg: apache
-{% endif %}
-</pre></div>
+{% endif %}</pre>
 </div>
 <div class="section" id="platform-agnostic">
 <h4>Platform agnostic<a class="headerlink" href="#platform-agnostic" title="Permalink to this headline">¶</a></h4>

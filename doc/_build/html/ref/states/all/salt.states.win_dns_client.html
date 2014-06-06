@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -132,12 +133,11 @@
 <tt class="descclassname">salt.states.win_dns_client.</tt><tt class="descname">dns_exists</tt><big>(</big><em>name</em>, <em>servers=None</em>, <em>interface='Local Area Connection'</em><big>)</big><a class="headerlink" href="#salt.states.win_dns_client.dns_exists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure the DNS server list in the specified interface</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>config_dns_servers:
+<div class="highlight-python"><pre>config_dns_servers:
   win_dns_client.dns_exists:
     - servers:
       - 8.8.8.8
-      - 8.8.8.9
-</pre></div>
+      - 8.8.8.9</pre>
 </div>
 </dd></dl>
 

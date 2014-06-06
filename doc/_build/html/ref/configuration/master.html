@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -123,7 +124,7 @@
 of the Salt system each have a respective configuration file. The
 <strong class="command">salt-master</strong> is configured via the master configuration file, and the
 <strong class="command">salt-minion</strong> is configured via the minion configuration file.</p>
-<div class="admonition seealso">
+<div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><a class="reference internal" href="examples.html#configuration-examples-master"><em>example master configuration file</em></a></p>
 </div>
@@ -161,9 +162,8 @@ of the Salt system each have a respective configuration file. The
 <p>Each minion connecting to the master uses AT LEAST one file descriptor, the
 master subscription connection. If enough minions connect you might start
 seeing on the console(and then salt-master crashes):</p>
-<div class="highlight-python"><div class="highlight"><pre>Too many open files (tcp_listener.cpp:335)
-Aborted (core dumped)
-</pre></div>
+<div class="highlight-python"><pre>Too many open files (tcp_listener.cpp:335)
+Aborted (core dumped)</pre>
 </div>
 <p>By default this value will be the one of <cite>ulimit -Hn</cite>, i.e., the hard limit for
 max open files.</p>
@@ -171,8 +171,7 @@ max open files.</p>
 configure this setting. Remember that this value CANNOT be higher than the
 hard limit. Raising the hard limit depends on your OS and/or distribution,
 a good way to find the limit is to search the internet for(for example):</p>
-<div class="highlight-python"><div class="highlight"><pre>raise max open files hard limit debian
-</pre></div>
+<div class="highlight-python"><pre>raise max open files hard limit debian</pre>
 </div>
 <div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">max_open_files</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100000</span>
 </pre></div>
@@ -329,9 +328,8 @@ insecure!</p>
 </div>
 <div class="section" id="autoreject-file">
 <span id="std:conf_master-autoreject_file"></span><h3><tt class="docutils literal"><span class="pre">autoreject_file</span></tt><a class="headerlink" href="#autoreject-file" title="Permalink to this headline">¶</a></h3>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <p>Default: <tt class="docutils literal"><span class="pre">not</span> <span class="pre">defined</span></tt></p>
 <p>Works like <a class="reference internal" href="#std:conf_master-autosign_file"><tt class="xref std std-conf_master docutils literal"><span class="pre">autosign_file</span></tt></a>, but instead allows you to specify
 minion IDs for which keys will automatically be rejected. Will override both
@@ -614,9 +612,8 @@ the <a class="reference internal" href="#std:conf_master-file_roots"><tt class="
 </div>
 <div class="section" id="gitfs-provider">
 <span id="std:conf_master-gitfs_provider"></span><h3><tt class="docutils literal"><span class="pre">gitfs_provider</span></tt><a class="headerlink" href="#gitfs-provider" title="Permalink to this headline">¶</a></h3>
-<div class="versionadded">
-<p><span class="versionmodified">New in version Helium.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version Helium.</span></p>
 <p>Gitfs can be provided by one of two python modules: <a class="reference external" href="https://github.com/gitpython-developers/GitPython">GitPython</a> or <a class="reference external" href="https://github.com/libgit2/pygit2">pygit2</a>.
 If using pygit2, both libgit2 and git itself must also be installed. More
 information can be found in the <a class="reference internal" href="../file_server/all/salt.fileserver.gitfs.html#module-salt.fileserver.gitfs" title="salt.fileserver.gitfs"><tt class="xref py py-mod docutils literal"><span class="pre">gitfs</span> <span class="pre">backend</span> <span class="pre">documentation</span></tt></a>.</p>
@@ -675,9 +672,8 @@ available to the Salt fileserver.</p>
 </div>
 <div class="section" id="hgfs-remotes">
 <span id="std:conf_master-hgfs_remotes"></span><h3><tt class="docutils literal"><span class="pre">hgfs_remotes</span></tt><a class="headerlink" href="#hgfs-remotes" title="Permalink to this headline">¶</a></h3>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 <p>Default: <tt class="docutils literal"><span class="pre">[]</span></tt></p>
 <p>When using the <tt class="docutils literal"><span class="pre">hg</span></tt> fileserver backend at least one mercurial remote needs to
 be defined. The user running the salt master will need read access to the repo.</p>
@@ -692,9 +688,8 @@ translated into salt environments, as defined by the
 </div>
 <div class="section" id="hgfs-branch-method">
 <span id="std:conf_master-hgfs_branch_method"></span><h3><tt class="docutils literal"><span class="pre">hgfs_branch_method</span></tt><a class="headerlink" href="#hgfs-branch-method" title="Permalink to this headline">¶</a></h3>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 <p>Default: <tt class="docutils literal"><span class="pre">branches</span></tt></p>
 <p>Defines the objects that will be used as fileserver environments.</p>
 <ul class="simple">
@@ -717,9 +712,8 @@ environment.</p>
 </div>
 <div class="section" id="hgfs-root">
 <span id="std:conf_master-hgfs_root"></span><h3><tt class="docutils literal"><span class="pre">hgfs_root</span></tt><a class="headerlink" href="#hgfs-root" title="Permalink to this headline">¶</a></h3>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 <p>Default: <tt class="docutils literal"><span class="pre">''</span></tt></p>
 <p>Serve files from a subdirectory within the repository, instead of the root.
 This is useful when there are files in the repository that should not be
@@ -730,9 +724,8 @@ available to the Salt fileserver.</p>
 </div>
 <div class="section" id="hgfs-base">
 <span id="std:conf_master-hgfs_base"></span><h3><tt class="docutils literal"><span class="pre">hgfs_base</span></tt><a class="headerlink" href="#hgfs-base" title="Permalink to this headline">¶</a></h3>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <p>Default: <tt class="docutils literal"><span class="pre">default</span></tt></p>
 <p>Defines which branch should be used as the <tt class="docutils literal"><span class="pre">base</span></tt> environment. Change this if
 <a class="reference internal" href="#std:conf_master-hgfs_branch_method"><tt class="xref std std-conf_master docutils literal"><span class="pre">hgfs_branch_method</span></tt></a> is set to <tt class="docutils literal"><span class="pre">bookmarks</span></tt> to specify which

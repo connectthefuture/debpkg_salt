@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -170,13 +171,12 @@ partition.</dd>
 <dt id="salt.modules.parted.get_id">
 <tt class="descclassname">salt.modules.parted.</tt><tt class="descname">get_id</tt><big>(</big><em>device</em>, <em>minor</em><big>)</big><a class="headerlink" href="#salt.modules.parted.get_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints the system ID for the partition. Some typical values are:</p>
-<div class="highlight-python"><div class="highlight"><pre> b: FAT32 (vfat)
+<div class="highlight-python"><pre> b: FAT32 (vfat)
  7: HPFS/NTFS
 82: Linux Swap
 83: Linux
 8e: Linux LVM
-fd: Linux RAID Auto
-</pre></div>
+fd: Linux RAID Auto</pre>
 </div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.get_id /dev/sda 1
@@ -185,8 +185,8 @@ fd: Linux RAID Auto
 </dd></dl>
 
 <dl class="function">
-<dt id="salt.modules.parted.list_">
-<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">list_</tt><big>(</big><em>device</em>, <em>unit=None</em><big>)</big><a class="headerlink" href="#salt.modules.parted.list_" title="Permalink to this definition">¶</a></dt>
+<dt id="salt.modules.parted.list">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">list</tt><big>(</big><em>device</em>, <em>unit=None</em><big>)</big><a class="headerlink" href="#salt.modules.parted.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>partition.list device unit</p>
 <p>Prints partition information of given &lt;device&gt;</p>
 <p>CLI Examples:</p>
@@ -339,8 +339,8 @@ logical partitions.</dd>
 </dd></dl>
 
 <dl class="function">
-<dt id="salt.modules.parted.set_">
-<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">set_</tt><big>(</big><em>device</em>, <em>minor</em>, <em>flag</em>, <em>state</em><big>)</big><a class="headerlink" href="#salt.modules.parted.set_" title="Permalink to this definition">¶</a></dt>
+<dt id="salt.modules.parted.set">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">set</tt><big>(</big><em>device</em>, <em>minor</em>, <em>flag</em>, <em>state</em><big>)</big><a class="headerlink" href="#salt.modules.parted.set" title="Permalink to this definition">¶</a></dt>
 <dd><p>partition.set device  minor flag state</p>
 <dl class="docutils">
 <dt>Changes a flag on the partition with number &lt;minor&gt;. A flag can be either</dt>
@@ -357,13 +357,12 @@ on what disk label you are using.</dd>
 <dt id="salt.modules.parted.set_id">
 <tt class="descclassname">salt.modules.parted.</tt><tt class="descname">set_id</tt><big>(</big><em>device</em>, <em>minor</em>, <em>system_id</em><big>)</big><a class="headerlink" href="#salt.modules.parted.set_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the system ID for the partition. Some typical values are:</p>
-<div class="highlight-python"><div class="highlight"><pre> b: FAT32 (vfat)
+<div class="highlight-python"><pre> b: FAT32 (vfat)
  7: HPFS/NTFS
 82: Linux Swap
 83: Linux
 8e: Linux LVM
-fd: Linux RAID Auto
-</pre></div>
+fd: Linux RAID Auto</pre>
 </div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.set_id /dev/sda 1 83

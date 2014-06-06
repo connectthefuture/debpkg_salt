@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -124,7 +125,7 @@
 <h2>Jinja in States<a class="headerlink" href="#jinja-in-states" title="Permalink to this headline">¶</a></h2>
 <p>The most basic usage of Jinja in state files is using control structures to wrap
 conditional or redundant state elements:</p>
-<div class="highlight-yaml"><div class="highlight"><pre>{% if grains[&#39;os&#39;] != &#39;FreeBSD&#39; %}
+<div class="highlight-yaml"><pre>{% if grains['os'] != 'FreeBSD' %}
 tcsh:
     pkg:
         - installed
@@ -132,13 +133,12 @@ tcsh:
 
 motd:
   file.managed:
-    {% if grains[&#39;os&#39;] == &#39;FreeBSD&#39; %}
+    {% if grains['os'] == 'FreeBSD' %}
     - name: /etc/motd
-    {% elif grains[&#39;os&#39;] == &#39;Debian&#39; %}
+    {% elif grains['os'] == 'Debian' %}
     - name: /etc/motd.tail
     {% endif %}
-    - source: salt://motd
-</pre></div>
+    - source: salt://motd</pre>
 </div>
 <p>In this example, the first if block will only be evaluated on minions that
 aren't running FreeBSD, and the second block changes the file name based on the
@@ -146,17 +146,16 @@ aren't running FreeBSD, and the second block changes the file name based on the
 <p>Writing <strong>if-else</strong> blocks can lead to very redundant state files however. In
 this case, using <a class="reference internal" href="../../../topics/pillar/index.html"><em>pillars</em></a>, or using a previously
 defined variable might be easier:</p>
-<div class="highlight-yaml"><div class="highlight"><pre>{% set motd = [&#39;/etc/motd&#39;] %}
-{% if grains[&#39;os&#39;] == &#39;Debian&#39; %}
-  {% set motd = [&#39;/etc/motd.tail&#39;, &#39;/var/run/motd&#39;] %}
+<div class="highlight-yaml"><pre>{% set motd = ['/etc/motd'] %}
+{% if grains['os'] == 'Debian' %}
+  {% set motd = ['/etc/motd.tail', '/var/run/motd'] %}
 {% endif %}
 
 {% for motdfile in motd %}
 {{ motdfile }}:
   file.managed:
     - source: salt://motd
-{% endfor %}
-</pre></div>
+{% endfor %}</pre>
 </div>
 <p>Using a variable set by the template, the <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#for">for loop</a> will iterate over the
 list of MOTD files to update, adding a state block for each file.</p>
@@ -166,17 +165,16 @@ list of MOTD files to update, adding a state block for each file.</p>
 <p>It is also possible to pass additional variable context directly into a
 template, using the <tt class="docutils literal"><span class="pre">defaults</span></tt> and <tt class="docutils literal"><span class="pre">context</span></tt> mappings of the
 <a class="reference internal" href="../../states/all/salt.states.file.html"><em>file.managed</em></a> state:</p>
-<div class="highlight-yaml"><div class="highlight"><pre>/etc/motd:
+<div class="highlight-yaml"><pre>/etc/motd:
   file.managed:
     - source: salt://motd
     - template: jinja
     - defaults:
-        message: &#39;Foo&#39;
-    {% if grains[&#39;os&#39;] == &#39;FreeBSD&#39; %}
+        message: 'Foo'
+    {% if grains['os'] == 'FreeBSD' %}
     - context:
-        message: &#39;Bar&#39;
-    {% endif %}
-</pre></div>
+        message: 'Bar'
+    {% endif %}</pre>
 </div>
 <p>The template will receive a variable <tt class="docutils literal"><span class="pre">message</span></tt>, which would be accessed in the
 template using <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">message</span> <span class="pre">}}</span></tt>. If the operating system is FreeBSD, the value
@@ -187,58 +185,53 @@ of the variable <tt class="docutils literal"><span class="pre">message</span></t
 <h2>Include and Import<a class="headerlink" href="#include-and-import" title="Permalink to this headline">¶</a></h2>
 <p>Includes and <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#import">imports</a> can be used to share common, reusable state configuration
 between state files and between files.</p>
-<div class="highlight-yaml"><div class="highlight"><pre>{% from &#39;lib.sls&#39; import test %}
-</pre></div>
+<div class="highlight-yaml"><pre>{% from 'lib.sls' import test %}</pre>
 </div>
 <p>This would import the <tt class="docutils literal"><span class="pre">test</span></tt> template variable or macro, not the <tt class="docutils literal"><span class="pre">test</span></tt>
 state element, from the file <tt class="docutils literal"><span class="pre">lib.sls</span></tt>. In the case that the included file
 performs checks again grains, or something else that requires context, passing
 the context into the included file is required:</p>
-<div class="highlight-yaml"><div class="highlight"><pre>{% from &#39;lib.sls&#39; import test with context %}
-</pre></div>
+<div class="highlight-yaml"><pre>{% from 'lib.sls' import test with context %}</pre>
 </div>
 </div>
 <div class="section" id="variable-and-block-serializers">
 <h2>Variable and block Serializers<a class="headerlink" href="#variable-and-block-serializers" title="Permalink to this headline">¶</a></h2>
 <p>Salt allows one to serialize any variable into <strong>json</strong> or <strong>yaml</strong> or
 <strong>python</strong>. For example this variable:</p>
-<div class="highlight-python"><div class="highlight"><pre>data:
+<div class="highlight-python"><pre>data:
   foo: True
   bar: 42
   baz:
     - 1
     - 2
     - 3
-  qux: 2.0
-</pre></div>
+  qux: 2.0</pre>
 </div>
 <p>with this template:</p>
-<div class="highlight-python"><div class="highlight"><pre>yaml -&gt; {{ data|yaml }}
+<div class="highlight-python"><pre>yaml -&gt; {{ data|yaml }}
 
 json -&gt; {{ data|json }}
 
-python -&gt; {{ data|python }}
-</pre></div>
+python -&gt; {{ data|python }}</pre>
 </div>
 <p>will be rendered has:</p>
-<div class="highlight-python"><div class="highlight"><pre>yaml -&gt; {bar: 42, baz: [1, 2, 3], foo: true, qux: 2.0}
+<div class="highlight-python"><pre>yaml -&gt; {bar: 42, baz: [1, 2, 3], foo: true, qux: 2.0}
 
-json -&gt; {&quot;baz&quot;: [1, 2, 3], &quot;foo&quot;: true, &quot;bar&quot;: 42, &quot;qux&quot;: 2.0}
+json -&gt; {"baz": [1, 2, 3], "foo": true, "bar": 42, "qux": 2.0}
 
-python -&gt; {u&#39;data&#39;: {u&#39;bar&#39;: 42, u&#39;baz&#39;: [1, 2, 3], u&#39;foo&#39;: True, u&#39;qux&#39;: 2.0}}
-</pre></div>
+python -&gt; {u'data': {u'bar': 42, u'baz': [1, 2, 3], u'foo': True, u'qux': 2.0}}</pre>
 </div>
 <p>Strings and variables can be deserialized with <strong>load_yaml</strong> and <strong>load_json</strong>
 tags and filters. It allows one to manipulate data directly in templates, easily:</p>
-<div class="highlight-yaml"><div class="highlight"><pre>{%- set json_var = &#39;{&quot;foo&quot;: &quot;bar&quot;, &quot;baz&quot;: &quot;qux&quot;}&#39;|load_json %}
+<div class="highlight-yaml"><pre>{%- set json_var = '{"foo": "bar", "baz": "qux"}'|load_json %}
 My json_var foo is {{ json_var.foo }}
 
-{%- set yaml_var = &quot;{bar: baz: qux}&quot;|load_yaml %}
+{%- set yaml_var = "{bar: baz: qux}"|load_yaml %}
 My yaml_var bar.baz is {{ yaml_var.bar.baz }}
 
 {%- load_json as json_block %}
   {
-    &quot;qux&quot;: {{ yaml_var|json }},
+    "qux": {{ yaml_var|json }},
   }
 {% endload %}
 My json_block qux.bar.baz is {{ json_block.qux.bar.baz }}
@@ -248,18 +241,16 @@ My json_block qux.bar.baz is {{ json_block.qux.bar.baz }}
     baz:
       qux
 {% endload %}
-My yaml_block bar.baz is {{ yaml2.bar.baz }}
-</pre></div>
+My yaml_block bar.baz is {{ yaml2.bar.baz }}</pre>
 </div>
 <p>will be rendered has:</p>
-<div class="highlight-python"><div class="highlight"><pre>My json_var foo is bar
+<div class="highlight-python"><pre>My json_var foo is bar
 
 My yaml_var bar.baz is qux
 
 My json_block foo is quz
 
-My yaml_block bar.baz is qux
-</pre></div>
+My yaml_block bar.baz is qux</pre>
 </div>
 </div>
 <div class="section" id="template-serializers">
@@ -279,16 +270,14 @@ your infrastucture:</p>
 </pre></div>
 </div>
 <p>But you don't want to expose everything to a minion. This state file:</p>
-<div class="highlight-yaml"><div class="highlight"><pre># specialized.sls
-{% import_yaml &quot;everything.sls&quot; as all %}
+<div class="highlight-yaml"><pre># specialized.sls
+{% import_yaml "everything.sls" as all %}
 my_admins:
-  my_foo: {{ all.users.foo|yaml }}
-</pre></div>
+  my_foo: {{ all.users.foo|yaml }}</pre>
 </div>
 <p>will be rendered has:</p>
-<div class="highlight-python"><div class="highlight"><pre>my_admins:
-  my_foo: [john]
-</pre></div>
+<div class="highlight-python"><pre>my_admins:
+  my_foo: [john]</pre>
 </div>
 </div>
 <div class="section" id="macros">
@@ -296,27 +285,25 @@ my_admins:
 <p><a class="reference external" href="http://jinja.pocoo.org/docs/templates/#macros">Macros</a> are helpful for eliminating redundant code, however stripping whitespace
 from the template block, as well as contained blocks, may be necessary to
 emulate a variable return from the macro.</p>
-<div class="highlight-yaml"><div class="highlight"><pre># init.sls
-{% from &#39;lib.sls&#39; import pythonpkg with context %}
+<div class="highlight-yaml"><pre># init.sls
+{% from 'lib.sls' import pythonpkg with context %}
 
 python-virtualenv:
   pkg.installed:
-    - name: {{ pythonpkg(&#39;virtualenv&#39;) }}
+    - name: {{ pythonpkg('virtualenv') }}
 
 python-fabric:
   pkg.installed:
-    - name: {{ pythonpkg(&#39;fabric&#39;) }}
-</pre></div>
+    - name: {{ pythonpkg('fabric') }}</pre>
 </div>
-<div class="highlight-yaml"><div class="highlight"><pre># lib.sls
+<div class="highlight-yaml"><pre># lib.sls
 {% macro pythonpkg(pkg) -%}
-  {%- if grains[&#39;os&#39;] == &#39;FreeBSD&#39; -%}
+  {%- if grains['os'] == 'FreeBSD' -%}
     py27-{{ pkg }}
-  {%- elif grains[&#39;os&#39;] == &#39;Debian&#39; -%}
+  {%- elif grains['os'] == 'Debian' -%}
     python-{{ pkg }}
   {%- endif -%}
-{%- endmacro %}
-</pre></div>
+{%- endmacro %}</pre>
 </div>
 <p>This would define a <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#macros">macro</a> that would return a string of the full package name,
 depending on the packaging system's naming convention. The whitespace of the
@@ -338,11 +325,10 @@ valid <a class="reference external" href="http://docs.python.org/2/library/datet
 <a class="reference external" href="http://docs.python.org/2/library/datetime.html#strftime-strptime-behavior" title="(in Python v2.7)"><em class="xref std std-ref">exhaustive list</em></a> can be found in
 the official Python documentation. Fuzzy dates are parsed by <a class="reference external" href="https://github.com/pediapress/timelib/">timelib</a> python
 module. Some examples are available on this pages.</p>
-<div class="last highlight-yaml"><div class="highlight"><pre>{{ &quot;2002/12/25&quot;|strftime(&quot;%y&quot;) }}
-{{ &quot;1040814000&quot;|strftime(&quot;%Y-%m-%d&quot;) }}
-{{ datetime|strftime(&quot;%u&quot;) }}
-{{ &quot;now&quot;|strftime }}
-</pre></div>
+<div class="last highlight-yaml"><pre>{{ "2002/12/25"|strftime("%y") }}
+{{ "1040814000"|strftime("%Y-%m-%d") }}
+{{ datetime|strftime("%u") }}
+{{ "now"|strftime }}</pre>
 </div>
 </dd>
 </dl>
@@ -359,15 +345,13 @@ module. Some examples are available on this pages.</p>
             <span class="l-Scalar-Plain">bind</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">127.0.0.1</span>
 </pre></div>
 </div>
-<div class="highlight-yaml"><div class="highlight"><pre># lib.sls
-{% set port = 6379 %}
-</pre></div>
+<div class="highlight-yaml"><pre># lib.sls
+{% set port = 6379 %}</pre>
 </div>
-<div class="highlight-ini"><div class="highlight"><pre># redis.conf
-{% from &#39;lib.sls&#39; import port with context %}
+<div class="highlight-ini"><pre># redis.conf
+{% from 'lib.sls' import port with context %}
 port {{ port }}
-bind {{ bind }}
-</pre></div>
+bind {{ bind }}</pre>
 </div>
 <p>As an example, configuration was pulled from the file context and from an
 external template file.</p>

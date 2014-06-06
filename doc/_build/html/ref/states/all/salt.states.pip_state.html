@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -146,12 +147,11 @@ numbers here using the standard operators <tt class="docutils literal"><span cla
 <tt class="docutils literal"><span class="pre">requirements</span></tt> is given, this parameter will be ignored.</dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>django:
+<div class="highlight-python"><pre>django:
   pip.installed:
     - name: django &gt;= 1.6, &lt;= 1.7
     - require:
-      - pkg: python-pip
-</pre></div>
+      - pkg: python-pip</pre>
 </div>
 <p>This will install the latest Django version greater than 1.6 but less
 than 1.7.</p>
@@ -166,23 +166,21 @@ a pip executable. The example below assumes a virtual environment
 has been created at <tt class="docutils literal"><span class="pre">/foo/.virtualenvs/bar</span></tt>.</dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>django:
+<div class="highlight-python"><pre>django:
   pip.installed:
     - name: django &gt;= 1.6, &lt;= 1.7
     - bin_env: /foo/.virtualenvs/bar
     - require:
-      - pkg: python-pip
-</pre></div>
+      - pkg: python-pip</pre>
 </div>
 <p>Or</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>django:
+<div class="highlight-python"><pre>django:
   pip.installed:
     - name: django &gt;= 1.6, &lt;= 1.7
     - bin_env: /foo/.virtualenvs/bar/bin/pip
     - require:
-      - pkg: python-pip
-</pre></div>
+      - pkg: python-pip</pre>
 </div>
 <div class="admonition-attention admonition">
 <p class="first admonition-title">Attention</p>
@@ -194,9 +192,8 @@ has been created at <tt class="docutils literal"><span class="pre">/foo/.virtual
 <dt>env <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
 <dd>Deprecated, use <tt class="docutils literal"><span class="pre">bin_env</span></tt></dd>
 </dl>
-<div class="versionchanged">
-<p><span class="versionmodified">Changed in version 0.17.0: </span><tt class="docutils literal"><span class="pre">use_wheel</span></tt> option added.</p>
-</div>
+<p class="versionchanged">
+<span class="versionmodified">Changed in version 0.17.0: </span><tt class="docutils literal"><span class="pre">use_wheel</span></tt> option added.</p>
 <p>install_options</p>
 <blockquote>
 <div><p>Extra arguments to be supplied to the setup.py install command.
@@ -217,9 +214,8 @@ absolute path.</p>
 <dt>global_options</dt>
 <dd><p class="first">Extra global options to be supplied to the setup.py call before the
 install command.</p>
-<div class="last versionadded">
-<p><span class="versionmodified">New in version 2014.1.3.</span></p>
-</div>
+<p class="last versionadded">
+<span class="versionmodified">New in version 2014.1.3.</span></p>
 </dd>
 </dl>
 <div class="admonition-attention admonition">

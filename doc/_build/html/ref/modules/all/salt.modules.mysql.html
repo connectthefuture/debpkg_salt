@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -144,32 +145,28 @@ need to be installed.</p>
 <tr class="field-odd field"><th class="field-name">configuration:</th><td class="field-body"><p class="first">In order to connect to MySQL, certain configuration is required
 in /etc/salt/minion on the relevant minions. Some sample configs might look
 like:</p>
-<div class="highlight-python"><div class="highlight"><pre>mysql.host: &#39;localhost&#39;
+<div class="highlight-python"><pre>mysql.host: 'localhost'
 mysql.port: 3306
-mysql.user: &#39;root&#39;
-mysql.pass: &#39;&#39;
-mysql.db: &#39;mysql&#39;
-mysql.unix_socket: &#39;/tmp/mysql.sock&#39;
-mysql.charset: &#39;utf8&#39;
-</pre></div>
+mysql.user: 'root'
+mysql.pass: ''
+mysql.db: 'mysql'
+mysql.unix_socket: '/tmp/mysql.sock'
+mysql.charset: 'utf8'</pre>
 </div>
 <p>You can also use a defaults file:</p>
-<div class="last highlight-python"><div class="highlight"><pre>mysql.default_file: &#39;/etc/mysql/debian.cnf&#39;
-</pre></div>
+<div class="last highlight-python"><pre>mysql.default_file: '/etc/mysql/debian.cnf'</pre>
 </div>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="versionchanged">
-<p><span class="versionmodified">Changed in version 2014.1.0: </span>(Hydrogen)
+<p class="versionchanged">
+<span class="versionmodified">Changed in version 2014.1.0: </span>(Hydrogen)
 charset connection argument added. This is a MySQL charset, not a python one</p>
-</div>
-<div class="versionchanged">
-<p><span class="versionmodified">Changed in version 0.16.2: </span>Connection arguments from the minion config file can be overridden on the
+<p class="versionchanged">
+<span class="versionmodified">Changed in version 0.16.2: </span>Connection arguments from the minion config file can be overridden on the
 CLI by using the arguments defined <a class="reference internal" href="../../states/all/salt.states.mysql_user.html"><em>here</em></a>. Additionally, it is now possible
 to setup a user with no password.</p>
-</div>
 <dl class="function">
 <dt id="salt.modules.mysql.db_check">
 <tt class="descclassname">salt.modules.mysql.</tt><tt class="descname">db_check</tt><big>(</big><em>name</em>, <em>table=None</em>, <em>**connection_args</em><big>)</big><a class="headerlink" href="#salt.modules.mysql.db_check" title="Permalink to this definition">¶</a></dt>
@@ -558,23 +555,21 @@ checking the slave status, -3 will be returned.</p>
 <dd><p class="first">The password in hashed form. Be sure to quote the password because YAML
 doesn't like the <tt class="docutils literal"><span class="pre">*</span></tt>. A password hash can be obtained from the mysql
 command-line client like so:</p>
-<div class="last highlight-python"><div class="highlight"><pre>mysql&gt; SELECT PASSWORD(&#39;mypass&#39;);
+<div class="last highlight-python"><pre>mysql&gt; SELECT PASSWORD('mypass');
 +-------------------------------------------+
-| PASSWORD(&#39;mypass&#39;)                        |
+| PASSWORD('mypass')                        |
 +-------------------------------------------+
 | *6C8989366EAF75BB670AD8EA7A7FC1176A95CEF4 |
 +-------------------------------------------+
-1 row in set (0.00 sec)
-</pre></div>
+1 row in set (0.00 sec)</pre>
 </div>
 </dd>
 <dt>allow_passwordless</dt>
 <dd>If <tt class="docutils literal"><span class="pre">True</span></tt>, then <tt class="docutils literal"><span class="pre">password</span></tt> and <tt class="docutils literal"><span class="pre">password_hash</span></tt> can be omitted (or
 set to <tt class="docutils literal"><span class="pre">None</span></tt>) to permit a passwordless login.</dd>
 </dl>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.16.2: </span>The <tt class="docutils literal"><span class="pre">allow_passwordless</span></tt> option was added.</p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.16.2: </span>The <tt class="docutils literal"><span class="pre">allow_passwordless</span></tt> option was added.</p>
 <p>CLI Examples:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> mysql.user_chpass frank localhost newpassword
 salt <span class="s1">&#39;*&#39;</span> mysql.user_chpass frank localhost <span class="nv">password_hash</span><span class="o">=</span><span class="s1">&#39;hash&#39;</span>
@@ -597,14 +592,13 @@ salt <span class="s1">&#39;*&#39;</span> mysql.user_chpass frank localhost <span
 <dd><p class="first">The password in hashed form. Be sure to quote the password because YAML
 doesn't like the <tt class="docutils literal"><span class="pre">*</span></tt>. A password hash can be obtained from the mysql
 command-line client like so:</p>
-<div class="last highlight-python"><div class="highlight"><pre>mysql&gt; SELECT PASSWORD(&#39;mypass&#39;);
+<div class="last highlight-python"><pre>mysql&gt; SELECT PASSWORD('mypass');
 +-------------------------------------------+
-| PASSWORD(&#39;mypass&#39;)                        |
+| PASSWORD('mypass')                        |
 +-------------------------------------------+
 | *6C8989366EAF75BB670AD8EA7A7FC1176A95CEF4 |
 +-------------------------------------------+
-1 row in set (0.00 sec)
-</pre></div>
+1 row in set (0.00 sec)</pre>
 </div>
 </dd>
 <dt>allow_passwordless</dt>
@@ -613,9 +607,8 @@ set to <tt class="docutils literal"><span class="pre">None</span></tt>) to permi
 <dt>unix_socket</dt>
 <dd>If <tt class="docutils literal"><span class="pre">True</span></tt> and allow_passwordless is <tt class="docutils literal"><span class="pre">True</span></tt> then will be used unix_socket auth plugin.</dd>
 </dl>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.16.2: </span>The <tt class="docutils literal"><span class="pre">allow_passwordless</span></tt> option was added.</p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.16.2: </span>The <tt class="docutils literal"><span class="pre">allow_passwordless</span></tt> option was added.</p>
 <p>CLI Examples:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> mysql.user_create <span class="s1">&#39;username&#39;</span> <span class="s1">&#39;hostname&#39;</span> <span class="s1">&#39;password&#39;</span>
 salt <span class="s1">&#39;*&#39;</span> mysql.user_create <span class="s1">&#39;username&#39;</span> <span class="s1">&#39;hostname&#39;</span> <span class="nv">password_hash</span><span class="o">=</span><span class="s1">&#39;hash&#39;</span>
@@ -630,9 +623,8 @@ salt <span class="s1">&#39;*&#39;</span> mysql.user_create <span class="s1">&#39
 <dd><p>Checks if a user exists on the MySQL server. A login can be checked to see
 if passwordless login is permitted by omitting <tt class="docutils literal"><span class="pre">password</span></tt> and
 <tt class="docutils literal"><span class="pre">password_hash</span></tt>, and using <tt class="docutils literal"><span class="pre">passwordless=True</span></tt>.</p>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.16.2: </span>The <tt class="docutils literal"><span class="pre">passwordless</span></tt> option was added.</p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.16.2: </span>The <tt class="docutils literal"><span class="pre">passwordless</span></tt> option was added.</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> mysql.user_exists <span class="s1">&#39;username&#39;</span> <span class="s1">&#39;hostname&#39;</span> <span class="s1">&#39;password&#39;</span>
 salt <span class="s1">&#39;*&#39;</span> mysql.user_exists <span class="s1">&#39;username&#39;</span> <span class="s1">&#39;hostname&#39;</span> <span class="nv">password_hash</span><span class="o">=</span><span class="s1">&#39;hash&#39;</span>

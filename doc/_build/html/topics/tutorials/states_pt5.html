@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -234,9 +235,8 @@ overstate file the environment must also be specified, even if it is the
 </div>
 <div class="section" id="the-orchestrate-runner">
 <span id="orchestrate-runner"></span><h2>The Orchestrate Runner<a class="headerlink" href="#the-orchestrate-runner" title="Permalink to this headline">¶</a></h2>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 <p>As noted above in the introduction, the Orchestrate Runner (originally called
 the state.sls runner) offers all the functionality of the OverState, but with a
 couple advantages:</p>
@@ -292,15 +292,8 @@ then the following could both be used:</p>
 salt-run state.orch orchestration.webserver
 </pre></div>
 </div>
-<div class="versionchanged">
-<p><span class="versionmodified">Changed in version 2014.1.1: </span>The runner function was renamed to <tt class="docutils literal"><span class="pre">state.orchestrate</span></tt>. In versions
-0.17.0 through 2014.1.0, <tt class="docutils literal"><span class="pre">state.sls</span></tt> must be used. This was renamed to
-avoid confusion with the <a class="reference internal" href="../../ref/modules/all/salt.modules.state.html#salt.modules.state.sls" title="salt.modules.state.sls"><tt class="xref py py-mod docutils literal"><span class="pre">state.sls</span></tt></a>
-execution function.</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt-run state.sls orchestration.webserver
-</pre></div>
-</div>
-</div>
+<p class="versionchanged">
+<span class="versionmodified">Changed in version 2014.1.1.</span></p>
 </div>
 <div class="section" id="more-complex-orchestration">
 <h3>More Complex Orchestration<a class="headerlink" href="#more-complex-orchestration" title="Permalink to this headline">¶</a></h3>

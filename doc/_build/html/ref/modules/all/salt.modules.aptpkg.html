@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -260,9 +261,8 @@ and marked as auto-installed.</p>
 <p>32-bit packages can be installed on 64-bit systems by appending the
 architecture designation (<tt class="docutils literal"><span class="pre">:i386</span></tt>, etc.) to the end of the package
 name.</p>
-<div class="versionchanged">
-<p><span class="versionmodified">Changed in version Helium.</span></p>
-</div>
+<p class="versionchanged">
+<span class="versionmodified">Changed in version Helium.</span></p>
 <p>CLI Example:</p>
 <div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install <span class="nv">sources</span><span class="o">=</span><span class="s1">&#39;[{&quot;foo&quot;: &quot;salt://foo.deb&quot;},{&quot;bar&quot;: &quot;salt://bar.deb&quot;}]&#39;</span>
 </pre></div>
@@ -271,9 +271,8 @@ name.</p>
 <dt>force_yes</dt>
 <dd><p class="first">Passes <tt class="docutils literal"><span class="pre">--force-yes</span></tt> to the apt-get command.  Don't use this unless
 you know what you're doing.</p>
-<div class="last versionadded">
-<p><span class="versionmodified">New in version 0.17.4.</span></p>
-</div>
+<p class="last versionadded">
+<span class="versionmodified">New in version 0.17.4.</span></p>
 </dd>
 </dl>
 <p>Returns a dict containing the new package names and versions:</p>
@@ -316,16 +315,13 @@ purged) will be returned.</dd>
 but can't be purged due to their status as dependencies for other
 installed packages, will be returned. Note that these packages will
 appear in installed</p>
-<div class="last versionchanged">
-<p><span class="versionmodified">Changed in version 2014.1.1: </span>Packages in this state now correctly show up in the output of this
-function.</p>
-</div>
+<p class="last versionchanged">
+<span class="versionmodified">Changed in version 2014.1.1.</span></p>
 </dd>
 </dl>
 <p>External dependencies:</p>
-<div class="highlight-python"><div class="highlight"><pre>Virtual package resolution requires dctrl-tools. Without dctrl-tools
-virtual packages will be reported as not installed.
-</pre></div>
+<div class="highlight-python"><pre>Virtual package resolution requires dctrl-tools. Without dctrl-tools
+virtual packages will be reported as not installed.</pre>
 </div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.list_pkgs
@@ -363,7 +359,7 @@ be created, so long as the definition is well formed.  For Ubuntu the
 &quot;ppa:&lt;project&gt;/repo&quot; format is acceptable. &quot;ppa:&quot; format can only be
 used to create a new repository.</p>
 <p>The following options are available to modify a repo definition:</p>
-<div class="highlight-python"><div class="highlight"><pre>comps (a comma separated list of components for the repo, e.g. &quot;main&quot;)
+<div class="highlight-python"><pre>comps (a comma separated list of components for the repo, e.g. "main")
 file (a file name to be used)
 keyserver (keyserver to get gpg key from)
 keyid (key id to load with the keyserver argument)
@@ -373,8 +369,7 @@ consolidate (if true, will attempt to de-dup and consolidate sources)
 * Note: Due to the way keys are stored for apt, there is a known issue
         where the key wont be updated unless another change is made
         at the same time.  Keys should be properly added on initial
-        configuration.
-</pre></div>
+        configuration.</pre>
 </div>
 <p>CLI Examples:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.mod_repo <span class="s1">&#39;myrepo definition&#39;</span> <span class="nv">uri</span><span class="o">=</span>http://new/uri
@@ -398,9 +393,8 @@ and unused dependencies.</p>
 <dd>A list of packages to delete. Must be passed as a python list. The
 <tt class="docutils literal"><span class="pre">name</span></tt> parameter will be ignored if this option is passed.</dd>
 </dl>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.16.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.16.0.</span></p>
 <p>Returns a dict containing the changes.</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.purge &lt;package name&gt;
@@ -441,9 +435,8 @@ the result of the update attempt. Values can be one of the following:</p>
 <dd>A list of packages to delete. Must be passed as a python list. The
 <tt class="docutils literal"><span class="pre">name</span></tt> parameter will be ignored if this option is passed.</dd>
 </dl>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.16.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.16.0.</span></p>
 <p>Returns a dict containing the changes.</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;package name&gt;

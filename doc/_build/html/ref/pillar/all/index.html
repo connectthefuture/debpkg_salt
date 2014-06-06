@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -126,10 +127,10 @@
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="salt.pillar.cmd_json.html#module-salt.pillar.cmd_json" title="salt.pillar.cmd_json"><tt class="xref py py-obj docutils literal"><span class="pre">cmd_json</span></tt></a></td>
-<td>Execute a command and read the output as JSON.</td>
+<td>Execute a command and read the output as JSON. The JSON data is then directly overlaid onto the minion's Pillar data.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="salt.pillar.cmd_yaml.html#module-salt.pillar.cmd_yaml" title="salt.pillar.cmd_yaml"><tt class="xref py py-obj docutils literal"><span class="pre">cmd_yaml</span></tt></a></td>
-<td>Execute a command and read the output as YAML.</td>
+<td>Execute a command and read the output as YAML. The YAML data is then directly overlaid onto the minion's Pillar data</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="salt.pillar.cobbler.html#module-salt.pillar.cobbler" title="salt.pillar.cobbler"><tt class="xref py py-obj docutils literal"><span class="pre">cobbler</span></tt></a></td>
 <td>A module to pull data from Cobbler via its API into the Pillar dictionary</td>
@@ -153,7 +154,7 @@
 <td>Use LDAP data as a Pillar source</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="salt.pillar.puppet.html#module-salt.pillar.puppet" title="salt.pillar.puppet"><tt class="xref py py-obj docutils literal"><span class="pre">puppet</span></tt></a></td>
-<td>Execute an unmodified puppet_node_classifier and read the output as YAML.</td>
+<td>Execute an unmodified puppet_node_classifier and read the output as YAML. The YAML data is then directly overlaid onto the minion's Pillar data.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="salt.pillar.reclass_adapter.html#module-salt.pillar.reclass_adapter" title="salt.pillar.reclass_adapter"><tt class="xref py py-obj docutils literal"><span class="pre">reclass_adapter</span></tt></a></td>
 <td>Use the &quot;reclass&quot; database as a Pillar source</td>

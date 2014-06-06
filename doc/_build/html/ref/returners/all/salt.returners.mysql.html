@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -138,15 +139,14 @@
 <p>To enable this returner the minion will need the python client for mysql
 installed and the following values configured in the minion or master
 config, these are the defaults:</p>
-<div class="highlight-python"><div class="highlight"><pre>mysql.host: &#39;salt&#39;
-mysql.user: &#39;salt&#39;
-mysql.pass: &#39;salt&#39;
-mysql.db: &#39;salt&#39;
-mysql.port: 3306
-</pre></div>
+<div class="highlight-python"><pre>mysql.host: 'salt'
+mysql.user: 'salt'
+mysql.pass: 'salt'
+mysql.db: 'salt'
+mysql.port: 3306</pre>
 </div>
 <p>Use the following mysql database schema:</p>
-<div class="highlight-python"><div class="highlight"><pre>CREATE DATABASE  `salt`
+<div class="highlight-python"><pre>CREATE DATABASE  `salt`
   DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci;
 
@@ -179,8 +179,7 @@ CREATE TABLE `salt_returns` (
   KEY `id` (`id`),
   KEY `jid` (`jid`),
   KEY `fun` (`fun`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-</pre></div>
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;</pre>
 </div>
 <p>Required python modules: MySQLdb</p>
 <dl class="function">

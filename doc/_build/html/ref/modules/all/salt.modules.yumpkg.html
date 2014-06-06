@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -124,9 +125,8 @@
 <dl class="function">
 <dt id="salt.modules.yumpkg.check_db">
 <tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">check_db</tt><big>(</big><em>*names</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.check_db" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 <p>Returns a dict containing the following information for each specified
 package:</p>
 <ol class="arabic simple">
@@ -147,9 +147,8 @@ salt <span class="s1">&#39;*&#39;</span> pkg.check_db &lt;package1&gt; &lt;packa
 <dl class="function">
 <dt id="salt.modules.yumpkg.clean_metadata">
 <tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">clean_metadata</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.clean_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <p>Cleans local yum metadata. Functionally identical to <a class="reference internal" href="#salt.modules.yumpkg.refresh_db" title="salt.modules.yumpkg.refresh_db"><tt class="xref py py-mod docutils literal"><span class="pre">refresh_db()</span></tt></a>.</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.clean_metadata
@@ -182,9 +181,8 @@ certain repo managers sane for comparison in the pkgrepo states.</p>
 <dl class="function">
 <dt id="salt.modules.yumpkg.file_dict">
 <tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">file_dict</tt><big>(</big><em>*packages</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.file_dict" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <p>List the files that belong to a package, grouped by package. Not
 specifying any packages will return a list of _every_ file on the system's
 rpm database (not generally recommended).</p>
@@ -199,9 +197,8 @@ salt <span class="s1">&#39;*&#39;</span> pkg.file_list
 <dl class="function">
 <dt id="salt.modules.yumpkg.file_list">
 <tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">file_list</tt><big>(</big><em>*packages</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.file_list" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <p>List the files that belong to a package. Not specifying any packages will
 return a list of _every_ file on the system's rpm database (not generally
 recommended).</p>
@@ -227,9 +224,8 @@ salt <span class="s1">&#39;*&#39;</span> pkg.get_repo myrepo <span class="nv">ba
 <dl class="function">
 <dt id="salt.modules.yumpkg.group_diff">
 <tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">group_diff</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.group_diff" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <p>Lists packages belonging to a certain group, and which are installed</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.group_diff <span class="s1">&#39;Perl Support&#39;</span>
@@ -240,9 +236,8 @@ salt <span class="s1">&#39;*&#39;</span> pkg.get_repo myrepo <span class="nv">ba
 <dl class="function">
 <dt id="salt.modules.yumpkg.group_info">
 <tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">group_info</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.group_info" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <p>Lists packages belonging to a certain group</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.group_info <span class="s1">&#39;Perl Support&#39;</span>
@@ -253,9 +248,8 @@ salt <span class="s1">&#39;*&#39;</span> pkg.get_repo myrepo <span class="nv">ba
 <dl class="function">
 <dt id="salt.modules.yumpkg.group_install">
 <tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">group_install</tt><big>(</big><em>name</em>, <em>skip=()</em>, <em>include=()</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.group_install" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <p>Install the passed package group(s). This is basically a wrapper around
 pkg.install, which performs package group resolution for the user. This
 function is currently considered experimental, and should be expected to
@@ -306,9 +300,8 @@ will be passed along wholesale.</p>
 <dl class="function">
 <dt id="salt.modules.yumpkg.group_list">
 <tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">group_list</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.group_list" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <p>Lists all groups known by yum on this system</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.group_list
@@ -419,9 +412,8 @@ salt <span class="s1">&#39;*&#39;</span> pkg.latest_version &lt;package1&gt; &lt
 <dl class="function">
 <dt id="salt.modules.yumpkg.list_repo_pkgs">
 <tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">list_repo_pkgs</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.list_repo_pkgs" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <p>Returns all available packages. Optionally, package names can be passed and
 the results will be filtered to packages matching those names. This can be
 helpful in discovering the version or repo to specify in a pkg.installed
@@ -526,9 +518,8 @@ Circomstances where this would be done include:</p>
 <dd>A list of packages to delete. Must be passed as a python list. The
 <tt class="docutils literal"><span class="pre">name</span></tt> parameter will be ignored if this option is passed.</dd>
 </dl>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.16.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.16.0.</span></p>
 <p>Returns a dict containing the changes.</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.purge &lt;package name&gt;
@@ -568,9 +559,8 @@ salt <span class="s1">&#39;*&#39;</span> pkg.purge <span class="nv">pkgs</span><
 <dd>A list of packages to delete. Must be passed as a python list. The
 <tt class="docutils literal"><span class="pre">name</span></tt> parameter will be ignored if this option is passed.</dd>
 </dl>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.16.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.16.0.</span></p>
 <p>Returns a dict containing the changes.</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;package name&gt;
@@ -608,9 +598,8 @@ salt <span class="s1">&#39;*&#39;</span> pkg.remove <span class="nv">pkgs</span>
 <dl class="function">
 <dt id="salt.modules.yumpkg.verify">
 <tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">verify</tt><big>(</big><em>*names</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.verify" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <p>Runs an rpm -Va on a system, and returns the results in a dict</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.verify

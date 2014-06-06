@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -131,25 +132,22 @@ Unstable (Squeeze, Wheezy and Sid) are published in our
 as well as the debian.saltstack.com repository. To do so, add the
 following to <tt class="docutils literal"><span class="pre">/etc/apt/sources.list</span></tt> or a file in
 <tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre>deb http://debian.saltstack.com/debian squeeze-saltstack main
-deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
-</pre></div>
+<div class="highlight-python"><pre>deb http://debian.saltstack.com/debian squeeze-saltstack main
+deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free</pre>
 </div>
 </div>
 <div class="section" id="wheezy-stable">
 <h3>Wheezy (Stable)<a class="headerlink" href="#wheezy-stable" title="Permalink to this headline">¶</a></h3>
 <p>For wheezy, the following line is needed in either
 <tt class="docutils literal"><span class="pre">/etc/apt/sources.list</span></tt> or a file in <tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre>deb http://debian.saltstack.com/debian wheezy-saltstack main
-</pre></div>
+<div class="highlight-python"><pre>deb http://debian.saltstack.com/debian wheezy-saltstack main</pre>
 </div>
 </div>
 <div class="section" id="sid-unstable">
 <h3>Sid (Unstable)<a class="headerlink" href="#sid-unstable" title="Permalink to this headline">¶</a></h3>
 <p>For sid, the following line is needed in either
 <tt class="docutils literal"><span class="pre">/etc/apt/sources.list</span></tt> or a file in <tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre>deb http://debian.saltstack.com/debian unstable main
-</pre></div>
+<div class="highlight-python"><pre>deb http://debian.saltstack.com/debian unstable main</pre>
 </div>
 </div>
 </div>
@@ -163,8 +161,7 @@ deb http://backports.debian.org/debian-backports squeeze-backports main contrib 
 <p class="first admonition-title">Note</p>
 <p>You can optionally verify the key integrity with <tt class="docutils literal"><span class="pre">sha512sum</span></tt> using the
 public key signature shown here. E.g:</p>
-<div class="last highlight-python"><div class="highlight"><pre>echo &quot;b702969447140d5553e31e9701be13ca11cc0a7ed5fe2b30acb8491567560ee62f834772b5095d735dfcecb2384a5c1a20045f52861c417f50b68dd5ff4660e6  debian-salt-team-joehealy.gpg.key&quot; | sha512sum -c
-</pre></div>
+<div class="last highlight-python"><pre>echo "b702969447140d5553e31e9701be13ca11cc0a7ed5fe2b30acb8491567560ee62f834772b5095d735dfcecb2384a5c1a20045f52861c417f50b68dd5ff4660e6  debian-salt-team-joehealy.gpg.key" | sha512sum -c</pre>
 </div>
 </div>
 </div>

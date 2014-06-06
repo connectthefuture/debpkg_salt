@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -122,8 +123,8 @@
 <span id="salt-modules-logrotate"></span><h1>salt.modules.logrotate<a class="headerlink" href="#module-salt.modules.logrotate" title="Permalink to this headline">¶</a></h1>
 <p>Module for managing logrotate.</p>
 <dl class="function">
-<dt id="salt.modules.logrotate.set_">
-<tt class="descclassname">salt.modules.logrotate.</tt><tt class="descname">set_</tt><big>(</big><em>key</em>, <em>value</em>, <em>setting=None</em>, <em>conf_file='/etc/logrotate.conf'</em><big>)</big><a class="headerlink" href="#salt.modules.logrotate.set_" title="Permalink to this definition">¶</a></dt>
+<dt id="salt.modules.logrotate.set">
+<tt class="descclassname">salt.modules.logrotate.</tt><tt class="descname">set</tt><big>(</big><em>key</em>, <em>value</em>, <em>setting=None</em>, <em>conf_file='/etc/logrotate.conf'</em><big>)</big><a class="headerlink" href="#salt.modules.logrotate.set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a new value for a specific configuration line</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> logrotate.set rotate 2
@@ -131,12 +132,11 @@
 </div>
 <p>Can also be used to set a single value inside a multiline configuration
 block. For instance, to change rotate in the following block:</p>
-<div class="highlight-python"><div class="highlight"><pre>/var/log/wtmp {
+<div class="highlight-python"><pre>/var/log/wtmp {
     monthly
     create 0664 root root
     rotate 1
-}
-</pre></div>
+}</pre>
 </div>
 <p>Use the following command:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> logrotate.set /var/log/wtmp rotate 2

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -174,18 +175,17 @@ input and then parse the final rendered output as YAML.</dd>
 </dl>
 </div></blockquote>
 <p>And here's a contrived example sls file using the <tt class="docutils literal"><span class="pre">jinja</span> <span class="pre">|</span> <span class="pre">mako</span> <span class="pre">|</span> <span class="pre">yaml</span></tt> renderer:</p>
-<div class="highlight-python"><div class="highlight"><pre>#!jinja|mako|yaml
+<div class="highlight-python"><pre>#!jinja|mako|yaml
 
 An_Example:
   cmd.run:
     - name: |
-        echo &quot;Using Salt ${grains[&#39;saltversion&#39;]}&quot; \
-             &quot;from path {{grains[&#39;saltpath&#39;]}}.&quot;
+        echo "Using Salt ${grains['saltversion']}" \
+             "from path {{grains['saltpath']}}."
     - cwd: /
 
-&lt;%doc&gt; ${...} is Mako&#39;s notation, and so is this comment. &lt;/%doc&gt;
-{#     Similarly, {{...}} is Jinja&#39;s notation, and so is this comment. #}
-</pre></div>
+&lt;%doc&gt; ${...} is Mako's notation, and so is this comment. &lt;/%doc&gt;
+{#     Similarly, {{...}} is Jinja's notation, and so is this comment. #}</pre>
 </div>
 <p>For backward compatibility, <tt class="docutils literal"><span class="pre">jinja</span> <span class="pre">|</span> <span class="pre">yaml</span></tt>  can also be written as
 <tt class="docutils literal"><span class="pre">yaml_jinja</span></tt>, and similarly, the <tt class="docutils literal"><span class="pre">yaml_mako</span></tt>, <tt class="docutils literal"><span class="pre">yaml_wempy</span></tt>,

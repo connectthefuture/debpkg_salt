@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -142,9 +143,8 @@
     <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bobcat</span>
 </pre></div>
 </div>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.16.2: </span>Authentication overrides have been added.</p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.16.2: </span>Authentication overrides have been added.</p>
 <p>The MySQL authentication information specified in the minion config file can be
 overidden in states using the following arguments: <tt class="docutils literal"><span class="pre">connection_host</span></tt>,
 <tt class="docutils literal"><span class="pre">connection_port</span></tt>, <tt class="docutils literal"><span class="pre">connection_user</span></tt>, <tt class="docutils literal"><span class="pre">connection_pass</span></tt>,
@@ -189,14 +189,13 @@ passwordless user can be configured by omitting <tt class="docutils literal"><sp
 <dd><p class="first">The password in hashed form. Be sure to quote the password because YAML
 doesn't like the <tt class="docutils literal"><span class="pre">*</span></tt>. A password hash can be obtained from the mysql
 command-line client like so:</p>
-<div class="last highlight-python"><div class="highlight"><pre>mysql&gt; SELECT PASSWORD(&#39;mypass&#39;);
+<div class="last highlight-python"><pre>mysql&gt; SELECT PASSWORD('mypass');
 +-------------------------------------------+
-| PASSWORD(&#39;mypass&#39;)                        |
+| PASSWORD('mypass')                        |
 +-------------------------------------------+
 | *6C8989366EAF75BB670AD8EA7A7FC1176A95CEF4 |
 +-------------------------------------------+
-1 row in set (0.00 sec)
-</pre></div>
+1 row in set (0.00 sec)</pre>
 </div>
 </dd>
 <dt>allow_passwordless</dt>

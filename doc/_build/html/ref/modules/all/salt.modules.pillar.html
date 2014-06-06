@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -134,9 +135,8 @@
 <dl class="function">
 <dt id="salt.modules.pillar.get">
 <tt class="descclassname">salt.modules.pillar.</tt><tt class="descname">get</tt><big>(</big><em>key</em>, <em>default=''</em><big>)</big><a class="headerlink" href="#salt.modules.pillar.get" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 0.14.</span></p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 0.14.</span></p>
 <p>Attempt to retrieve the named value from pillar, if the named value is not
 available return the passed default. The default return is an empty string.</p>
 <p>The value can also represent a value in a nested dict using a &quot;:&quot; delimiter
@@ -146,8 +146,7 @@ for the dict. This means that if a dict in pillar looks like this:</p>
 </div>
 <p>To retrieve the value associated with the apache key in the pkg dict this
 key can be passed:</p>
-<div class="highlight-python"><div class="highlight"><pre>pkg:apache
-</pre></div>
+<div class="highlight-python"><pre>pkg:apache</pre>
 </div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pillar.get pkg:apache
@@ -158,9 +157,8 @@ key can be passed:</p>
 <dl class="function">
 <dt id="salt.modules.pillar.item">
 <tt class="descclassname">salt.modules.pillar.</tt><tt class="descname">item</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#salt.modules.pillar.item" title="Permalink to this definition">¶</a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified">New in version 0.16.2.</span></p>
-</div>
+<dd><p class="versionadded">
+<span class="versionmodified">New in version 0.16.2.</span></p>
 <p>Return one ore more pillar entries</p>
 <p>CLI Examples:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pillar.item foo
@@ -192,8 +190,7 @@ show the pillar as it is loaded as the __pillar__ dict.</p>
 </div>
 <p>With the optional key argument, you can select a subtree of the
 pillar raw data.:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt &#39;*&#39; pillar.raw key=&#39;roles&#39;
-</pre></div>
+<div class="highlight-python"><pre>salt '*' pillar.raw key='roles'</pre>
 </div>
 </dd></dl>
 

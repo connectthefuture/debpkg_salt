@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -123,13 +124,12 @@
 <p>Return data to a Cassandra ColumnFamily</p>
 <p>Here's an example Keyspace / ColumnFamily setup that works with this
 returner:</p>
-<div class="highlight-python"><div class="highlight"><pre>create keyspace salt;
+<div class="highlight-python"><pre>create keyspace salt;
 use salt;
 create column family returns
-  with key_validation_class=&#39;UTF8Type&#39;
-  and comparator=&#39;UTF8Type&#39;
-  and default_validation_class=&#39;UTF8Type&#39;;
-</pre></div>
+  with key_validation_class='UTF8Type'
+  and comparator='UTF8Type'
+  and default_validation_class='UTF8Type';</pre>
 </div>
 <p>Required python modules: pycassa</p>
 <dl class="function">

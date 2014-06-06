@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -148,7 +149,7 @@ previously-created backups.</p>
 <div class="section" id="listing">
 <h3>Listing<a class="headerlink" href="#listing" title="Permalink to this headline">¶</a></h3>
 <p>The backups for a given file can be listed using <a class="reference internal" href="../modules/all/salt.modules.file.html#salt.modules.file.list_backups" title="salt.modules.file.list_backups"><tt class="xref py py-mod docutils literal"><span class="pre">file.list_backups</span></tt></a>:</p>
-<div class="highlight-python"><div class="highlight"><pre># salt foo.bar.com file.list_backups /tmp/foo.txt
+<div class="highlight-python"><pre># salt foo.bar.com file.list_backups /tmp/foo.txt
 foo.bar.com:
     ----------
     0:
@@ -166,26 +167,24 @@ foo.bar.com:
         Location:
             /var/cache/salt/minion/file_backup/tmp/foo.txt_Sat_Jul_27_17:48:28_369804_2013
         Size:
-            35
-</pre></div>
+            35</pre>
 </div>
 </div>
 <div class="section" id="restoring">
 <h3>Restoring<a class="headerlink" href="#restoring" title="Permalink to this headline">¶</a></h3>
 <p>Restoring is easy using <a class="reference internal" href="../modules/all/salt.modules.file.html#salt.modules.file.restore_backup" title="salt.modules.file.restore_backup"><tt class="xref py py-mod docutils literal"><span class="pre">file.restore_backup</span></tt></a>, just pass the path and the numeric id
 found with <a class="reference internal" href="../modules/all/salt.modules.file.html#salt.modules.file.list_backups" title="salt.modules.file.list_backups"><tt class="xref py py-mod docutils literal"><span class="pre">file.list_backups</span></tt></a>:</p>
-<div class="highlight-python"><div class="highlight"><pre># salt foo.bar.com file.restore_backup /tmp/foo.txt 1
+<div class="highlight-python"><pre># salt foo.bar.com file.restore_backup /tmp/foo.txt 1
 foo.bar.com:
     ----------
     comment:
         Successfully restored /var/cache/salt/minion/file_backup/tmp/foo.txt_Sat_Jul_27_17:48:28_369804_2013 to /tmp/foo.txt
     result:
-        True
-</pre></div>
+        True</pre>
 </div>
 <p>The existing file will be backed up, just in case, as can be seen if
 <a class="reference internal" href="../modules/all/salt.modules.file.html#salt.modules.file.list_backups" title="salt.modules.file.list_backups"><tt class="xref py py-mod docutils literal"><span class="pre">file.list_backups</span></tt></a> is run again:</p>
-<div class="highlight-python"><div class="highlight"><pre># salt foo.bar.com file.list_backups /tmp/foo.txt
+<div class="highlight-python"><pre># salt foo.bar.com file.list_backups /tmp/foo.txt
 foo.bar.com:
     ----------
     0:
@@ -211,8 +210,7 @@ foo.bar.com:
         Location:
             /var/cache/salt/minion/file_backup/tmp/foo.txt_Sat_Jul_27_17:48:28_369804_2013
         Size:
-            35
-</pre></div>
+            35</pre>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -225,14 +223,13 @@ likely still be necessary to run a <tt class="docutils literal"><span class="pre
 <h3>Deleting<a class="headerlink" href="#deleting" title="Permalink to this headline">¶</a></h3>
 <p>Deleting backups can be done using mod:<cite>file.delete_backup
 &lt;salt.modules.file.delete_backup&gt;</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre># salt foo.bar.com file.delete_backup /tmp/foo.txt 0
+<div class="highlight-python"><pre># salt foo.bar.com file.delete_backup /tmp/foo.txt 0
 foo.bar.com:
     ----------
     comment:
         Successfully removed /var/cache/salt/minion/file_backup/tmp/foo.txt_Sat_Jul_27_18:00:19_822550_2013
     result:
-        True
-</pre></div>
+        True</pre>
 </div>
 </div>
 </div>

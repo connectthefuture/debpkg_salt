@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -122,9 +123,8 @@
 <span id="salt-modules-memcached"></span><h1>salt.modules.memcached<a class="headerlink" href="#module-salt.modules.memcached" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-for-management-of-memcached-keys">
 <h2>Module for Management of Memcached Keys<a class="headerlink" href="#module-for-management-of-memcached-keys" title="Permalink to this headline">¶</a></h2>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <dl class="function">
 <dt id="salt.modules.memcached.add">
 <tt class="descclassname">salt.modules.memcached.</tt><tt class="descname">add</tt><big>(</big><em>key</em>, <em>value</em>, <em>host='127.0.0.1'</em>, <em>port=11211</em>, <em>time=0</em>, <em>min_compress_len=0</em><big>)</big><a class="headerlink" href="#salt.modules.memcached.add" title="Permalink to this definition">¶</a></dt>
@@ -190,8 +190,8 @@ already exists. This is the opposite of <a class="reference internal" href="#sal
 </dd></dl>
 
 <dl class="function">
-<dt id="salt.modules.memcached.set_">
-<tt class="descclassname">salt.modules.memcached.</tt><tt class="descname">set_</tt><big>(</big><em>key</em>, <em>value</em>, <em>host='127.0.0.1'</em>, <em>port=11211</em>, <em>time=0</em>, <em>min_compress_len=0</em><big>)</big><a class="headerlink" href="#salt.modules.memcached.set_" title="Permalink to this definition">¶</a></dt>
+<dt id="salt.modules.memcached.set">
+<tt class="descclassname">salt.modules.memcached.</tt><tt class="descname">set</tt><big>(</big><em>key</em>, <em>value</em>, <em>host='127.0.0.1'</em>, <em>port=11211</em>, <em>time=0</em>, <em>min_compress_len=0</em><big>)</big><a class="headerlink" href="#salt.modules.memcached.set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a key on the memcached server, overwriting the value if it exists.</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> memcached.set &lt;key&gt; &lt;value&gt;

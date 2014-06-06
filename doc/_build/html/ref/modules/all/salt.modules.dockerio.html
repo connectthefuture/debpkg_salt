@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -122,9 +123,8 @@
 <span id="salt-modules-dockerio"></span><h1>salt.modules.dockerio<a class="headerlink" href="#module-salt.modules.dockerio" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="management-of-dockers">
 <h2>Management of dockers<a class="headerlink" href="#management-of-dockers" title="Permalink to this headline">¶</a></h2>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The DockerIO integration is still in beta; the API is subject to change</p>
@@ -161,27 +161,25 @@ require it</p>
 </li>
 <li><p class="first">For this to happen, you will need to configure a mapping in the pillar
 representing your per URL authentication bits:</p>
-<div class="highlight-python"><div class="highlight"><pre>docker-registries:
+<div class="highlight-python"><pre>docker-registries:
     registry_url:
         email: foo@foo.com
         password: s3cr3t
-        username: foo
-</pre></div>
+        username: foo</pre>
 </div>
 </li>
 <li><p class="first">You need at least an entry to the default docker index:</p>
-<div class="highlight-python"><div class="highlight"><pre>docker-registries:
+<div class="highlight-python"><pre>docker-registries:
     https://index.docker.io/v1:
         email: foo@foo.com
         password: s3cr3t
-        username: foo
-</pre></div>
+        username: foo</pre>
 </div>
 </li>
 </ul>
 <p>you can define multiple registries blocks for them to be aggregated, their id
 just must finish with -docker-registries:</p>
-<div class="highlight-python"><div class="highlight"><pre>ac-docker-registries:
+<div class="highlight-python"><pre>ac-docker-registries:
      https://index.bar.io/v1:
          email: foo@foo.com
          password: s3cr3t
@@ -191,11 +189,10 @@ ab-docker-registries:
      https://index.foo.io/v1:
          email: foo@foo.com
          password: s3cr3t
-         username: foo
-</pre></div>
+         username: foo</pre>
 </div>
 <p>Would be the equivalent to:</p>
-<div class="highlight-python"><div class="highlight"><pre>docker-registries:
+<div class="highlight-python"><pre>docker-registries:
      https://index.bar.io/v1:
          email: foo@foo.com
          password: s3cr3t
@@ -203,8 +200,7 @@ ab-docker-registries:
      https://index.foo.io/v1:
          email: foo@foo.com
          password: s3cr3t
-         username: foo
-</pre></div>
+         username: foo</pre>
 </div>
 </div>
 <div class="section" id="registry-dialog-methods">
@@ -564,7 +560,7 @@ container</p>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.invalid">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">invalid</tt><big>(</big><em>m</em>, <em>id=&lt;object object at 0x2b52cf898ba0&gt;</em>, <em>comment='We did not get any expectable answer from docker'</em>, <em>out=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.invalid" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">invalid</tt><big>(</big><em>m</em>, <em>id=&lt;object object at 0x3213b30&gt;</em>, <em>comment='We did not get any expectable answer from docker'</em>, <em>out=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.invalid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return invalid status</p>
 </dd></dl>
 
@@ -596,9 +592,8 @@ container</p>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A status message with the command output
-ex:<div class="highlight-python"><div class="highlight"><pre> {&#39;id&#39;: &#39;abcdef123456789&#39;,
-&#39;status&#39;: True}
-</pre></div>
+ex:<div class="highlight-python"><pre> {'id': 'abcdef123456789',
+'status': True}</pre>
 </div>
 </td>
 </tr>
@@ -665,10 +660,9 @@ how to configure authenticated access.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>repo</strong> (<a class="reference external" href="http://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) -- <p>The repository to pull.         [registryurl://]REPOSITORY_NAME_image
 eg:</p>
-<div class="highlight-python"><div class="highlight"><pre>index.docker.io:MyRepo/image
+<div class="highlight-python"><pre>index.docker.io:MyRepo/image
 superaddress.cdn:MyRepo/image
-MyRepo/image
-</pre></div>
+MyRepo/image</pre>
 </div>
 </li>
 <li><strong>tag</strong> (<a class="reference external" href="http://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) -- The specific tag  to pull</li>
@@ -731,10 +725,9 @@ how to configure authenticated access</p>
 <dt>repo</dt>
 <dd><p class="first">[registryurl://]REPOSITORY_NAME_image
 eg:</p>
-<div class="last highlight-python"><div class="highlight"><pre>index.docker.io:MyRepo/image
+<div class="last highlight-python"><pre>index.docker.io:MyRepo/image
 superaddress.cdn:MyRepo/image
-MyRepo/image
-</pre></div>
+MyRepo/image</pre>
 </div>
 </dd>
 </dl>
@@ -807,9 +800,8 @@ before killing it</li>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>A status message with the command output
 ex:</p>
-<div class="highlight-python"><div class="highlight"><pre> {&#39;id&#39;: &#39;abcdef123456789&#39;,
-&#39;status&#39;: True}
-</pre></div>
+<div class="highlight-python"><pre> {'id': 'abcdef123456789',
+'status': True}</pre>
 </div>
 </p>
 </td>
@@ -1094,14 +1086,13 @@ ex:</p>
 </dl>
 <p>Returns in the 'out' status mapping a mapping for
 those running processes:</p>
-<div class="highlight-python"><div class="highlight"><pre>{
-     &#39;Titles&#39;: top titles list,
-     &#39;processes&#39;: list of ordered by
+<div class="highlight-python"><pre>{
+     'Titles': top titles list,
+     'processes': list of ordered by
                   titles processes information,
-     &#39;mprocesses&#39;: list of mappings processes information
+     'mprocesses': list of mappings processes information
      constructed above the upon information
-}
-</pre></div>
+}</pre>
 </div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.top &lt;container id&gt;
@@ -1111,7 +1102,7 @@ those running processes:</p>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.valid">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">valid</tt><big>(</big><em>m</em>, <em>id=&lt;object object at 0x2b52cf898ba0&gt;</em>, <em>comment=''</em>, <em>out=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.valid" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">valid</tt><big>(</big><em>m</em>, <em>id=&lt;object object at 0x3213b30&gt;</em>, <em>comment=''</em>, <em>out=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return valid status</p>
 </dd></dl>
 

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -127,19 +128,16 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">configuration:</th><td class="field-body"><p class="first">This module is not usable until the following are specified
 either in a pillar or in the minion's config file:</p>
-<div class="highlight-python"><div class="highlight"><pre>s3.keyid: GKTADJGHEIQSXMKKRBJ08H
-s3.key: askdjghsdfjkghWupUjasdflkdfklgjsdfjajkghs
-</pre></div>
+<div class="highlight-python"><pre>s3.keyid: GKTADJGHEIQSXMKKRBJ08H
+s3.key: askdjghsdfjkghWupUjasdflkdfklgjsdfjajkghs</pre>
 </div>
 <p>A service_url may also be specified in the configuration:</p>
-<div class="highlight-python"><div class="highlight"><pre>s3.service_url: s3.amazonaws.com
-</pre></div>
+<div class="highlight-python"><pre>s3.service_url: s3.amazonaws.com</pre>
 </div>
 <p>If a service_url is not specified, the default is s3.amazonaws.com. This
 may appear in various documentation as an &quot;endpoint&quot;. A comprehensive list
 for Amazon S3 may be found at:</p>
-<div class="highlight-python"><div class="highlight"><pre>http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
-</pre></div>
+<div class="highlight-python"><pre>http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region</pre>
 </div>
 <p>The service_url will form the basis for the final endpoint that is used to
 query the service.</p>
@@ -154,12 +152,10 @@ Eucalyptus.</p>
 <tt class="descclassname">salt.modules.s3.</tt><tt class="descname">delete</tt><big>(</big><em>bucket</em>, <em>path=None</em>, <em>action=None</em>, <em>key=None</em>, <em>keyid=None</em>, <em>service_url=None</em><big>)</big><a class="headerlink" href="#salt.modules.s3.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete a bucket, or delete an object from a bucket.</p>
 <p>CLI Example to delete a bucket:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt myminion s3.delete mybucket
-</pre></div>
+<div class="highlight-python"><pre>salt myminion s3.delete mybucket</pre>
 </div>
 <p>CLI Example to delete an object from a bucket:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt myminion s3.delete mybucket remoteobject
-</pre></div>
+<div class="highlight-python"><pre>salt myminion s3.delete mybucket remoteobject</pre>
 </div>
 </dd></dl>
 

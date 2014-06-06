@@ -1,3 +1,9 @@
+salt (2014.1.4-2iscoolent1) precise; urgency=low
+
+  * Release for iscool
+
+ -- francois <francois.lefevre@iscool-e.com>  Fri, 06 Jun 2014 14:45:10 +0200
+
 salt (2014.1.4-2precise1) precise; urgency=medium
 
   * Release for precise

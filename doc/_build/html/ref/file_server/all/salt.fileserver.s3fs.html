@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -121,7 +122,7 @@
   <div class="section" id="module-salt.fileserver.s3fs">
 <span id="salt-fileserver-s3fs"></span><h1>salt.fileserver.s3fs<a class="headerlink" href="#module-salt.fileserver.s3fs" title="Permalink to this headline">¶</a></h1>
 <p>The backend for a fileserver based on Amazon S3</p>
-<div class="admonition seealso">
+<div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><a class="reference internal" href="../index.html"><em>Salt File Server</em></a></p>
 </div>
@@ -168,8 +169,7 @@ instance metadata.</p>
 Salt, otherwise you may encounter <tt class="docutils literal"><span class="pre">SignatureDoesNotMatch</span></tt> errors.</p>
 <p>A multiple-environment bucket must adhere to the following root directory
 structure:</p>
-<div class="highlight-python"><div class="highlight"><pre>s3://&lt;bucket name&gt;/&lt;environment&gt;/&lt;files&gt;
-</pre></div>
+<div class="highlight-python"><pre>s3://&lt;bucket name&gt;/&lt;environment&gt;/&lt;files&gt;</pre>
 </div>
 <dl class="function">
 <dt id="salt.fileserver.s3fs.dir_list">

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -123,17 +124,15 @@
 <p>This state uses the manager webapp to manage Apache tomcat webapps
 This state requires the manager webapp to be enabled</p>
 <p>The following grains/pillar should be set:</p>
-<div class="highlight-python"><div class="highlight"><pre>tomcat-manager.user: admin user name
-tomcat-manager.passwd: password
-</pre></div>
+<div class="highlight-python"><pre>tomcat-manager.user: admin user name
+tomcat-manager.passwd: password</pre>
 </div>
 <p>and also configure a user in the conf/tomcat-users.xml file:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf-8&#39;?&gt;
+<div class="highlight-python"><pre>&lt;?xml version='1.0' encoding='utf-8'?&gt;
 &lt;tomcat-users&gt;
-    &lt;role rolename=&quot;manager-script&quot;/&gt;
-    &lt;user username=&quot;tomcat&quot; password=&quot;tomcat&quot; roles=&quot;manager-script&quot;/&gt;
-&lt;/tomcat-users&gt;
-</pre></div>
+    &lt;role rolename="manager-script"/&gt;
+    &lt;user username="tomcat" password="tomcat" roles="manager-script"/&gt;
+&lt;/tomcat-users&gt;</pre>
 </div>
 <p>Notes:</p>
 <ul>
@@ -197,7 +196,7 @@ well and ready for deployment</p>
 <dd>timeout for HTTP request to the tomcat manager</dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>tomcat-service:
+<div class="highlight-python"><pre>tomcat-service:
   service:
     - running
     - name: tomcat
@@ -216,8 +215,7 @@ jenkins:
     - name: /ran
     - war: salt://jenkins-1.2.4.war
     - require:
-      - tomcat: wait-for-tomcatmanager
-</pre></div>
+      - tomcat: wait-for-tomcatmanager</pre>
 </div>
 </dd></dl>
 
@@ -240,13 +238,12 @@ tomcat) or a path supported by the salt.modules.cp.get_url function</dd>
 <dd>timeout for HTTP request to the tomcat manager</dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>jenkins:
+<div class="highlight-python"><pre>jenkins:
   tomcat.war_deployed:
     - name: /ran
     - war: salt://jenkins-1.2.4.war
     - require:
-      - service: application-service
-</pre></div>
+      - service: application-service</pre>
 </div>
 </dd></dl>
 

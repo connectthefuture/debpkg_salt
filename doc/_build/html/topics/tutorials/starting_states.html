@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -419,13 +420,13 @@ available, <tt class="docutils literal"><span class="pre">salt</span></tt>, <tt 
 any Salt function to be called from within the template, and <tt class="docutils literal"><span class="pre">grains</span></tt> allows
 for the Grains to be accessed from within the template. A few examples:</p>
 <p><tt class="docutils literal"><span class="pre">apache/init.sls:</span></tt></p>
-<div class="highlight-yaml"><div class="highlight"><pre>apache:
+<div class="highlight-yaml"><pre>apache:
   pkg.installed:
-    {% if grains[&#39;os&#39;] == &#39;RedHat&#39;%}
+    {% if grains['os'] == 'RedHat'%}
     - name: httpd
     {% endif %}
   service.running:
-    {% if grains[&#39;os&#39;] == &#39;RedHat&#39;%}
+    {% if grains['os'] == 'RedHat'%}
     - name: httpd
     {% endif %}
     - watch:
@@ -449,18 +450,17 @@ for the Grains to be accessed from within the template. A few examples:</p>
     - source: salt://apache/httpd.conf
     - user: root
     - group: root
-    - mode: 644
-</pre></div>
+    - mode: 644</pre>
 </div>
 <p>This example is simple. If the <tt class="docutils literal"><span class="pre">os</span></tt> grain states that the operating system is
 Red Hat, then the name of the Apache package and service needs to be httpd.</p>
 <p id="jinja-example-moosefs">A more aggressive way to use Jinja can be found here, in a module to set up
 a MooseFS distributed filesystem chunkserver:</p>
 <p><tt class="docutils literal"><span class="pre">moosefs/chunk.sls:</span></tt></p>
-<div class="highlight-yaml"><div class="highlight"><pre>include:
+<div class="highlight-yaml"><pre>include:
   - moosefs
 
-{% for mnt in salt[&#39;cmd.run&#39;](&#39;ls /dev/data/moose*&#39;).split() %}
+{% for mnt in salt['cmd.run']('ls /dev/data/moose*').split() %}
 /mnt/moose{{ mnt[-1] }}:
   mount.mounted:
     - device: {{ mnt }}
@@ -501,14 +501,13 @@ mfschunkserver:
   service:
     - running
     - require:
-{% for mnt in salt[&#39;cmd.run&#39;](&#39;ls /dev/data/moose*&#39;) %}
+{% for mnt in salt['cmd.run']('ls /dev/data/moose*') %}
       - mount: /mnt/moose{{ mnt[-1] }}
       - file: /mnt/moose{{ mnt[-1] }}
 {% endfor %}
       - file: /etc/mfschunkserver.cfg
       - file: /etc/mfshdd.cfg
-      - file: /var/lib/mfs
-</pre></div>
+      - file: /var/lib/mfs</pre>
 </div>
 <p>This example shows much more of the available power of Jinja.
 Multiple for loops are used to dynamically detect available hard drives

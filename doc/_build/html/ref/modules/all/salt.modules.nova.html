@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -133,35 +134,32 @@
 <tr class="field-even field"><th class="field-name">configuration:</th><td class="field-body"><p class="first">This module is not usable until the user, password, tenant, and
 auth URL are specified either in a pillar or in the minion's config file.
 For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>keystone.user: admin
+<div class="highlight-python"><pre>keystone.user: admin
 keystone.password: verybadpass
 keystone.tenant: admin
-keystone.auth_url: &#39;http://127.0.0.1:5000/v2.0/&#39;
+keystone.auth_url: 'http://127.0.0.1:5000/v2.0/'
 # Optional
-keystone.region_name: &#39;regionOne&#39;
-</pre></div>
+keystone.region_name: 'regionOne'</pre>
 </div>
 <p>If configuration for multiple OpenStack accounts is required, they can be
 set up as different configuration profiles:
 For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>openstack1:
+<div class="highlight-python"><pre>openstack1:
   keystone.user: admin
   keystone.password: verybadpass
   keystone.tenant: admin
-  keystone.auth_url: &#39;http://127.0.0.1:5000/v2.0/&#39;
+  keystone.auth_url: 'http://127.0.0.1:5000/v2.0/'
 
 openstack2:
   keystone.user: admin
   keystone.password: verybadpass
   keystone.tenant: admin
-  keystone.auth_url: &#39;http://127.0.0.2:5000/v2.0/&#39;
-</pre></div>
+  keystone.auth_url: 'http://127.0.0.2:5000/v2.0/'</pre>
 </div>
 <p>With this configuration in place, any of the nova functions can make use of
 a configuration profile by declaring it explicitly.
 For example:</p>
-<div class="last highlight-python"><div class="highlight"><pre>salt &#39;*&#39; nova.flavor_list profile=openstack1
-</pre></div>
+<div class="last highlight-python"><pre>salt '*' nova.flavor_list profile=openstack1</pre>
 </div>
 </td>
 </tr>
@@ -181,9 +179,8 @@ For example:</p>
 <dt>timeout</dt>
 <dd><p class="first">How long to wait, after creating the instance, for the provider to
 return information about it (default 300 seconds).</p>
-<div class="last versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<p class="last versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 </dd>
 </dl>
 <p>CLI Example:</p>
@@ -305,8 +302,7 @@ salt <span class="s1">&#39;*&#39;</span> nova.keypair_add mykey <span class="nv"
 <tt class="descclassname">salt.modules.nova.</tt><tt class="descname">keypair_delete</tt><big>(</big><em>name</em>, <em>profile=None</em><big>)</big><a class="headerlink" href="#salt.modules.nova.keypair_delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a keypair to nova (nova keypair-delete)</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt &#39;*&#39; nova.keypair_delete mykey&#39;
-</pre></div>
+<div class="highlight-bash"><pre>salt '*' nova.keypair_delete mykey'</pre>
 </div>
 </dd></dl>
 
@@ -321,8 +317,8 @@ salt <span class="s1">&#39;*&#39;</span> nova.keypair_add mykey <span class="nv"
 </dd></dl>
 
 <dl class="function">
-<dt id="salt.modules.nova.list_">
-<tt class="descclassname">salt.modules.nova.</tt><tt class="descname">list_</tt><big>(</big><em>profile=None</em><big>)</big><a class="headerlink" href="#salt.modules.nova.list_" title="Permalink to this definition">¶</a></dt>
+<dt id="salt.modules.nova.list">
+<tt class="descclassname">salt.modules.nova.</tt><tt class="descname">list</tt><big>(</big><em>profile=None</em><big>)</big><a class="headerlink" href="#salt.modules.nova.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>To maintain the feel of the nova command line, this function simply calls
 the server_list function.</p>
 </dd></dl>

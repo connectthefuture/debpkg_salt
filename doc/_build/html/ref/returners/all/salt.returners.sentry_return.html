@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -123,7 +124,7 @@
 <p>Salt returner that report execution results back to sentry. The returner will
 inspect the payload to identify errors and flag them as such.</p>
 <p>Pillar need something like:</p>
-<div class="highlight-python"><div class="highlight"><pre>raven:
+<div class="highlight-python"><pre>raven:
   servers:
     - http://192.168.1.1
     - https://sentry.example.com
@@ -134,8 +135,7 @@ inspect the payload to identify errors and flag them as such.</p>
     - os
     - master
     - saltversion
-    - cpuarch
-</pre></div>
+    - cpuarch</pre>
 </div>
 <p>and <a class="reference external" href="http://pypi.python.org/pypi/raven">http://pypi.python.org/pypi/raven</a> installed</p>
 <p>The tags list (optional) specifies grains items that will be used as sentry tags, allowing tagging of events

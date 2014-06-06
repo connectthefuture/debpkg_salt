@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -127,9 +128,8 @@
 <dd><p>Remove the directory from the SYSTEM path</p>
 <p>index: where the directory should be placed in the PATH (default: 0)</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>&#39;C:\sysinternals&#39;:
-  win_path.absent
-</pre></div>
+<div class="highlight-python"><pre>'C:\sysinternals':
+  win_path.absent</pre>
 </div>
 </dd></dl>
 
@@ -141,13 +141,12 @@
 [Note:  Providing no index will append directory to PATH and
 will not enforce its location within the PATH.]</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>&#39;C:\python27&#39;:
+<div class="highlight-python"><pre>'C:\python27':
   win_path.exists
 
-&#39;C:\sysinternals&#39;:
+'C:\sysinternals':
   win_path.exists:
-    index: 0
-</pre></div>
+    index: 0</pre>
 </div>
 </dd></dl>
 

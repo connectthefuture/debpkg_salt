@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -165,9 +166,8 @@ below.</dd>
 <dd>Skip the GPG verification check for the package to be installed</dd>
 <dt>skip_suggestions</dt>
 <dd><p class="first">Force strict package naming. Disables lookup of package alternatives.</p>
-<div class="last versionadded">
-<p><span class="versionmodified">New in version 2014.1.1.</span></p>
-</div>
+<p class="last versionadded">
+<span class="versionmodified">New in version 2014.1.1.</span></p>
 </dd>
 <dt>version</dt>
 <dd>Install a specific version of a package. This option is ignored if
@@ -182,14 +182,13 @@ for the following pkg providers: <a class="reference internal" href="../../modul
 requested package.</dd>
 </dl>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>httpd:
+<div class="highlight-python"><pre>httpd:
   pkg.installed:
     - fromrepo: mycustomrepo
     - skip_verify: True
     - skip_suggestions: True
     - version: 2.0.6~ubuntu3
-    - refresh: True
-</pre></div>
+    - refresh: True</pre>
 </div>
 <p>Multiple Package Installation Options: (not supported in Windows or pkgng)</p>
 <dl class="docutils">
@@ -197,39 +196,36 @@ requested package.</dd>
 <dd>A list of packages to install from a software repository.</dd>
 </dl>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>mypkgs:
+<div class="highlight-python"><pre>mypkgs:
   pkg.installed:
     - pkgs:
       - foo
       - bar
-      - baz
-</pre></div>
+      - baz</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">NOTE:</span></tt> For <a class="reference internal" href="../../modules/all/salt.modules.aptpkg.html#module-salt.modules.aptpkg" title="salt.modules.aptpkg"><tt class="xref py py-mod docutils literal"><span class="pre">apt</span></tt></a>,
 <a class="reference internal" href="../../modules/all/salt.modules.ebuild.html#module-salt.modules.ebuild" title="salt.modules.ebuild"><tt class="xref py py-mod docutils literal"><span class="pre">ebuild</span></tt></a>,
 <a class="reference internal" href="../../modules/all/salt.modules.pacman.html#module-salt.modules.pacman" title="salt.modules.pacman"><tt class="xref py py-mod docutils literal"><span class="pre">pacman</span></tt></a>, <a class="reference internal" href="../../modules/all/salt.modules.yumpkg.html#module-salt.modules.yumpkg" title="salt.modules.yumpkg"><tt class="xref py py-mod docutils literal"><span class="pre">yumpkg</span></tt></a>,
 and <a class="reference internal" href="../../modules/all/salt.modules.zypper.html#module-salt.modules.zypper" title="salt.modules.zypper"><tt class="xref py py-mod docutils literal"><span class="pre">zypper</span></tt></a>, version numbers can be specified
 in the <tt class="docutils literal"><span class="pre">pkgs</span></tt> argument. Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>mypkgs:
+<div class="highlight-python"><pre>mypkgs:
   pkg.installed:
     - pkgs:
       - foo
       - bar: 1.2.3-4
-      - baz
-</pre></div>
+      - baz</pre>
 </div>
 <p>Additionally, <a class="reference internal" href="../../modules/all/salt.modules.ebuild.html#module-salt.modules.ebuild" title="salt.modules.ebuild"><tt class="xref py py-mod docutils literal"><span class="pre">ebuild</span></tt></a>,
 <a class="reference internal" href="../../modules/all/salt.modules.pacman.html#module-salt.modules.pacman" title="salt.modules.pacman"><tt class="xref py py-mod docutils literal"><span class="pre">pacman</span></tt></a> and
 <a class="reference internal" href="../../modules/all/salt.modules.zypper.html#module-salt.modules.zypper" title="salt.modules.zypper"><tt class="xref py py-mod docutils literal"><span class="pre">zypper</span></tt></a> support the <tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;=</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, and
 <tt class="docutils literal"><span class="pre">&gt;</span></tt> operators for more control over what versions will be installed.
 Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>mypkgs:
+<div class="highlight-python"><pre>mypkgs:
   pkg.installed:
     - pkgs:
       - foo
-      - bar: &#39;&gt;=1.2.3-4&#39;
-      - baz
-</pre></div>
+      - bar: '&gt;=1.2.3-4'
+      - baz</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">NOTE:</span></tt> When using comparison operators, the expression must be enclosed
 in quotes to avoid a YAML render error.</p>
@@ -237,13 +233,12 @@ in quotes to avoid a YAML render error.</p>
 flag list and/or if the given packages should be in package.accept_keywords
 file and/or the overlay from which you want the package to be installed.
 Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>mypkgs:
+<div class="highlight-python"><pre>mypkgs:
     pkg.installed:
         - pkgs:
-            - foo: &#39;~&#39;
-            - bar: &#39;~&gt;=1.2:slot::overlay[use,-otheruse]&#39;
-            - baz
-</pre></div>
+            - foo: '~'
+            - bar: '~&gt;=1.2:slot::overlay[use,-otheruse]'
+            - baz</pre>
 </div>
 <dl class="docutils">
 <dt>sources</dt>
@@ -254,14 +249,13 @@ appear in the output of the <tt class="docutils literal"><span class="pre">pkg.v
 CLI commands.</dd>
 </dl>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>mypkgs:
+<div class="highlight-python"><pre>mypkgs:
   pkg.installed:
     - sources:
       - foo: salt://rpms/foo.rpm
       - bar: http://somesite.org/bar.rpm
       - baz: ftp://someothersite.org/baz.rpm
-      - qux: /minion/path/to/qux.rpm
-</pre></div>
+      - qux: /minion/path/to/qux.rpm</pre>
 </div>
 </dd></dl>
 
@@ -291,13 +285,12 @@ pkgutil)</p>
 <dd>A list of packages to maintain at the latest available version.</dd>
 </dl>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>mypkgs:
+<div class="highlight-python"><pre>mypkgs:
   pkg.latest:
     - pkgs:
       - foo
       - bar
-      - baz
-</pre></div>
+      - baz</pre>
 </div>
 </dd></dl>
 
@@ -316,9 +309,8 @@ to purge the package.</p>
 <dd>A list of packages to purge. Must be passed as a python list. The
 <tt class="docutils literal"><span class="pre">name</span></tt> parameter will be ignored if this option is passed.</dd>
 </dl>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.16.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.16.0.</span></p>
 </dd></dl>
 
 <dl class="function">
@@ -336,9 +328,8 @@ to remove the package.</p>
 <dd>A list of packages to remove. Must be passed as a python list. The
 <tt class="docutils literal"><span class="pre">name</span></tt> parameter will be ignored if this option is passed.</dd>
 </dl>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.16.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.16.0.</span></p>
 </dd></dl>
 
 </div>

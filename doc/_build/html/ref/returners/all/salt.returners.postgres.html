@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -137,23 +138,22 @@
 </table>
 <p>To enable this returner the minion will need the psycopg2 installed and
 the following values configured in the minion or master config:</p>
-<div class="highlight-python"><div class="highlight"><pre>returner.postgres.host: &#39;salt&#39;
-returner.postgres.user: &#39;salt&#39;
-returner.postgres.passwd: &#39;salt&#39;
-returner.postgres.db: &#39;salt&#39;
-returner.postgres.port: 5432
-</pre></div>
+<div class="highlight-python"><pre>returner.postgres.host: 'salt'
+returner.postgres.user: 'salt'
+returner.postgres.passwd: 'salt'
+returner.postgres.db: 'salt'
+returner.postgres.port: 5432</pre>
 </div>
 <p>Running the following commands as the postgres user should create the database
 correctly:</p>
-<div class="highlight-python"><div class="highlight"><pre>psql &lt;&lt; EOF
-CREATE ROLE salt WITH PASSWORD &#39;salt&#39;;
+<div class="highlight-python"><pre>psql &lt;&lt; EOF
+CREATE ROLE salt WITH PASSWORD 'salt';
 CREATE DATABASE salt WITH OWNER salt;
 EOF
 
 psql -h localhost -U salt &lt;&lt; EOF
 --
--- Table structure for table &#39;jids&#39;
+-- Table structure for table 'jids'
 --
 
 DROP TABLE IF EXISTS jids;
@@ -163,7 +163,7 @@ CREATE TABLE jids (
 );
 
 --
--- Table structure for table &#39;salt_returns&#39;
+-- Table structure for table 'salt_returns'
 --
 
 DROP TABLE IF EXISTS salt_returns;
@@ -179,8 +179,7 @@ CREATE INDEX ON salt_returns (added);
 CREATE INDEX ON salt_returns (id);
 CREATE INDEX ON salt_returns (jid);
 CREATE INDEX ON salt_returns (fun);
-EOF
-</pre></div>
+EOF</pre>
 </div>
 <p>Required python modules: psycopg2</p>
 <dl class="function">

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -121,9 +122,8 @@
   <div class="section" id="module-salt.modules.xmpp">
 <span id="salt-modules-xmpp"></span><h1>salt.modules.xmpp<a class="headerlink" href="#module-salt.modules.xmpp" title="Permalink to this headline">¶</a></h1>
 <p>Module for Sending Messages via XMPP (a.k.a. Jabber)</p>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -172,9 +172,8 @@ user-definable, and optional. The following configurations are both valid:</p>
 <tt class="descclassname">salt.modules.xmpp.</tt><tt class="descname">send_msg</tt><big>(</big><em>recipient</em>, <em>message</em>, <em>jid=None</em>, <em>password=None</em>, <em>profile=None</em><big>)</big><a class="headerlink" href="#salt.modules.xmpp.send_msg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send a message to an XMPP recipient. Designed for use in states.</p>
 <p>CLI Examples:</p>
-<div class="highlight-python"><div class="highlight"><pre>xmpp.send_msg &#39;admins@xmpp.example.com&#39; &#39;This is a salt module test&#39;             profile=&#39;my-xmpp-account&#39;
-xmpp.send_msg &#39;admins@xmpp.example.com&#39; &#39;This is a salt module test&#39;             jid=&#39;myuser@xmpp.example.com/salt&#39; password=&#39;verybadpass&#39;
-</pre></div>
+<div class="highlight-python"><pre>xmpp.send_msg 'admins@xmpp.example.com' 'This is a salt module test'             profile='my-xmpp-account'
+xmpp.send_msg 'admins@xmpp.example.com' 'This is a salt module test'             jid='myuser@xmpp.example.com/salt' password='verybadpass'</pre>
 </div>
 </dd></dl>
 

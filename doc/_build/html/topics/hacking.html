@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -352,8 +353,7 @@ do this, add <tt class="docutils literal"><span class="pre">-l</span> <span clas
 If you would like to log to the console instead of to the log file, remove the
 <tt class="docutils literal"><span class="pre">-d</span></tt>.</p>
 <p>Once the minion starts, you may see an error like the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>zmq.core.error.ZMQError: ipc path &quot;/path/to/your/virtualenv/var/run/salt/minion/minion_event_7824dcbcfd7a8f6755939af70b96249f_pub.ipc&quot; is longer than 107 characters (sizeof(sockaddr_un.sun_path)).
-</pre></div>
+<div class="highlight-python"><pre>zmq.core.error.ZMQError: ipc path "/path/to/your/virtualenv/var/run/salt/minion/minion_event_7824dcbcfd7a8f6755939af70b96249f_pub.ipc" is longer than 107 characters (sizeof(sockaddr_un.sun_path)).</pre>
 </div>
 <p>This means the the path to the socket the minion is using is too long. This is
 a system limitation, so the only workaround is to reduce the length of this

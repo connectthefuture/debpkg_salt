@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -217,8 +218,7 @@ relevant data. Latest version can be found at:</p>
 <tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">del_tags</tt><big>(</big><em>name</em>, <em>kwargs</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.del_tags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete tags for a node</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a del_tags mymachine tag1,tag2,tag3
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a del_tags mymachine tag1,tag2,tag3</pre>
 </div>
 </dd></dl>
 
@@ -239,8 +239,7 @@ relevant data. Latest version can be found at:</p>
 <tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">delvol_on_destroy</tt><big>(</big><em>name</em>, <em>kwargs=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.delvol_on_destroy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete all/specified EBS volumes upon instance termination</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a delvol_on_destroy mymachine
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a delvol_on_destroy mymachine</pre>
 </div>
 </dd></dl>
 
@@ -249,8 +248,7 @@ relevant data. Latest version can be found at:</p>
 <tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">destroy</tt><big>(</big><em>name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.destroy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Destroy a node. Will check termination protection and warn if enabled.</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud --destroy mymachine
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud --destroy mymachine</pre>
 </div>
 </dd></dl>
 
@@ -265,8 +263,7 @@ relevant data. Latest version can be found at:</p>
 <tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">disable_term_protect</tt><big>(</big><em>name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.disable_term_protect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disable termination protection on a node</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a disable_term_protect mymachine
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a disable_term_protect mymachine</pre>
 </div>
 </dd></dl>
 
@@ -275,8 +272,7 @@ relevant data. Latest version can be found at:</p>
 <tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">enable_term_protect</tt><big>(</big><em>name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.enable_term_protect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable termination protection on a node</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a enable_term_protect mymachine
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a enable_term_protect mymachine</pre>
 </div>
 </dd></dl>
 
@@ -295,15 +291,10 @@ relevant data. Latest version can be found at:</p>
 <dl class="function">
 <dt id="salt.cloud.clouds.ec2.get_location">
 <tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">get_location</tt><big>(</big><em>vm_=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.get_location" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Return the EC2 region to use, in this order:</dt>
-<dd><ul class="first last simple">
-<li>CLI parameter</li>
-<li>VM parameter</li>
-<li>Cloud profile setting</li>
-</ul>
-</dd>
-</dl>
+<dd><p>Return the EC2 region to use, in this order:
+- CLI parameter
+- VM parameter
+- Cloud profile setting</p>
 </dd></dl>
 
 <dl class="function">
@@ -350,8 +341,7 @@ or the name of the role.</p>
 <tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">keepvol_on_destroy</tt><big>(</big><em>name</em>, <em>kwargs=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.keepvol_on_destroy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not delete all/specified EBS volumes upon instance termination</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a keepvol_on_destroy mymachine
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a keepvol_on_destroy mymachine</pre>
 </div>
 </dd></dl>
 
@@ -395,8 +385,7 @@ or the name of the role.</p>
 <tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">reboot</tt><big>(</big><em>name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.reboot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reboot a node.</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a reboot mymachine
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a reboot mymachine</pre>
 </div>
 </dd></dl>
 
@@ -405,8 +394,7 @@ or the name of the role.</p>
 <tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">rename</tt><big>(</big><em>name</em>, <em>kwargs</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.rename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Properly rename a node. Pass in the new name as &quot;new name&quot;.</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a rename mymachine newname=yourmachine
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a rename mymachine newname=yourmachine</pre>
 </div>
 </dd></dl>
 
@@ -433,8 +421,7 @@ or the name of the role.</p>
 <tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">set_tags</tt><big>(</big><em>name</em>, <em>tags</em>, <em>call=None</em>, <em>location=None</em>, <em>instance_id=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.set_tags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set tags for a node</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a set_tags mymachine tag1=somestuff tag2=&#39;Other stuff&#39;
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a set_tags mymachine tag1=somestuff tag2='Other stuff'</pre>
 </div>
 </dd></dl>
 
@@ -443,8 +430,7 @@ or the name of the role.</p>
 <tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">show_delvol_on_destroy</tt><big>(</big><em>name</em>, <em>kwargs=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.show_delvol_on_destroy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not delete all/specified EBS volumes upon instance termination</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a show_delvol_on_destroy mymachine
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a show_delvol_on_destroy mymachine</pre>
 </div>
 </dd></dl>
 

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -288,7 +289,7 @@ to run <tt class="docutils literal"><span class="pre">salt-key</span> <span clas
 This can then be compared against the minion's public key file, which is
 located (on the minion, of course) at <tt class="docutils literal"><span class="pre">/etc/salt/pki/minion/minion.pub</span></tt>.</p>
 <p>On the master:</p>
-<div class="highlight-python"><div class="highlight"><pre># salt-key -p foo.domain.com
+<div class="highlight-python"><pre># salt-key -p foo.domain.com
 Accepted Keys:
 foo.domain.com:  -----BEGIN PUBLIC KEY-----
 MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA0JcA0IEp/yqghK5V2VLM
@@ -303,11 +304,10 @@ Wey7WRnNTIF7H7ISwEzvik1GrhyBkn6K1RX3uAf760ZsQdhxwHmop+krgVcC0S93
 xFjbBFF3+53mNv7BNPPgl0iwgA9/WuPE3aoE0A8Cm+Q6asZjf8P/h7KS67rIBEKV
 zrQtgf3aZBbW38CT4fTzyWAP138yrU7VSGhPMm5KfTLywNsmXeaR5DnZl6GGNdL1
 fZDM+J9FIGb/50Ee77saAlUCAwEAAQ==
------END PUBLIC KEY-----
-</pre></div>
+-----END PUBLIC KEY-----</pre>
 </div>
 <p>On the minion:</p>
-<div class="last highlight-python"><div class="highlight"><pre># cat /etc/salt/pki/minion/minion.pub
+<div class="last highlight-python"><pre># cat /etc/salt/pki/minion/minion.pub
 -----BEGIN PUBLIC KEY-----
 MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA0JcA0IEp/yqghK5V2VLM
 jbG7FWV6qtw/ubTDBnpDGQgrvSNOtd0QcJsAzAtDcHwrudQgyxTZGVJqPY7gLc7P
@@ -321,8 +321,7 @@ Wey7WRnNTIF7H7ISwEzvik1GrhyBkn6K1RX3uAf760ZsQdhxwHmop+krgVcC0S93
 xFjbBFF3+53mNv7BNPPgl0iwgA9/WuPE3aoE0A8Cm+Q6asZjf8P/h7KS67rIBEKV
 zrQtgf3aZBbW38CT4fTzyWAP138yrU7VSGhPMm5KfTLywNsmXeaR5DnZl6GGNdL1
 fZDM+J9FIGb/50Ee77saAlUCAwEAAQ==
------END PUBLIC KEY-----
-</pre></div>
+-----END PUBLIC KEY-----</pre>
 </div>
 </div>
 </div>

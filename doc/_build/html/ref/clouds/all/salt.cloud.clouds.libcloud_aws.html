@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -172,8 +173,7 @@ recommended to change all usages of this driver over to the EC2 driver.</p>
 <tt class="descclassname">salt.cloud.clouds.libcloud_aws.</tt><tt class="descname">del_tags</tt><big>(</big><em>name</em>, <em>kwargs</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.libcloud_aws.del_tags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete tags for a node</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a del_tags mymachine tag1,tag2,tag3
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a del_tags mymachine tag1,tag2,tag3</pre>
 </div>
 </dd></dl>
 
@@ -205,15 +205,10 @@ protection</p>
 <dl class="function">
 <dt id="salt.cloud.clouds.libcloud_aws.get_location">
 <tt class="descclassname">salt.cloud.clouds.libcloud_aws.</tt><tt class="descname">get_location</tt><big>(</big><em>vm_=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.libcloud_aws.get_location" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Return the AWS region to use, in this order:</dt>
-<dd><ul class="first last simple">
-<li>CLI parameter</li>
-<li>Cloud profile setting</li>
-<li>Global salt-cloud config</li>
-</ul>
-</dd>
-</dl>
+<dd><p>Return the AWS region to use, in this order:
+- CLI parameter
+- Cloud profile setting
+- Global salt-cloud config</p>
 </dd></dl>
 
 <dl class="function">
@@ -239,8 +234,7 @@ protection</p>
 <tt class="descclassname">salt.cloud.clouds.libcloud_aws.</tt><tt class="descname">rename</tt><big>(</big><em>name</em>, <em>kwargs</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.libcloud_aws.rename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Properly rename a node. Pass in the new name as &quot;new name&quot;.</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a rename mymachine newname=yourmachine
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a rename mymachine newname=yourmachine</pre>
 </div>
 </dd></dl>
 
@@ -255,8 +249,7 @@ protection</p>
 <tt class="descclassname">salt.cloud.clouds.libcloud_aws.</tt><tt class="descname">set_tags</tt><big>(</big><em>name</em>, <em>tags</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.libcloud_aws.set_tags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set tags for a node</p>
 <p>CLI Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a set_tags mymachine tag1=somestuff tag2=&#39;Other stuff&#39;
-</pre></div>
+<div class="highlight-python"><pre>salt-cloud -a set_tags mymachine tag1=somestuff tag2='Other stuff'</pre>
 </div>
 </dd></dl>
 

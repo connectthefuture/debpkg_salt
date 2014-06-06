@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -122,12 +123,11 @@
 <p>Copy a file to a set of systems</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>salt-cp &#39;*&#39; [ options ] SOURCE DEST
+<div class="highlight-python"><pre>salt-cp '*' [ options ] SOURCE DEST
 
-salt-cp -E &#39;.*&#39; [ options ] SOURCE DEST
+salt-cp -E '.*' [ options ] SOURCE DEST
 
-salt-cp -G &#39;os:Arch.*&#39; [ options ] SOURCE DEST
-</pre></div>
+salt-cp -G 'os:Arch.*' [ options ] SOURCE DEST</pre>
 </div>
 </div>
 <div class="section" id="description">
@@ -151,13 +151,13 @@ given target.</p>
 
 <dl class="option">
 <dt id="cmdoption-salt-cp-h">
-<span id="cmdoption-salt-cp--help"></span><tt class="descname">-h</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-h" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-h</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show the help message and exit</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-cp-c">
-<span id="cmdoption-salt-cp--config-dir"></span><tt class="descname">-c</tt><tt class="descclassname"> CONFIG_DIR</tt><tt class="descclassname">, </tt><tt class="descname">--config-dir</tt><tt class="descclassname">=CONFIG_dir</tt><a class="headerlink" href="#cmdoption-salt-cp-c" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-c</tt><tt class="descclassname"> CONFIG_DIR</tt><tt class="descclassname">, </tt><tt class="descname">--config-dir</tt><tt class="descclassname">=CONFIG_dir</tt><a class="headerlink" href="#cmdoption-salt-cp-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>The location of the Salt configuration directory. This directory contains
 the configuration files for Salt master and minions. The default location
 on most systems is <tt class="docutils literal"><span class="pre">/etc/salt</span></tt>.</p>
@@ -165,7 +165,7 @@ on most systems is <tt class="docutils literal"><span class="pre">/etc/salt</spa
 
 <dl class="option">
 <dt id="cmdoption-salt-cp-t">
-<span id="cmdoption-salt-cp--timeout"></span><tt class="descname">-t</tt><tt class="descclassname"> TIMEOUT</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname">=TIMEOUT</tt><a class="headerlink" href="#cmdoption-salt-cp-t" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-t</tt><tt class="descclassname"> TIMEOUT</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname">=TIMEOUT</tt><a class="headerlink" href="#cmdoption-salt-cp-t" title="Permalink to this definition">¶</a></dt>
 <dd><p>The timeout in seconds to wait for replies from the Salt minions. The
 timeout number specifies how long the command line client will wait to
 query the minions and check on running jobs. Default: 5</p>
@@ -176,7 +176,7 @@ query the minions and check on running jobs. Default: 5</p>
 <p>Logging options which override any settings defined on the configuration files.</p>
 <dl class="option">
 <dt id="cmdoption-salt-cp-l">
-<span id="cmdoption-salt-cp--log-level"></span><tt class="descname">-l</tt><tt class="descclassname"> LOG_LEVEL</tt><tt class="descclassname">, </tt><tt class="descname">--log-level</tt><tt class="descclassname">=LOG_LEVEL</tt><a class="headerlink" href="#cmdoption-salt-cp-l" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-l</tt><tt class="descclassname"> LOG_LEVEL</tt><tt class="descclassname">, </tt><tt class="descname">--log-level</tt><tt class="descclassname">=LOG_LEVEL</tt><a class="headerlink" href="#cmdoption-salt-cp-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Console logging log level. One of <tt class="docutils literal"><span class="pre">all</span></tt>, <tt class="docutils literal"><span class="pre">garbage</span></tt>, <tt class="docutils literal"><span class="pre">trace</span></tt>,
 <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">quiet</span></tt>. Default:
 <tt class="docutils literal"><span class="pre">warning</span></tt>.</p>
@@ -201,21 +201,21 @@ query the minions and check on running jobs. Default: 5</p>
 <h3>Target Selection<a class="headerlink" href="#target-selection" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
 <dt id="cmdoption-salt-cp-E">
-<span id="cmdoption-salt-cp--pcre"></span><tt class="descname">-E</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--pcre</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-E" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-E</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--pcre</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-E" title="Permalink to this definition">¶</a></dt>
 <dd><p>The target expression will be interpreted as a PCRE regular expression
 rather than a shell glob.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-cp-L">
-<span id="cmdoption-salt-cp--list"></span><tt class="descname">-L</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--list</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-L" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-L</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--list</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-L" title="Permalink to this definition">¶</a></dt>
 <dd><p>The target expression will be interpreted as a comma-delimited list;
 example: server1.foo.bar,server2.foo.bar,example7.quo.qux</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-cp-G">
-<span id="cmdoption-salt-cp--grain"></span><tt class="descname">-G</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--grain</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-G" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-G</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--grain</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-G" title="Permalink to this definition">¶</a></dt>
 <dd><p>The target expression matches values returned by the Salt grains system on
 the minions. The target expression is in the format of '&lt;grain value&gt;:&lt;glob
 expression&gt;'; example: 'os:Arch*'</p>
@@ -234,14 +234,14 @@ regular expression&gt;'; example: 'os:Arch.*'</p>
 
 <dl class="option">
 <dt id="cmdoption-salt-cp-N">
-<span id="cmdoption-salt-cp--nodegroup"></span><tt class="descname">-N</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--nodegroup</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-N" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-N</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--nodegroup</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-N" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use a predefined compound target defined in the Salt master configuration
 file.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-cp-R">
-<span id="cmdoption-salt-cp--range"></span><tt class="descname">-R</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--range</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-R" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">-R</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--range</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cp-R" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instead of using shell globs to evaluate the target, use a range expression
 to identify targets. Range expressions look like %cluster.</p>
 <p>Using the Range option requires that a range server is set up and the

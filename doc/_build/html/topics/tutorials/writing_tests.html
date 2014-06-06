@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -154,17 +155,16 @@ is what fills in the gap needed to properly test aspects of system management
 like package installation.</p>
 <p>To write a destructive test import and use the <cite>destructiveTest</cite> decorator for
 the test method:</p>
-<div class="highlight-yaml"><div class="highlight"><pre>import integration
+<div class="highlight-yaml"><pre>import integration
 from salttesting.helpers import destructiveTest
 
 class PkgTest(integration.ModuleCase):
     @destructiveTest
     def test_pkg_install(self):
-        ret = self.run_function(&#39;pkg.install&#39;, name=&#39;finch&#39;)
+        ret = self.run_function('pkg.install', name='finch')
         self.assertSaltTrueReturn(ret)
-        ret = self.run_function(&#39;pkg.purge&#39;, name=&#39;finch&#39;)
-        self.assertSaltTrueReturn(ret)
-</pre></div>
+        ret = self.run_function('pkg.purge', name='finch')
+        self.assertSaltTrueReturn(ret)</pre>
 </div>
 </div>
 <div class="section" id="automated-test-runs">

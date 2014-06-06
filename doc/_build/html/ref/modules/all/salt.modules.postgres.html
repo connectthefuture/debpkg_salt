@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -128,12 +129,11 @@
 <tr class="field-odd field"><th class="field-name">configuration:</th><td class="field-body"><p class="first">In order to connect to Postgres, certain configuration is
 required in /etc/salt/minion on the relevant minions. Some sample configs
 might look like:</p>
-<div class="highlight-python"><div class="highlight"><pre>postgres.host: &#39;localhost&#39;
-postgres.port: &#39;5432&#39;
-postgres.user: &#39;postgres&#39; -&gt; db user
-postgres.pass: &#39;&#39;
-postgres.maintenance_db: &#39;postgres&#39;
-</pre></div>
+<div class="highlight-python"><pre>postgres.host: 'localhost'
+postgres.port: '5432'
+postgres.user: 'postgres' -&gt; db user
+postgres.pass: ''
+postgres.maintenance_db: 'postgres'</pre>
 </div>
 <p class="last">The default for the maintenance_db is 'postgres' and in most cases it can
 be left at the default setting.

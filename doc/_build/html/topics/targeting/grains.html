@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -217,12 +218,11 @@ same way as in the above example, only without a top-level <tt class="docutils l
 </pre></div>
 </div>
 <p>For this example to work, you would need the grain <tt class="docutils literal"><span class="pre">node_type</span></tt> and the correct value to match on.  This simple example is nice, but too much of the code is similar.  To go one step further, we can place some Jinja template code into the Top file.</p>
-<div class="highlight-yaml"><div class="highlight"><pre>{% set self = grains[&#39;node_type&#39;] %}
+<div class="highlight-yaml"><pre>{% set self = grains['node_type'] %}
 
-    &#39;node_type:{{ self }}&#39;:
+    'node_type:{{ self }}':
         - match: grain
-        - {{ self }}
-</pre></div>
+        - {{ self }}</pre>
 </div>
 <p>The Jinja code simplified the Top file, and allowed SaltStack to work its magic.</p>
 </div>

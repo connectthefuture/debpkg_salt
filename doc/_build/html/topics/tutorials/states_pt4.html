@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -215,17 +216,16 @@ Below is a top.sls that can be used to deploy the website:</p>
 </div>
 <p>And finally, the SLS to deploy the website:</p>
 <p><tt class="docutils literal"><span class="pre">/srv/salt/prod/webserver/foobarcom.sls:</span></tt></p>
-<div class="highlight-yaml"><div class="highlight"><pre>{% if pillar.get(&#39;webserver_role&#39;, &#39;&#39;) %}
+<div class="highlight-yaml"><pre>{% if pillar.get('webserver_role', '') %}
 /var/www/foobarcom:
   file.recurse:
     - source: salt://webserver/src/foobarcom
-    - env: {{ pillar[&#39;webserver_role&#39;] }}
+    - env: {{ pillar['webserver_role'] }}
     - user: www
     - group: www
     - dir_mode: 755
     - file_mode: 644
-{% endif %}
-</pre></div>
+{% endif %}</pre>
 </div>
 <p>Given the above SLS, the source for the website should initially be placed in
 <tt class="docutils literal"><span class="pre">/srv/salt/dev/webserver/src/foobarcom</span></tt>.</p>

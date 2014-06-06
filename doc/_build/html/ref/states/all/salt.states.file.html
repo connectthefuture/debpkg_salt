@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -129,7 +130,7 @@ downloads files from the salt master and places them on the target system.
 The downloaded files can be rendered as a jinja, mako, or wempy template,
 adding a dynamic component to file management. An example of <tt class="docutils literal"><span class="pre">file.managed</span></tt>
 which makes use of the jinja templating system would look like this:</p>
-<div class="highlight-yaml"><div class="highlight"><pre>/etc/http/conf/http.conf:
+<div class="highlight-yaml"><pre>/etc/http/conf/http.conf:
   file.managed:
     - source: salt://apache/http.conf
     - user: root
@@ -137,13 +138,12 @@ which makes use of the jinja templating system would look like this:</p>
     - mode: 644
     - template: jinja
     - defaults:
-        custom_var: &quot;default value&quot;
+        custom_var: "default value"
         other_var: 123
-{% if grains[&#39;os&#39;] == &#39;Ubuntu&#39; %}
+{% if grains['os'] == 'Ubuntu' %}
     - context:
-        custom_var: &quot;override&quot;
-{% endif %}
-</pre></div>
+        custom_var: "override"
+{% endif %}</pre>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -292,21 +292,20 @@ would look something like this:</p>
 </pre></div>
 </div>
 <p>A more complex <tt class="docutils literal"><span class="pre">recurse</span></tt> example:</p>
-<div class="highlight-yaml"><div class="highlight"><pre>{% set site_user = &#39;testuser&#39; %}
-{% set site_name = &#39;test_site&#39; %}
-{% set project_name = &#39;test_proj&#39; %}
-{% set sites_dir = &#39;test_dir&#39; %}
+<div class="highlight-yaml"><pre>{% set site_user = 'testuser' %}
+{% set site_name = 'test_site' %}
+{% set project_name = 'test_proj' %}
+{% set sites_dir = 'test_dir' %}
 
 django-project:
   file.recurse:
     - name: {{ sites_dir }}/{{ site_name }}/{{ project_name }}
     - user: {{ site_user }}
     - dir_mode: 2775
-    - file_mode: &#39;0644&#39;
+    - file_mode: '0644'
     - template: jinja
     - source: salt://project/templates_dir
-    - include_empty: True
-</pre></div>
+    - include_empty: True</pre>
 </div>
 <dl class="function">
 <dt id="salt.states.file.absent">
@@ -339,10 +338,10 @@ the file. Probably the same as filename</dd>
 </dl>
 <p>Example:</p>
 <p>Given the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>animals_doing_things:
+<div class="highlight-python"><pre>animals_doing_things:
   file.accumulated:
     - filename: /tmp/animal_file.txt
-    - text: &#39; jumps over the lazy dog.&#39;
+    - text: ' jumps over the lazy dog.'
     - require_in:
       - file: animal_file
 
@@ -350,16 +349,13 @@ animal_file:
   file.managed:
     - name: /tmp/animal_file.txt
     - source: salt://animal_file.txt
-    - template: jinja
-</pre></div>
+    - template: jinja</pre>
 </div>
 <p>One might write a template for animal_file.txt like the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>The quick brown fox{% for animal in accumulator[&#39;animals_doing_things&#39;] %}{{ animal }}{% endfor %}
-</pre></div>
+<div class="highlight-python"><pre>The quick brown fox{% for animal in accumulator['animals_doing_things'] %}{{ animal }}{% endfor %}</pre>
 </div>
 <p>Collectively, the above states and template file will produce:</p>
-<div class="highlight-python"><div class="highlight"><pre>The quick brown fox jumps over the lazy dog.
-</pre></div>
+<div class="highlight-python"><pre>The quick brown fox jumps over the lazy dog.</pre>
 </div>
 <p>Multiple accumulators can be &quot;chained&quot; together.</p>
 <div class="admonition note">
@@ -376,45 +372,40 @@ Do not expect any loop over the keys in a deterministic order!</p>
 <p>The text will not be appended again if it already exists in the file. You
 may specify a single line of text or a list of lines to append.</p>
 <p>Multi-line example:</p>
-<div class="highlight-python"><div class="highlight"><pre>/etc/motd:
+<div class="highlight-python"><pre>/etc/motd:
   file.append:
     - text: |
         Thou hadst better eat salt with the Philosophers of Greece,
         than sugar with the Courtiers of Italy.
-        - Benjamin Franklin
-</pre></div>
+        - Benjamin Franklin</pre>
 </div>
 <p>Multiple lines of text:</p>
-<div class="highlight-python"><div class="highlight"><pre>/etc/motd:
+<div class="highlight-python"><pre>/etc/motd:
   file.append:
     - text:
       - Trust no one unless you have eaten much salt with him.
-      - &quot;Salt is born of the purest of parents: the sun and the sea.&quot;
-</pre></div>
+      - "Salt is born of the purest of parents: the sun and the sea."</pre>
 </div>
 <p>Gather text from multiple template files:</p>
-<div class="highlight-python"><div class="highlight"><pre>/etc/motd:
+<div class="highlight-python"><pre>/etc/motd:
   file:
       - append
       - template: jinja
       - sources:
           - salt://motd/devops-messages.tmpl
           - salt://motd/hr-messages.tmpl
-          - salt://motd/general-messages.tmpl
-</pre></div>
+          - salt://motd/general-messages.tmpl</pre>
 </div>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.9.5.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.9.5.</span></p>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.states.file.blockreplace">
 <tt class="descclassname">salt.states.file.</tt><tt class="descname">blockreplace</tt><big>(</big><em>name</em>, <em>marker_start='#-- start managed zone --'</em>, <em>marker_end='#-- end managed zone --'</em>, <em>content=''</em>, <em>append_if_not_found=False</em>, <em>prepend_if_not_found=False</em>, <em>backup='.bak'</em>, <em>show_changes=True</em><big>)</big><a class="headerlink" href="#salt.states.file.blockreplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maintain an edit in a file in a zone delimited by two line markers</p>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 2014.1.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 2014.1.0.</span></p>
 <p>A block of content delimited by comments can help you manage several lines
 entries without worrying about old entries removal. This can help you
 maintaining an un-managed file containing manual edits.
@@ -454,22 +445,22 @@ file. If <tt class="docutils literal"><span class="pre">False</span></tt> return
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><p>bool or str</p>
 <p>Example of usage with an accumulator and with a variable:</p>
-<div class="highlight-python"><div class="highlight"><pre>{% set myvar = 42 %}
+<div class="highlight-python"><pre>{% set myvar = 42 %}
 hosts-config-block-{{ myvar }}:
   file.blockreplace:
     - name: /etc/hosts
-    - marker_start: &quot;# START managed zone {{ myvar }} -DO-NOT-EDIT-&quot;
-    - marker_end: &quot;# END managed zone {{ myvar }} --&quot;
-    - content: &#39;First line of content&#39;
+    - marker_start: "# START managed zone {{ myvar }} -DO-NOT-EDIT-"
+    - marker_end: "# END managed zone {{ myvar }} --"
+    - content: 'First line of content'
     - append_if_not_found: True
-    - backup: &#39;.bak&#39;
+    - backup: '.bak'
     - show_changes: True
 
 hosts-config-block-{{ myvar }}-accumulated1:
   file.accumulated:
     - filename: /etc/hosts
     - name: my-accumulator-{{ myvar }}
-    - text: &quot;text 2&quot;
+    - text: "text 2"
     - require_in:
       - file: hosts-config-block-{{ myvar }}
 
@@ -481,8 +472,7 @@ hosts-config-block-{{ myvar }}-accumulated2:
          text 3
          text 4
     - require_in:
-      - file: hosts-config-block-{{ myvar }}
-</pre></div>
+      - file: hosts-config-block-{{ myvar }}</pre>
 </div>
 </p>
 </td>
@@ -490,13 +480,12 @@ hosts-config-block-{{ myvar }}-accumulated2:
 </tbody>
 </table>
 <p>will generate and maintain a block of content in <tt class="docutils literal"><span class="pre">/etc/hosts</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre># START managed zone 42 -DO-NOT-EDIT-
+<div class="highlight-python"><pre># START managed zone 42 -DO-NOT-EDIT-
 First line of content
 text 2
 text 3
 text 4
-# END managed zone 42 --
-</pre></div>
+# END managed zone 42 --</pre>
 </div>
 </dd></dl>
 
@@ -528,14 +517,12 @@ after the first invocation.</p>
 </dd>
 </dl>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>/etc/fstab:
+<div class="highlight-python"><pre>/etc/fstab:
   file.comment:
-    - regex: ^bind 127.0.0.1
-</pre></div>
+    - regex: ^bind 127.0.0.1</pre>
 </div>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.9.5.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.9.5.</span></p>
 </dd></dl>
 
 <dl class="function">
@@ -574,7 +561,7 @@ salt is running as on the minion</dd>
 <dd><p class="first">Enforce user/group ownership and mode of directory recursively. Accepts
 a list of strings representing what you would like to recurse.
 Example:</p>
-<div class="last highlight-python"><div class="highlight"><pre>/var/log/httpd:
+<div class="last highlight-python"><pre>/var/log/httpd:
     file.directory:
     - user: root
     - group: root
@@ -583,8 +570,7 @@ Example:</p>
     - recurse:
         - user
         - group
-        - mode
-</pre></div>
+        - mode</pre>
 </div>
 </dd>
 <dt>dir_mode / mode</dt>
@@ -610,9 +596,8 @@ and preserve in the destination.</dd>
 <dd><p class="first">If the desired path is a symlink (or <tt class="docutils literal"><span class="pre">recurse</span></tt> is defined and a
 symlink is encountered while recursing), follow it and check the
 permissions of the directory/file to which the symlink points.</p>
-<div class="last versionadded">
-<p><span class="versionmodified">New in version 2014.1.4.</span></p>
-</div>
+<p class="last versionadded">
+<span class="versionmodified">New in version 2014.1.4.</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -661,15 +646,14 @@ argument is also required</p>
 <p>The function accepts the first encountered long unbroken alphanumeric
 string of correct length as a valid hash, in order from most secure to
 least secure:</p>
-<div class="highlight-python"><div class="highlight"><pre>Type    Length
+<div class="highlight-python"><pre>Type    Length
 ======  ======
 sha512     128
 sha384      96
 sha256      64
 sha224      56
 sha1        40
-md5         32
-</pre></div>
+md5         32</pre>
 </div>
 <p>The file can contain several checksums for several files. Each line
 must contain both the file name and the hash.  If no file name is
@@ -677,10 +661,9 @@ matched, the first hash encountered will be used, otherwise the most
 secure hash with the correct source file name will be used.</p>
 <p>Debian file type <tt class="docutils literal"><span class="pre">*.dsc</span></tt> is supported.</p>
 <p>Examples:</p>
-<div class="highlight-python"><div class="highlight"><pre>/etc/rc.conf ef6e82e4006dee563d98ada2a2a80a27
+<div class="highlight-python"><pre>/etc/rc.conf ef6e82e4006dee563d98ada2a2a80a27
 sha254c8525aee419eb649f0233be91c151178b30f0dff8ebbdcc8de71b1d5c8bcc06a  /etc/resolv.conf
-ead48423703509d37c4a90e6a0d53e143b6fc268
-</pre></div>
+ead48423703509d37c4a90e6a0d53e143b6fc268</pre>
 </div>
 <dl class="last docutils">
 <dt>Known issues:</dt>
@@ -739,9 +722,8 @@ managed if the file already exists on the system.</dd>
 contents of the file.  Should not be used in conjunction with a source
 file of any kind.  Ignores hashes and does not use a templating engine.</dd>
 <dt>contents_pillar</dt>
-<dd><div class="first versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<dd><p class="first versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 <p>Operates like <tt class="docutils literal"><span class="pre">contents</span></tt>, but draws from a value stored in pillar,
 using the pillar path syntax used in <a class="reference internal" href="../../modules/all/salt.modules.pillar.html#salt.modules.pillar.get" title="salt.modules.pillar.get"><tt class="xref py py-mod docutils literal"><span class="pre">pillar.get</span></tt></a>. This is useful when the pillar value
 contains newlines, as referencing a pillar variable using a jinja/mako
@@ -759,7 +741,7 @@ causing indentation mismatches.</p>
 <p>This would populate <tt class="docutils literal"><span class="pre">/home/deployer/.ssh/id_rsa</span></tt> with the contents of
 <tt class="docutils literal"><span class="pre">pillar['userdata']['deployer']['id_rsa']</span></tt>. An example of this pillar
 setup would be like so:</p>
-<div class="highlight-yaml:"><div class="highlight"><pre>userdata:
+<div class="highlight-yaml:"><pre>userdata:
   deployer:
     id_rsa: |
       -----BEGIN RSA PRIVATE KEY-----
@@ -767,8 +749,7 @@ setup would be like so:</p>
       U7sCwx/dH6+VvNwmCoqmNnP+8gTPKGl1vgAObJAnMT623dMXjVKwnEagZPRJIxDy
       B/HaAre9euNiY3LvIzBTWRSeMfT+rWvIKVBpvwlgGrfgz70m0pqxu+UyFbAGLin+
       GpxzZAMaFpZw4sSbIlRuissXZj/sHpQb8p9M5IeO4Z3rjkCP1cxI
-      -----END RSA PRIVATE KEY-----
-</pre></div>
+      -----END RSA PRIVATE KEY-----</pre>
 </div>
 <div class="last admonition note">
 <p class="first admonition-title">Note</p>
@@ -827,7 +808,7 @@ does not apply to a fifo pipe</dd>
 <dd>permissions on the device/pipe</dd>
 </dl>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre> /dev/chr:
+<div class="highlight-python"><pre> /dev/chr:
    file.mknod:
      - ntype: c
      - major: 180
@@ -850,12 +831,10 @@ does not apply to a fifo pipe</dd>
     - ntype: p
     - user: root
     - group: root
-    - mode: 660
-</pre></div>
+    - mode: 660</pre>
 </div>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 </dd></dl>
 
 <dl class="function">
@@ -886,12 +865,11 @@ by the <tt class="docutils literal"><span class="pre">source</span></tt> paramet
 environment from which the state is being executed.</dd>
 </dl>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre># Equivalent to ``patch --forward /opt/file.txt file.patch``
+<div class="highlight-python"><pre># Equivalent to ``patch --forward /opt/file.txt file.patch``
 /opt/file.txt:
   file.patch:
     - source: salt://file.patch
-    - hash: md5=e138491e9d5b97023cea823fe17bac22
-</pre></div>
+    - hash: md5=e138491e9d5b97023cea823fe17bac22</pre>
 </div>
 </dd></dl>
 
@@ -947,11 +925,10 @@ used to render the downloaded file. Supported templates are:
 <dd><p class="first">When copying, include only this pattern from the source. Default
 is glob match; if prefixed with 'E&#64;', then regexp match.
 Example:</p>
-<div class="last highlight-python"><div class="highlight"><pre>- include_pat: hello*       :: glob matches &#39;hello01&#39;, &#39;hello02&#39;
-                               ... but not &#39;otherhello&#39;
-- include_pat: E@hello      :: regexp matches &#39;otherhello&#39;,
-                               &#39;hello01&#39; ...
-</pre></div>
+<div class="last highlight-python"><pre>- include_pat: hello*       :: glob matches 'hello01', 'hello02'
+                               ... but not 'otherhello'
+- include_pat: E@hello      :: regexp matches 'otherhello',
+                               'hello01' ...</pre>
 </div>
 </dd>
 <dt>exclude_pat</dt>
@@ -962,22 +939,20 @@ then within that result apply exclude_pat.</p>
 <p>Also, when 'clean=True', exclude this pattern from the removal
 list and preserve in the destination.
 Example:</p>
-<div class="last highlight-python"><div class="highlight"><pre>- exclude_pat: APPDATA*               :: glob matches APPDATA.01,
+<div class="last highlight-python"><pre>- exclude_pat: APPDATA*               :: glob matches APPDATA.01,
                                          APPDATA.02,.. for exclusion
 - exclude_pat: E@(APPDATA)|(TEMPDATA) :: regexp matches APPDATA
-                                         or TEMPDATA for exclusion
-</pre></div>
+                                         or TEMPDATA for exclusion</pre>
 </div>
 </dd>
 <dt>maxdepth</dt>
 <dd><p class="first">When copying, only copy paths which are of depth <cite>maxdepth</cite> from the
 source path.
 Example:</p>
-<div class="last highlight-python"><div class="highlight"><pre>- maxdepth: 0      :: Only include files located in the source
+<div class="last highlight-python"><pre>- maxdepth: 0      :: Only include files located in the source
                       directory
 - maxdepth: 1      :: Only include files located in the source
-                      or immediate subdirectories
-</pre></div>
+                      or immediate subdirectories</pre>
 </div>
 </dd>
 <dt>keep_symlinks</dt>
@@ -1015,18 +990,16 @@ specify &quot;force: True&quot; to overwrite the target file</dd>
 <dt id="salt.states.file.replace">
 <tt class="descclassname">salt.states.file.</tt><tt class="descname">replace</tt><big>(</big><em>name</em>, <em>pattern</em>, <em>repl</em>, <em>count=0</em>, <em>flags=0</em>, <em>bufsize=1</em>, <em>backup='.bak'</em>, <em>show_changes=True</em><big>)</big><a class="headerlink" href="#salt.states.file.replace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maintain an edit in a file</p>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 <p>Params are identical to <a class="reference internal" href="../../modules/all/salt.modules.file.html#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a>.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.states.file.sed">
 <tt class="descclassname">salt.states.file.</tt><tt class="descname">sed</tt><big>(</big><em>name</em>, <em>before</em>, <em>after</em>, <em>limit=''</em>, <em>backup='.bak'</em>, <em>options='-r -e'</em>, <em>flags='g'</em>, <em>negate_match=False</em><big>)</big><a class="headerlink" href="#salt.states.file.sed" title="Permalink to this definition">¶</a></dt>
-<dd><div class="deprecated">
-<p><span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.states.file.replace" title="salt.states.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a> instead.</p>
-</div>
+<dd><p class="deprecated">
+<span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.states.file.replace" title="salt.states.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a> instead.</p>
 <p>Maintain a simple edit to a file</p>
 <p>The file will be searched for the <tt class="docutils literal"><span class="pre">before</span></tt> pattern before making the
 edit.  In general the <tt class="docutils literal"><span class="pre">limit</span></tt> pattern should be as specific as possible
@@ -1051,13 +1024,12 @@ expression that sed will execute.</dd>
 should be made globally (and not stop after the first replacement).</dd>
 <dt>negate_match <span class="classifier-delimiter">:</span> <span class="classifier">False</span></dt>
 <dd><p class="first">Negate the search command (<tt class="docutils literal"><span class="pre">!</span></tt>)</p>
-<div class="last versionadded">
-<p><span class="versionmodified">New in version 0.17.0.</span></p>
-</div>
+<p class="last versionadded">
+<span class="versionmodified">New in version 0.17.0.</span></p>
 </dd>
 </dl>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre># Disable the epel repo by default
+<div class="highlight-python"><pre># Disable the epel repo by default
 /etc/yum.repos.d/epel.repo:
   file.sed:
     - before: 1
@@ -1067,14 +1039,12 @@ should be made globally (and not stop after the first replacement).</dd>
 # Remove ldap from nsswitch
 /etc/nsswitch.conf:
   file.sed:
-    - before: &#39;ldap&#39;
-    - after: &#39;&#39;
-    - limit: &#39;^passwd:&#39;
-</pre></div>
+    - before: 'ldap'
+    - after: ''
+    - limit: '^passwd:'</pre>
 </div>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.9.5.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.9.5.</span></p>
 </dd></dl>
 
 <dl class="function">
@@ -1107,9 +1077,8 @@ salt is running as on the minion</dd>
 <dd>Overrides the default backup mode for this specific file.</dd>
 <dt>makedirs</dt>
 <dd><p class="first">Create parent directories for destination file.</p>
-<div class="last versionadded">
-<p><span class="versionmodified">New in version 2014.1.3.</span></p>
-</div>
+<p class="last versionadded">
+<span class="versionmodified">New in version 2014.1.3.</span></p>
 </dd>
 <dt>show_diff</dt>
 <dd>If set to False, the diff will not be shown.</dd>
@@ -1118,7 +1087,7 @@ salt is running as on the minion</dd>
 managed if the file already exists on the system.</dd>
 </dl>
 <p>For example, this state:</p>
-<div class="highlight-python"><div class="highlight"><pre>/etc/dummy/package.json:
+<div class="highlight-python"><pre>/etc/dummy/package.json:
   file.serialize:
     - dataset:
         name: naive
@@ -1128,21 +1097,19 @@ managed if the file already exists on the system.</dd>
             express: &gt;= 1.2.0
             optimist: &gt;= 0.1.0
         engine: node 0.4.1
-    - formatter: json
-</pre></div>
+    - formatter: json</pre>
 </div>
 <p>will manages the file <tt class="docutils literal"><span class="pre">/etc/dummy/package.json</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre>{
-  &quot;author&quot;: &quot;A confused individual &lt;iam@confused.com&gt;&quot;,
-  &quot;dependencies&quot;: {
-    &quot;express&quot;: &quot;&gt;= 1.2.0&quot;,
-    &quot;optimist&quot;: &quot;&gt;= 0.1.0&quot;
+<div class="highlight-python"><pre>{
+  "author": "A confused individual &lt;iam@confused.com&gt;",
+  "dependencies": {
+    "express": "&gt;= 1.2.0",
+    "optimist": "&gt;= 0.1.0"
   },
-  &quot;description&quot;: &quot;A package using naive versioning&quot;,
-  &quot;engine&quot;: &quot;node 0.4.1&quot;
-  &quot;name&quot;: &quot;naive&quot;,
-}
-</pre></div>
+  "description": "A package using naive versioning",
+  "engine": "node 0.4.1"
+  "name": "naive",
+}</pre>
 </div>
 </dd></dl>
 
@@ -1200,13 +1167,11 @@ without messing with contents)</p>
 touch the file</dd>
 </dl>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>/var/log/httpd/logrotate.empty:
-  file.touch
-</pre></div>
+<div class="highlight-python"><pre>/var/log/httpd/logrotate.empty:
+  file.touch</pre>
 </div>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.9.5.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.9.5.</span></p>
 </dd></dl>
 
 <dl class="function">
@@ -1231,14 +1196,12 @@ from the beginning of the line, ignoring leading spaces (we prepend
 overwrite this backup</dd>
 </dl>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>/etc/adduser.conf:
+<div class="highlight-python"><pre>/etc/adduser.conf:
   file.uncomment:
-    - regex: EXTRA_GROUPS
-</pre></div>
+    - regex: EXTRA_GROUPS</pre>
 </div>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.9.5.</span></p>
-</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 0.9.5.</span></p>
 </dd></dl>
 
 </div>

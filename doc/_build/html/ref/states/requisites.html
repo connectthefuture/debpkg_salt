@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -204,14 +205,13 @@ function is in the state module, then the watched state is checked to see if
 it made any changes to the system, if it has, then <tt class="docutils literal"><span class="pre">mod_watch</span></tt> is called.</p>
 <p>Perhaps the best example of using watch is with a <a class="reference internal" href="all/salt.states.service.html#salt.states.service.running" title="salt.states.service.running"><tt class="xref py py-mod docutils literal"><span class="pre">service.running</span></tt></a> state. When a service watches a state, then
 the service is reloaded/restarted when the watched state changes:</p>
-<div class="highlight-python"><div class="highlight"><pre>ntpd:
+<div class="highlight-python"><pre>ntpd:
   service.running:
     - watch:
       - file: /etc/ntp.conf
   file.managed:
     - name: /etc/ntp.conf
-    - source: salt://ntp/files/ntp.conf
-</pre></div>
+    - source: salt://ntp/files/ntp.conf</pre>
 </div>
 </div>
 <div class="section" id="prereq">

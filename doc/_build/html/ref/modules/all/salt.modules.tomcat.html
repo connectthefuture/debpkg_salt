@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -124,17 +125,15 @@
 <p>This module uses the manager webapp to manage Apache tomcat webapps
 If the manager webapp is not configured some of the functions won't work</p>
 <p>The following grains/pillar should be set:</p>
-<div class="highlight-python"><div class="highlight"><pre>tomcat-manager.user: admin user name
-tomcat-manager.passwd: password
-</pre></div>
+<div class="highlight-python"><pre>tomcat-manager.user: admin user name
+tomcat-manager.passwd: password</pre>
 </div>
 <p>and also configure a user in the conf/tomcat-users.xml file:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf-8&#39;?&gt;
+<div class="highlight-python"><pre>&lt;?xml version='1.0' encoding='utf-8'?&gt;
 &lt;tomcat-users&gt;
-    &lt;role rolename=&quot;manager-script&quot;/&gt;
-    &lt;user username=&quot;tomcat&quot; password=&quot;tomcat&quot; roles=&quot;manager-script&quot;/&gt;
-&lt;/tomcat-users&gt;
-</pre></div>
+    &lt;role rolename="manager-script"/&gt;
+    &lt;user username="tomcat" password="tomcat" roles="manager-script"/&gt;
+&lt;/tomcat-users&gt;</pre>
 </div>
 <p>Notes:</p>
 <ul>
@@ -261,8 +260,8 @@ salt <span class="s1">&#39;*&#39;</span> tomcat.passwd secret tomcat sha1 <span 
 </dd></dl>
 
 <dl class="function">
-<dt id="salt.modules.tomcat.reload_">
-<tt class="descclassname">salt.modules.tomcat.</tt><tt class="descname">reload_</tt><big>(</big><em>app</em>, <em>url='http://localhost:8080/manager'</em>, <em>timeout=180</em><big>)</big><a class="headerlink" href="#salt.modules.tomcat.reload_" title="Permalink to this definition">¶</a></dt>
+<dt id="salt.modules.tomcat.reload">
+<tt class="descclassname">salt.modules.tomcat.</tt><tt class="descname">reload</tt><big>(</big><em>app</em>, <em>url='http://localhost:8080/manager'</em>, <em>timeout=180</em><big>)</big><a class="headerlink" href="#salt.modules.tomcat.reload" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reload the webapp</p>
 <dl class="docutils">
 <dt>app</dt>
