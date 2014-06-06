@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.states.file</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin state modules" href="index.html">
+        <link rel="next" title="salt.states.gem" href="salt.states.gem.html">
+        <link rel="prev" title="salt.states.eselect" href="salt.states.eselect.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.states.eselect.html" title="salt.states.eselect">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.states.gem.html" title="salt.states.gem">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.states.file">
+<span id="salt-states-file"></span><h1>salt.states.file<a class="headerlink" href="#module-salt.states.file" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="operations-on-regular-files-special-files-directories-and-symlinks">
+<h2>Operations on regular files, special files, directories, and symlinks<a class="headerlink" href="#operations-on-regular-files-special-files-directories-and-symlinks" title="Permalink to this headline">¶</a></h2>
+<p>Salt States can aggressively manipulate files on a system. There are a number
+of ways in which files can be managed.</p>
+<p>Regular files can be enforced with the <tt class="docutils literal"><span class="pre">managed</span></tt> function. This function
+downloads files from the salt master and places them on the target system.
+The downloaded files can be rendered as a jinja, mako, or wempy template,
+adding a dynamic component to file management. An example of <tt class="docutils literal"><span class="pre">file.managed</span></tt>
+which makes use of the jinja templating system would look like this:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>/etc/http/conf/http.conf:
+  file.managed:
+    - source: salt://apache/http.conf
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - defaults:
+        custom_var: &quot;default value&quot;
+        other_var: 123
+{% if grains[&#39;os&#39;] == &#39;Ubuntu&#39; %}
+    - context:
+        custom_var: &quot;override&quot;
+{% endif %}
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When using both the <tt class="docutils literal"><span class="pre">defaults</span></tt> and <tt class="docutils literal"><span class="pre">context</span></tt> arguments, note the extra
+indentation (four spaces instead of the normal two). This is due to an
+idiosyncrasy of how PyYAML loads nested dictionaries, and is explained in
+greater detail <a class="reference internal" href="../../../topics/troubleshooting/yaml_idiosyncrasies.html#nested-dict-indentation"><em>here</em></a>.</p>
+</div>
+<p>If using a template, any user-defined template variables in the file defined in
+<tt class="docutils literal"><span class="pre">source</span></tt> must be passed in using the <tt class="docutils literal"><span class="pre">defaults</span></tt> and/or <tt class="docutils literal"><span class="pre">context</span></tt>
+arguments. The general best practice is to place default values in
+<tt class="docutils literal"><span class="pre">defaults</span></tt>, with conditional overrides going into <tt class="docutils literal"><span class="pre">context</span></tt>, as seen above.</p>
+<p>The <tt class="docutils literal"><span class="pre">source</span></tt> parameter can be specified as a list. If this is done, then the
+first file to be matched will be the one that is used. This allows you to have
+a default file on which to fall back if the desired file does not exist on the
+salt fileserver. Here's an example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/etc/foo.conf</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">salt://foo.conf.{{ grains[&#39;fqdn&#39;] }}</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">salt://foo.conf.fallback</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">foo</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">users</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">644</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">backup</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">minion</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Salt supports backing up managed files via the backup option. For more
+details on this functionality please review the
+<a class="reference internal" href="../backup_mode.html"><em>backup_mode documentation</em></a>.</p>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">source</span></tt> parameter can also specify a file in another Salt environment.
+In this example <tt class="docutils literal"><span class="pre">foo.conf</span></tt> in the <tt class="docutils literal"><span class="pre">dev</span></tt> environment will be used instead.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/etc/foo.conf</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">salt://foo.conf?saltenv=dev</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">foo</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">users</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="s">&#39;0644&#39;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">When using a mode that includes a leading zero you must wrap the
+value in single quotes. If the value is not wrapped in quotes it
+will be read by YAML as an integer and evaluated as an octal.</p>
+</div>
+<p>Special files can be managed via the <tt class="docutils literal"><span class="pre">mknod</span></tt> function. This function will
+create and enforce the permissions on a special file. The function supports the
+creation of character devices, block devices, and fifo pipes. The function will
+create the directory structure up to the special file if it is needed on the
+minion. The function will not overwrite or operate on (change major/minor
+numbers) existing special files with the exception of user, group, and
+permissions. In most cases the creation of some special files require root
+permisisons on the minion. This would require that the minion to be run as the
+root user. Here is an example of a character device:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/var/named/chroot/dev/random</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.mknod</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ntype</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">c</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">major</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">minor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">named</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">named</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">660</span>
+</pre></div>
+</div>
+<p>Here is an example of a block device:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/var/named/chroot/dev/loop0</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.mknod</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ntype</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">b</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">major</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">7</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">minor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">named</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">named</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">660</span>
+</pre></div>
+</div>
+<p>Here is an example of a fifo pipe:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/var/named/chroot/var/log/logfifo</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.mknod</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ntype</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">p</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">named</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">named</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">660</span>
+</pre></div>
+</div>
+<p>Directories can be managed via the <tt class="docutils literal"><span class="pre">directory</span></tt> function. This function can
+create and enforce the permissions on a directory. A directory statement will
+look like this:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/srv/stuff/substuf</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.directory</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fred</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">users</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">755</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">makedirs</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<p>If you need to enforce user and/or group ownership or permissions recursively
+on the directory's contents, you can do so by adding a <tt class="docutils literal"><span class="pre">recurse</span></tt> directive:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/srv/stuff/substuf</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.directory</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fred</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">users</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">755</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">makedirs</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">recurse</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span>
+</pre></div>
+</div>
+<p>As a default, <tt class="docutils literal"><span class="pre">mode</span></tt> will resolve to <tt class="docutils literal"><span class="pre">dir_mode</span></tt> and <tt class="docutils literal"><span class="pre">file_mode</span></tt>, to
+specify both directory and file permissions, use this form:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/srv/stuff/substuf</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.directory</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fred</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">users</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file_mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">744</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">dir_mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">755</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">makedirs</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">recurse</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span>
+</pre></div>
+</div>
+<p>Symlinks can be easily created; the symlink function is very simple and only
+takes a few arguments:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/etc/grub.conf</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.symlink</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/boot/grub/grub.conf</span>
+</pre></div>
+</div>
+<p>Recursive directory management can also be set via the <tt class="docutils literal"><span class="pre">recurse</span></tt>
+function. Recursive directory management allows for a directory on the salt
+master to be recursively copied down to the minion. This is a great tool for
+deploying large code and configuration systems. A state using <tt class="docutils literal"><span class="pre">recurse</span></tt>
+would look something like this:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/opt/code/flask</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.recurse</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://code/flask</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">include_empty</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<p>A more complex <tt class="docutils literal"><span class="pre">recurse</span></tt> example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{% set site_user = &#39;testuser&#39; %}
+{% set site_name = &#39;test_site&#39; %}
+{% set project_name = &#39;test_proj&#39; %}
+{% set sites_dir = &#39;test_dir&#39; %}
+
+django-project:
+  file.recurse:
+    - name: {{ sites_dir }}/{{ site_name }}/{{ project_name }}
+    - user: {{ site_user }}
+    - dir_mode: 2775
+    - file_mode: &#39;0644&#39;
+    - template: jinja
+    - source: salt://project/templates_dir
+    - include_empty: True
+</pre></div>
+</div>
+<dl class="function">
+<dt id="salt.states.file.absent">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">absent</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.states.file.absent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that the named file or directory is absent, this will work to
+reverse any of the functions in the file state module.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The path which should be deleted</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.accumulated">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">accumulated</tt><big>(</big><em>name</em>, <em>filename</em>, <em>text</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.file.accumulated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare accumulator which can be used in template in file.managed state.
+Accumulator dictionary becomes available in template. It can also be used
+in file.blockreplace.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>Accumulator name</dd>
+<dt>filename</dt>
+<dd>Filename which would receive this accumulator (see file.managed state
+documentation about <tt class="docutils literal"><span class="pre">name</span></tt>)</dd>
+<dt>text</dt>
+<dd>String or list for adding in accumulator</dd>
+<dt>require_in / watch_in</dt>
+<dd>One of them required for sure we fill up accumulator before we manage
+the file. Probably the same as filename</dd>
+</dl>
+<p>Example:</p>
+<p>Given the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>animals_doing_things:
+  file.accumulated:
+    - filename: /tmp/animal_file.txt
+    - text: &#39; jumps over the lazy dog.&#39;
+    - require_in:
+      - file: animal_file
+
+animal_file:
+  file.managed:
+    - name: /tmp/animal_file.txt
+    - source: salt://animal_file.txt
+    - template: jinja
+</pre></div>
+</div>
+<p>One might write a template for animal_file.txt like the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>The quick brown fox{% for animal in accumulator[&#39;animals_doing_things&#39;] %}{{ animal }}{% endfor %}
+</pre></div>
+</div>
+<p>Collectively, the above states and template file will produce:</p>
+<div class="highlight-python"><div class="highlight"><pre>The quick brown fox jumps over the lazy dog.
+</pre></div>
+</div>
+<p>Multiple accumulators can be &quot;chained&quot; together.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The 'accumulator' data structure is a Python dictionary.
+Do not expect any loop over the keys in a deterministic order!</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.append">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">append</tt><big>(</big><em>name</em>, <em>text=None</em>, <em>makedirs=False</em>, <em>source=None</em>, <em>source_hash=None</em>, <em>template='jinja'</em>, <em>sources=None</em>, <em>source_hashes=None</em>, <em>defaults=None</em>, <em>context=None</em><big>)</big><a class="headerlink" href="#salt.states.file.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure that some text appears at the end of a file</p>
+<p>The text will not be appended again if it already exists in the file. You
+may specify a single line of text or a list of lines to append.</p>
+<p>Multi-line example:</p>
+<div class="highlight-python"><div class="highlight"><pre>/etc/motd:
+  file.append:
+    - text: |
+        Thou hadst better eat salt with the Philosophers of Greece,
+        than sugar with the Courtiers of Italy.
+        - Benjamin Franklin
+</pre></div>
+</div>
+<p>Multiple lines of text:</p>
+<div class="highlight-python"><div class="highlight"><pre>/etc/motd:
+  file.append:
+    - text:
+      - Trust no one unless you have eaten much salt with him.
+      - &quot;Salt is born of the purest of parents: the sun and the sea.&quot;
+</pre></div>
+</div>
+<p>Gather text from multiple template files:</p>
+<div class="highlight-python"><div class="highlight"><pre>/etc/motd:
+  file:
+      - append
+      - template: jinja
+      - sources:
+          - salt://motd/devops-messages.tmpl
+          - salt://motd/hr-messages.tmpl
+          - salt://motd/general-messages.tmpl
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.5.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.blockreplace">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">blockreplace</tt><big>(</big><em>name</em>, <em>marker_start='#-- start managed zone --'</em>, <em>marker_end='#-- end managed zone --'</em>, <em>content=''</em>, <em>append_if_not_found=False</em>, <em>prepend_if_not_found=False</em>, <em>backup='.bak'</em>, <em>show_changes=True</em><big>)</big><a class="headerlink" href="#salt.states.file.blockreplace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maintain an edit in a file in a zone delimited by two line markers</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0.</span></p>
+</div>
+<p>A block of content delimited by comments can help you manage several lines
+entries without worrying about old entries removal. This can help you
+maintaining an un-managed file containing manual edits.
+Note: this function will store two copies of the file in-memory
+(the original version and the edited version) in order to detect changes
+and only edit the targeted file if necessary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> -- Filesystem path to the file to be edited</li>
+<li><strong>marker_start</strong> -- The line content identifying a line as the start of
+the content block. Note that the whole line containing this marker will
+be considered, so whitespaces or extra content before or after the
+marker is included in final output</li>
+<li><strong>marker_end</strong> -- The line content identifying a line as the end of
+the content block. Note that the whole line containing this marker will
+be considered, so whitespaces or extra content before or after the
+marker is included in final output.
+Note: you can use file.accumulated and target this state. All
+accumulated data dictionaries content will be added as new lines in the
+content.</li>
+<li><strong>content</strong> -- The content to be used between the two lines identified by
+marker_start and marker_stop.</li>
+<li><strong>append_if_not_found</strong> -- False by default, if markers are not found and
+set to True then the markers and content will be appended to the file</li>
+<li><strong>prepend_if_not_found</strong> -- False by default, if markers are not found and
+set to True then the markers and content will be prepended to the file</li>
+<li><strong>backup</strong> -- The file extension to use for a backup of the file if any
+edit is made. Set to <tt class="docutils literal"><span class="pre">False</span></tt> to skip making a backup.</li>
+<li><strong>dry_run</strong> -- Don't make any edits to the file</li>
+<li><strong>show_changes</strong> -- Output a unified diff of the old file and the new
+file. If <tt class="docutils literal"><span class="pre">False</span></tt> return a boolean if any changes were made.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><p>bool or str</p>
+<p>Example of usage with an accumulator and with a variable:</p>
+<div class="highlight-python"><div class="highlight"><pre>{% set myvar = 42 %}
+hosts-config-block-{{ myvar }}:
+  file.blockreplace:
+    - name: /etc/hosts
+    - marker_start: &quot;# START managed zone {{ myvar }} -DO-NOT-EDIT-&quot;
+    - marker_end: &quot;# END managed zone {{ myvar }} --&quot;
+    - content: &#39;First line of content&#39;
+    - append_if_not_found: True
+    - backup: &#39;.bak&#39;
+    - show_changes: True
+
+hosts-config-block-{{ myvar }}-accumulated1:
+  file.accumulated:
+    - filename: /etc/hosts
+    - name: my-accumulator-{{ myvar }}
+    - text: &quot;text 2&quot;
+    - require_in:
+      - file: hosts-config-block-{{ myvar }}
+
+hosts-config-block-{{ myvar }}-accumulated2:
+  file.accumulated:
+    - filename: /etc/hosts
+    - name: my-accumulator-{{ myvar }}
+    - text: |
+         text 3
+         text 4
+    - require_in:
+      - file: hosts-config-block-{{ myvar }}
+</pre></div>
+</div>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>will generate and maintain a block of content in <tt class="docutils literal"><span class="pre">/etc/hosts</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre># START managed zone 42 -DO-NOT-EDIT-
+First line of content
+text 2
+text 3
+text 4
+# END managed zone 42 --
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.comment">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">comment</tt><big>(</big><em>name</em>, <em>regex</em>, <em>char='#'</em>, <em>backup='.bak'</em><big>)</big><a class="headerlink" href="#salt.states.file.comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Comment out specified lines in a file.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The full path to the file to be edited</dd>
+<dt>regex</dt>
+<dd>A regular expression used to find the lines that are to be commented;
+this pattern will be wrapped in parenthesis and will move any
+preceding/trailing <tt class="docutils literal"><span class="pre">^</span></tt> or <tt class="docutils literal"><span class="pre">$</span></tt> characters outside the parenthesis
+(e.g., the pattern <tt class="docutils literal"><span class="pre">^foo$</span></tt> will be rewritten as <tt class="docutils literal"><span class="pre">^(foo)$</span></tt>)
+Note that you _need_ the leading ^, otherwise each time you run
+highstate, another comment char will be inserted.</dd>
+<dt>char <span class="classifier-delimiter">:</span> <span class="classifier"><tt class="docutils literal"><span class="pre">#</span></tt></span></dt>
+<dd>The character to be inserted at the beginning of a line in order to
+comment it out</dd>
+<dt>backup <span class="classifier-delimiter">:</span> <span class="classifier"><tt class="docutils literal"><span class="pre">.bak</span></tt></span></dt>
+<dd><p class="first">The file will be backed up before edit with this file extension</p>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This backup will be overwritten each time <tt class="docutils literal"><span class="pre">sed</span></tt> / <tt class="docutils literal"><span class="pre">comment</span></tt> /
+<tt class="docutils literal"><span class="pre">uncomment</span></tt> is called. Meaning the backup will only be useful
+after the first invocation.</p>
+</div>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre>/etc/fstab:
+  file.comment:
+    - regex: ^bind 127.0.0.1
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.5.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.copy">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">copy</tt><big>(</big><em>name</em>, <em>source</em>, <em>force=False</em>, <em>makedirs=False</em><big>)</big><a class="headerlink" href="#salt.states.file.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the source file exists on the system, copy it to the named file. The
+named file will not be overwritten if it already exists unless the force
+option is set to True.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The location of the file to copy to</dd>
+<dt>source</dt>
+<dd>The location of the file to copy to the location specified with name</dd>
+<dt>force</dt>
+<dd>If the target location is present then the file will not be moved,
+specify &quot;force: True&quot; to overwrite the target file</dd>
+<dt>makedirs</dt>
+<dd>If the target subdirectories don't exist create them</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.directory">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">directory</tt><big>(</big><em>name</em>, <em>user=None</em>, <em>group=None</em>, <em>recurse=None</em>, <em>dir_mode=None</em>, <em>file_mode=None</em>, <em>makedirs=False</em>, <em>clean=False</em>, <em>require=None</em>, <em>exclude_pat=None</em>, <em>follow_symlinks=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.file.directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure that a named directory is present and has the right perms</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The location to create or manage a directory</dd>
+<dt>user</dt>
+<dd>The user to own the directory; this defaults to the user salt is
+running as on the minion</dd>
+<dt>group</dt>
+<dd>The group ownership set for the directory; this defaults to the group
+salt is running as on the minion</dd>
+<dt>recurse</dt>
+<dd><p class="first">Enforce user/group ownership and mode of directory recursively. Accepts
+a list of strings representing what you would like to recurse.
+Example:</p>
+<div class="last highlight-python"><div class="highlight"><pre>/var/log/httpd:
+    file.directory:
+    - user: root
+    - group: root
+    - dir_mode: 755
+    - file_mode: 644
+    - recurse:
+        - user
+        - group
+        - mode
+</pre></div>
+</div>
+</dd>
+<dt>dir_mode / mode</dt>
+<dd>The permissions mode to set any directories created.</dd>
+<dt>file_mode</dt>
+<dd>The permissions mode to set any files created if 'mode' is ran in
+'recurse'. This defaults to dir_mode.</dd>
+<dt>makedirs</dt>
+<dd>If the directory is located in a path without a parent directory, then
+the state will fail. If makedirs is set to True, then the parent
+directories will be created to facilitate the creation of the named
+file.</dd>
+<dt>clean</dt>
+<dd>Make sure that only files that are set up by salt and required by this
+function are kept. If this option is set then everything in this
+directory will be deleted unless it is required.</dd>
+<dt>require</dt>
+<dd>Require other resources such as packages or files</dd>
+<dt>exclude_pat</dt>
+<dd>When 'clean' is set to True, exclude this pattern from removal list
+and preserve in the destination.</dd>
+<dt>follow_symlinks <span class="classifier-delimiter">:</span> <span class="classifier">False</span></dt>
+<dd><p class="first">If the desired path is a symlink (or <tt class="docutils literal"><span class="pre">recurse</span></tt> is defined and a
+symlink is encountered while recursing), follow it and check the
+permissions of the directory/file to which the symlink points.</p>
+<div class="last versionadded">
+<p><span class="versionmodified">New in version 2014.1.4.</span></p>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.exists">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">exists</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.states.file.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that the named file or directory is present or exists.
+Ensures pre-requisites outside of Salt's purview
+(e.g., keytabs, private keys, etc.) have been previously satisfied before
+deployment.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>Absolute path which must exist</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.managed">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">managed</tt><big>(</big><em>name</em>, <em>source=None</em>, <em>source_hash=''</em>, <em>user=None</em>, <em>group=None</em>, <em>mode=None</em>, <em>template=None</em>, <em>makedirs=False</em>, <em>dir_mode=None</em>, <em>context=None</em>, <em>replace=True</em>, <em>defaults=None</em>, <em>env=None</em>, <em>backup=''</em>, <em>show_diff=True</em>, <em>create=True</em>, <em>contents=None</em>, <em>contents_pillar=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.file.managed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manage a given file, this function allows for a file to be downloaded from
+the salt master and potentially run through a templating system.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The location of the file to manage</dd>
+<dt>source</dt>
+<dd><p class="first">The source file to download to the minion, this source file can be
+hosted on either the salt master server, or on an HTTP or FTP server.
+For files hosted on the salt file server, if the file is located on
+the master in the directory named spam, and is called eggs, the source
+string is salt://spam/eggs. If source is left blank or None
+(use ~ in YAML), the file will be created as an empty file and
+the content will not be managed</p>
+<p class="last">If the file is hosted on a HTTP or FTP server then the source_hash
+argument is also required</p>
+</dd>
+<dt>source_hash</dt>
+<dd><dl class="first docutils">
+<dt>This can be one of the following:</dt>
+<dd><ol class="first last arabic simple">
+<li>a source hash string</li>
+<li>the URI of a file that contains source hash strings</li>
+</ol>
+</dd>
+</dl>
+<p>The function accepts the first encountered long unbroken alphanumeric
+string of correct length as a valid hash, in order from most secure to
+least secure:</p>
+<div class="highlight-python"><div class="highlight"><pre>Type    Length
+======  ======
+sha512     128
+sha384      96
+sha256      64
+sha224      56
+sha1        40
+md5         32
+</pre></div>
+</div>
+<p>The file can contain several checksums for several files. Each line
+must contain both the file name and the hash.  If no file name is
+matched, the first hash encountered will be used, otherwise the most
+secure hash with the correct source file name will be used.</p>
+<p>Debian file type <tt class="docutils literal"><span class="pre">*.dsc</span></tt> is supported.</p>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre>/etc/rc.conf ef6e82e4006dee563d98ada2a2a80a27
+sha254c8525aee419eb649f0233be91c151178b30f0dff8ebbdcc8de71b1d5c8bcc06a  /etc/resolv.conf
+ead48423703509d37c4a90e6a0d53e143b6fc268
+</pre></div>
+</div>
+<dl class="last docutils">
+<dt>Known issues:</dt>
+<dd><p class="first">If the remote server URL has the hash file as an apparent
+sub-directory of the source file, the module will discover that it
+has already cached a directory where a file should be cached. For
+example:</p>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">tomdroid-src-0.7.3.tar.gz</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/tmp/tomdroid-src-0.7.3.tar.gz</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://launchpad.net/tomdroid/beta/0.7.3/+download/tomdroid-src-0.7.3.tar.gz</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source_hash</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://launchpad.net/tomdroid/beta/0.7.3/+download/tomdroid-src-0.7.3.tar.gz/+md5</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+<dt>user</dt>
+<dd>The user to own the file, this defaults to the user salt is running as
+on the minion</dd>
+<dt>group</dt>
+<dd>The group ownership set for the file, this defaults to the group salt
+is running as on the minion</dd>
+<dt>mode</dt>
+<dd>The permissions to set on this file, aka 644, 0775, 4664</dd>
+<dt>template</dt>
+<dd>If this setting is applied then the named templating engine will be
+used to render the downloaded file, currently jinja, mako, and wempy
+are supported</dd>
+<dt>makedirs</dt>
+<dd>If the file is located in a path without a parent directory, then
+the state will fail. If makedirs is set to True, then the parent
+directories will be created to facilitate the creation of the named
+file.</dd>
+<dt>dir_mode</dt>
+<dd>If directories are to be created, passing this option specifies the
+permissions for those directories. If this is not set, directories
+will be assigned permissions from the 'mode' argument.</dd>
+<dt>replace</dt>
+<dd>If this file should be replaced.  If false, this command will
+not overwrite file contents but will enforce permissions if the file
+exists already.  Default is True.</dd>
+<dt>context</dt>
+<dd>Overrides default context variables passed to the template.</dd>
+<dt>defaults</dt>
+<dd>Default context passed to the template.</dd>
+<dt>backup</dt>
+<dd>Overrides the default backup mode for this specific file.</dd>
+<dt>show_diff</dt>
+<dd>If set to False, the diff will not be shown.</dd>
+<dt>create</dt>
+<dd>Default is True, if create is set to False then the file will only be
+managed if the file already exists on the system.</dd>
+<dt>contents</dt>
+<dd>Default is None.  If specified, will use the given string as the
+contents of the file.  Should not be used in conjunction with a source
+file of any kind.  Ignores hashes and does not use a templating engine.</dd>
+<dt>contents_pillar</dt>
+<dd><div class="first versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
+<p>Operates like <tt class="docutils literal"><span class="pre">contents</span></tt>, but draws from a value stored in pillar,
+using the pillar path syntax used in <a class="reference internal" href="../../modules/all/salt.modules.pillar.html#salt.modules.pillar.get" title="salt.modules.pillar.get"><tt class="xref py py-mod docutils literal"><span class="pre">pillar.get</span></tt></a>. This is useful when the pillar value
+contains newlines, as referencing a pillar variable using a jinja/mako
+template can result in YAML formatting issues due to the newlines
+causing indentation mismatches.</p>
+<p>For example, the following could be used to deploy an SSH private key:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/home/deployer/.ssh/id_rsa</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">deployer</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">deployer</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">600</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">contents_pillar</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">userdata:deployer:id_rsa</span>
+</pre></div>
+</div>
+<p>This would populate <tt class="docutils literal"><span class="pre">/home/deployer/.ssh/id_rsa</span></tt> with the contents of
+<tt class="docutils literal"><span class="pre">pillar['userdata']['deployer']['id_rsa']</span></tt>. An example of this pillar
+setup would be like so:</p>
+<div class="highlight-yaml:"><div class="highlight"><pre>userdata:
+  deployer:
+    id_rsa: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEowIBAAKCAQEAoQiwO3JhBquPAalQF9qP1lLZNXVjYMIswrMe2HcWUVBgh+vY
+      U7sCwx/dH6+VvNwmCoqmNnP+8gTPKGl1vgAObJAnMT623dMXjVKwnEagZPRJIxDy
+      B/HaAre9euNiY3LvIzBTWRSeMfT+rWvIKVBpvwlgGrfgz70m0pqxu+UyFbAGLin+
+      GpxzZAMaFpZw4sSbIlRuissXZj/sHpQb8p9M5IeO4Z3rjkCP1cxI
+      -----END RSA PRIVATE KEY-----
+</pre></div>
+</div>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The private key above is shortened to keep the example brief, but
+shows how to do multiline string in YAML. The key is followed by a
+pipe character, and the mutli-line string is indented two more
+spaces.</p>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.missing">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">missing</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.states.file.missing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify that the named file or directory is missing, this returns True only
+if the named file is missing but does not remove the file if it is present.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>Absolute path which must NOT exist</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.mknod">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">mknod</tt><big>(</big><em>name</em>, <em>ntype</em>, <em>major=0</em>, <em>minor=0</em>, <em>user=None</em>, <em>group=None</em>, <em>mode='0600'</em><big>)</big><a class="headerlink" href="#salt.states.file.mknod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a special file similar to the 'nix mknod command. The supported
+device types are <tt class="docutils literal"><span class="pre">p</span></tt> (fifo pipe), <tt class="docutils literal"><span class="pre">c</span></tt> (character device), and <tt class="docutils literal"><span class="pre">b</span></tt>
+(block device). Provide the major and minor numbers when specifying a
+character device or block device. A fifo pipe does not require this
+information. The command will create the necessary dirs if needed. If a
+file of the same name not of the same type/major/minor exists, it will not
+be overwritten or unlinked (deleted). This is logically in place as a
+safety measure because you can really shoot yourself in the foot here and
+it is the behavior of 'nix <tt class="docutils literal"><span class="pre">mknod</span></tt>. It is also important to note that not
+just anyone can create special devices. Usually this is only done as root.
+If the state is executed as none other than root on a minion, you may
+receive a permission error.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>name of the file</dd>
+<dt>ntype</dt>
+<dd>node type 'p' (fifo pipe), 'c' (character device), or 'b'
+(block device)</dd>
+<dt>major</dt>
+<dd>major number of the device
+does not apply to a fifo pipe</dd>
+<dt>minor</dt>
+<dd>minor number of the device
+does not apply to a fifo pipe</dd>
+<dt>user</dt>
+<dd>owning user of the device/pipe</dd>
+<dt>group</dt>
+<dd>owning group of the device/pipe</dd>
+<dt>mode</dt>
+<dd>permissions on the device/pipe</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre> /dev/chr:
+   file.mknod:
+     - ntype: c
+     - major: 180
+     - minor: 31
+     - user: root
+     - group: root
+     - mode: 660
+
+ /dev/blk:
+   file.mknod:
+     - ntype: b
+     - major: 8
+     - minor: 999
+     - user: root
+     - group: root
+     - mode: 660
+
+/dev/fifo:
+  file.mknod:
+    - ntype: p
+    - user: root
+    - group: root
+    - mode: 660
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.patch">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">patch</tt><big>(</big><em>name</em>, <em>source=None</em>, <em>hash=None</em>, <em>options=''</em>, <em>dry_run_first=True</em>, <em>env=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.file.patch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a patch to a file. Note: a suitable <tt class="docutils literal"><span class="pre">patch</span></tt> executable must be
+available on the minion when using this state function.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The file to with the patch will be applied.</dd>
+<dt>source</dt>
+<dd>The source patch to download to the minion, this source file must be
+hosted on the salt master server. If the file is located in the
+directory named spam, and is called eggs, the source string is
+salt://spam/eggs. A source is required.</dd>
+<dt>hash</dt>
+<dd>Hash of the patched file. If the hash of the target file matches this
+value then the patch is assumed to have been applied. The hash string
+is the hash algorithm followed by the hash of the file:
+md5=e138491e9d5b97023cea823fe17bac22</dd>
+<dt>options</dt>
+<dd>Extra options to pass to patch.</dd>
+<dt>dry_run_first <span class="classifier-delimiter">:</span> <span class="classifier"><tt class="docutils literal"><span class="pre">True</span></tt></span></dt>
+<dd>Run patch with <tt class="docutils literal"><span class="pre">--dry-run</span></tt> first to check if it will apply cleanly.</dd>
+<dt>env</dt>
+<dd>Specify the environment from which to retrieve the patch file indicated
+by the <tt class="docutils literal"><span class="pre">source</span></tt> parameter. If not provided, this defaults to the
+environment from which the state is being executed.</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre># Equivalent to ``patch --forward /opt/file.txt file.patch``
+/opt/file.txt:
+  file.patch:
+    - source: salt://file.patch
+    - hash: md5=e138491e9d5b97023cea823fe17bac22
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.recurse">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">recurse</tt><big>(</big><em>name</em>, <em>source</em>, <em>clean=False</em>, <em>require=None</em>, <em>user=None</em>, <em>group=None</em>, <em>dir_mode=None</em>, <em>file_mode=None</em>, <em>sym_mode=None</em>, <em>template=None</em>, <em>context=None</em>, <em>defaults=None</em>, <em>env=None</em>, <em>include_empty=False</em>, <em>backup=''</em>, <em>include_pat=None</em>, <em>exclude_pat=None</em>, <em>maxdepth=None</em>, <em>keep_symlinks=False</em>, <em>force_symlinks=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.file.recurse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recurse through a subdirectory on the master and copy said subdirectory
+over to the specified path.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The directory to set the recursion in</dd>
+<dt>source</dt>
+<dd>The source directory, this directory is located on the salt master file
+server and is specified with the salt:// protocol. If the directory is
+located on the master in the directory named spam, and is called eggs,
+the source string is salt://spam/eggs</dd>
+<dt>clean</dt>
+<dd>Make sure that only files that are set up by salt and required by this
+function are kept. If this option is set then everything in this
+directory will be deleted unless it is required.</dd>
+<dt>require</dt>
+<dd>Require other resources such as packages or files</dd>
+<dt>user</dt>
+<dd>The user to own the directory. This defaults to the user salt is
+running as on the minion</dd>
+<dt>group</dt>
+<dd>The group ownership set for the directory. This defaults to the group
+salt is running as on the minion</dd>
+<dt>dir_mode</dt>
+<dd>The permissions mode to set on any directories created</dd>
+<dt>file_mode</dt>
+<dd>The permissions mode to set on any files created</dd>
+<dt>sym_mode</dt>
+<dd>The permissions mode to set on any symlink created</dd>
+<dt>template</dt>
+<dd>If this setting is applied then the named templating engine will be
+used to render the downloaded file. Supported templates are:
+<cite>jinja</cite>, <cite>mako</cite> and <cite>wempy</cite>.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The template option is required when recursively applying templates.</p>
+</div>
+<dl class="docutils">
+<dt>context</dt>
+<dd>Overrides default context variables passed to the template.</dd>
+<dt>defaults</dt>
+<dd>Default context passed to the template.</dd>
+<dt>include_empty</dt>
+<dd>Set this to True if empty directories should also be created
+(default is False)</dd>
+<dt>include_pat</dt>
+<dd><p class="first">When copying, include only this pattern from the source. Default
+is glob match; if prefixed with 'E&#64;', then regexp match.
+Example:</p>
+<div class="last highlight-python"><div class="highlight"><pre>- include_pat: hello*       :: glob matches &#39;hello01&#39;, &#39;hello02&#39;
+                               ... but not &#39;otherhello&#39;
+- include_pat: E@hello      :: regexp matches &#39;otherhello&#39;,
+                               &#39;hello01&#39; ...
+</pre></div>
+</div>
+</dd>
+<dt>exclude_pat</dt>
+<dd><p class="first">Exclude this pattern from the source when copying. If both
+<cite>include_pat</cite> and <cite>exclude_pat</cite> are supplied, then it will apply
+conditions cumulatively. i.e. first select based on include_pat, and
+then within that result apply exclude_pat.</p>
+<p>Also, when 'clean=True', exclude this pattern from the removal
+list and preserve in the destination.
+Example:</p>
+<div class="last highlight-python"><div class="highlight"><pre>- exclude_pat: APPDATA*               :: glob matches APPDATA.01,
+                                         APPDATA.02,.. for exclusion
+- exclude_pat: E@(APPDATA)|(TEMPDATA) :: regexp matches APPDATA
+                                         or TEMPDATA for exclusion
+</pre></div>
+</div>
+</dd>
+<dt>maxdepth</dt>
+<dd><p class="first">When copying, only copy paths which are of depth <cite>maxdepth</cite> from the
+source path.
+Example:</p>
+<div class="last highlight-python"><div class="highlight"><pre>- maxdepth: 0      :: Only include files located in the source
+                      directory
+- maxdepth: 1      :: Only include files located in the source
+                      or immediate subdirectories
+</pre></div>
+</div>
+</dd>
+<dt>keep_symlinks</dt>
+<dd>Keep symlinks when copying from the source. This option will cause
+the copy operation to terminate at the symlink. If desire behavior
+similar to rsync, then set this to True.</dd>
+<dt>force_symlinks</dt>
+<dd>Force symlink creation. This option will force the symlink creation.
+If a file or directory is obstructing symlink creation it will be
+recursively removed so that symlink creation can proceed. This
+option is usually not needed except in special circumstances.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.rename">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">rename</tt><big>(</big><em>name</em>, <em>source</em>, <em>force=False</em>, <em>makedirs=False</em><big>)</big><a class="headerlink" href="#salt.states.file.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the source file exists on the system, rename it to the named file. The
+named file will not be overwritten if it already exists unless the force
+option is set to True.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The location of the file to rename to</dd>
+<dt>source</dt>
+<dd>The location of the file to move to the location specified with name</dd>
+<dt>force</dt>
+<dd>If the target location is present then the file will not be moved,
+specify &quot;force: True&quot; to overwrite the target file</dd>
+<dt>makedirs</dt>
+<dd>If the target subdirectories don't exist create them</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.replace">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">replace</tt><big>(</big><em>name</em>, <em>pattern</em>, <em>repl</em>, <em>count=0</em>, <em>flags=0</em>, <em>bufsize=1</em>, <em>backup='.bak'</em>, <em>show_changes=True</em><big>)</big><a class="headerlink" href="#salt.states.file.replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maintain an edit in a file</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
+<p>Params are identical to <a class="reference internal" href="../../modules/all/salt.modules.file.html#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.sed">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">sed</tt><big>(</big><em>name</em>, <em>before</em>, <em>after</em>, <em>limit=''</em>, <em>backup='.bak'</em>, <em>options='-r -e'</em>, <em>flags='g'</em>, <em>negate_match=False</em><big>)</big><a class="headerlink" href="#salt.states.file.sed" title="Permalink to this definition">¶</a></dt>
+<dd><div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.states.file.replace" title="salt.states.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a> instead.</p>
+</div>
+<p>Maintain a simple edit to a file</p>
+<p>The file will be searched for the <tt class="docutils literal"><span class="pre">before</span></tt> pattern before making the
+edit.  In general the <tt class="docutils literal"><span class="pre">limit</span></tt> pattern should be as specific as possible
+and <tt class="docutils literal"><span class="pre">before</span></tt> and <tt class="docutils literal"><span class="pre">after</span></tt> should contain the minimal text to be changed.</p>
+<dl class="docutils">
+<dt>before</dt>
+<dd>A pattern that should exist in the file before the edit.</dd>
+<dt>after</dt>
+<dd>A pattern that should exist in the file after the edit.</dd>
+<dt>limit</dt>
+<dd>An optional second pattern that can limit the scope of the before
+pattern.</dd>
+<dt>backup <span class="classifier-delimiter">:</span> <span class="classifier">'.bak'</span></dt>
+<dd>The extension for the backed-up version of the file before the edit. If
+no backups is desired, pass in the empty string: ''</dd>
+<dt>options <span class="classifier-delimiter">:</span> <span class="classifier"><tt class="docutils literal"><span class="pre">-r</span> <span class="pre">-e</span></tt></span></dt>
+<dd>Any options to pass to the <tt class="docutils literal"><span class="pre">sed</span></tt> command. <tt class="docutils literal"><span class="pre">-r</span></tt> uses extended
+regular expression syntax and <tt class="docutils literal"><span class="pre">-e</span></tt> denotes that what follows is an
+expression that sed will execute.</dd>
+<dt>flags <span class="classifier-delimiter">:</span> <span class="classifier"><tt class="docutils literal"><span class="pre">g</span></tt></span></dt>
+<dd>Any flags to append to the sed expression. <tt class="docutils literal"><span class="pre">g</span></tt> specifies the edit
+should be made globally (and not stop after the first replacement).</dd>
+<dt>negate_match <span class="classifier-delimiter">:</span> <span class="classifier">False</span></dt>
+<dd><p class="first">Negate the search command (<tt class="docutils literal"><span class="pre">!</span></tt>)</p>
+<div class="last versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre># Disable the epel repo by default
+/etc/yum.repos.d/epel.repo:
+  file.sed:
+    - before: 1
+    - after: 0
+    - limit: ^enabled=
+
+# Remove ldap from nsswitch
+/etc/nsswitch.conf:
+  file.sed:
+    - before: &#39;ldap&#39;
+    - after: &#39;&#39;
+    - limit: &#39;^passwd:&#39;
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.5.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.serialize">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">serialize</tt><big>(</big><em>name</em>, <em>dataset</em>, <em>user=None</em>, <em>group=None</em>, <em>mode=None</em>, <em>env=None</em>, <em>backup=''</em>, <em>makedirs=False</em>, <em>show_diff=True</em>, <em>create=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.file.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serializes dataset and store it into managed file. Useful for sharing
+simple configuration files.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The location of the symlink to create</dd>
+<dt>dataset</dt>
+<dd>the dataset that will be serialized</dd>
+<dt>formatter</dt>
+<dd><p class="first">Write the data as this format. Supported output formats:</p>
+<ul class="last simple">
+<li>JSON</li>
+<li>YAML</li>
+<li>Python (via pprint.pformat)</li>
+</ul>
+</dd>
+<dt>user</dt>
+<dd>The user to own the directory, this defaults to the user salt is
+running as on the minion</dd>
+<dt>group</dt>
+<dd>The group ownership set for the directory, this defaults to the group
+salt is running as on the minion</dd>
+<dt>mode</dt>
+<dd>The permissions to set on this file, aka 644, 0775, 4664</dd>
+<dt>backup</dt>
+<dd>Overrides the default backup mode for this specific file.</dd>
+<dt>makedirs</dt>
+<dd><p class="first">Create parent directories for destination file.</p>
+<div class="last versionadded">
+<p><span class="versionmodified">New in version 2014.1.3.</span></p>
+</div>
+</dd>
+<dt>show_diff</dt>
+<dd>If set to False, the diff will not be shown.</dd>
+<dt>create</dt>
+<dd>Default is True, if create is set to False then the file will only be
+managed if the file already exists on the system.</dd>
+</dl>
+<p>For example, this state:</p>
+<div class="highlight-python"><div class="highlight"><pre>/etc/dummy/package.json:
+  file.serialize:
+    - dataset:
+        name: naive
+        description: A package using naive versioning
+        author: A confused individual &lt;iam@confused.com&gt;
+        dependencies:
+            express: &gt;= 1.2.0
+            optimist: &gt;= 0.1.0
+        engine: node 0.4.1
+    - formatter: json
+</pre></div>
+</div>
+<p>will manages the file <tt class="docutils literal"><span class="pre">/etc/dummy/package.json</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>{
+  &quot;author&quot;: &quot;A confused individual &lt;iam@confused.com&gt;&quot;,
+  &quot;dependencies&quot;: {
+    &quot;express&quot;: &quot;&gt;= 1.2.0&quot;,
+    &quot;optimist&quot;: &quot;&gt;= 0.1.0&quot;
+  },
+  &quot;description&quot;: &quot;A package using naive versioning&quot;,
+  &quot;engine&quot;: &quot;node 0.4.1&quot;
+  &quot;name&quot;: &quot;naive&quot;,
+}
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.symlink">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">symlink</tt><big>(</big><em>name</em>, <em>target</em>, <em>force=False</em>, <em>backupname=None</em>, <em>makedirs=False</em>, <em>user=None</em>, <em>group=None</em>, <em>mode=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.file.symlink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a symlink</p>
+<p>If the file already exists and is a symlink pointing to any location other
+than the specified target, the symlink will be replaced. If the symlink is
+a regular file or directory then the state will return False. If the
+regular file or directory is desired to be replaced with a symlink pass
+force: True, if it is to be renamed, pass a backupname.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The location of the symlink to create</dd>
+<dt>target</dt>
+<dd>The location that the symlink points to</dd>
+<dt>force</dt>
+<dd>If the name of the symlink exists and is not a symlink and
+force is set to False, the state will fail. If force is set to
+True, the file or directory in the way of the symlink file
+will be deleted to make room for the symlink, unless
+backupname is set, when it will be renamed</dd>
+<dt>backupname</dt>
+<dd>If the name of the symlink exists and is not a symlink, it will be
+renamed to the backupname. If the backupname already
+exists and force is False, the state will fail. Otherwise, the
+backupname will be removed first.</dd>
+<dt>makedirs</dt>
+<dd>If the location of the symlink does not already have a parent directory
+then the state will fail, setting makedirs to True will allow Salt to
+create the parent directory</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.touch">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">touch</tt><big>(</big><em>name</em>, <em>atime=None</em>, <em>mtime=None</em>, <em>makedirs=False</em><big>)</big><a class="headerlink" href="#salt.states.file.touch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replicate the 'nix &quot;touch&quot; command to create a new empty
+file or update the atime and mtime of an existing file.</p>
+<p>Note that if you just want to create a file and don't care about atime or
+mtime, you should use <tt class="docutils literal"><span class="pre">file.managed</span></tt> instead, as it is more
+feature-complete.  (Just leave out the <tt class="docutils literal"><span class="pre">source</span></tt>/<tt class="docutils literal"><span class="pre">template</span></tt>/<tt class="docutils literal"><span class="pre">contents</span></tt>
+arguments, and it will just create the file and/or check its permissions,
+without messing with contents)</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>name of the file</dd>
+<dt>atime</dt>
+<dd>atime of the file</dd>
+<dt>mtime</dt>
+<dd>mtime of the file</dd>
+<dt>makedirs</dt>
+<dd>whether we should create the parent directory/directories in order to
+touch the file</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre>/var/log/httpd/logrotate.empty:
+  file.touch
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.5.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.file.uncomment">
+<tt class="descclassname">salt.states.file.</tt><tt class="descname">uncomment</tt><big>(</big><em>name</em>, <em>regex</em>, <em>char='#'</em>, <em>backup='.bak'</em><big>)</big><a class="headerlink" href="#salt.states.file.uncomment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uncomment specified commented lines in a file</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The full path to the file to be edited</dd>
+<dt>regex</dt>
+<dd>A regular expression used to find the lines that are to be uncommented.
+This regex should not include the comment character. A leading <tt class="docutils literal"><span class="pre">^</span></tt>
+character will be stripped for convenience (for easily switching
+between comment() and uncomment()).  The regex will be searched for
+from the beginning of the line, ignoring leading spaces (we prepend
+'^[ t]*')</dd>
+<dt>char <span class="classifier-delimiter">:</span> <span class="classifier"><tt class="docutils literal"><span class="pre">#</span></tt></span></dt>
+<dd>The character to remove in order to uncomment a line</dd>
+<dt>backup <span class="classifier-delimiter">:</span> <span class="classifier"><tt class="docutils literal"><span class="pre">.bak</span></tt></span></dt>
+<dd>The file will be backed up before edit with this file extension;
+<strong>WARNING:</strong> each time <tt class="docutils literal"><span class="pre">sed</span></tt>/<tt class="docutils literal"><span class="pre">comment</span></tt>/<tt class="docutils literal"><span class="pre">uncomment</span></tt> is called will
+overwrite this backup</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre>/etc/adduser.conf:
+  file.uncomment:
+    - regex: EXTRA_GROUPS
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.5.</span></p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">salt.states.file</a><ul>
+<li><a class="reference internal" href="#operations-on-regular-files-special-files-directories-and-symlinks">Operations on regular files, special files, directories, and symlinks</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.states.eselect.html"
+                        title="previous chapter">salt.states.eselect</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.states.gem.html"
+                        title="next chapter">salt.states.gem</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.states.eselect.html" title="salt.states.eselect">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.states.gem.html" title="salt.states.gem">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

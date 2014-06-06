@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.pillar.django_orm</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin pillar modules" href="index.html">
+        <link rel="next" title="salt.pillar.git_pillar" href="salt.pillar.git_pillar.html">
+        <link rel="prev" title="salt.pillar.cobbler" href="salt.pillar.cobbler.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.pillar.cobbler.html" title="salt.pillar.cobbler">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.pillar.git_pillar.html" title="salt.pillar.git_pillar">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.pillar.django_orm">
+<span id="salt-pillar-django-orm"></span><h1>salt.pillar.django_orm<a class="headerlink" href="#module-salt.pillar.django_orm" title="Permalink to this headline">¶</a></h1>
+<p>Generate Pillar data from Django models through the Django ORM</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">maintainer:</th><td class="field-body">Micah Hausler &lt;<a class="reference external" href="mailto:micah&#46;hausler&#37;&#52;&#48;gmail&#46;com">micah<span>&#46;</span>hausler<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">maturity:</th><td class="field-body">new</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="configuring-the-django-orm-ext-pillar">
+<h2>Configuring the django_orm ext_pillar<a class="headerlink" href="#configuring-the-django-orm-ext-pillar" title="Permalink to this headline">¶</a></h2>
+<p>To use this module, your Django project must be on the salt master server with
+database access. This assumes you are using virtualenv with all the project's
+requirements installed.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">ext_pillar</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">django_orm</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">pillar_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my_application</span>
+      <span class="l-Scalar-Plain">project_path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/path/to/project/</span>
+      <span class="l-Scalar-Plain">settings_module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my_application.settings</span>
+      <span class="l-Scalar-Plain">env_file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/path/to/env/file.sh</span>
+      <span class="c1"># Optional: If your project is not using the system python,</span>
+      <span class="c1"># add your virtualenv path below.</span>
+      <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/path/to/virtualenv/</span>
+
+      <span class="l-Scalar-Plain">django_app</span><span class="p-Indicator">:</span>
+
+        <span class="c1"># Required: the app that is included in INSTALLED_APPS</span>
+        <span class="l-Scalar-Plain">my_application.clients</span><span class="p-Indicator">:</span>
+
+          <span class="c1"># Required: the model name</span>
+          <span class="l-Scalar-Plain">Client</span><span class="p-Indicator">:</span>
+
+            <span class="c1"># Required: model field to use as the key in the rendered</span>
+            <span class="c1"># Pillar. Must be unique; must also be included in the</span>
+            <span class="c1"># ``fields`` list below.</span>
+            <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">shortname</span>
+
+            <span class="c1"># Optional:</span>
+            <span class="c1"># See Django&#39;s QuerySet documentation for how to use .filter()</span>
+            <span class="l-Scalar-Plain">filter</span><span class="p-Indicator">:</span>  <span class="p-Indicator">{</span><span class="s">&#39;kw&#39;</span><span class="p-Indicator">:</span> <span class="s">&#39;args&#39;</span><span class="p-Indicator">}</span>
+
+            <span class="c1"># Required: a list of field names</span>
+            <span class="c1"># List items will be used as arguments to the .values() method.</span>
+            <span class="c1"># See Django&#39;s QuerySet documentation for how to use .values()</span>
+            <span class="l-Scalar-Plain">fields</span><span class="p-Indicator">:</span>
+              <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">field_1</span>
+              <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">field_2</span>
+</pre></div>
+</div>
+<p>This would return pillar data that would look like</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my_application</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">my_application.clients</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">Client</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">client_1</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">field_1</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">data_from_field_1</span>
+        <span class="l-Scalar-Plain">field_2</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">data_from_field_2</span>
+      <span class="l-Scalar-Plain">client_2</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">field_1</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">data_from_field_1</span>
+        <span class="l-Scalar-Plain">field_2</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">data_from_field_2</span>
+</pre></div>
+</div>
+<p>As another example, data from multiple database tables can be fetched using
+Django's regular lookup syntax. Note, using ManyToManyFields will not currently
+work since the return from values() changes if a ManyToMany is present.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">ext_pillar</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">django_orm</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">pillar_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">djangotutorial</span>
+      <span class="l-Scalar-Plain">project_path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/path/to/mysite</span>
+      <span class="l-Scalar-Plain">settings_module</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysite.settings</span>
+
+      <span class="l-Scalar-Plain">django_app</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">mysite.polls</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">Choices</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">poll__question</span>
+            <span class="l-Scalar-Plain">fields</span><span class="p-Indicator">:</span>
+              <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">poll__question</span>
+              <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">poll__id</span>
+              <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">choice_text</span>
+              <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">votes</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-documentation">
+<h2>Module Documentation<a class="headerlink" href="#module-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="salt.pillar.django_orm.ext_pillar">
+<tt class="descclassname">salt.pillar.django_orm.</tt><tt class="descname">ext_pillar</tt><big>(</big><em>minion_id</em>, <em>pillar</em>, <em>pillar_name</em>, <em>project_path</em>, <em>settings_module</em>, <em>django_app</em>, <em>env=None</em>, <em>env_file=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.pillar.django_orm.ext_pillar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to a Django database through the ORM and retrieve model fields</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pillar_name</strong> (<a class="reference external" href="http://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) -- The name of the pillar to be returned</li>
+<li><strong>project_path</strong> (<a class="reference external" href="http://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) -- The full path to your Django project (the directory
+manage.py is in)</li>
+<li><strong>settings_module</strong> (<a class="reference external" href="http://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) -- The settings module for your project. This can be
+found in your manage.py file</li>
+<li><strong>django_app</strong> (<a class="reference external" href="http://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) -- A dictionary containing your apps, models, and fields</li>
+<li><strong>env</strong> (<a class="reference external" href="http://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) -- The full path to the virtualenv for your Django project</li>
+<li><strong>env_file</strong> (<a class="reference external" href="http://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) -- An optional bash file that sets up your environment. The
+file is run in a subprocess and the changed variables are then added</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">salt.pillar.django_orm</a><ul>
+<li><a class="reference internal" href="#configuring-the-django-orm-ext-pillar">Configuring the django_orm ext_pillar</a></li>
+<li><a class="reference internal" href="#module-documentation">Module Documentation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.pillar.cobbler.html"
+                        title="previous chapter">salt.pillar.cobbler</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.pillar.git_pillar.html"
+                        title="next chapter">salt.pillar.git_pillar</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.pillar.cobbler.html" title="salt.pillar.cobbler">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.pillar.git_pillar.html" title="salt.pillar.git_pillar">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

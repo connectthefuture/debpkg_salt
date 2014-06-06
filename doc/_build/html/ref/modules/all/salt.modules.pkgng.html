@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.modules.pkgng</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin execution modules" href="index.html">
+        <link rel="next" title="salt.modules.pkgutil" href="salt.modules.pkgutil.html">
+        <link rel="prev" title="salt.modules.pkgin" href="salt.modules.pkgin.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.pkgin.html" title="salt.modules.pkgin">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.pkgutil.html" title="salt.modules.pkgutil">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.modules.pkgng">
+<span id="salt-modules-pkgng"></span><h1>salt.modules.pkgng<a class="headerlink" href="#module-salt.modules.pkgng" title="Permalink to this headline">¶</a></h1>
+<p>Support for <tt class="docutils literal"><span class="pre">pkgng</span></tt>, the new package manager for FreeBSD</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This module has been completely rewritten. Up to and includng version
+0.17.x, it was available as the <tt class="docutils literal"><span class="pre">pkgng</span></tt> module, (<tt class="docutils literal"><span class="pre">pkgng.install</span></tt>,
+<tt class="docutils literal"><span class="pre">pkgng.delete</span></tt>, etc.), but moving forward this module will no longer be
+available as <tt class="docutils literal"><span class="pre">pkgng</span></tt>, as it will behave like a normal Salt <tt class="docutils literal"><span class="pre">pkg</span></tt>
+provider. The documentation below should not be considered to apply to this
+module in versions &lt;= 0.17.x. If your minion is running a 0.17.x release or
+older, then the documentation for this module can be viewed using the
+<tt class="xref py py-mod docutils literal"><span class="pre">sys.doc</span></tt> function:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt bsdminion sys.doc pkgng
+</pre></div>
+</div>
+</div>
+<p>This module provides an interface to <tt class="docutils literal"><span class="pre">pkg(8)</span></tt>. It acts as the default
+package provider for FreeBSD 10 and newer. For FreeBSD hosts which have
+been upgraded to use pkgng, you will need to override the <tt class="docutils literal"><span class="pre">pkg</span></tt> provider
+by setting the <a class="reference internal" href="../../configuration/minion.html#std:conf_minion-providers"><tt class="xref std std-conf_minion docutils literal"><span class="pre">providers</span></tt></a> parameter in your Minion config
+file, in order to use this module to manage packages, like so:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">providers</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">pkgng</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="salt.modules.pkgng.audit">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">audit</tt><big>(</big><em>jail=None</em>, <em>chroot=None</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.audit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Audits installed packages against known vulnerabilities</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.audit
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>jail</dt>
+<dd><p class="first">Audit packages within the specified jail</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.audit <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+</pre></div>
+</div>
+</dd>
+<dt>chroot</dt>
+<dd><p class="first">Audit packages within the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is
+specified)</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.audit <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.autoremove">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">autoremove</tt><big>(</big><em>jail=None</em>, <em>chroot=None</em>, <em>dryrun=False</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.autoremove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete packages which were automatically installed as dependencies and are
+not required anymore.</p>
+<dl class="docutils">
+<dt>dryrun</dt>
+<dd>Dry-run mode. The list of changes to packages is always printed,
+but no changes are actually made.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.autoremove
+salt <span class="s1">&#39;*&#39;</span> pkg.autoremove <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.autoremove <span class="nv">dryrun</span><span class="o">=</span>True
+salt <span class="s1">&#39;*&#39;</span> pkg.autoremove <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt; <span class="nv">dryrun</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.backup">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">backup</tt><big>(</big><em>file_name</em>, <em>jail=None</em>, <em>chroot=None</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.backup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export installed packages into yaml+mtree file</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.backup /tmp/pkg
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>jail</dt>
+<dd><p class="first">Backup packages from the specified jail. Note that this will run the
+command within the jail, and so the path to the backup file will be
+relative to the root of the jail</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.backup /tmp/pkg <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+</pre></div>
+</div>
+</dd>
+<dt>chroot</dt>
+<dd><p class="first">Backup packages from the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is
+specified). Note that this will run the command within the chroot, and
+so the path to the backup file will be relative to the root of the
+chroot.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.backup /tmp/pkg <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.check">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">check</tt><big>(</big><em>jail=None</em>, <em>chroot=None</em>, <em>depends=False</em>, <em>recompute=False</em>, <em>checksum=False</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sanity checks installed packages</p>
+<dl class="docutils">
+<dt>jail</dt>
+<dd><p class="first">Perform the sanity check in the specified jail</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.check <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+</pre></div>
+</div>
+</dd>
+<dt>chroot</dt>
+<dd><p class="first">Perform the sanity check in the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt>
+is specified)</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.check <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Of the below, at least one must be set to <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+<dl class="docutils">
+<dt>depends</dt>
+<dd><p class="first">Check for and install missing dependencies.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.check <span class="nv">recompute</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>recompute</dt>
+<dd><p class="first">Recompute sizes and checksums of installed packages.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.check <span class="nv">depends</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>checksum</dt>
+<dd><p class="first">Find invalid checksums for installed packages.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.check <span class="nv">checksum</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.clean">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">clean</tt><big>(</big><em>jail=None</em>, <em>chroot=None</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleans the local cache of fetched remote packages</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.clean
+salt <span class="s1">&#39;*&#39;</span> pkg.clean <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.clean <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.fetch">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">fetch</tt><big>(</big><em>name</em>, <em>jail=None</em>, <em>chroot=None</em>, <em>fetch_all=False</em>, <em>quiet=False</em>, <em>fromrepo=None</em>, <em>glob=True</em>, <em>regex=False</em>, <em>pcre=False</em>, <em>local=False</em>, <em>depends=False</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches remote packages</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.fetch &lt;package name&gt;
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>jail</dt>
+<dd><p class="first">Fetch package in the specified jail</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.fetch &lt;package name&gt; <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+</pre></div>
+</div>
+</dd>
+<dt>chroot</dt>
+<dd><p class="first">Fetch package in the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is
+specified)</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.fetch &lt;package name&gt; <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd>
+<dt>fetch_all</dt>
+<dd><p class="first">Fetch all packages.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.fetch &lt;package name&gt; <span class="nv">fetch_all</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>quiet</dt>
+<dd><p class="first">Quiet mode. Show less output.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.fetch &lt;package name&gt; <span class="nv">quiet</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>fromrepo</dt>
+<dd><p class="first">Fetches packages from the given repo if multiple repo support
+is enabled. See <tt class="docutils literal"><span class="pre">pkg.conf(5)</span></tt>.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.fetch &lt;package name&gt; <span class="nv">fromrepo</span><span class="o">=</span>repo
+</pre></div>
+</div>
+</dd>
+<dt>glob</dt>
+<dd><p class="first">Treat pkg_name as a shell glob pattern.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.fetch &lt;package name&gt; <span class="nv">glob</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>regex</dt>
+<dd><p class="first">Treat pkg_name as a regular expression.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.fetch &lt;regular expression&gt; <span class="nv">regex</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>pcre</dt>
+<dd><p class="first">Treat pkg_name is an extended regular expression.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.fetch &lt;extended regular expression&gt; <span class="nv">pcre</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>local</dt>
+<dd><p class="first">Skip updating the repository catalogues with pkg-update(8). Use the
+local cache only.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.fetch &lt;package name&gt; <span class="nb">local</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>depends</dt>
+<dd><p class="first">Fetch the package and its dependencies as well.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.fetch &lt;package name&gt; <span class="nv">depends</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.install">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">install</tt><big>(</big><em>name=None</em>, <em>fromrepo=None</em>, <em>pkgs=None</em>, <em>sources=None</em>, <em>jail=None</em>, <em>chroot=None</em>, <em>orphan=False</em>, <em>force=False</em>, <em>glob=False</em>, <em>local=False</em>, <em>dryrun=False</em>, <em>quiet=False</em>, <em>require=False</em>, <em>regex=False</em>, <em>pcre=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install package(s) from a repository</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd><p class="first">The name of the package to install</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;package name&gt;
+</pre></div>
+</div>
+</dd>
+<dt>jail</dt>
+<dd>Install the package into the specified jail</dd>
+<dt>chroot</dt>
+<dd>Install the paackage into the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is
+specified)</dd>
+<dt>orphan</dt>
+<dd><p class="first">Mark the installed package as orphan. Will be automatically removed
+if no other packages depend on them. For more information please
+refer to <tt class="docutils literal"><span class="pre">pkg-autoremove(8)</span></tt>.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;package name&gt; <span class="nv">orphan</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>force</dt>
+<dd><p class="first">Force the reinstallation of the package if already installed.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;package name&gt; <span class="nv">force</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>glob</dt>
+<dd><p class="first">Treat the package names as shell glob patterns.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;package name&gt; <span class="nv">glob</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>local</dt>
+<dd><p class="first">Do not update the repository catalogues with <tt class="docutils literal"><span class="pre">pkg-update(8)</span></tt>.  A
+value of <tt class="docutils literal"><span class="pre">True</span></tt> here is equivalent to using the <tt class="docutils literal"><span class="pre">-U</span></tt> flag with
+<tt class="docutils literal"><span class="pre">pkg</span> <span class="pre">install</span></tt>.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;package name&gt; <span class="nb">local</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>dryrun</dt>
+<dd><p class="first">Dru-run mode. The list of changes to packages is always printed,
+but no changes are actually made.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;package name&gt; <span class="nv">dryrun</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>quiet</dt>
+<dd><p class="first">Force quiet output, except when dryrun is used, where pkg install
+will always show packages to be installed, upgraded or deleted.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;package name&gt; <span class="nv">quiet</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>require</dt>
+<dd><p class="first">When used with force, reinstalls any packages that require the
+given package.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;package name&gt; <span class="nv">require</span><span class="o">=</span>True <span class="nv">force</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>fromrepo</dt>
+<dd><p class="first">In multi-repo mode, override the pkg.conf ordering and only attempt
+to download packages from the named repository.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;package name&gt; <span class="nv">fromrepo</span><span class="o">=</span>repo
+</pre></div>
+</div>
+</dd>
+<dt>regex</dt>
+<dd><p class="first">Treat the package names as a regular expression</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;regular expression&gt; <span class="nv">regex</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>pcre</dt>
+<dd><p class="first">Treat the package names as extended regular expressions.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;extended regular expression&gt; <span class="nv">pcre</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.latest_version">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">latest_version</tt><big>(</big><em>*names</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.latest_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the latest version of the named package available for upgrade or
+installation. If more than one package name is specified, a dict of
+name/version pairs is returned.</p>
+<p>If the latest version of a given package is already installed, an empty
+string will be returned for that package.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.latest_version &lt;package name&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.latest_version &lt;package name&gt; <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.latest_version &lt;package name&gt; <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.list_pkgs">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">list_pkgs</tt><big>(</big><em>versions_as_list=False</em>, <em>jail=None</em>, <em>chroot=None</em>, <em>with_origin=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.list_pkgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the packages currently installed as a dict:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;&lt;package_name&gt;&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;version&gt;&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>jail</dt>
+<dd>List the packages in the specified jail</dd>
+<dt>chroot</dt>
+<dd>List the pacakges in the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is
+specified)</dd>
+<dt>with_origin <span class="classifier-delimiter">:</span> <span class="classifier">False</span></dt>
+<dd><p class="first">Return a nested dictionary containing both the origin name and version
+for each installed package.</p>
+<div class="last versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
+</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.list_pkgs
+salt <span class="s1">&#39;*&#39;</span> pkg.list_pkgs <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.list_pkgs <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.parse_config">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">parse_config</tt><big>(</big><em>file_name='/usr/local/etc/pkg.conf'</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.parse_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dict of uncommented global variables.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.parse_config
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">NOTE:</span></tt> not working properly right now</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.refresh_db">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">refresh_db</tt><big>(</big><em>jail=None</em>, <em>chroot=None</em>, <em>force=False</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.refresh_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refresh PACKAGESITE contents</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This function can accessed using <tt class="docutils literal"><span class="pre">pkg.update</span></tt> in addition to
+<tt class="docutils literal"><span class="pre">pkg.refresh_db</span></tt>, to more closely match the CLI usage of <tt class="docutils literal"><span class="pre">pkg(8)</span></tt>.</p>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.refresh_db
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>jail</dt>
+<dd>Refresh the pkg database within the specified jail</dd>
+<dt>chroot</dt>
+<dd>Refresh the pkg database within the specified chroot (ignored if
+<tt class="docutils literal"><span class="pre">jail</span></tt> is specified)</dd>
+<dt>force</dt>
+<dd><p class="first">Force a full download of the repository catalogue without regard to the
+respective ages of the local and remote copies of the catalogue.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.refresh_db <span class="nv">force</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.remove">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">remove</tt><big>(</big><em>name=None</em>, <em>pkgs=None</em>, <em>jail=None</em>, <em>chroot=None</em>, <em>all_installed=False</em>, <em>force=False</em>, <em>glob=False</em>, <em>dryrun=False</em>, <em>recurse=False</em>, <em>regex=False</em>, <em>pcre=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a package from the database and system</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This function can accessed using <tt class="docutils literal"><span class="pre">pkg.delete</span></tt> in addition to
+<tt class="docutils literal"><span class="pre">pkg.remove</span></tt>, to more closely match the CLI usage of <tt class="docutils literal"><span class="pre">pkg(8)</span></tt>.</p>
+</div>
+<dl class="docutils">
+<dt>name</dt>
+<dd><p class="first">The package to remove</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;package name&gt;
+</pre></div>
+</div>
+</dd>
+<dt>jail</dt>
+<dd>Delete the package from the specified jail</dd>
+<dt>chroot</dt>
+<dd>Delete the paackage grom the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is
+specified)</dd>
+<dt>all_installed</dt>
+<dd><p class="first">Deletes all installed packages from the system and empties the
+database. USE WITH CAUTION!</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove all <span class="nv">all_installed</span><span class="o">=</span>True <span class="nv">force</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>force</dt>
+<dd><p class="first">Forces packages to be removed despite leaving unresolved
+dependencies.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;package name&gt; <span class="nv">force</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>glob</dt>
+<dd><p class="first">Treat the package names as shell glob patterns.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;package name&gt; <span class="nv">glob</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>dryrun</dt>
+<dd><p class="first">Dry run mode. The list of packages to delete is always printed, but
+no packages are actually deleted.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;package name&gt; <span class="nv">dryrun</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>recurse</dt>
+<dd><p class="first">Delete all packages that require the listed package as well.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;package name&gt; <span class="nv">recurse</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>regex</dt>
+<dd><p class="first">Treat the package names as regular expressions.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;regular expression&gt; <span class="nv">regex</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>pcre</dt>
+<dd><p class="first">Treat the package names as extended regular expressions.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;extended regular expression&gt; <span class="nv">pcre</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.restore">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">restore</tt><big>(</big><em>file_name</em>, <em>jail=None</em>, <em>chroot=None</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.restore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads archive created by pkg backup -d and recreates the database.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.restore /tmp/pkg
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>jail</dt>
+<dd><p class="first">Restore database to the specified jail. Note that this will run the
+command within the jail, and so the path to the file from which the pkg
+database will be restored is relative to the root of the jail.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.restore /tmp/pkg <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+</pre></div>
+</div>
+</dd>
+<dt>chroot</dt>
+<dd><p class="first">Restore database to the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is
+specified). Note that this will run the command within the chroot, and
+so the path to the file from which the pkg database will be restored is
+relative to the root of the chroot.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.restore /tmp/pkg <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.search">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">search</tt><big>(</big><em>name</em>, <em>jail=None</em>, <em>chroot=None</em>, <em>exact=False</em>, <em>glob=False</em>, <em>regex=False</em>, <em>pcre=False</em>, <em>comment=False</em>, <em>desc=False</em>, <em>full=False</em>, <em>depends=False</em>, <em>size=False</em>, <em>quiet=False</em>, <em>origin=False</em>, <em>prefix=False</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches in remote package repositories</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>jail</dt>
+<dd><p class="first">Perform the search using the <tt class="docutils literal"><span class="pre">pkg.conf(5)</span></tt> from the specified jail</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+</pre></div>
+</div>
+</dd>
+<dt>chroot</dt>
+<dd><p class="first">Perform the search using the <tt class="docutils literal"><span class="pre">pkg.conf(5)</span></tt> from the specified chroot
+(ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is specified)</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd>
+<dt>exact</dt>
+<dd><p class="first">Treat pattern as exact pattern.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">exact</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>glob</dt>
+<dd><p class="first">Treat pattern as a shell glob pattern.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">glob</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>regex</dt>
+<dd><p class="first">Treat pattern as a regular expression.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">regex</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>pcre</dt>
+<dd><p class="first">Treat pattern as an extended regular expression.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">pcre</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>comment</dt>
+<dd><p class="first">Search for pattern in the package comment one-line description.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">comment</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>desc</dt>
+<dd><p class="first">Search for pattern in the package description.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">desc</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>full</dt>
+<dd><p class="first">Displays full information about the matching packages.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">full</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>depends</dt>
+<dd><p class="first">Displays the dependencies of pattern.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">depends</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>size</dt>
+<dd><p class="first">Displays the size of the package</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">size</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>quiet</dt>
+<dd><p class="first">Be quiet. Prints only the requested information without displaying
+many hints.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">quiet</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>origin</dt>
+<dd><p class="first">Displays pattern origin.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">origin</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>prefix</dt>
+<dd><p class="first">Displays the installation prefix for each package matching pattern.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.search pattern <span class="nv">prefix</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.stats">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">stats</tt><big>(</big><em>local=False</em>, <em>remote=False</em>, <em>jail=None</em>, <em>chroot=None</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return pkgng stats.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.stats
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>local</dt>
+<dd><p class="first">Display stats only for the local package database.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.stats <span class="nb">local</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>remote</dt>
+<dd><p class="first">Display stats only for the remote package database(s).</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.stats <span class="nv">remote</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>jail</dt>
+<dd><p class="first">Retrieve stats from the specified jail.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.stats <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.stats <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt; <span class="nb">local</span><span class="o">=</span>True
+salt <span class="s1">&#39;*&#39;</span> pkg.stats <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt; <span class="nv">remote</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>chroot</dt>
+<dd><p class="first">Retrieve stats from the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is
+specified).</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.stats <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+salt <span class="s1">&#39;*&#39;</span> pkg.stats <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot <span class="nb">local</span><span class="o">=</span>True
+salt <span class="s1">&#39;*&#39;</span> pkg.stats <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot <span class="nv">remote</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.update_package_site">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">update_package_site</tt><big>(</big><em>new_url</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.update_package_site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates remote package repo URL, PACKAGESITE var to be exact.</p>
+<p>Must use <tt class="docutils literal"><span class="pre">http://</span></tt>, <tt class="docutils literal"><span class="pre">ftp://</span></tt>, or <tt class="docutils literal"><span class="pre">https://</span></tt> protocol</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.update_package_site http://127.0.0.1/
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.updating">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">updating</tt><big>(</big><em>name</em>, <em>jail=None</em>, <em>chroot=None</em>, <em>filedate=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.updating" title="Permalink to this definition">¶</a></dt>
+<dd><p>'
+Displays UPDATING entries of software packages</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.updating foo
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>jail</dt>
+<dd><p class="first">Perform the action in the specified jail</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.updating foo <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+</pre></div>
+</div>
+</dd>
+<dt>chroot</dt>
+<dd><p class="first">Perform the action in the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is
+specified)</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.updating foo <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd>
+<dt>filedate</dt>
+<dd><p class="first">Only entries newer than date are shown. Use a YYYYMMDD date format.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.updating foo <span class="nv">filedate</span><span class="o">=</span>20130101
+</pre></div>
+</div>
+</dd>
+<dt>filename</dt>
+<dd><p class="first">Defines an alternative location of the UPDATING file.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.updating foo <span class="nv">filename</span><span class="o">=</span>/tmp/UPDATING
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.upgrade">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">upgrade</tt><big>(</big><em>jail=None</em>, <em>chroot=None</em>, <em>force=False</em>, <em>local=False</em>, <em>dryrun=False</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.upgrade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upgrade all packages (run a <tt class="docutils literal"><span class="pre">pkg</span> <span class="pre">upgrade</span></tt>)</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.upgrade
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>jail</dt>
+<dd><p class="first">Audit packages within the specified jail</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.upgrade <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+</pre></div>
+</div>
+</dd>
+<dt>chroot</dt>
+<dd><p class="first">Audit packages within the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is
+specified)</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.upgrade <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Any of the below options can also be used with <tt class="docutils literal"><span class="pre">jail</span></tt> or <tt class="docutils literal"><span class="pre">chroot</span></tt>.</p>
+<dl class="docutils">
+<dt>force</dt>
+<dd><p class="first">Force reinstalling/upgrading the whole set of packages.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.upgrade <span class="nv">force</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>local</dt>
+<dd><p class="first">Do not update the repository catalogues with <tt class="docutils literal"><span class="pre">pkg-update(8)</span></tt>. A value
+of <tt class="docutils literal"><span class="pre">True</span></tt> here is equivalent to using the <tt class="docutils literal"><span class="pre">-U</span></tt> flag with <tt class="docutils literal"><span class="pre">pkg</span>
+<span class="pre">upgrade</span></tt>.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.upgrade <span class="nb">local</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>dryrun</dt>
+<dd><p class="first">Dry-run mode: show what packages have updates available, but do not
+perform any upgrades. Repository catalogues will be updated as usual
+unless the local option is also given.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.upgrade <span class="nv">dryrun</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.version">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">version</tt><big>(</big><em>*names</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string representing the package version or an empty string if not
+installed. If more than one package name is specified, a dict of
+name/version pairs is returned.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This function can accessed using <tt class="docutils literal"><span class="pre">pkg.info</span></tt> in addition to
+<tt class="docutils literal"><span class="pre">pkg.version</span></tt>, to more closely match the CLI usage of <tt class="docutils literal"><span class="pre">pkg(8)</span></tt>.</p>
+</div>
+<dl class="docutils">
+<dt>jail</dt>
+<dd>Get package version information for the specified jail</dd>
+<dt>chroot</dt>
+<dd>Get package version information for the specified chroot (ignored if
+<tt class="docutils literal"><span class="pre">jail</span></tt> is specified)</dd>
+<dt>with_origin <span class="classifier-delimiter">:</span> <span class="classifier">False</span></dt>
+<dd><p class="first">Return a nested dictionary containing both the origin name and version
+for each specified package.</p>
+<div class="last versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
+</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.version &lt;package name&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.version &lt;package name&gt; <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.version &lt;package1&gt; &lt;package2&gt; &lt;package3&gt; ...
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pkgng.which">
+<tt class="descclassname">salt.modules.pkgng.</tt><tt class="descname">which</tt><big>(</big><em>path</em>, <em>jail=None</em>, <em>chroot=None</em>, <em>origin=False</em>, <em>quiet=False</em><big>)</big><a class="headerlink" href="#salt.modules.pkgng.which" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays which package installed a specific file</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.which &lt;file name&gt;
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>jail</dt>
+<dd><p class="first">Perform the check in the specified jail</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.which &lt;file name&gt; <span class="nv">jail</span><span class="o">=</span>&lt;jail name or id&gt;
+</pre></div>
+</div>
+</dd>
+<dt>chroot</dt>
+<dd><p class="first">Perform the check in the specified chroot (ignored if <tt class="docutils literal"><span class="pre">jail</span></tt> is
+specified)</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.which &lt;file name&gt; <span class="nv">chroot</span><span class="o">=</span>/path/to/chroot
+</pre></div>
+</div>
+</dd>
+<dt>origin</dt>
+<dd><p class="first">Shows the origin of the package instead of name-version.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.which &lt;file name&gt; <span class="nv">origin</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+<dt>quiet</dt>
+<dd><p class="first">Quiet output.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.which &lt;file name&gt; <span class="nv">quiet</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.modules.pkgin.html"
+                        title="previous chapter">salt.modules.pkgin</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.modules.pkgutil.html"
+                        title="next chapter">salt.modules.pkgutil</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.pkgin.html" title="salt.modules.pkgin">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.pkgutil.html" title="salt.modules.pkgutil">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt 0.9.3 Release Notes</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Release notes and upgrade instructions" href="index.html">
+        <link rel="next" title="Salt 0.9.4 Release Notes" href="0.9.4.html">
+        <link rel="prev" title="Salt 0.9.2 Release Notes" href="0.9.2.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.9.2.html" title="Salt 0.9.2 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.9.4.html" title="Salt 0.9.4 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-0-9-3-release-notes">
+<h1>Salt 0.9.3 Release Notes<a class="headerlink" href="#salt-0-9-3-release-notes" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">release:</th><td class="field-body">2011-11-05</td>
+</tr>
+</tbody>
+</table>
+<p>Salt 0.9.3 is finally arrived. This is another big step forward for Salt, new
+features range from proper FreeBSD support to fixing issues seen when
+attaching a minion to a master over the Internet.</p>
+<p>The biggest improvements in 0.9.3 though can be found in the state system, it
+has progressed from something ready for early testers to a system ready to
+compete with platforms such as Puppet and Chef. The backbone of the state
+system has been greatly refined and many new features are available.</p>
+<div class="section" id="download">
+<h2>Download!<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<p>The Salt source can be downloaded from the salt GitHub site:</p>
+<p><a class="reference external" href="https://github.com/downloads/saltstack/salt/salt-0.9.3.tar.gz">https://github.com/downloads/saltstack/salt/salt-0.9.3.tar.gz</a></p>
+<p>Or from PyPI:</p>
+<p><a class="reference external" href="http://pypi.python.org/packages/source/s/salt/salt-0.9.3.tar.gz">http://pypi.python.org/packages/source/s/salt/salt-0.9.3.tar.gz</a></p>
+<p>For instructions on how to set up Salt please see the <a class="reference internal" href="../installation/index.html#installation"><em>Installation</em></a>
+instructions.</p>
+</div>
+<div class="section" id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="wan-support">
+<h3>WAN Support<a class="headerlink" href="#wan-support" title="Permalink to this headline">¶</a></h3>
+<p>Recently more people have been testing Salt minions connecting to Salt Masters
+over the Internet. It was found that Minions would commonly loose their
+connection to the master when working over the internet. The minions can now
+detect if the connection has been lost and reconnect to the master, making
+WAN connections much more reliable.</p>
+</div>
+<div class="section" id="state-system-fixes">
+<h3>State System Fixes<a class="headerlink" href="#state-system-fixes" title="Permalink to this headline">¶</a></h3>
+<p>Substantial testing has gone into the state system and it is ready for real
+world usage. A great deal has been added to the documentation for states and
+the modules and functions available to states have been cleanly documented.</p>
+<p>A number of State System bugs have also been founds and repaired, the output
+from the state system has also been refined to be extremely clear and concise.</p>
+<p>Error reporting has also been introduced, issues found in sls files will now
+be clearly reported when executing Salt States.</p>
+</div>
+<div class="section" id="extend-declaration">
+<h3>Extend Declaration<a class="headerlink" href="#extend-declaration" title="Permalink to this headline">¶</a></h3>
+<p>The Salt States have also gained the <tt class="docutils literal"><span class="pre">extend</span></tt> declaration. This declaration
+allows for states to be cleanly modified in a post environment. Simply said,
+if there is an apache.sls file that declares the apache service, then another
+sls can include apache and then extend it:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">apache</span>
+
+<span class="l-Scalar-Plain">extend</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">apache</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mod_python</span>
+
+<span class="l-Scalar-Plain">mod_python</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+</pre></div>
+</div>
+<p>The notable behavior with the extend functionality is that it literally extends
+or overwrites a declaration set up in another sls module. This means that Salt
+will behave as though the modifications were made directly to the apache sls.
+This ensures that the apache service in this example is directly tied to all
+requirements.</p>
+</div>
+<div class="section" id="highstate-structure-specification">
+<h3>Highstate Structure Specification<a class="headerlink" href="#highstate-structure-specification" title="Permalink to this headline">¶</a></h3>
+<p>This release comes with a clear specification of the Highstate data structure
+that is used to declare Salt States. This specification explains everything
+that can be declared in the Salt SLS modules.</p>
+<p>The specification is extremely simple, and illustrates how Salt has been able
+to fulfill the requirements of a central configuration manager within a simple
+and easy to understand format and specification.</p>
+</div>
+<div class="section" id="shebang-renderer-switch">
+<h3>SheBang Renderer Switch<a class="headerlink" href="#shebang-renderer-switch" title="Permalink to this headline">¶</a></h3>
+<p>It came to our attention that having many renderers means that there may be a
+situation where more than one State Renderer should be available within a
+single State Tree.</p>
+<p>The method chosen to accomplish this was something already familiar to
+developers and systems administrators, a SheBang. The Python State Renderer
+displays this new capability.</p>
+</div>
+<div class="section" id="python-state-renderer">
+<h3>Python State Renderer<a class="headerlink" href="#python-state-renderer" title="Permalink to this headline">¶</a></h3>
+<p>Until now Salt States could only be declared in yaml or json using Jinja or
+Mako. A new, very powerful, renderer has been added, making it possible to
+write Salt States in pure Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#!py</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Install the python-mako package</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">&#39;include&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;python&#39;</span><span class="p">],</span>
+            <span class="s">&#39;python-mako&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;pkg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;installed&#39;</span><span class="p">]}}</span>
+</pre></div>
+</div>
+<p>This renderer is used by making a run function that returns the Highstate data
+structure. Any capabilities of Python can be used in pure Python sls modules.</p>
+<p>This example of a pure Python sls module is the same as this example in yaml:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">python</span>
+
+<span class="l-Scalar-Plain">python-mako</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="freebsd-support">
+<h3>FreeBSD Support<a class="headerlink" href="#freebsd-support" title="Permalink to this headline">¶</a></h3>
+<p>Additional support has been added for FreeBSD, this is Salt's first branch out
+of the Linux world and proves the viability of Salt on non-Linux platforms.</p>
+<p>Salt remote execution already worked on FreeBSD, and should work without issue
+on any Unix-like platform. But this support comes in the form of package
+management and user support, so Salt States also work on FreeBSD now.</p>
+<p>The new freebsdpkg module provides package management support for FreeBSD
+and the new pw_user and pw_group provide user and group management.</p>
+</div>
+</div>
+<div class="section" id="module-and-state-additions">
+<h2>Module and State Additions<a class="headerlink" href="#module-and-state-additions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cron-support">
+<h3>Cron Support<a class="headerlink" href="#cron-support" title="Permalink to this headline">¶</a></h3>
+<p>Support for managing the system crontab has been added, declaring a cron state
+can be done easily:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">date &gt; /tmp/datestamp</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cron</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">present</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fred</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">minute</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hour</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="file-state-additions">
+<h3>File State Additions<a class="headerlink" href="#file-state-additions" title="Permalink to this headline">¶</a></h3>
+<p>The file state has been given a number of new features, primarily the
+directory, recurse, symlink and absent functions.</p>
+<dl class="docutils">
+<dt>file.directory</dt>
+<dd><p class="first">Make sure that a directory exists and has the right permissions.</p>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/srv/foo</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">directory</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1755</span>
+</pre></div>
+</div>
+</dd>
+<dt>file.symlink</dt>
+<dd><p class="first">Make a symlink.</p>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/var/lib/www</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">symlink</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/srv/www</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">force</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</dd>
+<dt>file.recurse</dt>
+<dd><p class="first">The recurse state function will recursively download a directory on the
+master file server and place it on the minion. Any change in the files on
+the master will be pushed to the minion. The recurse function is very
+powerful and has been tested by pushing out the full Linux kernel source.</p>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/opt/code</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">recurse</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://linux</span>
+</pre></div>
+</div>
+</dd>
+<dt>file.absent</dt>
+<dd><p class="first">Make sure that the file is not on the system, recursively deletes
+directories, files and symlinks.</p>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/etc/httpd/conf.d/somebogusfile.conf</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">absent</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="sysctl-module-and-state">
+<h3>Sysctl Module and State<a class="headerlink" href="#sysctl-module-and-state" title="Permalink to this headline">¶</a></h3>
+<p>The sysctl module and state allows for sysctl components in the kernel to be
+managed easily. the sysctl module contains the following functions:</p>
+<dl class="docutils">
+<dt>sysctl.show</dt>
+<dd>Return a list of sysctl parameters for this minion</dd>
+<dt>sysctl.get</dt>
+<dd>Return a single sysctl parameter for this minion</dd>
+<dt>sysctl.assign</dt>
+<dd>Assign a single sysctl parameter for this minion</dd>
+<dt>sysctl.persist</dt>
+<dd>Assign and persist a simple sysctl parameter for this minion</dd>
+</dl>
+<p>The sysctl state allows for sysctl parameters to be assigned:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">vm.swappiness</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">sysctl</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">present</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">value</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="kernel-module-management">
+<h3>Kernel Module Management<a class="headerlink" href="#kernel-module-management" title="Permalink to this headline">¶</a></h3>
+<p>A module for managing Linux kernel modules has been added. The new functions
+are as follows:</p>
+<dl class="docutils">
+<dt>kmod.available</dt>
+<dd>Return a list of all available kernel modules</dd>
+<dt>kmod.check_available</dt>
+<dd>Check to see if the specified kernel module is available</dd>
+<dt>kmod.lsmod</dt>
+<dd>Return a dict containing information about currently loaded modules</dd>
+<dt>kmod.load</dt>
+<dd>Load the specified kernel module</dd>
+<dt>kmod.remove</dt>
+<dd>Unload the specified kernel module</dd>
+</dl>
+<p>The kmod state can enforce modules be either present or absent:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">kvm_intel</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">kmod</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">present</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ssh-authorized-keys">
+<h3>Ssh Authorized Keys<a class="headerlink" href="#ssh-authorized-keys" title="Permalink to this headline">¶</a></h3>
+<p>The ssh_auth state can distribute ssh authorized keys out to minions. Ssh
+authorized keys can be present or absent.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">AAAAB3NzaC1kc3MAAACBAL0sQ9fJ5bYTEyYvlRBsJdDOo49CNfhlWHWXQRqul6rwL4KIuPrhY7hBw0tV7UNC7J9IZRNO4iGod9C+OYutuWGJ2x5YNf7P4uGhH9AhBQGQ4LKOLxhDyT1OrDKXVFw3wgY3rHiJYAbd1PXNuclJHOKL27QZCRFjWSEaSrUOoczvAAAAFQD9d4jp2dCJSIseSkk4Lez3LqFcqQAAAIAmovHIVSrbLbXAXQE8eyPoL9x5C+x2GRpEcA7AeMH6bGx/xw6NtnQZVMcmZIre5Elrw3OKgxcDNomjYFNHuOYaQLBBMosyO++tJe1KTAr3A2zGj2xbWO9JhEzu8xvSdF8jRu0N5SRXPpzSyU4o1WGIPLVZSeSq1VFTHRT4lXB7PQAAAIBXUz6ZO0bregF5xtJRuxUN583HlfQkXvxLqHAGY8WSEVlTnuG/x75wolBDbVzeTlxWxgxhafj7P6Ncdv25Wz9wvc6ko/puww0b3rcLNqK+XCNJlsM/7lB8Q26iK5mRZzNsGeGwGTyzNIMBekGYQ5MRdIcPv5dBIP/1M6fQDEsAXQ==</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">ssh_auth</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">present</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">frank</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">enc</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dsa</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">comment</span><span class="p-Indicator">:</span> <span class="s">&#39;Frank&#39;</span><span class="l-Scalar-Plain">s key&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt 0.9.3 Release Notes</a><ul>
+<li><a class="reference internal" href="#download">Download!</a></li>
+<li><a class="reference internal" href="#new-features">New Features</a><ul>
+<li><a class="reference internal" href="#wan-support">WAN Support</a></li>
+<li><a class="reference internal" href="#state-system-fixes">State System Fixes</a></li>
+<li><a class="reference internal" href="#extend-declaration">Extend Declaration</a></li>
+<li><a class="reference internal" href="#highstate-structure-specification">Highstate Structure Specification</a></li>
+<li><a class="reference internal" href="#shebang-renderer-switch">SheBang Renderer Switch</a></li>
+<li><a class="reference internal" href="#python-state-renderer">Python State Renderer</a></li>
+<li><a class="reference internal" href="#freebsd-support">FreeBSD Support</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-and-state-additions">Module and State Additions</a><ul>
+<li><a class="reference internal" href="#cron-support">Cron Support</a></li>
+<li><a class="reference internal" href="#file-state-additions">File State Additions</a></li>
+<li><a class="reference internal" href="#sysctl-module-and-state">Sysctl Module and State</a></li>
+<li><a class="reference internal" href="#kernel-module-management">Kernel Module Management</a></li>
+<li><a class="reference internal" href="#ssh-authorized-keys">Ssh Authorized Keys</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="0.9.2.html"
+                        title="previous chapter">Salt 0.9.2 Release Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="0.9.4.html"
+                        title="next chapter">Salt 0.9.4 Release Notes</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.9.2.html" title="Salt 0.9.2 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.9.4.html" title="Salt 0.9.4 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

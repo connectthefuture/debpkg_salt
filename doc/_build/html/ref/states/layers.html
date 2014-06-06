@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>State System Layers</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="The Orchestrate Runner" href="master_side.html">
+        <link rel="prev" title="State Enforcement" href="index.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="index.html" title="State Enforcement">previous</a>
+                
+            </li>
+            <li>
+                <a href="master_side.html" title="The Orchestrate Runner">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="state-system-layers">
+<h1>State System Layers<a class="headerlink" href="#state-system-layers" title="Permalink to this headline">¶</a></h1>
+<p>The Salt state system is comprised of multiple layers. While using Salt does
+not require an understanding of the state layers, a deeper understanding of
+how Salt compiles and manages states can be very beneficial.</p>
+<div class="section" id="function-call">
+<h2>Function Call<a class="headerlink" href="#function-call" title="Permalink to this headline">¶</a></h2>
+<p>The lowest layer of functionality in the state system is the direct state
+function call. State executions are executions of single state functions at
+the core. These individual functions are defined in state modules and can
+be called directly via the <tt class="docutils literal"><span class="pre">state.single</span></tt> command.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> state.single pkg.installed <span class="nv">name</span><span class="o">=</span><span class="s1">&#39;vim&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="low-chunk">
+<h2>Low Chunk<a class="headerlink" href="#low-chunk" title="Permalink to this headline">¶</a></h2>
+<p>The low chunk is the bottom of the Salt state compiler. This is a data
+representation of a single function call. The low chunk is sent to the state
+caller and used to execute a single state function.</p>
+<p>A single low chunk can be executed manually via the <tt class="docutils literal"><span class="pre">state.low</span></tt> command.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> state.low <span class="s1">&#39;{name: vim, state: pkg, fun: installed}&#39;</span>
+</pre></div>
+</div>
+<p>The passed data reflects what the state execution system gets after compiling
+the data down from sls formulas.</p>
+</div>
+<div class="section" id="low-state">
+<h2>Low State<a class="headerlink" href="#low-state" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>Low State</cite> layer is the list of low chunks &quot;evaluated&quot; in order. To see
+what the low state looks like for a highstate, run:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> state.show_lowstate
+</pre></div>
+</div>
+<p>This will display the raw lowstate in the order which each low chunk will be
+evaluated. The order of evaluation is not necessarily the order of execution,
+since requisites are evaluated at runtime. Requisite execution and evaluation
+is finite; this means that the order of execution can be ascertained with 100%
+certainty based on the order of the low state.</p>
+</div>
+<div class="section" id="high-data">
+<h2>High Data<a class="headerlink" href="#high-data" title="Permalink to this headline">¶</a></h2>
+<p>High data is the data structure represented in YAML via SLS files. The High
+data structure is created by merging the data components rendered inside sls
+files (or other render systems). The High data can be easily viewed by
+executing the <tt class="docutils literal"><span class="pre">state.show_highstate</span></tt> or <tt class="docutils literal"><span class="pre">state.show_sls</span></tt> functions. Since
+this data is a somewhat complex data structure, it may be easier to read using
+the json, yaml, or pprint outputters:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> state.show_highstate --out yaml
+salt <span class="s1">&#39;*&#39;</span> state.show_sls edit.vim --out pprint
+</pre></div>
+</div>
+</div>
+<div class="section" id="sls">
+<h2>SLS<a class="headerlink" href="#sls" title="Permalink to this headline">¶</a></h2>
+<p>Above &quot;High Data&quot;, the logical layers are no longer technically required to be
+executed, or to be executed in a hierarchy. This means that how the High data
+is generated is optional and very flexible. The SLS layer allows for many
+mechanisms to be used to render sls data from files or to use the fileserver
+backend to generate sls and file data from external systems.</p>
+<p>The SLS layer can be called directly to execute individual sls formulas.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">SLS Formulas have historically been called &quot;SLS files&quot;. This is because a
+single SLS was only constituted in a single file. Now the term
+&quot;SLS Formula&quot; better expresses how a compartmentalized SLS can be expressed
+in a much more dynamic way by combining pillar and other sources, and the
+SLS can be dynamically generated.</p>
+</div>
+<p>To call a single SLS formula named <tt class="docutils literal"><span class="pre">edit.vim</span></tt>, execute <tt class="docutils literal"><span class="pre">state.sls</span></tt>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> state.sls edit.vim
+</pre></div>
+</div>
+</div>
+<div class="section" id="highstate">
+<h2>HighState<a class="headerlink" href="#highstate" title="Permalink to this headline">¶</a></h2>
+<p>Calling SLS directly logically assigns what states should be executed from the
+context of the calling minion. The Highstate layer is used to allow for full
+contextual assignment of what is executed where to be tied to groups of, or
+individual, minions entirely from the master. This means that the environment of
+a minion, and all associated execution data pertinent to said minion, can be
+assigned from the master without needing to execute or configure anything on
+the target minion. This also means that the minion can independently retrieve
+information about its complete configuration from the master.</p>
+<p>To execute the High State call <tt class="docutils literal"><span class="pre">state.highstate</span></tt>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> state.highstate
+</pre></div>
+</div>
+</div>
+<div class="section" id="overstate">
+<h2>OverState<a class="headerlink" href="#overstate" title="Permalink to this headline">¶</a></h2>
+<p>The overstate layer expresses the highest functional layer of Salt's automated
+logic systems. The Overstate allows for stateful and functional orchestration
+of routines from the master. The overstate defines in data execution stages
+which minions should execute states, or functions, and in what order using
+requisite logic.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">State System Layers</a><ul>
+<li><a class="reference internal" href="#function-call">Function Call</a></li>
+<li><a class="reference internal" href="#low-chunk">Low Chunk</a></li>
+<li><a class="reference internal" href="#low-state">Low State</a></li>
+<li><a class="reference internal" href="#high-data">High Data</a></li>
+<li><a class="reference internal" href="#sls">SLS</a></li>
+<li><a class="reference internal" href="#highstate">HighState</a></li>
+<li><a class="reference internal" href="#overstate">OverState</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">State Enforcement</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="master_side.html"
+                        title="next chapter">The Orchestrate Runner</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="index.html" title="State Enforcement">previous</a>
+                
+            </li>
+            <li>
+                <a href="master_side.html" title="The Orchestrate Runner">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

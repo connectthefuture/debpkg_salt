@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Configuring the Salt Minion</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="Salt code and internals" href="../internals/index.html">
+        <link rel="prev" title="Configuring the Salt Master" href="master.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="master.html" title="Configuring the Salt Master">previous</a>
+                
+            </li>
+            <li>
+                <a href="../internals/index.html" title="Salt code and internals">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="configuring-the-salt-minion">
+<span id="configuration-salt-minion"></span><h1>Configuring the Salt Minion<a class="headerlink" href="#configuring-the-salt-minion" title="Permalink to this headline">¶</a></h1>
+<p>The Salt system is amazingly simple and easy to configure, the two components
+of the Salt system each have a respective configuration file. The
+<strong class="command">salt-master</strong> is configured via the master configuration file, and the
+<strong class="command">salt-minion</strong> is configured via the minion configuration file.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="examples.html#configuration-examples-minion"><em>example minion configuration file</em></a></p>
+</div>
+<p>The Salt Minion configuration is very simple, typically the only value that
+needs to be set is the master value so the minion can find its master.</p>
+<div class="section" id="minion-primary-configuration">
+<h2>Minion Primary Configuration<a class="headerlink" href="#minion-primary-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="master">
+<span id="std:conf_minion-master"></span><h3><tt class="docutils literal"><span class="pre">master</span></tt><a class="headerlink" href="#master" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">salt</span></tt></p>
+<p>The hostname or ipv4 of the master.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">master</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="master-port">
+<span id="std:conf_minion-master_port"></span><h3><tt class="docutils literal"><span class="pre">master_port</span></tt><a class="headerlink" href="#master-port" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">4506</span></tt></p>
+<p>The port of the master ret server, this needs to coincide with the ret_port
+option on the Salt master.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">master_port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4506</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="user">
+<span id="std:conf_minion-user"></span><h3><tt class="docutils literal"><span class="pre">user</span></tt><a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">root</span></tt></p>
+<p>The user to run the Salt processes</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pidfile">
+<span id="std:conf_minion-pidfile"></span><h3><tt class="docutils literal"><span class="pre">pidfile</span></tt><a class="headerlink" href="#pidfile" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">/var/run/salt-minion.pid</span></tt></p>
+<p>The location of the daemon's process ID file</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">pidfile</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/run/salt-minion.pid</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="root-dir">
+<span id="std:conf_minion-root_dir"></span><h3><tt class="docutils literal"><span class="pre">root_dir</span></tt><a class="headerlink" href="#root-dir" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">/</span></tt></p>
+<p>This directory is prepended to the following options: <a class="reference internal" href="#std:conf_minion-pki_dir"><tt class="xref std std-conf_minion docutils literal"><span class="pre">pki_dir</span></tt></a>,
+<a class="reference internal" href="#std:conf_minion-cachedir"><tt class="xref std std-conf_minion docutils literal"><span class="pre">cachedir</span></tt></a>, <a class="reference internal" href="#std:conf_minion-log_file"><tt class="xref std std-conf_minion docutils literal"><span class="pre">log_file</span></tt></a>, <a class="reference internal" href="#std:conf_minion-sock_dir"><tt class="xref std std-conf_minion docutils literal"><span class="pre">sock_dir</span></tt></a>, and
+<a class="reference internal" href="#std:conf_minion-pidfile"><tt class="xref std std-conf_minion docutils literal"><span class="pre">pidfile</span></tt></a>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">root_dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pki-dir">
+<span id="std:conf_minion-pki_dir"></span><h3><tt class="docutils literal"><span class="pre">pki_dir</span></tt><a class="headerlink" href="#pki-dir" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">/etc/salt/pki</span></tt></p>
+<p>The directory used to store the minion's public and private keys.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">pki_dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/salt/pki</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="std:conf_minion-id">
+<span id="id"></span><h3><tt class="docutils literal"><span class="pre">id</span></tt><a class="headerlink" href="#std:conf_minion-id" title="Permalink to this headline">¶</a></h3>
+<p>Default: the system's hostname</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a class="reference internal" href="../../topics/tutorials/walkthrough.html#minion-id-generation"><em>Salt Walkthrough</em></a></p>
+<p class="last">The <strong>Setting up a Salt Minion</strong> section contains detailed
+information on how the hostname is determined.</p>
+</div>
+<p>Explicitly declare the id for this minion to use. Since Salt uses detached ids
+it is possible to run multiple minions on the same machine but with different
+ids.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">foo.bar.com</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="append-domain">
+<span id="std:conf_minion-append_domain"></span><h3><tt class="docutils literal"><span class="pre">append_domain</span></tt><a class="headerlink" href="#append-domain" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">None</span></tt></p>
+<p>Append a domain to a hostname in the event that it does not exist. This is
+useful for systems where <tt class="docutils literal"><span class="pre">socket.getfqdn()</span></tt> does not actually result in a
+FQDN (for instance, Solaris).</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">append_domain</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">foo.org</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cachedir">
+<span id="std:conf_minion-cachedir"></span><h3><tt class="docutils literal"><span class="pre">cachedir</span></tt><a class="headerlink" href="#cachedir" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">/var/cache/salt</span></tt></p>
+<p>The location for minion cache data.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">cachedir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/cache/salt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="verify-env">
+<span id="std:conf_minion-verify_env"></span><h3><tt class="docutils literal"><span class="pre">verify_env</span></tt><a class="headerlink" href="#verify-env" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">True</span></tt></p>
+<p>Verify and set permissions on configuration directories at startup.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">verify_env</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When marked as True the verify_env option requires WRITE access to the
+configuration directory (/etc/salt/). In certain situations such as
+mounting /etc/salt/ as read-only for templating this will create a
+stack trace when state.highstate is called.</p>
+</div>
+</div>
+<div class="section" id="cache-jobs">
+<span id="std:conf_minion-cache_jobs"></span><h3><tt class="docutils literal"><span class="pre">cache_jobs</span></tt><a class="headerlink" href="#cache-jobs" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<p>The minion can locally cache the return data from jobs sent to it, this can be
+a good way to keep track of the minion side of the jobs the minion has
+executed. By default this feature is disabled, to enable set cache_jobs to
+<tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">cache_jobs</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sock-dir">
+<span id="std:conf_minion-sock_dir"></span><h3><tt class="docutils literal"><span class="pre">sock_dir</span></tt><a class="headerlink" href="#sock-dir" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">/var/run/salt/minion</span></tt></p>
+<p>The directory where Unix sockets will be kept.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">sock_dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/run/salt/minion</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="backup-mode">
+<span id="std:conf_minion-backup_mode"></span><h3><tt class="docutils literal"><span class="pre">backup_mode</span></tt><a class="headerlink" href="#backup-mode" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">[]</span></tt></p>
+<p>Backup files replaced by file.managed and file.recurse under cachedir.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">backup_mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">minion</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="acceptance-wait-time">
+<span id="std:conf_minion-acceptance_wait_time"></span><h3><tt class="docutils literal"><span class="pre">acceptance_wait_time</span></tt><a class="headerlink" href="#acceptance-wait-time" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">10</span></tt></p>
+<p>The number of seconds to wait until attempting to re-authenticate with the
+master.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">acceptance_wait_time</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="random-reauth-delay">
+<span id="std:conf_minion-random_reauth_delay"></span><h3><tt class="docutils literal"><span class="pre">random_reauth_delay</span></tt><a class="headerlink" href="#random-reauth-delay" title="Permalink to this headline">¶</a></h3>
+<p>When the master key changes, the minion will try to re-auth itself to
+receive the new master key. In larger environments this can cause a syn-flood
+on the master because all minions try to re-auth immediately. To prevent this
+and have a minion wait for a random amount of time, use this optional
+parameter. The wait-time will be a random number of seconds between
+0 and the defined value.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">random_reauth_delay</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="acceptance-wait-time-max">
+<span id="std:conf_minion-acceptance_wait_time_max"></span><h3><tt class="docutils literal"><span class="pre">acceptance_wait_time_max</span></tt><a class="headerlink" href="#acceptance-wait-time-max" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">None</span></tt></p>
+<p>The maximum number of seconds to wait until attempting to re-authenticate
+with the master. If set, the wait will increase by acceptance_wait_time
+seconds each iteration.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">acceptance_wait_time_max</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">None</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dns-check">
+<span id="std:conf_minion-dns_check"></span><h3><tt class="docutils literal"><span class="pre">dns_check</span></tt><a class="headerlink" href="#dns-check" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">True</span></tt></p>
+<p>When healing, a dns_check is run. This is to make sure that the originally
+resolved dns has not changed. If this is something that does not happen in your
+environment, set this value to <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">dns_check</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ipc-mode">
+<span id="std:conf_minion-ipc_mode"></span><h3><tt class="docutils literal"><span class="pre">ipc_mode</span></tt><a class="headerlink" href="#ipc-mode" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">ipc</span></tt></p>
+<p>Windows platforms lack POSIX IPC and must rely on slower TCP based inter-
+process communications. Set ipc_mode to <tt class="docutils literal"><span class="pre">tcp</span></tt> on such systems.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">ipc_mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ipc</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tcp-pub-port">
+<span id="std:conf_minion-tcp_pub_port"></span><h3><tt class="docutils literal"><span class="pre">tcp_pub_port</span></tt><a class="headerlink" href="#tcp-pub-port" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">4510</span></tt></p>
+<p>Publish port used when <a class="reference internal" href="#std:conf_minion-ipc_mode"><tt class="xref std std-conf_minion docutils literal"><span class="pre">ipc_mode</span></tt></a> is set to <tt class="docutils literal"><span class="pre">tcp</span></tt>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">tcp_pub_port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4510</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tcp-pull-port">
+<span id="std:conf_minion-tcp_pull_port"></span><h3><tt class="docutils literal"><span class="pre">tcp_pull_port</span></tt><a class="headerlink" href="#tcp-pull-port" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">4511</span></tt></p>
+<p>Pull port used when <a class="reference internal" href="#std:conf_minion-ipc_mode"><tt class="xref std std-conf_minion docutils literal"><span class="pre">ipc_mode</span></tt></a> is set to <tt class="docutils literal"><span class="pre">tcp</span></tt>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">tcp_pull_port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4511</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="minion-module-management">
+<h2>Minion Module Management<a class="headerlink" href="#minion-module-management" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="disable-modules">
+<span id="std:conf_minion-disable_modules"></span><h3><tt class="docutils literal"><span class="pre">disable_modules</span></tt><a class="headerlink" href="#disable-modules" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">[]</span></tt> (all modules are enabled by default)</p>
+<p>The event may occur in which the administrator desires that a minion should not
+be able to execute a certain module. The sys module is built into the minion
+and cannot be disabled.</p>
+<p>This setting can also tune the minion, as all modules are loaded into ram
+disabling modules will lover the minion's ram footprint.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">disable_modules</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">test</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">solr</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="disable-returners">
+<span id="std:conf_minion-disable_returners"></span><h3><tt class="docutils literal"><span class="pre">disable_returners</span></tt><a class="headerlink" href="#disable-returners" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">[]</span></tt> (all returners are enabled by default)</p>
+<p>If certain returners should be disabled, this is the place</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">disable_returners</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mongo_return</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-dirs">
+<span id="std:conf_minion-module_dirs"></span><h3><tt class="docutils literal"><span class="pre">module_dirs</span></tt><a class="headerlink" href="#module-dirs" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">[]</span></tt></p>
+<p>A list of extra directories to search for Salt modules</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">module_dirs</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/var/lib/salt/modules</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="returner-dirs">
+<span id="std:conf_minion-returner_dirs"></span><h3><tt class="docutils literal"><span class="pre">returner_dirs</span></tt><a class="headerlink" href="#returner-dirs" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">[]</span></tt></p>
+<p>A list of extra directories to search for Salt returners</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">returners_dirs</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/var/lib/salt/returners</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="states-dirs">
+<span id="std:conf_minion-states_dirs"></span><h3><tt class="docutils literal"><span class="pre">states_dirs</span></tt><a class="headerlink" href="#states-dirs" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">[]</span></tt></p>
+<p>A list of extra directories to search for Salt states</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">states_dirs</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/var/lib/salt/states</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="render-dirs">
+<span id="std:conf_minion-render_dirs"></span><h3><tt class="docutils literal"><span class="pre">render_dirs</span></tt><a class="headerlink" href="#render-dirs" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">[]</span></tt></p>
+<p>A list of extra directories to search for Salt renderers</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">render_dirs</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/var/lib/salt/renderers</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cython-enable">
+<span id="std:conf_minion-cython_enable"></span><h3><tt class="docutils literal"><span class="pre">cython_enable</span></tt><a class="headerlink" href="#cython-enable" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<p>Set this value to true to enable auto-loading and compiling of <tt class="docutils literal"><span class="pre">.pyx</span></tt> modules,
+This setting requires that <tt class="docutils literal"><span class="pre">gcc</span></tt> and <tt class="docutils literal"><span class="pre">cython</span></tt> are installed on the minion</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">cython_enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="providers">
+<span id="std:conf_minion-providers"></span><h3><tt class="docutils literal"><span class="pre">providers</span></tt><a class="headerlink" href="#providers" title="Permalink to this headline">¶</a></h3>
+<p>Default: (empty)</p>
+<p>A module provider can be statically overwritten or extended for the minion via
+the <tt class="docutils literal"><span class="pre">providers</span></tt> option. This can be done <a class="reference internal" href="../states/providers.html"><em>on an individual basis in an
+SLS file</em></a>, or globally here in the minion config, like
+below.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">providers</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">systemd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="state-management-settings">
+<h2>State Management Settings<a class="headerlink" href="#state-management-settings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="renderer">
+<span id="std:conf_minion-renderer"></span><h3><tt class="docutils literal"><span class="pre">renderer</span></tt><a class="headerlink" href="#renderer" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">yaml_jinja</span></tt></p>
+<p>The default renderer used for local state executions</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">renderer</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yaml_jinja</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="state-verbose">
+<span id="std:conf_minion-state_verbose"></span><h3><tt class="docutils literal"><span class="pre">state_verbose</span></tt><a class="headerlink" href="#state-verbose" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<p>state_verbose allows for the data returned from the minion to be more
+verbose. Normally only states that fail or states that have changes are
+returned, but setting state_verbose to <tt class="docutils literal"><span class="pre">True</span></tt> will return all states that
+were checked</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">state_verbose</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="state-output">
+<span id="std:conf_minion-state_output"></span><h3><tt class="docutils literal"><span class="pre">state_output</span></tt><a class="headerlink" href="#state-output" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">full</span></tt></p>
+<p>The state_output setting changes if the output is the full multi line
+output for each changed state if set to 'full', but if set to 'terse'
+the output will be shortened to a single line.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">state_output</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">full</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="autoload-dynamic-modules">
+<span id="std:conf_minion-autoload_dynamic_modules"></span><h3><tt class="docutils literal"><span class="pre">autoload_dynamic_modules</span></tt><a class="headerlink" href="#autoload-dynamic-modules" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">True</span></tt></p>
+<p>autoload_dynamic_modules Turns on automatic loading of modules found in the
+environments on the master. This is turned on by default, to turn of
+auto-loading modules when states run set this value to <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">autoload_dynamic_modules</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<p id="std:conf_minion-clean_dynamic_modules">Default: <tt class="docutils literal"><span class="pre">True</span></tt></p>
+<p>clean_dynamic_modules keeps the dynamic modules on the minion in sync with
+the dynamic modules on the master, this means that if a dynamic module is
+not on the master it will be deleted from the minion. By default this is
+enabled and can be disabled by changing this value to <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">clean_dynamic_modules</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="environment">
+<span id="std:conf_minion-environment"></span><h3><tt class="docutils literal"><span class="pre">environment</span></tt><a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">None</span></tt></p>
+<p>Normally the minion is not isolated to any single environment on the master
+when running states, but the environment can be isolated on the minion side
+by statically setting it. Remember that the recommended way to manage
+environments is to isolate via the top file.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">environment</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="file-directory-settings">
+<h2>File Directory Settings<a class="headerlink" href="#file-directory-settings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="file-client">
+<span id="std:conf_minion-file_client"></span><h3><tt class="docutils literal"><span class="pre">file_client</span></tt><a class="headerlink" href="#file-client" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">remote</span></tt></p>
+<p>The client defaults to looking on the master server for files, but can be
+directed to look on the minion by setting this parameter to <tt class="docutils literal"><span class="pre">local</span></tt>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">file_client</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">remote</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="file-roots">
+<span id="std:conf_minion-file_roots"></span><h3><tt class="docutils literal"><span class="pre">file_roots</span></tt><a class="headerlink" href="#file-roots" title="Permalink to this headline">¶</a></h3>
+<p>Default:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/salt</span>
+</pre></div>
+</div>
+<p>When using a local <a class="reference internal" href="#std:conf_minion-file_client"><tt class="xref std std-conf_minion docutils literal"><span class="pre">file_client</span></tt></a>, this parameter is used to setup
+the fileserver's environments. This parameter operates identically to the
+<a class="reference internal" href="master.html#std:conf_master-file_roots"><tt class="xref std std-conf_master docutils literal"><span class="pre">master</span> <span class="pre">config</span> <span class="pre">parameter</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">same</span> <span class="pre">name</span></tt></a>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">file_roots</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/salt</span>
+  <span class="l-Scalar-Plain">dev</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/salt/dev/services</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/salt/dev/states</span>
+  <span class="l-Scalar-Plain">prod</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/salt/prod/services</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/salt/prod/states</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="hash-type">
+<span id="std:conf_master-hash_type"></span><h3><tt class="docutils literal"><span class="pre">hash_type</span></tt><a class="headerlink" href="#hash-type" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">md5</span></tt></p>
+<p>The hash_type is the hash to use when discovering the hash of a file on the
+local fileserver. The default is md5, but sha1, sha224, sha256, sha384 and
+sha512 are also supported.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">hash_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">md5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pillar-roots">
+<span id="std:conf_minion-pillar_roots"></span><h3><tt class="docutils literal"><span class="pre">pillar_roots</span></tt><a class="headerlink" href="#pillar-roots" title="Permalink to this headline">¶</a></h3>
+<p>Default:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/pillar</span>
+</pre></div>
+</div>
+<p>When using a local <a class="reference internal" href="#std:conf_minion-file_client"><tt class="xref std std-conf_minion docutils literal"><span class="pre">file_client</span></tt></a>, this parameter is used to setup
+the pillar environments.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">pillar_roots</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/pillar</span>
+  <span class="l-Scalar-Plain">dev</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/pillar/dev</span>
+  <span class="l-Scalar-Plain">prod</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/pillar/prod</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="security-settings">
+<h2>Security Settings<a class="headerlink" href="#security-settings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="open-mode">
+<span id="std:conf_minion-open_mode"></span><h3><tt class="docutils literal"><span class="pre">open_mode</span></tt><a class="headerlink" href="#open-mode" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<p>Open mode can be used to clean out the PKI key received from the Salt master,
+turn on open mode, restart the minion, then turn off open mode and restart the
+minion to clean the keys.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">open_mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="thread-settings">
+<h2>Thread Settings<a class="headerlink" href="#thread-settings" title="Permalink to this headline">¶</a></h2>
+<p id="std:conf_minion-multiprocessing">Default: <tt class="docutils literal"><span class="pre">True</span></tt></p>
+<p>Disable multiprocessing support by default when a minion receives a
+publication a new process is spawned and the command is executed therein.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">multiprocessing</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="minion-logging-settings">
+<span id="id1"></span><h2>Minion Logging Settings<a class="headerlink" href="#minion-logging-settings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="log-file">
+<span id="std:conf_minion-log_file"></span><h3><tt class="docutils literal"><span class="pre">log_file</span></tt><a class="headerlink" href="#log-file" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">/var/log/salt/minion</span></tt></p>
+<p>The minion log can be sent to a regular file, local path name, or network
+location.  See also <a class="reference internal" href="logging/index.html#std:conf_log-log_file"><tt class="xref std std-conf_log docutils literal"><span class="pre">log_file</span></tt></a>.</p>
+<p>Examples:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">log_file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/log/salt/minion</span>
+</pre></div>
+</div>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">log_file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">file:///dev/log</span>
+</pre></div>
+</div>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">log_file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">udp://loghost:10514</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="log-level">
+<span id="std:conf_minion-log_level"></span><h3><tt class="docutils literal"><span class="pre">log_level</span></tt><a class="headerlink" href="#log-level" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">warning</span></tt></p>
+<p>The level of messages to send to the console. See also <a class="reference internal" href="logging/index.html#std:conf_log-log_level"><tt class="xref std std-conf_log docutils literal"><span class="pre">log_level</span></tt></a>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">log_level</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">warning</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="log-level-logfile">
+<span id="std:conf_minion-log_level_logfile"></span><h3><tt class="docutils literal"><span class="pre">log_level_logfile</span></tt><a class="headerlink" href="#log-level-logfile" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">warning</span></tt></p>
+<p>The level of messages to send to the log file. See also
+<a class="reference internal" href="logging/index.html#std:conf_log-log_level_logfile"><tt class="xref std std-conf_log docutils literal"><span class="pre">log_level_logfile</span></tt></a>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">log_level_logfile</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">warning</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="log-datefmt">
+<span id="std:conf_minion-log_datefmt"></span><h3><tt class="docutils literal"><span class="pre">log_datefmt</span></tt><a class="headerlink" href="#log-datefmt" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">%H:%M:%S</span></tt></p>
+<p>The date and time format used in console log messages. See also
+<a class="reference internal" href="logging/index.html#std:conf_log-log_datefmt"><tt class="xref std std-conf_log docutils literal"><span class="pre">log_datefmt</span></tt></a>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">log_datefmt</span><span class="p-Indicator">:</span> <span class="s">&#39;%H:%M:%S&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="log-datefmt-logfile">
+<span id="std:conf_minion-log_datefmt_logfile"></span><h3><tt class="docutils literal"><span class="pre">log_datefmt_logfile</span></tt><a class="headerlink" href="#log-datefmt-logfile" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">%Y-%m-%d</span> <span class="pre">%H:%M:%S</span></tt></p>
+<p>The date and time format used in log file messages. See also
+<a class="reference internal" href="logging/index.html#std:conf_log-log_datefmt_logfile"><tt class="xref std std-conf_log docutils literal"><span class="pre">log_datefmt_logfile</span></tt></a>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">log_datefmt_logfile</span><span class="p-Indicator">:</span> <span class="s">&#39;%Y-%m-%d</span><span class="nv"> </span><span class="s">%H:%M:%S&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="log-fmt-console">
+<span id="std:conf_minion-log_fmt_console"></span><h3><tt class="docutils literal"><span class="pre">log_fmt_console</span></tt><a class="headerlink" href="#log-fmt-console" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">[%(levelname)-8s]</span> <span class="pre">%(message)s</span></tt></p>
+<p>The format of the console logging messages. See also
+<a class="reference internal" href="logging/index.html#std:conf_log-log_fmt_console"><tt class="xref std std-conf_log docutils literal"><span class="pre">log_fmt_console</span></tt></a>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">log_fmt_console</span><span class="p-Indicator">:</span> <span class="s">&#39;[%(levelname)-8s]</span><span class="nv"> </span><span class="s">%(message)s&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="log-fmt-logfile">
+<span id="std:conf_minion-log_fmt_logfile"></span><h3><tt class="docutils literal"><span class="pre">log_fmt_logfile</span></tt><a class="headerlink" href="#log-fmt-logfile" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">%(asctime)s,%(msecs)03.0f</span> <span class="pre">[%(name)-17s][%(levelname)-8s]</span> <span class="pre">%(message)s</span></tt></p>
+<p>The format of the log file logging messages. See also
+<a class="reference internal" href="logging/index.html#std:conf_log-log_fmt_logfile"><tt class="xref std std-conf_log docutils literal"><span class="pre">log_fmt_logfile</span></tt></a>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">log_fmt_logfile</span><span class="p-Indicator">:</span> <span class="s">&#39;%(asctime)s,%(msecs)03.0f</span><span class="nv"> </span><span class="s">[%(name)-17s][%(levelname)-8s]</span><span class="nv"> </span><span class="s">%(message)s&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="log-granular-levels">
+<span id="std:conf_minion-log_granular_levels"></span><h3><tt class="docutils literal"><span class="pre">log_granular_levels</span></tt><a class="headerlink" href="#log-granular-levels" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">{}</span></tt></p>
+<p>This can be used to control logging levels more specifically. See also
+<a class="reference internal" href="logging/index.html#std:conf_log-log_granular_levels"><tt class="xref std std-conf_log docutils literal"><span class="pre">log_granular_levels</span></tt></a>.</p>
+</div>
+</div>
+<div class="section" id="include-configuration">
+<h2>Include Configuration<a class="headerlink" href="#include-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="default-include">
+<span id="std:conf_minion-include"></span><h3><tt class="docutils literal"><span class="pre">default_include</span></tt><a class="headerlink" href="#default-include" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">minion.d/*.conf</span></tt></p>
+<p>The minion can include configuration from other files. Per default the
+minion will automatically include all config files from <cite>minion.d/*.conf</cite>
+where minion.d is relative to the directory of the minion configuration
+file.</p>
+</div>
+<div class="section" id="include">
+<h3><tt class="docutils literal"><span class="pre">include</span></tt><a class="headerlink" href="#include" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">not</span> <span class="pre">defined</span></tt></p>
+<p>The minion can include configuration from other files. To enable this,
+pass a list of paths to this option. The paths can be either relative or
+absolute; if relative, they are considered to be relative to the directory
+the main minion configuration file lives in. Paths can make use of
+shell-style globbing. If no files are matched by a path passed to this
+option then the minion will log a warning message.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># Include files from a minion.d directory in the same</span>
+<span class="c1"># directory as the minion config file</span>
+<span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">minion.d/*.conf</span>
+
+<span class="c1"># Include a single extra file into the configuration</span>
+<span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/roles/webserver</span>
+
+<span class="c1"># Include several files and the minion.d directory</span>
+<span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">extra_config</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">minion.d/*</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/etc/roles/webserver</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="frozen-build-update-settings">
+<h2>Frozen Build Update Settings<a class="headerlink" href="#frozen-build-update-settings" title="Permalink to this headline">¶</a></h2>
+<p>These options control how <a class="reference internal" href="../modules/all/salt.modules.saltutil.html#salt.modules.saltutil.update" title="salt.modules.saltutil.update"><tt class="xref py py-func docutils literal"><span class="pre">salt.modules.saltutil.update()</span></tt></a> works with esky
+frozen apps. For more information look at <a class="reference external" href="https://github.com/cloudmatrix/esky/">https://github.com/cloudmatrix/esky/</a>.</p>
+<div class="section" id="update-url">
+<span id="std:conf_minion-update_url"></span><h3><tt class="docutils literal"><span class="pre">update_url</span></tt><a class="headerlink" href="#update-url" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">False</span></tt> (Update feature is disabled)</p>
+<p>The url to use when looking for application updates. Esky depends on directory
+listings to search for new versions. A webserver running on your Master is a
+good starting point for most setups.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">update_url</span><span class="p-Indicator">:</span> <span class="s">&#39;http://salt.example.com/minion-updates&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-restart-services">
+<span id="std:conf_minion-update_restart_services"></span><h3><tt class="docutils literal"><span class="pre">update_restart_services</span></tt><a class="headerlink" href="#update-restart-services" title="Permalink to this headline">¶</a></h3>
+<p>Default: <tt class="docutils literal"><span class="pre">[]</span></tt> (service restarting on update is disabled)</p>
+<p>A list of services to restart when the minion software is updated. This would
+typically just be a list containing the minion's service name, but you may
+have other services that need to go with it.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">update_restart_services</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&#39;salt-minion&#39;</span><span class="p-Indicator">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configuring the Salt Minion</a><ul>
+<li><a class="reference internal" href="#minion-primary-configuration">Minion Primary Configuration</a><ul>
+<li><a class="reference internal" href="#master"><tt class="docutils literal"><span class="pre">master</span></tt></a></li>
+<li><a class="reference internal" href="#master-port"><tt class="docutils literal"><span class="pre">master_port</span></tt></a></li>
+<li><a class="reference internal" href="#user"><tt class="docutils literal"><span class="pre">user</span></tt></a></li>
+<li><a class="reference internal" href="#pidfile"><tt class="docutils literal"><span class="pre">pidfile</span></tt></a></li>
+<li><a class="reference internal" href="#root-dir"><tt class="docutils literal"><span class="pre">root_dir</span></tt></a></li>
+<li><a class="reference internal" href="#pki-dir"><tt class="docutils literal"><span class="pre">pki_dir</span></tt></a></li>
+<li><a class="reference internal" href="#std:conf_minion-id"><tt class="docutils literal"><span class="pre">id</span></tt></a></li>
+<li><a class="reference internal" href="#append-domain"><tt class="docutils literal"><span class="pre">append_domain</span></tt></a></li>
+<li><a class="reference internal" href="#cachedir"><tt class="docutils literal"><span class="pre">cachedir</span></tt></a></li>
+<li><a class="reference internal" href="#verify-env"><tt class="docutils literal"><span class="pre">verify_env</span></tt></a></li>
+<li><a class="reference internal" href="#cache-jobs"><tt class="docutils literal"><span class="pre">cache_jobs</span></tt></a></li>
+<li><a class="reference internal" href="#sock-dir"><tt class="docutils literal"><span class="pre">sock_dir</span></tt></a></li>
+<li><a class="reference internal" href="#backup-mode"><tt class="docutils literal"><span class="pre">backup_mode</span></tt></a></li>
+<li><a class="reference internal" href="#acceptance-wait-time"><tt class="docutils literal"><span class="pre">acceptance_wait_time</span></tt></a></li>
+<li><a class="reference internal" href="#random-reauth-delay"><tt class="docutils literal"><span class="pre">random_reauth_delay</span></tt></a></li>
+<li><a class="reference internal" href="#acceptance-wait-time-max"><tt class="docutils literal"><span class="pre">acceptance_wait_time_max</span></tt></a></li>
+<li><a class="reference internal" href="#dns-check"><tt class="docutils literal"><span class="pre">dns_check</span></tt></a></li>
+<li><a class="reference internal" href="#ipc-mode"><tt class="docutils literal"><span class="pre">ipc_mode</span></tt></a></li>
+<li><a class="reference internal" href="#tcp-pub-port"><tt class="docutils literal"><span class="pre">tcp_pub_port</span></tt></a></li>
+<li><a class="reference internal" href="#tcp-pull-port"><tt class="docutils literal"><span class="pre">tcp_pull_port</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minion-module-management">Minion Module Management</a><ul>
+<li><a class="reference internal" href="#disable-modules"><tt class="docutils literal"><span class="pre">disable_modules</span></tt></a></li>
+<li><a class="reference internal" href="#disable-returners"><tt class="docutils literal"><span class="pre">disable_returners</span></tt></a></li>
+<li><a class="reference internal" href="#module-dirs"><tt class="docutils literal"><span class="pre">module_dirs</span></tt></a></li>
+<li><a class="reference internal" href="#returner-dirs"><tt class="docutils literal"><span class="pre">returner_dirs</span></tt></a></li>
+<li><a class="reference internal" href="#states-dirs"><tt class="docutils literal"><span class="pre">states_dirs</span></tt></a></li>
+<li><a class="reference internal" href="#render-dirs"><tt class="docutils literal"><span class="pre">render_dirs</span></tt></a></li>
+<li><a class="reference internal" href="#cython-enable"><tt class="docutils literal"><span class="pre">cython_enable</span></tt></a></li>
+<li><a class="reference internal" href="#providers"><tt class="docutils literal"><span class="pre">providers</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#state-management-settings">State Management Settings</a><ul>
+<li><a class="reference internal" href="#renderer"><tt class="docutils literal"><span class="pre">renderer</span></tt></a></li>
+<li><a class="reference internal" href="#state-verbose"><tt class="docutils literal"><span class="pre">state_verbose</span></tt></a></li>
+<li><a class="reference internal" href="#state-output"><tt class="docutils literal"><span class="pre">state_output</span></tt></a></li>
+<li><a class="reference internal" href="#autoload-dynamic-modules"><tt class="docutils literal"><span class="pre">autoload_dynamic_modules</span></tt></a></li>
+<li><a class="reference internal" href="#environment"><tt class="docutils literal"><span class="pre">environment</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#file-directory-settings">File Directory Settings</a><ul>
+<li><a class="reference internal" href="#file-client"><tt class="docutils literal"><span class="pre">file_client</span></tt></a></li>
+<li><a class="reference internal" href="#file-roots"><tt class="docutils literal"><span class="pre">file_roots</span></tt></a></li>
+<li><a class="reference internal" href="#hash-type"><tt class="docutils literal"><span class="pre">hash_type</span></tt></a></li>
+<li><a class="reference internal" href="#pillar-roots"><tt class="docutils literal"><span class="pre">pillar_roots</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#security-settings">Security Settings</a><ul>
+<li><a class="reference internal" href="#open-mode"><tt class="docutils literal"><span class="pre">open_mode</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thread-settings">Thread Settings</a></li>
+<li><a class="reference internal" href="#minion-logging-settings">Minion Logging Settings</a><ul>
+<li><a class="reference internal" href="#log-file"><tt class="docutils literal"><span class="pre">log_file</span></tt></a></li>
+<li><a class="reference internal" href="#log-level"><tt class="docutils literal"><span class="pre">log_level</span></tt></a></li>
+<li><a class="reference internal" href="#log-level-logfile"><tt class="docutils literal"><span class="pre">log_level_logfile</span></tt></a></li>
+<li><a class="reference internal" href="#log-datefmt"><tt class="docutils literal"><span class="pre">log_datefmt</span></tt></a></li>
+<li><a class="reference internal" href="#log-datefmt-logfile"><tt class="docutils literal"><span class="pre">log_datefmt_logfile</span></tt></a></li>
+<li><a class="reference internal" href="#log-fmt-console"><tt class="docutils literal"><span class="pre">log_fmt_console</span></tt></a></li>
+<li><a class="reference internal" href="#log-fmt-logfile"><tt class="docutils literal"><span class="pre">log_fmt_logfile</span></tt></a></li>
+<li><a class="reference internal" href="#log-granular-levels"><tt class="docutils literal"><span class="pre">log_granular_levels</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#include-configuration">Include Configuration</a><ul>
+<li><a class="reference internal" href="#default-include"><tt class="docutils literal"><span class="pre">default_include</span></tt></a></li>
+<li><a class="reference internal" href="#include"><tt class="docutils literal"><span class="pre">include</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#frozen-build-update-settings">Frozen Build Update Settings</a><ul>
+<li><a class="reference internal" href="#update-url"><tt class="docutils literal"><span class="pre">update_url</span></tt></a></li>
+<li><a class="reference internal" href="#update-restart-services"><tt class="docutils literal"><span class="pre">update_restart_services</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="master.html"
+                        title="previous chapter">Configuring the Salt Master</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../internals/index.html"
+                        title="next chapter">Salt code and internals</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="master.html" title="Configuring the Salt Master">previous</a>
+                
+            </li>
+            <li>
+                <a href="../internals/index.html" title="Salt code and internals">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

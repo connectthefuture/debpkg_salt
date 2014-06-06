@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.states.ssh_auth</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin state modules" href="index.html">
+        <link rel="next" title="salt.states.ssh_known_hosts" href="salt.states.ssh_known_hosts.html">
+        <link rel="prev" title="salt.states.service" href="salt.states.service.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.states.service.html" title="salt.states.service">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.states.ssh_known_hosts.html" title="salt.states.ssh_known_hosts">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.states.ssh_auth">
+<span id="salt-states-ssh-auth"></span><h1>salt.states.ssh_auth<a class="headerlink" href="#module-salt.states.ssh_auth" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="control-of-entries-in-ssh-authorized-key-files">
+<h2>Control of entries in SSH authorized_key files<a class="headerlink" href="#control-of-entries-in-ssh-authorized-key-files" title="Permalink to this headline">¶</a></h2>
+<p>The information stored in a user's SSH authorized key file can be easily
+controlled via the ssh_auth state. Defaults can be set by the enc, options,
+and comment keys. These defaults can be overridden by including them in the
+name.</p>
+<p>Since the YAML specification limits the length of simple keys to 1024
+characters, and since SSH keys are often longer than that, you may have
+to use a YAML 'explicit key', as demonstrated in the second example below.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">AAAAB3NzaC1kc3MAAACBAL0sQ9fJ5bYTEyY==</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">ssh_auth</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">present</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">enc</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ssh-dss</span>
+
+<span class="p-Indicator">?</span> <span class="l-Scalar-Plain">AAAAB3NzaC1kc3MAAACBAL0sQ9fJ5bYTEyY==...</span>
+<span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">ssh_auth</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">present</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">enc</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ssh-dss</span>
+
+<span class="l-Scalar-Plain">thatch</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">ssh_auth</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">present</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://ssh_keys/thatch.id_rsa.pub</span>
+
+<span class="l-Scalar-Plain">sshkeys</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">ssh_auth</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">present</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">enc</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ssh-rsa</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">options</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">option1=&quot;value1&quot;</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">option2=&quot;value2 flag2&quot;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">comment</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">myuser</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">names</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">AAAAB3NzaC1kc3MAAACBAL0sQ9fJ5bYTEyY==</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ssh-dss AAAAB3NzaCL0sQ9fJ5bYTEyY== user@domain</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">option3=&quot;value3&quot; ssh-dss AAAAB3NzaC1kcQ9J5bYTEyY== other@testdomain</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">AAAAB3NzaC1kcQ9fJFF435bYTEyY== newcomment</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="salt.states.ssh_auth.absent">
+<tt class="descclassname">salt.states.ssh_auth.</tt><tt class="descname">absent</tt><big>(</big><em>name</em>, <em>user</em>, <em>enc='ssh-rsa'</em>, <em>comment=''</em>, <em>options=None</em>, <em>config='.ssh/authorized_keys'</em><big>)</big><a class="headerlink" href="#salt.states.ssh_auth.absent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verifies that the specified SSH key is absent</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The SSH key to manage</dd>
+<dt>user</dt>
+<dd>The user who owns the SSH authorized keys file to modify</dd>
+<dt>enc</dt>
+<dd>Defines what type of key is being used; can be ecdsa, ssh-rsa or ssh-dss</dd>
+<dt>comment</dt>
+<dd>The comment to be placed with the SSH public key</dd>
+<dt>options</dt>
+<dd>The options passed to the key, pass a list object</dd>
+<dt>config</dt>
+<dd>The location of the authorized keys file relative to the user's home
+directory, defaults to &quot;.ssh/authorized_keys&quot;</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.ssh_auth.present">
+<tt class="descclassname">salt.states.ssh_auth.</tt><tt class="descname">present</tt><big>(</big><em>name</em>, <em>user</em>, <em>enc='ssh-rsa'</em>, <em>comment=''</em>, <em>source=''</em>, <em>options=None</em>, <em>config='.ssh/authorized_keys'</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.ssh_auth.present" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verifies that the specified SSH key is present for the specified user</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The SSH key to manage</dd>
+<dt>user</dt>
+<dd>The user who owns the SSH authorized keys file to modify</dd>
+<dt>enc</dt>
+<dd>Defines what type of key is being used; can be ecdsa, ssh-rsa or ssh-dss</dd>
+<dt>comment</dt>
+<dd>The comment to be placed with the SSH public key</dd>
+<dt>source</dt>
+<dd>The source file for the key(s). Can contain any number of public keys,
+in standard &quot;authorized_keys&quot; format. If this is set, comment, enc,
+and options will be ignored.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The source file must contain keys in the format <tt class="docutils literal"><span class="pre">&lt;enc&gt;</span> <span class="pre">&lt;key&gt;</span>
+<span class="pre">&lt;comment&gt;</span></tt>. If you have generated a keypair using PuTTYgen, then you
+will need to do the following to retrieve an OpenSSH-compatible public
+key.</p>
+<ol class="last arabic simple">
+<li>In PuTTYgen, click <tt class="docutils literal"><span class="pre">Load</span></tt>, and select the <em>private</em> key file (not
+the public key), and click <tt class="docutils literal"><span class="pre">Open</span></tt>.</li>
+<li>Copy the public key from the box labeled <tt class="docutils literal"><span class="pre">Public</span> <span class="pre">key</span> <span class="pre">for</span> <span class="pre">pasting</span>
+<span class="pre">into</span> <span class="pre">OpenSSH</span> <span class="pre">authorized_keys</span> <span class="pre">file</span></tt>.</li>
+<li>Paste it into a new file.</li>
+</ol>
+</div>
+<dl class="docutils">
+<dt>options</dt>
+<dd>The options passed to the key, pass a list object</dd>
+<dt>config</dt>
+<dd>The location of the authorized keys file relative to the user's home
+directory, defaults to &quot;.ssh/authorized_keys&quot;</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">salt.states.ssh_auth</a><ul>
+<li><a class="reference internal" href="#control-of-entries-in-ssh-authorized-key-files">Control of entries in SSH authorized_key files</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.states.service.html"
+                        title="previous chapter">salt.states.service</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.states.ssh_known_hosts.html"
+                        title="next chapter">salt.states.ssh_known_hosts</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.states.service.html" title="salt.states.service">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.states.ssh_known_hosts.html" title="salt.states.ssh_known_hosts">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

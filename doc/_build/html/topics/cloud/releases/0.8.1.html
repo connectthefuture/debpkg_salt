@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt Cloud 0.8.1 Release Notes</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-cloud-0-8-1-release-notes">
+<h1>Salt Cloud 0.8.1 Release Notes<a class="headerlink" href="#salt-cloud-0-8-1-release-notes" title="Permalink to this headline">¶</a></h1>
+<p>In a somewhat quicker timeline than usual, Salt Cloud 0.8.1 has been released!
+While many of the updates in this release focus on stability, users of map
+files and AWS also have some new features to look forward to.</p>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>The documentation for Salt Cloud can be found on Read the Docs:
+<a class="reference external" href="http://salt-cloud.readthedocs.org">http://salt-cloud.readthedocs.org</a></p>
+</div>
+<div class="section" id="download">
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<p>Salt Cloud can be downloaded and install via pypi or github:</p>
+<p><a class="reference external" href="http://pypi.python.org/packages/source/s/salt-cloud/salt-cloud-0.8.1.tar.gz">http://pypi.python.org/packages/source/s/salt-cloud/salt-cloud-0.8.1.tar.gz</a></p>
+<p><a class="reference external" href="https://github.com/downloads/saltstack/salt-cloud/salt-cloud-0.8.1.tar.gz">https://github.com/downloads/saltstack/salt-cloud/salt-cloud-0.8.1.tar.gz</a></p>
+<p>Some packages have been made available for salt-cloud and more on on their
+way. Packages for Arch, and FreeBSD are being made available thanks to the
+work of Christer Edwards, and packages for RHEL and Fedora are being created
+by Clint Savage. Package availability will be announced on the salt mailing list.</p>
+</div>
+<div class="section" id="full-query-option">
+<h2>Full Query Option<a class="headerlink" href="#full-query-option" title="Permalink to this headline">¶</a></h2>
+<p>The -Q or --query option only displays a small amount of information about
+each virtual machine. This is to keep command-line reports small and
+manageable. Now the -F or --full-query option can be used to display all
+of the information about a VM that salt-cloud knows about. The amount of
+information returned varies between providers, depending on the kinds of
+functionality available through them.</p>
+</div>
+<div class="section" id="increased-map-functionality">
+<h2>Increased Map Functionality<a class="headerlink" href="#increased-map-functionality" title="Permalink to this headline">¶</a></h2>
+<p>Previously, map files were only used for creating VMs. Now they can also be
+used to query and delete VMs. The -Q, -F and -d options can all be used in
+conjunction with -m, to display map-specific data. If a VM that is specified
+in the map does not exist, it will still show up under -Q and -F as &quot;Absent&quot;.
+If a VM specified in the map does not exist when a -d is specified, it will
+of course be ignored.</p>
+</div>
+<div class="section" id="multiple-security-groups-in-aws">
+<h2>Multiple Security Groups in AWS<a class="headerlink" href="#multiple-security-groups-in-aws" title="Permalink to this headline">¶</a></h2>
+<p>AWS allows for multiple security groups to be applied to any given VM, but
+until this release, Salt Cloud only supported managing one. This update allows
+a list of security groups to be specified. In the main configuration file, an
+example of multiple security groups would look like:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">AWS.securitygroup</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">default</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">extra</span>
+</pre></div>
+</div>
+<p>In a profile, an example would be:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">micro_amazon</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">aws</span>
+  <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ami-e565ba8c</span>
+  <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Micro Instance</span>
+  <span class="l-Scalar-Plain">os</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">RHEL6</span>
+  <span class="l-Scalar-Plain">securitygroup</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">default</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">extra</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bug-fixes">
+<h2>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h2>
+<p>A number of bugs have been fixed in this release. Most of these were internal
+fixes related to authentication and deployment across various providers. Bug
+fixes in this release include:</p>
+<p>Ubuntu users may notice that deploying an instance has become significantly
+noisier. A change was made to make Ubuntu display information returned as
+packages are installed, which is more aligned with how yum-based machines
+already behaved. This also forced these VMs to deploy salt in a much more
+reliable manner.</p>
+<p>Requirements listed in requirements.txt are also pulled into setup.py, to make
+it easy to use the easy_install tool.</p>
+<p>Most cloud providers default to root as the initial user, but AWS typically
+providers a different user (ec2-user, ubuntu, bitnami, etc). Deployment on
+such images must be handled using sudo. Previously, sudo was used to issue
+all deployment commands, but this failed on images where sudo was not installed
+by default (such as FreeBSD). Now sudo will only be used with non-root logins.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt Cloud 0.8.1 Release Notes</a><ul>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#download">Download</a></li>
+<li><a class="reference internal" href="#full-query-option">Full Query Option</a></li>
+<li><a class="reference internal" href="#increased-map-functionality">Increased Map Functionality</a></li>
+<li><a class="reference internal" href="#multiple-security-groups-in-aws">Multiple Security Groups in AWS</a></li>
+<li><a class="reference internal" href="#bug-fixes">Bug Fixes</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

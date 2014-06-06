@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>File State Backups</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="Extending External SLS Data" href="extend.html">
+        <link rel="prev" title="salt.returners.syslog_return" href="../returners/all/salt.returners.syslog_return.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../returners/all/salt.returners.syslog_return.html" title="salt.returners.syslog_return">previous</a>
+                
+            </li>
+            <li>
+                <a href="extend.html" title="Extending External SLS Data">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="file-state-backups">
+<h1>File State Backups<a class="headerlink" href="#file-state-backups" title="Permalink to this headline">¶</a></h1>
+<p>In 0.10.2 a new feature was added for backing up files that are replaced by
+the file.managed and file.recurse states. The new feature is called the backup
+mode. Setting the backup mode is easy, but it can be set in a number of
+places.</p>
+<p>The backup_mode can be set in the minion config file:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">backup_mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">minion</span>
+</pre></div>
+</div>
+<p>Or it can be set for each file:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/etc/ssh/sshd_config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://ssh/sshd_config</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">backup</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">minion</span>
+</pre></div>
+</div>
+<div class="section" id="backed-up-files">
+<h2>Backed-up Files<a class="headerlink" href="#backed-up-files" title="Permalink to this headline">¶</a></h2>
+<p>The files will be saved in the minion cachedir under the directory named
+<tt class="docutils literal"><span class="pre">file_backup</span></tt>. The files will be in the location relative to where they
+were under the root filesystem and be appended with a timestamp. This should
+make them easy to browse.</p>
+</div>
+<div class="section" id="interacting-with-backups">
+<h2>Interacting with Backups<a class="headerlink" href="#interacting-with-backups" title="Permalink to this headline">¶</a></h2>
+<p>Starting with version 0.17.0, it will be possible to list, restore, and delete
+previously-created backups.</p>
+<div class="section" id="listing">
+<h3>Listing<a class="headerlink" href="#listing" title="Permalink to this headline">¶</a></h3>
+<p>The backups for a given file can be listed using <a class="reference internal" href="../modules/all/salt.modules.file.html#salt.modules.file.list_backups" title="salt.modules.file.list_backups"><tt class="xref py py-mod docutils literal"><span class="pre">file.list_backups</span></tt></a>:</p>
+<div class="highlight-python"><div class="highlight"><pre># salt foo.bar.com file.list_backups /tmp/foo.txt
+foo.bar.com:
+    ----------
+    0:
+        ----------
+        Backup Time:
+            Sat Jul 27 2013 17:48:41.738027
+        Location:
+            /var/cache/salt/minion/file_backup/tmp/foo.txt_Sat_Jul_27_17:48:41_738027_2013
+        Size:
+            13
+    1:
+        ----------
+        Backup Time:
+            Sat Jul 27 2013 17:48:28.369804
+        Location:
+            /var/cache/salt/minion/file_backup/tmp/foo.txt_Sat_Jul_27_17:48:28_369804_2013
+        Size:
+            35
+</pre></div>
+</div>
+</div>
+<div class="section" id="restoring">
+<h3>Restoring<a class="headerlink" href="#restoring" title="Permalink to this headline">¶</a></h3>
+<p>Restoring is easy using <a class="reference internal" href="../modules/all/salt.modules.file.html#salt.modules.file.restore_backup" title="salt.modules.file.restore_backup"><tt class="xref py py-mod docutils literal"><span class="pre">file.restore_backup</span></tt></a>, just pass the path and the numeric id
+found with <a class="reference internal" href="../modules/all/salt.modules.file.html#salt.modules.file.list_backups" title="salt.modules.file.list_backups"><tt class="xref py py-mod docutils literal"><span class="pre">file.list_backups</span></tt></a>:</p>
+<div class="highlight-python"><div class="highlight"><pre># salt foo.bar.com file.restore_backup /tmp/foo.txt 1
+foo.bar.com:
+    ----------
+    comment:
+        Successfully restored /var/cache/salt/minion/file_backup/tmp/foo.txt_Sat_Jul_27_17:48:28_369804_2013 to /tmp/foo.txt
+    result:
+        True
+</pre></div>
+</div>
+<p>The existing file will be backed up, just in case, as can be seen if
+<a class="reference internal" href="../modules/all/salt.modules.file.html#salt.modules.file.list_backups" title="salt.modules.file.list_backups"><tt class="xref py py-mod docutils literal"><span class="pre">file.list_backups</span></tt></a> is run again:</p>
+<div class="highlight-python"><div class="highlight"><pre># salt foo.bar.com file.list_backups /tmp/foo.txt
+foo.bar.com:
+    ----------
+    0:
+        ----------
+        Backup Time:
+            Sat Jul 27 2013 18:00:19.822550
+        Location:
+            /var/cache/salt/minion/file_backup/tmp/foo.txt_Sat_Jul_27_18:00:19_822550_2013
+        Size:
+            53
+    1:
+        ----------
+        Backup Time:
+            Sat Jul 27 2013 17:48:41.738027
+        Location:
+            /var/cache/salt/minion/file_backup/tmp/foo.txt_Sat_Jul_27_17:48:41_738027_2013
+        Size:
+            13
+    2:
+        ----------
+        Backup Time:
+            Sat Jul 27 2013 17:48:28.369804
+        Location:
+            /var/cache/salt/minion/file_backup/tmp/foo.txt_Sat_Jul_27_17:48:28_369804_2013
+        Size:
+            35
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Since no state is being run, restoring a file will not trigger any watches
+for the file. So, if you are restoring a config file for a service, it will
+likely still be necessary to run a <tt class="docutils literal"><span class="pre">service.restart</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="deleting">
+<h3>Deleting<a class="headerlink" href="#deleting" title="Permalink to this headline">¶</a></h3>
+<p>Deleting backups can be done using mod:<cite>file.delete_backup
+&lt;salt.modules.file.delete_backup&gt;</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre># salt foo.bar.com file.delete_backup /tmp/foo.txt 0
+foo.bar.com:
+    ----------
+    comment:
+        Successfully removed /var/cache/salt/minion/file_backup/tmp/foo.txt_Sat_Jul_27_18:00:19_822550_2013
+    result:
+        True
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">File State Backups</a><ul>
+<li><a class="reference internal" href="#backed-up-files">Backed-up Files</a></li>
+<li><a class="reference internal" href="#interacting-with-backups">Interacting with Backups</a><ul>
+<li><a class="reference internal" href="#listing">Listing</a></li>
+<li><a class="reference internal" href="#restoring">Restoring</a></li>
+<li><a class="reference internal" href="#deleting">Deleting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../returners/all/salt.returners.syslog_return.html"
+                        title="previous chapter">salt.returners.syslog_return</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="extend.html"
+                        title="next chapter">Extending External SLS Data</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../returners/all/salt.returners.syslog_return.html" title="salt.returners.syslog_return">previous</a>
+                
+            </li>
+            <li>
+                <a href="extend.html" title="Extending External SLS Data">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

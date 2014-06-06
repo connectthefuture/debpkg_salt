@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.cloud.clouds.gce</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of Salt Cloud modules" href="index.html">
+        <link rel="next" title="salt.cloud.clouds.gogrid" href="salt.cloud.clouds.gogrid.html">
+        <link rel="prev" title="salt.cloud.clouds.ec2" href="salt.cloud.clouds.ec2.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.cloud.clouds.ec2.html" title="salt.cloud.clouds.ec2">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.cloud.clouds.gogrid.html" title="salt.cloud.clouds.gogrid">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.cloud.clouds.gce">
+<span id="salt-cloud-clouds-gce"></span><h1>salt.cloud.clouds.gce<a class="headerlink" href="#module-salt.cloud.clouds.gce" title="Permalink to this headline">¶</a></h1>
+<p>Copyright 2013 Google Inc. All Rights Reserved.</p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<blockquote>
+<div><a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></div></blockquote>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+<div class="section" id="google-compute-engine-module">
+<h2>Google Compute Engine Module<a class="headerlink" href="#google-compute-engine-module" title="Permalink to this headline">¶</a></h2>
+<p>The Google Compute Engine module.  This module interfaces with Google Compute
+Engine.  To authenticate to GCE, you will need to create a Service Account.</p>
+<dl class="docutils">
+<dt>Setting up Service Account Authentication:</dt>
+<dd><ul class="first last simple">
+<li>Go to the Cloud Console at: <a class="reference external" href="https://cloud.google.com/console">https://cloud.google.com/console</a>.</li>
+<li>Create or navigate to your desired Project.</li>
+<li>Make sure Google Compute Engine service is enabled under the Services
+section.</li>
+<li>Go to &quot;APIs and auth&quot; and then the &quot;Registered apps&quot; section.</li>
+<li>Click the &quot;REGISTER APP&quot; button and give it a meaningful name.</li>
+<li>Select &quot;Web Application&quot; and click &quot;Register&quot;.</li>
+<li>Select Certificate, then &quot;Generate Certificate&quot;</li>
+<li>Copy the Email Address for inclusion in your /etc/salt/cloud file
+in the 'service_account_email_address' setting.</li>
+<li>Download the Private Key</li>
+<li>The key that you download is a PKCS12 key.  It needs to be converted to
+the PEM format.</li>
+<li>Convert the key using OpenSSL (the default password is 'notasecret'):
+C{openssl pkcs12 -in PRIVKEY.p12 -passin pass:notasecret     -nodes -nocerts | openssl rsa -out ~/PRIVKEY.pem}</li>
+<li>Add the full path name of the converted private key to your
+/etc/salt/cloud file as 'service_account_private_key' setting.</li>
+<li>Consider using a more secure location for your private key.</li>
+</ul>
+</dd>
+<dt>Supported commands:</dt>
+<dd># Create a few instances fro profile_name in /etc/salt/cloud.profiles
+- salt-cloud -p profile_name inst1 inst2 inst3
+# Delete an instance
+- salt-cloud -d inst1
+# Look up data on an instance
+- salt-cloud -a show_instance inst2
+# List available locations (aka 'zones') for provider 'gce'
+- salt-cloud --list-locations gce
+# List available instance sizes (aka 'machine types') for provider 'gce'
+- salt-cloud --list-sizes gce
+# List available images for provider 'gce'
+- salt-cloud --list-images gce</dd>
+</dl>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-gce-config</span><span class="p-Indicator">:</span>
+  <span class="c1"># The Google Cloud Platform Project ID</span>
+  <span class="l-Scalar-Plain">project</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">google.com:erjohnso</span>
+  <span class="c1"># The Service ACcount client ID</span>
+  <span class="l-Scalar-Plain">service_account_email_address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1234567890@developer.gserviceaccount.com</span>
+  <span class="c1"># The location of the private key (PEM format)</span>
+  <span class="l-Scalar-Plain">service_account_private_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/home/erjohnso/PRIVKEY.pem</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">gce</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">maintainer:</th><td class="field-body">Eric Johnson &lt;<a class="reference external" href="mailto:erjohnso&#37;&#52;&#48;google&#46;com">erjohnso<span>&#64;</span>google<span>&#46;</span>com</a>&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">maturity:</th><td class="field-body">new</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">depends:</th><td class="field-body">libcloud &gt;= 0.14.0-beta3</td>
+</tr>
+<tr class="field-even field"><th class="field-name">depends:</th><td class="field-body">pycrypto &gt;= 2.1</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.avail_images">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">avail_images</tt><big>(</big><em>conn=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.avail_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict of all available VM images on the cloud provider with
+relevant data</p>
+<p>Note that for GCE, there are custom images within the project, but the
+generic images are in other projects.  This returns a dict of images in
+the project plus images in 'debian-cloud' and 'centos-cloud' (If there is
+overlap in names, the one in the current project is used.)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.avail_locations">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">avail_locations</tt><big>(</big><em>conn=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.avail_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict of all available VM locations on the cloud provider with
+relevant data</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.avail_sizes">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">avail_sizes</tt><big>(</big><em>conn=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.avail_sizes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict of available instances sizes (a.k.a machine types) and
+convert them to something more serializable.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.create">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">create</tt><big>(</big><em>vm_=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a single GCE instance from a data dict.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.destroy">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">destroy</tt><big>(</big><em>vm_name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call 'destroy' on the instance.  Can be called with &quot;-a destroy&quot; or -d</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.get_configured_provider">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">get_configured_provider</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.get_configured_provider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the first configured instance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.get_conn">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">get_conn</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.get_conn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a conn object for the passed VM data</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.list_nodes">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">list_nodes</tt><big>(</big><em>conn=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.list_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the VMs that are on the provider</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.list_nodes_full">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">list_nodes_full</tt><big>(</big><em>conn=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.list_nodes_full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the VMs that are on the provider, with all fields</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.list_nodes_select">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">list_nodes_select</tt><big>(</big><em>conn=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.list_nodes_select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the VMs that are on the provider, with select fields</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.reboot">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">reboot</tt><big>(</big><em>vm_name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.reboot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call GCE 'reset' on the instance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.script">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">script</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the script deployment object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.gce.show_instance">
+<tt class="descclassname">salt.cloud.clouds.gce.</tt><tt class="descname">show_instance</tt><big>(</big><em>vm_name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.gce.show_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the details of the existing instance.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">salt.cloud.clouds.gce</a><ul>
+<li><a class="reference internal" href="#google-compute-engine-module">Google Compute Engine Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.cloud.clouds.ec2.html"
+                        title="previous chapter">salt.cloud.clouds.ec2</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.cloud.clouds.gogrid.html"
+                        title="next chapter">salt.cloud.clouds.gogrid</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.cloud.clouds.ec2.html" title="salt.cloud.clouds.ec2">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.cloud.clouds.gogrid.html" title="salt.cloud.clouds.gogrid">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

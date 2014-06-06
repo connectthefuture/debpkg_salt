@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.modules.cp</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin execution modules" href="index.html">
+        <link rel="next" title="salt.modules.cron" href="salt.modules.cron.html">
+        <link rel="prev" title="salt.modules.config" href="salt.modules.config.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.config.html" title="salt.modules.config">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.cron.html" title="salt.modules.cron">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.modules.cp">
+<span id="salt-modules-cp"></span><h1>salt.modules.cp<a class="headerlink" href="#module-salt.modules.cp" title="Permalink to this headline">¶</a></h1>
+<p>Minion side functions for salt-cp</p>
+<dl class="function">
+<dt id="salt.modules.cp.cache_dir">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">cache_dir</tt><big>(</big><em>path</em>, <em>saltenv='base'</em>, <em>include_empty=False</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.cache_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download and cache everything under a directory from the master</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.cache_dir salt://path/to/dir
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.cache_file">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">cache_file</tt><big>(</big><em>path</em>, <em>saltenv='base'</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.cache_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to cache a single file in the local salt-master file cache.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.cache_file salt://path/to/file
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.cache_files">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">cache_files</tt><big>(</big><em>paths</em>, <em>saltenv='base'</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.cache_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to gather many files from the master, the gathered files will be
+saved in the minion cachedir reflective to the paths retrieved from the
+master.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.cache_files salt://pathto/file1,salt://pathto/file1
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.cache_local_file">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">cache_local_file</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.cp.cache_local_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cache a local file on the minion in the localfiles cache</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.cache_local_file /etc/hosts
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.cache_master">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">cache_master</tt><big>(</big><em>saltenv='base'</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.cache_master" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve all of the files on the master and cache them locally</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.cache_master
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.get_dir">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">get_dir</tt><big>(</big><em>path</em>, <em>dest</em>, <em>saltenv='base'</em>, <em>template=None</em>, <em>gzip=None</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.get_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to recursively copy a directory from the salt master</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.get_dir salt://path/to/dir/ /minion/dest
+</pre></div>
+</div>
+<p>get_dir supports the same template and gzip arguments as get_file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.get_file">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">get_file</tt><big>(</big><em>path</em>, <em>dest</em>, <em>saltenv='base'</em>, <em>makedirs=False</em>, <em>template=None</em>, <em>gzip=None</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.get_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to get a single file from the salt master</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.get_file salt://path/to/file /minion/dest
+</pre></div>
+</div>
+<p>Template rendering can be enabled on both the source and destination file
+names like so:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.get_file <span class="s2">&quot;salt://{{grains.os}}/vimrc&quot;</span> /etc/vimrc <span class="nv">template</span><span class="o">=</span>jinja
+</pre></div>
+</div>
+<p>This example would instruct all Salt minions to download the vimrc from a
+directory with the same name as their os grain and copy it to /etc/vimrc</p>
+<p>For larger files, the cp.get_file module also supports gzip compression.
+Because gzip is CPU-intensive, this should only be used in scenarios where
+the compression ratio is very high (e.g. pretty-printed JSON or YAML
+files).</p>
+<p>Use the <em>gzip</em> named argument to enable it.  Valid values are 1..9, where 1
+is the lightest compression and 9 the heaviest.  1 uses the least CPU on
+the master (and minion), 9 uses the most.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.get_file_str">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">get_file_str</tt><big>(</big><em>path</em>, <em>saltenv='base'</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.get_file_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the contents of a file from a URL</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.get_file_str salt://my/file
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.get_template">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">get_template</tt><big>(</big><em>path</em>, <em>dest</em>, <em>template='jinja'</em>, <em>saltenv='base'</em>, <em>env=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.cp.get_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render a file as a template before setting it down</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.get_template salt://path/to/template /minion/dest
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.get_url">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">get_url</tt><big>(</big><em>path</em>, <em>dest</em>, <em>saltenv='base'</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.get_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to get a single file from a URL.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.get_url salt://my/file /tmp/mine
+salt <span class="s1">&#39;*&#39;</span> cp.get_url http://www.slashdot.org /tmp/index.html
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.hash_file">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">hash_file</tt><big>(</big><em>path</em>, <em>saltenv='base'</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.hash_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the hash of a file, to get the hash of a file on the
+salt master file server prepend the path with salt://&lt;file on server&gt;
+otherwise, prepend the file with / for a local file.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.hash_file salt://path/to/file
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.is_cached">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">is_cached</tt><big>(</big><em>path</em>, <em>saltenv='base'</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.is_cached" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a boolean if the given path on the master has been cached on the
+minion</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.is_cached salt://path/to/file
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.list_master">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">list_master</tt><big>(</big><em>saltenv='base'</em>, <em>prefix=''</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.list_master" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all of the files stored on the master</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.list_master
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.list_master_dirs">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">list_master_dirs</tt><big>(</big><em>saltenv='base'</em>, <em>prefix=''</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.list_master_dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all of the directories stored on the master</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.list_master_dirs
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.list_master_symlinks">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">list_master_symlinks</tt><big>(</big><em>saltenv='base'</em>, <em>prefix=''</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.list_master_symlinks" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all of the symlinks stored on the master</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.list_master_symlinks
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.list_minion">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">list_minion</tt><big>(</big><em>saltenv='base'</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.list_minion" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all of the files cached on the minion</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.list_minion
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.list_states">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">list_states</tt><big>(</big><em>saltenv='base'</em>, <em>env=None</em><big>)</big><a class="headerlink" href="#salt.modules.cp.list_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all of the available state modules in an environment</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.list_states
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.push">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">push</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.cp.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Push a file from the minion up to the master, the file will be saved to
+the salt master in the master's minion files cachedir
+(defaults to <tt class="docutils literal"><span class="pre">/var/cache/salt/master/minions/minion-id/files</span></tt>)</p>
+<p>Since this feature allows a minion to push a file up to the master server
+it is disabled by default for security purposes. To enable, set
+<tt class="docutils literal"><span class="pre">file_recv</span></tt> to <tt class="docutils literal"><span class="pre">True</span></tt> in the master configuration file, and restart the
+master.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cp.push /etc/fstab
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.cp.recv">
+<tt class="descclassname">salt.modules.cp.</tt><tt class="descname">recv</tt><big>(</big><em>files</em>, <em>dest</em><big>)</big><a class="headerlink" href="#salt.modules.cp.recv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used with salt-cp, pass the files dict, and the destination.</p>
+<p>This function receives small fast copy files from the master via salt-cp.
+It does not work via the CLI.</p>
+</dd></dl>
+
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.modules.config.html"
+                        title="previous chapter">salt.modules.config</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.modules.cron.html"
+                        title="next chapter">salt.modules.cron</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.config.html" title="salt.modules.config">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.cron.html" title="salt.modules.cron">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

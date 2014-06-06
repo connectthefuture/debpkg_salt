@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt 0.9.5 Release Notes</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Release notes and upgrade instructions" href="index.html">
+        <link rel="next" title="Salt 0.9.6 Release Notes" href="0.9.6.html">
+        <link rel="prev" title="Salt 0.9.4 Release Notes" href="0.9.4.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.9.4.html" title="Salt 0.9.4 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.9.6.html" title="Salt 0.9.6 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-0-9-5-release-notes">
+<h1>Salt 0.9.5 Release Notes<a class="headerlink" href="#salt-0-9-5-release-notes" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">release:</th><td class="field-body">2012-01-15</td>
+</tr>
+</tbody>
+</table>
+<p>Salt 0.9.5 is one of the largest steps forward in the development of Salt.</p>
+<p>0.9.5 comes with many milestones, this release has seen the community of
+developers grow out to an international team of 46 code contributors and has
+many feature additions, feature enhancements, bug fixes and speed improvements.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Be sure to <a class="reference internal" href="#v0-9-5-msgpack"><em>read the upgrade instructions</em></a> about the
+switch to msgpack before upgrading!</p>
+</div>
+<div class="section" id="community">
+<h2>Community<a class="headerlink" href="#community" title="Permalink to this headline">¶</a></h2>
+<p>Nothing has proven to have more value to the development of Salt that the
+outstanding community that has been growing at such a great pace around Salt.
+This has proven not only that Salt has great value, but also the
+expandability of Salt is as exponential as I originally intended.</p>
+<p>0.9.5 has received over 600 additional commits since 0.9.4 with a swath of new
+committers. The following individuals have contributed to the development of
+0.9.5:</p>
+<ul class="simple">
+<li>Aaron Bull Schaefer</li>
+<li>Antti Kaihola</li>
+<li>Bas Tichelaar</li>
+<li>Brad Barden</li>
+<li>Brian Wagner</li>
+<li>Byron Clark</li>
+<li>Chris Scheller</li>
+<li>Christer Edwards</li>
+<li>Clint Savage</li>
+<li>Corey Quinn</li>
+<li>David Boucha</li>
+<li>Eivind Uggedal</li>
+<li>Eric Poelke</li>
+<li>Evan Borgstrom</li>
+<li>Jed Glazner</li>
+<li>Jeff Schroeder</li>
+<li>Jeffrey C. Ollie</li>
+<li>Jonas Buckner</li>
+<li>Kent Tenney</li>
+<li>Martin Schnabel</li>
+<li>Maxim Burgerhout</li>
+<li>Mitch Anderson</li>
+<li>Nathaniel Whiteinge</li>
+<li>Seth House</li>
+<li>Thomas S Hatch</li>
+<li>Thomas Schreiber</li>
+<li>Tor Hveem</li>
+<li>lzyeval</li>
+<li>syphernl</li>
+</ul>
+<p>This makes 21 new developers since 0.9.4 was released!</p>
+<p>To keep up with the growing community follow Salt on Ohloh
+(<a class="reference external" href="http://www.ohloh.net/p/salt">http://www.ohloh.net/p/salt</a>), to join the Salt development community, fork
+Salt on Github, and get coding (<a class="reference external" href="https://github.com/saltstack/salt">https://github.com/saltstack/salt</a>)!</p>
+</div>
+<div class="section" id="major-features">
+<h2>Major Features<a class="headerlink" href="#major-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="speed-pickle-to-msgpack">
+<span id="v0-9-5-msgpack"></span><h3>SPEED! Pickle to msgpack<a class="headerlink" href="#speed-pickle-to-msgpack" title="Permalink to this headline">¶</a></h3>
+<p>For a few months now we have been talking about moving away from Python
+pickles for network serialization, but a preferred serialization format
+had not yet been found. After an extensive performance testing period
+involving everything from JSON to protocol buffers, a clear winner emerged.
+Message Pack (<a class="reference external" href="http://msgpack.org/">http://msgpack.org/</a>) proved to not only be the fastest and most
+compact, but also the most &quot;salt like&quot;. Message Pack is simple, and the code
+involved is very small. The msgpack library for Python has been added directly
+to Salt.</p>
+<p>This move introduces a few changes to Salt. First off, Salt is no longer a
+&quot;noarch&quot; package, since the msgpack lib is written in C. Salt 0.9.5 will also
+have compatibility issues with 0.9.4 with the default configuration.</p>
+<p>We have gone through great lengths to avoid backwards compatibility issues with
+Salt, but changing the serialization medium was going to create issues
+regardless. Salt 0.9.5 is somewhat backwards compatible with earlier minions. A
+0.9.5 master can command older minions, but only if the <tt class="xref std std-conf_master docutils literal"><span class="pre">serial</span></tt>
+config value in the master is set to <tt class="docutils literal"><span class="pre">pickle</span></tt>. This will tell the master to
+publish messages in pickle format and will allow the master to receive messages
+in both msgpack and pickle formats.</p>
+<p>Therefore <strong>the suggested methods for upgrading</strong> are either to just upgrade
+everything at once, or:</p>
+<ol class="arabic simple">
+<li>Upgrade the master to 0.9.5</li>
+<li>Set <tt class="xref std std-conf_master docutils literal"><span class="pre">serial</span></tt> to <tt class="docutils literal"><span class="pre">pickle</span></tt> in the master config</li>
+<li>Upgrade the minions</li>
+<li>Remove the <tt class="docutils literal"><span class="pre">serial</span></tt> option from the master config</li>
+</ol>
+<p>Since pickles can be used as a security exploit the ability for a master to
+accept pickles from minions at all will be removed in a future release.</p>
+</div>
+<div class="section" id="c-bindings-for-yaml">
+<h3>C Bindings for YAML<a class="headerlink" href="#c-bindings-for-yaml" title="Permalink to this headline">¶</a></h3>
+<p>All of the YAML rendering is now done with the YAML C bindings. This speeds up
+all of the sls files when running states.</p>
+</div>
+<div class="section" id="experimental-windows-support">
+<h3>Experimental Windows Support<a class="headerlink" href="#experimental-windows-support" title="Permalink to this headline">¶</a></h3>
+<p>David Boucha has worked tirelessly to bring initial support to Salt for
+Microsoft Windows operating systems. Right now the Salt Minion can run as a
+native Windows service and accept commands.</p>
+<p>In the weeks and months to come Windows will receive the full treatment and
+will have support for Salt States and more robust support for managing Windows
+systems. This is a big step forward for Salt to move entirely outside of the
+Unix world, and proves Salt is a viable cross platform solution. Big Thanks
+to Dave for his contribution here!</p>
+</div>
+<div class="section" id="dynamic-module-distribution">
+<h3>Dynamic Module Distribution<a class="headerlink" href="#dynamic-module-distribution" title="Permalink to this headline">¶</a></h3>
+<p>Many Salt users have expressed the desire to have Salt distribute in-house
+modules, states, renderers, returners, and grains. This support has been added
+in a number of ways:</p>
+<div class="section" id="modules-via-states">
+<h4>Modules via States<a class="headerlink" href="#modules-via-states" title="Permalink to this headline">¶</a></h4>
+<p>Now when salt modules are deployed to a minion via the state system as a file,
+then the modules will be automatically loaded into the active running minion
+- no restart required - and into the active running state. So custom state
+modules can be deployed and used in the same state run.</p>
+</div>
+<div class="section" id="modules-via-module-environment-directories">
+<h4>Modules via Module Environment Directories<a class="headerlink" href="#modules-via-module-environment-directories" title="Permalink to this headline">¶</a></h4>
+<p>Under the file_roots each environment can now have directories that are used
+to deploy large groups of modules. These directories sync modules at the
+beginning of a state run on the minion, or can be manually synced via the Salt
+module <a class="reference internal" href="../../ref/modules/all/salt.modules.saltutil.html#salt.modules.saltutil.sync_all" title="salt.modules.saltutil.sync_all"><tt class="xref py py-mod docutils literal"><span class="pre">salt.modules.saltutil.sync_all</span></tt></a>.</p>
+<p>The directories are named:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">_modules</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">_states</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">_grains</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">_renderers</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">_returners</span></tt></li>
+</ul>
+<p>The modules are pushed to their respective scopes on the minions.</p>
+</div>
+</div>
+<div class="section" id="module-reloading">
+<h3>Module Reloading<a class="headerlink" href="#module-reloading" title="Permalink to this headline">¶</a></h3>
+<p>Modules can now be reloaded without restarting the minion, this is done by
+calling the <tt class="xref py py-mod docutils literal"><span class="pre">salt.modules.sys.reload_modules</span></tt> function.</p>
+<p>But wait, there's more! Now when a salt module of any type is added via
+states the modules will be automatically reloaded, allowing for modules to be
+laid down with states and then immediately used.</p>
+<p>Finally, all modules are reloaded when modules are dynamically distributed
+from the salt master.</p>
+</div>
+<div class="section" id="enable-disable-added-to-service">
+<h3>Enable / Disable Added to Service<a class="headerlink" href="#enable-disable-added-to-service" title="Permalink to this headline">¶</a></h3>
+<p>A great deal of demand has existed for adding the capability to set services
+to be started at boot in the service module. This feature also comes with an
+overhaul of the service modules and initial systemd support.</p>
+<p>This means that the <a class="reference internal" href="../../ref/states/all/salt.states.service.html#salt.states.service.running" title="salt.states.service.running"><tt class="xref py py-mod docutils literal"><span class="pre">service</span> <span class="pre">state</span></tt></a> can now
+accept <tt class="docutils literal"><span class="pre">-</span> <span class="pre">enable:</span> <span class="pre">True</span></tt> to make sure a service is enabled at boot, and <tt class="docutils literal"><span class="pre">-</span>
+<span class="pre">enable:</span> <span class="pre">False</span></tt> to make sure it is disabled.</p>
+</div>
+<div class="section" id="compound-target">
+<h3>Compound Target<a class="headerlink" href="#compound-target" title="Permalink to this headline">¶</a></h3>
+<p>A new target type has been added to the lineup, the compound target. In
+previous versions the desired minions could only be targeted via a single
+specific target type, but now many target specifications can be declared.</p>
+<p>These targets can also be separated by and/or operators, so certain properties
+can be used to omit a node:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt -C <span class="s1">&#39;webserv* and G@os:Debian or E@db.*&#39;</span> test.ping
+</pre></div>
+</div>
+<p>will match all minions with ids starting with webserv via a glob and minions
+matching the <tt class="docutils literal"><span class="pre">os:Debian</span></tt> grain. Or minions that match the <tt class="docutils literal"><span class="pre">db.*</span></tt> regular
+expression.</p>
+</div>
+<div class="section" id="node-groups">
+<h3>Node Groups<a class="headerlink" href="#node-groups" title="Permalink to this headline">¶</a></h3>
+<p>Often the convenience of having a predefined group of minions to execute
+targets on is desired. This can be accomplished with the new nodegroups
+feature. Nodegroups allow for predefined compound targets to be declared in
+the master configuration file:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">nodegroups</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">group1</span><span class="p-Indicator">:</span> <span class="s">&#39;L@foo.domain.com,bar.domain.com,baz.domain.com</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">bl*.domain.com&#39;</span>
+  <span class="l-Scalar-Plain">group2</span><span class="p-Indicator">:</span> <span class="s">&#39;G@os:Debian</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">foo.domain.com&#39;</span>
+</pre></div>
+</div>
+<p>And then used via the <tt class="docutils literal"><span class="pre">-N</span></tt> option:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt -N group1 test.ping
+</pre></div>
+</div>
+</div>
+<div class="section" id="minion-side-data-store">
+<h3>Minion Side Data Store<a class="headerlink" href="#minion-side-data-store" title="Permalink to this headline">¶</a></h3>
+<p>The data module introduces the initial approach into storing persistent data on
+the minions, specific to the minions. This allows for data to be stored on
+minions that can be accessed from the master or from the minion.</p>
+<p>The Minion datastore is young, and will eventually provide an interface similar
+to a more mature key/value pair server.</p>
+</div>
+<div class="section" id="major-grains-improvement">
+<h3>Major Grains Improvement<a class="headerlink" href="#major-grains-improvement" title="Permalink to this headline">¶</a></h3>
+<p>The Salt grains have been overhauled to include a massive amount of extra data.
+this includes hardware data, os data and salt specific data.</p>
+</div>
+<div class="section" id="salt-q-is-useful-now">
+<h3>Salt -Q is Useful Now<a class="headerlink" href="#salt-q-is-useful-now" title="Permalink to this headline">¶</a></h3>
+<p>In the past the salt query system, which would display the data from recent
+executions would be displayed in pure Python, and it was unreadable.</p>
+<p>0.9.5 has added the outputter system to the <tt class="docutils literal"><span class="pre">-Q</span></tt> option, thus enabling the
+salt query system to return readable output.</p>
+</div>
+</div>
+<div class="section" id="packaging-updates">
+<h2>Packaging Updates<a class="headerlink" href="#packaging-updates" title="Permalink to this headline">¶</a></h2>
+<p>Huge strides have been made in packaging Salt for distributions. These
+additions are thanks to our wonderful community where the work to set up
+packages has proceeded tirelessly.</p>
+<div class="section" id="freebsd">
+<h3>FreeBSD<a class="headerlink" href="#freebsd" title="Permalink to this headline">¶</a></h3>
+<p>Salt on FreeBSD? There a port for that:</p>
+<p><a class="reference external" href="http://www.freebsd.org/cgi/cvsweb.cgi/ports/sysutils/salt/pkg-descr">http://www.freebsd.org/cgi/cvsweb.cgi/ports/sysutils/salt/pkg-descr</a></p>
+<p>This port was developed and added by Christer Edwards. This also marks the
+first time Salt has been included in an upstream packaging system!</p>
+</div>
+<div class="section" id="fedora-and-red-hat-enterprise">
+<h3>Fedora and Red Hat Enterprise<a class="headerlink" href="#fedora-and-red-hat-enterprise" title="Permalink to this headline">¶</a></h3>
+<p>Salt packages have been prepared for inclusion in the Fedora Project and in
+EPEL for Red Hat Enterprise 5 and 6. These packages are the result of the
+efforts made by Clint Savage (herlo).</p>
+</div>
+<div class="section" id="debian-ubuntu">
+<h3>Debian/Ubuntu<a class="headerlink" href="#debian-ubuntu" title="Permalink to this headline">¶</a></h3>
+<p>A team of many contributors have assisted in developing packages for Debian
+and Ubuntu. Salt is still actively seeking inclusion in upstream Debian and
+Ubuntu and the package data that has been prepared is being pushed through
+the needed channels for inclusion.</p>
+<p>These packages have been prepared with the help of:</p>
+<ul class="simple">
+<li>Corey</li>
+<li>Aaron Toponce</li>
+<li>and`</li>
+</ul>
+</div>
+<div class="section" id="more-to-come">
+<h3>More to Come<a class="headerlink" href="#more-to-come" title="Permalink to this headline">¶</a></h3>
+<p>We are actively seeking inclusion in more distributions. Primarily getting
+Salt into Gentoo, SUSE, OpenBSD and preparing Solaris support are all turning
+into higher priorities.</p>
+</div>
+</div>
+<div class="section" id="refinement">
+<h2>Refinement<a class="headerlink" href="#refinement" title="Permalink to this headline">¶</a></h2>
+<p>Salt continues to be refined into a faster, more stable and more usable
+application. 0.9.5 comes with more debug logging, more bug fixes and more
+complete support.</p>
+<div class="section" id="more-testing-more-bugfixes">
+<h3>More Testing, More BugFixes<a class="headerlink" href="#more-testing-more-bugfixes" title="Permalink to this headline">¶</a></h3>
+<p>0.9.5 comes with more bugfixes due to more testing than any previous release.
+The growing community and the introduction a a dedicated QA environment have
+unearthed many issues that were hiding under the covers. This has further
+refined and cleaned the state interface, taking care of things from minor
+visual issues to repairing misleading data.</p>
+</div>
+<div class="section" id="custom-exceptions">
+<h3>Custom Exceptions<a class="headerlink" href="#custom-exceptions" title="Permalink to this headline">¶</a></h3>
+<p>A custom exception module has been added to throw salt specific exceptions.
+This allows Salt to give much more granular error information.</p>
+</div>
+<div class="section" id="new-modules">
+<h3>New Modules<a class="headerlink" href="#new-modules" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="data">
+<h4><a class="reference internal" href="../../ref/modules/all/salt.modules.data.html#module-salt.modules.data" title="salt.modules.data"><tt class="xref py py-mod docutils literal"><span class="pre">data</span></tt></a><a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h4>
+<p>The new data module manages a persistent datastore on the minion.
+Big thanks to bastichelaar for his help refining this module</p>
+</div>
+<div class="section" id="freebsdkmod">
+<h4><a class="reference internal" href="../../ref/modules/all/salt.modules.freebsdkmod.html#module-salt.modules.freebsdkmod" title="salt.modules.freebsdkmod"><tt class="xref py py-mod docutils literal"><span class="pre">freebsdkmod</span></tt></a><a class="headerlink" href="#freebsdkmod" title="Permalink to this headline">¶</a></h4>
+<p>FreeBSD kernel modules can now be managed in the same way Salt handles Linux
+kernel modules.</p>
+<p>This module was contributed thanks to the efforts of Christer Edwards</p>
+</div>
+<div class="section" id="gentoo-service">
+<h4><a class="reference internal" href="../../ref/modules/all/salt.modules.gentoo_service.html#module-salt.modules.gentoo_service" title="salt.modules.gentoo_service"><tt class="xref py py-mod docutils literal"><span class="pre">gentoo_service</span></tt></a><a class="headerlink" href="#gentoo-service" title="Permalink to this headline">¶</a></h4>
+<p>Support has been added for managing services in Gentoo. Now Gentoo services
+can be started, stopped, restarted, enabled, disabled and viewed.</p>
+</div>
+<div class="section" id="pip">
+<h4><a class="reference internal" href="../../ref/modules/all/salt.modules.pip.html#module-salt.modules.pip" title="salt.modules.pip"><tt class="xref py py-mod docutils literal"><span class="pre">pip</span></tt></a><a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h4>
+<p>The pip module introduces management for pip installed applications.
+Thanks goes to whitinge for the addition of the pip module</p>
+</div>
+<div class="section" id="rh-service">
+<h4><a class="reference internal" href="../../ref/modules/all/salt.modules.rh_service.html#module-salt.modules.rh_service" title="salt.modules.rh_service"><tt class="xref py py-mod docutils literal"><span class="pre">rh_service</span></tt></a><a class="headerlink" href="#rh-service" title="Permalink to this headline">¶</a></h4>
+<p>The rh_service module enables Red Hat and Fedora specific service management.
+Now Red Hat like systems come with extensive management of the classic init
+system used by Red Hat</p>
+</div>
+<div class="section" id="saltutil">
+<h4><a class="reference internal" href="../../ref/modules/all/salt.modules.saltutil.html#module-salt.modules.saltutil" title="salt.modules.saltutil"><tt class="xref py py-mod docutils literal"><span class="pre">saltutil</span></tt></a><a class="headerlink" href="#saltutil" title="Permalink to this headline">¶</a></h4>
+<p>The saltutil module has been added as a place to hold functions used in the
+maintenance and management of salt itself. Saltutil is used to salt the salt
+minion. The saltutil module is presently used only to sync extension modules
+from the master server.</p>
+</div>
+<div class="section" id="systemd">
+<h4><a class="reference internal" href="../../ref/modules/all/salt.modules.systemd.html#module-salt.modules.systemd" title="salt.modules.systemd"><tt class="xref py py-mod docutils literal"><span class="pre">systemd</span></tt></a><a class="headerlink" href="#systemd" title="Permalink to this headline">¶</a></h4>
+<p>Systemd support has been added to Salt, now systems using this next generation
+init system are supported on systems running systemd.</p>
+</div>
+<div class="section" id="virtualenv">
+<h4><tt class="xref py py-mod docutils literal"><span class="pre">virtualenv</span></tt><a class="headerlink" href="#virtualenv" title="Permalink to this headline">¶</a></h4>
+<p>The virtualenv module has been added to allow salt to create virtual Python
+environments.
+Thanks goes to whitinge for the addition of the virtualenv module</p>
+</div>
+<div class="section" id="win-disk">
+<h4><a class="reference internal" href="../../ref/modules/all/salt.modules.win_disk.html#module-salt.modules.win_disk" title="salt.modules.win_disk"><tt class="xref py py-mod docutils literal"><span class="pre">win_disk</span></tt></a><a class="headerlink" href="#win-disk" title="Permalink to this headline">¶</a></h4>
+<p>Support for gathering disk information on Microsoft Windows minions
+The windows modules come courtesy of Utah_Dave</p>
+</div>
+<div class="section" id="win-service">
+<h4><a class="reference internal" href="../../ref/modules/all/salt.modules.win_service.html#module-salt.modules.win_service" title="salt.modules.win_service"><tt class="xref py py-mod docutils literal"><span class="pre">win_service</span></tt></a><a class="headerlink" href="#win-service" title="Permalink to this headline">¶</a></h4>
+<p>The win_service module adds service support to Salt for Microsoft Windows
+services</p>
+</div>
+<div class="section" id="win-useradd">
+<h4><a class="reference internal" href="../../ref/modules/all/salt.modules.win_useradd.html#module-salt.modules.win_useradd" title="salt.modules.win_useradd"><tt class="xref py py-mod docutils literal"><span class="pre">win_useradd</span></tt></a><a class="headerlink" href="#win-useradd" title="Permalink to this headline">¶</a></h4>
+<p>Salt can now manage local users on Microsoft Windows Systems</p>
+</div>
+<div class="section" id="yumpkg5">
+<h4><tt class="xref py py-mod docutils literal"><span class="pre">yumpkg5</span></tt><a class="headerlink" href="#yumpkg5" title="Permalink to this headline">¶</a></h4>
+<p>The yumpkg module introduces in 0.9.4 uses the yum API to interact with the
+yum package manager. Unfortunately, on Red Hat 5 systems salt does not have
+access to the yum API because the yum API is running under Python 2.4 and Salt
+needs to run under Python 2.6.</p>
+<p>The yumpkg5 module bypasses this issue by shelling out to yum on systems where
+the yum API is not available.</p>
+</div>
+</div>
+<div class="section" id="new-states">
+<h3>New States<a class="headerlink" href="#new-states" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="mysql-database">
+<h4><a class="reference internal" href="../../ref/states/all/salt.states.mysql_database.html#module-salt.states.mysql_database" title="salt.states.mysql_database"><tt class="xref py py-mod docutils literal"><span class="pre">mysql_database</span></tt></a><a class="headerlink" href="#mysql-database" title="Permalink to this headline">¶</a></h4>
+<p>The new mysql_database state adds the ability to systems running a mysql
+server to manage the existence of mysql databases.</p>
+<p>The mysql states are thanks to syphernl</p>
+</div>
+<div class="section" id="mysql-user">
+<h4><a class="reference internal" href="../../ref/states/all/salt.states.mysql_user.html#module-salt.states.mysql_user" title="salt.states.mysql_user"><tt class="xref py py-mod docutils literal"><span class="pre">mysql_user</span></tt></a><a class="headerlink" href="#mysql-user" title="Permalink to this headline">¶</a></h4>
+<p>The mysql_user state enables mysql user management.</p>
+</div>
+<div class="section" id="id1">
+<h4><tt class="xref py py-mod docutils literal"><span class="pre">virtualenv</span></tt><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>The virtualenv state can manage the state of Python virtual environments.
+Thanks to Whitinge for the virtualenv state</p>
+</div>
+</div>
+<div class="section" id="new-returners">
+<h3>New Returners<a class="headerlink" href="#new-returners" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="cassandra-returner">
+<h4><a class="reference internal" href="../../ref/returners/all/salt.returners.cassandra_return.html#module-salt.returners.cassandra_return" title="salt.returners.cassandra_return"><tt class="xref py py-mod docutils literal"><span class="pre">cassandra_returner</span></tt></a><a class="headerlink" href="#cassandra-returner" title="Permalink to this headline">¶</a></h4>
+<p>A returner allowing Salt to send data to a cassandra server.
+Thanks to Byron Clark for contributing this returner</p>
+</div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt 0.9.5 Release Notes</a><ul>
+<li><a class="reference internal" href="#community">Community</a></li>
+<li><a class="reference internal" href="#major-features">Major Features</a><ul>
+<li><a class="reference internal" href="#speed-pickle-to-msgpack">SPEED! Pickle to msgpack</a></li>
+<li><a class="reference internal" href="#c-bindings-for-yaml">C Bindings for YAML</a></li>
+<li><a class="reference internal" href="#experimental-windows-support">Experimental Windows Support</a></li>
+<li><a class="reference internal" href="#dynamic-module-distribution">Dynamic Module Distribution</a><ul>
+<li><a class="reference internal" href="#modules-via-states">Modules via States</a></li>
+<li><a class="reference internal" href="#modules-via-module-environment-directories">Modules via Module Environment Directories</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-reloading">Module Reloading</a></li>
+<li><a class="reference internal" href="#enable-disable-added-to-service">Enable / Disable Added to Service</a></li>
+<li><a class="reference internal" href="#compound-target">Compound Target</a></li>
+<li><a class="reference internal" href="#node-groups">Node Groups</a></li>
+<li><a class="reference internal" href="#minion-side-data-store">Minion Side Data Store</a></li>
+<li><a class="reference internal" href="#major-grains-improvement">Major Grains Improvement</a></li>
+<li><a class="reference internal" href="#salt-q-is-useful-now">Salt -Q is Useful Now</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#packaging-updates">Packaging Updates</a><ul>
+<li><a class="reference internal" href="#freebsd">FreeBSD</a></li>
+<li><a class="reference internal" href="#fedora-and-red-hat-enterprise">Fedora and Red Hat Enterprise</a></li>
+<li><a class="reference internal" href="#debian-ubuntu">Debian/Ubuntu</a></li>
+<li><a class="reference internal" href="#more-to-come">More to Come</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#refinement">Refinement</a><ul>
+<li><a class="reference internal" href="#more-testing-more-bugfixes">More Testing, More BugFixes</a></li>
+<li><a class="reference internal" href="#custom-exceptions">Custom Exceptions</a></li>
+<li><a class="reference internal" href="#new-modules">New Modules</a><ul>
+<li><a class="reference internal" href="#data"><tt class="docutils literal"><span class="pre">data</span></tt></a></li>
+<li><a class="reference internal" href="#freebsdkmod"><tt class="docutils literal"><span class="pre">freebsdkmod</span></tt></a></li>
+<li><a class="reference internal" href="#gentoo-service"><tt class="docutils literal"><span class="pre">gentoo_service</span></tt></a></li>
+<li><a class="reference internal" href="#pip"><tt class="docutils literal"><span class="pre">pip</span></tt></a></li>
+<li><a class="reference internal" href="#rh-service"><tt class="docutils literal"><span class="pre">rh_service</span></tt></a></li>
+<li><a class="reference internal" href="#saltutil"><tt class="docutils literal"><span class="pre">saltutil</span></tt></a></li>
+<li><a class="reference internal" href="#systemd"><tt class="docutils literal"><span class="pre">systemd</span></tt></a></li>
+<li><a class="reference internal" href="#virtualenv"><tt class="docutils literal"><span class="pre">virtualenv</span></tt></a></li>
+<li><a class="reference internal" href="#win-disk"><tt class="docutils literal"><span class="pre">win_disk</span></tt></a></li>
+<li><a class="reference internal" href="#win-service"><tt class="docutils literal"><span class="pre">win_service</span></tt></a></li>
+<li><a class="reference internal" href="#win-useradd"><tt class="docutils literal"><span class="pre">win_useradd</span></tt></a></li>
+<li><a class="reference internal" href="#yumpkg5"><tt class="docutils literal"><span class="pre">yumpkg5</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#new-states">New States</a><ul>
+<li><a class="reference internal" href="#mysql-database"><tt class="docutils literal"><span class="pre">mysql_database</span></tt></a></li>
+<li><a class="reference internal" href="#mysql-user"><tt class="docutils literal"><span class="pre">mysql_user</span></tt></a></li>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">virtualenv</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#new-returners">New Returners</a><ul>
+<li><a class="reference internal" href="#cassandra-returner"><tt class="docutils literal"><span class="pre">cassandra_returner</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="0.9.4.html"
+                        title="previous chapter">Salt 0.9.4 Release Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="0.9.6.html"
+                        title="next chapter">Salt 0.9.6 Release Notes</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.9.4.html" title="Salt 0.9.4 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.9.6.html" title="Salt 0.9.6 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

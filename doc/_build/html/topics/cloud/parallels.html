@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Getting Started With Parallels</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt Cloud Documentation" href="index.html">
+        <link rel="next" title="VM Profiles" href="profiles.html">
+        <link rel="prev" title="Getting Started With OpenStack" href="openstack.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="openstack.html" title="Getting Started With OpenStack">previous</a>
+                
+            </li>
+            <li>
+                <a href="profiles.html" title="VM Profiles">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="getting-started-with-parallels">
+<h1>Getting Started With Parallels<a class="headerlink" href="#getting-started-with-parallels" title="Permalink to this headline">¶</a></h1>
+<p>Parallels Cloud Server is a product by Parallels that delivers a cloud hosting
+solution. The PARALLELS module for Salt Cloud enables you to manage instances
+hosted by a provider using PCS. Further information can be found at:</p>
+<p><a class="reference external" href="http://www.parallels.com/products/pcs/">http://www.parallels.com/products/pcs/</a></p>
+<ul class="simple">
+<li>Using the old format, set up the cloud configuration at <tt class="docutils literal"><span class="pre">/etc/salt/cloud</span></tt>:</li>
+</ul>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># Set up the location of the salt master</span>
+<span class="c1">#</span>
+<span class="l-Scalar-Plain">minion</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">master</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">saltmaster.example.com</span>
+
+<span class="c1"># Set the PARALLELS access credentials (see below)</span>
+<span class="c1">#</span>
+<span class="l-Scalar-Plain">PARALLELS.user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">myuser</span>
+<span class="l-Scalar-Plain">PARALLELS.password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">badpass</span>
+
+<span class="c1"># Set the access URL for your PARALLELS provider</span>
+<span class="c1">#</span>
+<span class="l-Scalar-Plain">PARALLELS.url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://api.cloud.xmission.com:4465/paci/v1.0/</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Using the new format, set up the cloud configuration at
+<tt class="docutils literal"><span class="pre">/etc/salt/cloud.providers</span></tt> or
+<tt class="docutils literal"><span class="pre">/etc/salt/cloud.providers.d/parallels.conf</span></tt>:</li>
+</ul>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-parallels-config</span><span class="p-Indicator">:</span>
+  <span class="c1"># Set up the location of the salt master</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">minion</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">master</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">saltmaster.example.com</span>
+
+  <span class="c1"># Set the PARALLELS access credentials (see below)</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">myuser</span>
+  <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">badpass</span>
+
+  <span class="c1"># Set the access URL for your PARALLELS provider</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://api.cloud.xmission.com:4465/paci/v1.0/</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">parallels</span>
+</pre></div>
+</div>
+<div class="section" id="access-credentials">
+<h2>Access Credentials<a class="headerlink" href="#access-credentials" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">user</span></tt>, <tt class="docutils literal"><span class="pre">password</span></tt> and <tt class="docutils literal"><span class="pre">url</span></tt> will be provided to you by your cloud
+provider. These are all required in order for the PARALLELS driver to work.</p>
+</div>
+<div class="section" id="cloud-profiles">
+<h2>Cloud Profiles<a class="headerlink" href="#cloud-profiles" title="Permalink to this headline">¶</a></h2>
+<p>Set up an initial profile at <tt class="docutils literal"><span class="pre">/etc/salt/cloud.profiles</span></tt> or
+<tt class="docutils literal"><span class="pre">/etc/salt/cloud.profiles.d/parallels.conf</span></tt>:</p>
+<ul class="simple">
+<li>Using the old cloud configuration format:</li>
+</ul>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">parallels-ubuntu</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">parallels</span>
+    <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ubuntu-12.04-x86_64</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Using the new cloud configuration format and the cloud configuration example
+from above:</li>
+</ul>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">parallels-ubuntu</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-parallels-config</span>
+    <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ubuntu-12.04-x86_64</span>
+</pre></div>
+</div>
+<p>The profile can be realized now with a salt command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># salt-cloud -p parallels-ubuntu myubuntu</span>
+</pre></div>
+</div>
+<p>This will create an instance named <tt class="docutils literal"><span class="pre">myubuntu</span></tt> on the cloud provider. The
+minion that is installed on this instance will have an <tt class="docutils literal"><span class="pre">id</span></tt> of <tt class="docutils literal"><span class="pre">myubuntu</span></tt>.
+If the command was executed on the salt-master, its Salt key will automatically
+be signed on the master.</p>
+<p>Once the instance has been created with salt-minion installed, connectivity to
+it can be verified with Salt:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># salt myubuntu test.ping</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="required-settings">
+<h2>Required Settings<a class="headerlink" href="#required-settings" title="Permalink to this headline">¶</a></h2>
+<p>The following settings are always required for PARALLELS:</p>
+<ul class="simple">
+<li>Using the old cloud configuration format:</li>
+</ul>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">PARALLELS.user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">myuser</span>
+<span class="l-Scalar-Plain">PARALLELS.password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">badpass</span>
+<span class="l-Scalar-Plain">PARALLELS.url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://api.cloud.xmission.com:4465/paci/v1.0/</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Using the new cloud configuration format:</li>
+</ul>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-parallels-config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">myuser</span>
+  <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">badpass</span>
+  <span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://api.cloud.xmission.com:4465/paci/v1.0/</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">parallels</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="optional-settings">
+<h2>Optional Settings<a class="headerlink" href="#optional-settings" title="Permalink to this headline">¶</a></h2>
+<p>Unlike other cloud providers in Salt Cloud, Parallels does not utilize a
+<tt class="docutils literal"><span class="pre">size</span></tt> setting. This is because Parallels allows the end-user to specify a
+more detailed configuration for their instances, than is allowed by many other
+cloud providers. The following options are available to be used in a profile,
+with their default settings listed.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># Description of the instance. Defaults to the instance name.</span>
+<span class="l-Scalar-Plain">desc</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;instance_name&gt;</span>
+
+<span class="c1"># How many CPU cores, and how fast they are (in MHz)</span>
+<span class="l-Scalar-Plain">cpu_number</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+<span class="l-Scalar-Plain">cpu_power</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1000</span>
+
+<span class="c1"># How many megabytes of RAM</span>
+<span class="l-Scalar-Plain">ram</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">256</span>
+
+<span class="c1"># Bandwidth available, in kbps</span>
+<span class="l-Scalar-Plain">bandwidth</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100</span>
+
+<span class="c1"># How many public IPs will be assigned to this instance</span>
+<span class="l-Scalar-Plain">ip_num</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+
+<span class="c1"># Size of the instance disk (in GiB)</span>
+<span class="l-Scalar-Plain">disk_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+
+<span class="c1"># Username and password</span>
+<span class="l-Scalar-Plain">ssh_username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+<span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;value from PARALLELS.password&gt;</span>
+
+<span class="c1"># The name of the image, from ``salt-cloud --list-images parallels``</span>
+<span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ubuntu-12.04-x86_64</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting Started With Parallels</a><ul>
+<li><a class="reference internal" href="#access-credentials">Access Credentials</a></li>
+<li><a class="reference internal" href="#cloud-profiles">Cloud Profiles</a></li>
+<li><a class="reference internal" href="#required-settings">Required Settings</a></li>
+<li><a class="reference internal" href="#optional-settings">Optional Settings</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="openstack.html"
+                        title="previous chapter">Getting Started With OpenStack</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="profiles.html"
+                        title="next chapter">VM Profiles</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="openstack.html" title="Getting Started With OpenStack">previous</a>
+                
+            </li>
+            <li>
+                <a href="profiles.html" title="VM Profiles">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

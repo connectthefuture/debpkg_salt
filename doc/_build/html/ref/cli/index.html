@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Command Line Reference</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="salt" href="salt.html">
+        <link rel="prev" title="Windows Software Repository" href="../windows-package-manager.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../windows-package-manager.html" title="Windows Software Repository">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.html" title="salt">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="command-line-reference">
+<h1>Command Line Reference<a class="headerlink" href="#command-line-reference" title="Permalink to this headline">¶</a></h1>
+<p>Salt can be controlled by a command line client by the root user on the Salt
+master. The Salt command line client uses the Salt client API to communicate
+with the Salt master server. The Salt client is straightforward and simple
+to use.</p>
+<p>Using the Salt client commands can be easily sent to the minions.</p>
+<p>Each of these commands accepts an explicit <cite>--config</cite> option to point to either
+the master or minion configuration file.  If this option is not provided and
+the default configuration file does not exist then Salt falls back to use the
+environment variables <tt class="docutils literal"><span class="pre">SALT_MASTER_CONFIG</span></tt> and <tt class="docutils literal"><span class="pre">SALT_MINION_CONFIG</span></tt>.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="../../topics/configuration.html"><em>Configuring Salt</em></a></p>
+</div>
+<div class="section" id="using-the-salt-command">
+<h2>Using the Salt Command<a class="headerlink" href="#using-the-salt-command" title="Permalink to this headline">¶</a></h2>
+<p>The Salt command needs a few components to send information to the Salt
+minions. The target minions need to be defined, the function to call and any
+arguments the function requires.</p>
+<div class="section" id="defining-the-target-minions">
+<h3>Defining the Target Minions<a class="headerlink" href="#defining-the-target-minions" title="Permalink to this headline">¶</a></h3>
+<p>The first argument passed to salt, defines the target minions, the target
+minions are accessed via their hostname. The default target type is a bash
+glob:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*foo.com&#39;</span> sys.doc
+</pre></div>
+</div>
+<p>Salt can also define the target minions with regular expressions:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt -E <span class="s1">&#39;.*&#39;</span> cmd.run <span class="s1">&#39;ls -l | grep foo&#39;</span>
+</pre></div>
+</div>
+<p>Or to explicitly list hosts, salt can take a list:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt -L foo.bar.baz,quo.qux cmd.run <span class="s1">&#39;ps aux | grep foo&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="more-powerful-targets">
+<h3>More Powerful Targets<a class="headerlink" href="#more-powerful-targets" title="Permalink to this headline">¶</a></h3>
+<p>The simple target specifications, glob, regex and list will cover many use
+cases, and for some will cover all use cases, but more powerful options exist.</p>
+<div class="section" id="targeting-with-grains">
+<h4>Targeting with Grains<a class="headerlink" href="#targeting-with-grains" title="Permalink to this headline">¶</a></h4>
+<p>The Grains interface was built into Salt to allow minions to be targeted by
+system properties. So minions running on a particular operating system can
+be called to execute a function, or a specific kernel.</p>
+<p>Calling via a grain is done by passing the -G option to salt, specifying
+a grain and a glob expression to match the value of the grain. The syntax for
+the target is the grain key followed by a globexpression: &quot;os:Arch*&quot;.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt -G <span class="s1">&#39;os:Fedora&#39;</span> test.ping
+</pre></div>
+</div>
+<p>Will return True from all of the minions running Fedora.</p>
+<p>To discover what grains are available and what the values are, execute the
+grains.item salt function:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> grains.items
+</pre></div>
+</div>
+</div>
+<div class="section" id="targeting-with-executions">
+<h4>Targeting with Executions<a class="headerlink" href="#targeting-with-executions" title="Permalink to this headline">¶</a></h4>
+<p>As of 0.8.8 targeting with executions is still under heavy development and this
+documentation is written to reference the behavior of execution matching in the
+future.</p>
+<p>Execution matching allows for a primary function to be executed, and then based
+on the return of the primary function the main function is executed.</p>
+<p>Execution matching allows for matching minions based on any arbitrary running
+data on the minions.</p>
+</div>
+<div class="section" id="compound-targeting">
+<h4>Compound Targeting<a class="headerlink" href="#compound-targeting" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.5.</span></p>
+</div>
+<p>Multiple target interfaces can be used in conjunction to determine the command
+targets. These targets can then be combined using and or or statements. This
+is well defined with an example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt -C <span class="s1">&#39;G@os:Debian and webser* or E@db.*&#39;</span> test.ping
+</pre></div>
+</div>
+<p>In this example any minion who's id starts with <tt class="docutils literal"><span class="pre">webser</span></tt> and is running
+Debian, or any minion who's id starts with db will be matched.</p>
+<p>The type of matcher defaults to glob, but can be specified with the
+corresponding letter followed by the <tt class="docutils literal"><span class="pre">&#64;</span></tt> symbol. In the above example a grain
+is used with <tt class="docutils literal"><span class="pre">G&#64;</span></tt> as well as a regular expression with <tt class="docutils literal"><span class="pre">E&#64;</span></tt>. The
+<tt class="docutils literal"><span class="pre">webser*</span></tt> target does not need to be prefaced with a target type specifier
+because it is a glob.</p>
+</div>
+<div class="section" id="node-group-targeting">
+<h4>Node Group Targeting<a class="headerlink" href="#node-group-targeting" title="Permalink to this headline">¶</a></h4>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.5.</span></p>
+</div>
+<p>Often the convenience of having a predefined group of minions to execute
+targets on is desired. This can be accomplished with the new nodegroups
+feature. Nodegroups allow for predefined compound targets to be declared in
+the master configuration file:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">nodegroups</span><span class="p-Indicator">:</span>
+ <span class="l-Scalar-Plain"> group1</span><span class="p-Indicator">:</span> <span class="s">&#39;L@foo.domain.com,bar.domain.com,baz.domain.com</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">bl*.domain.com&#39;</span>
+ <span class="l-Scalar-Plain"> group2</span><span class="p-Indicator">:</span> <span class="s">&#39;G@os:Debian</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">foo.domain.com&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="calling-the-function">
+<h3>Calling the Function<a class="headerlink" href="#calling-the-function" title="Permalink to this headline">¶</a></h3>
+<p>The function to call on the specified target is placed after the target
+specification.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.8.</span></p>
+</div>
+<p>Functions may also accept arguments, space-delimited:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cmd.exec_code python <span class="s1">&#39;import sys; print sys.version&#39;</span>
+</pre></div>
+</div>
+<p>Optional, keyword arguments are also supported:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pip.install salt <span class="nv">timeout</span><span class="o">=</span>5 <span class="nv">upgrade</span><span class="o">=</span>True
+</pre></div>
+</div>
+<p>They are always in the form of <tt class="docutils literal"><span class="pre">kwarg=argument</span></tt>.</p>
+<p>Arguments are formatted as YAML:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cmd.run <span class="s1">&#39;echo &quot;Hello: $FIRST_NAME&quot;&#39;</span> <span class="nv">env</span><span class="o">=</span><span class="s1">&#39;{FIRST_NAME: &quot;Joe&quot;}&#39;</span>
+</pre></div>
+</div>
+<p>Note: dictionaries must have curly braces around them (like the <tt class="docutils literal"><span class="pre">env</span></tt>
+keyword argument above).  This was changed in 0.15.1: in the above example,
+the first argument used to be parsed as the dictionary
+<tt class="docutils literal"><span class="pre">{'echo</span> <span class="pre">&quot;Hello':</span> <span class="pre">'$FIRST_NAME&quot;'}</span></tt>. This was generally not the expected
+behavior.</p>
+<p>If you want to test what parameters are actually passed to a module, use the
+<tt class="docutils literal"><span class="pre">test.arg_repr</span></tt> command:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> test.arg_repr <span class="s1">&#39;echo &quot;Hello: $FIRST_NAME&quot;&#39;</span> <span class="nv">env</span><span class="o">=</span><span class="s1">&#39;{FIRST_NAME: &quot;Joe&quot;}&#39;</span>
+</pre></div>
+</div>
+<div class="section" id="finding-available-minion-functions">
+<h4>Finding available minion functions<a class="headerlink" href="#finding-available-minion-functions" title="Permalink to this headline">¶</a></h4>
+<p>The Salt functions are self documenting, all of the function documentation can
+be retried from the minions via the <tt class="xref py py-func docutils literal"><span class="pre">sys.doc()</span></tt> function:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> sys.doc
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="compound-command-execution">
+<h3>Compound Command Execution<a class="headerlink" href="#compound-command-execution" title="Permalink to this headline">¶</a></h3>
+<p>If a series of commands needs to be sent to a single target specification then
+the commands can be sent in a single publish. This can make gathering
+groups of information faster, and lowers the stress on the network for repeated
+commands.</p>
+<p>Compound command execution works by sending a list of functions and arguments
+instead of sending a single function and argument. The functions are executed
+on the minion in the order they are defined on the command line, and then the
+data from all of the commands are returned in a dictionary. This means that
+the set of commands are called in a predictable way, and the returned data can
+be easily interpreted.</p>
+<p>Executing compound commands if done by passing a comma delimited list of
+functions, followed by a comma delimited list of arguments:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cmd.run,test.ping,test.echo <span class="s1">&#39;cat /proc/cpuinfo&#39;</span>,,foo
+</pre></div>
+</div>
+<p>The trick to look out for here, is that if a function is being passed no
+arguments, then there needs to be a placeholder for the absent arguments. This
+is why in the above example, there are two commas right next to each other.
+<tt class="docutils literal"><span class="pre">test.ping</span></tt> takes no arguments, so we need to add another comma, otherwise
+Salt would attempt to pass &quot;foo&quot; to <tt class="docutils literal"><span class="pre">test.ping</span></tt>.</p>
+<p>If you need to pass arguments that include commas, then make sure you add
+spaces around the commas that separate arguments. For example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cmd.run,test.ping,test.echo <span class="s1">&#39;echo &quot;1,2,3&quot;&#39;</span> , , foo
+</pre></div>
+</div>
+<p>You may change the arguments separator using the <tt class="docutils literal"><span class="pre">--args-separator</span></tt> option:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt --args-separator<span class="o">=</span>:: <span class="s1">&#39;*&#39;</span> some.fun,test.echo params with , comma :: foo
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Command Line Reference</a><ul>
+<li><a class="reference internal" href="#using-the-salt-command">Using the Salt Command</a><ul>
+<li><a class="reference internal" href="#defining-the-target-minions">Defining the Target Minions</a></li>
+<li><a class="reference internal" href="#more-powerful-targets">More Powerful Targets</a><ul>
+<li><a class="reference internal" href="#targeting-with-grains">Targeting with Grains</a></li>
+<li><a class="reference internal" href="#targeting-with-executions">Targeting with Executions</a></li>
+<li><a class="reference internal" href="#compound-targeting">Compound Targeting</a></li>
+<li><a class="reference internal" href="#node-group-targeting">Node Group Targeting</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#calling-the-function">Calling the Function</a><ul>
+<li><a class="reference internal" href="#finding-available-minion-functions">Finding available minion functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#compound-command-execution">Compound Command Execution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../windows-package-manager.html"
+                        title="previous chapter">Windows Software Repository</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">salt</span></tt></a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../windows-package-manager.html" title="Windows Software Repository">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.html" title="salt">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

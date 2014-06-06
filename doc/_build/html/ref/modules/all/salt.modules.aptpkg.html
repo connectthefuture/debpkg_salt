@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.modules.aptpkg</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin execution modules" href="index.html">
+        <link rel="next" title="salt.modules.archive" href="salt.modules.archive.html">
+        <link rel="prev" title="salt.modules.apache" href="salt.modules.apache.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.apache.html" title="salt.modules.apache">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.archive.html" title="salt.modules.archive">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.modules.aptpkg">
+<span id="salt-modules-aptpkg"></span><h1>salt.modules.aptpkg<a class="headerlink" href="#module-salt.modules.aptpkg" title="Permalink to this headline">¶</a></h1>
+<p>Support for APT (Advanced Packaging Tool)</p>
+<dl class="function">
+<dt id="salt.modules.aptpkg.del_repo">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">del_repo</tt><big>(</big><em>repo</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.del_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a repo from the sources.list / sources.list.d</p>
+<p>If the .list file is in the sources.list.d directory
+and the file that the repo exists in does not contain any other
+repo configuration, the file itself will be deleted.</p>
+<p>The repo passed in must be a fully formed repository definition
+string.</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.del_repo <span class="s2">&quot;myrepo definition&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.expand_repo_def">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">expand_repo_def</tt><big>(</big><em>repokwargs</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.expand_repo_def" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take a repository definition and expand it to the full pkg repository dict
+that can be used for comparison.  This is a helper function to make
+the Debian/Ubuntu apt sources sane for comparison in the pkgrepo states.</p>
+<p>There is no use to calling this function via the CLI.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.file_dict">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">file_dict</tt><big>(</big><em>*packages</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.file_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the files that belong to a package, grouped by package. Not
+specifying any packages will return a list of _every_ file on the system's
+package database (not generally recommended).</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.file_list httpd
+salt <span class="s1">&#39;*&#39;</span> pkg.file_list httpd postfix
+salt <span class="s1">&#39;*&#39;</span> pkg.file_list
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.file_list">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">file_list</tt><big>(</big><em>*packages</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.file_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the files that belong to a package. Not specifying any packages will
+return a list of _every_ file on the system's package database (not
+generally recommended).</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.file_list httpd
+salt <span class="s1">&#39;*&#39;</span> pkg.file_list httpd postfix
+salt <span class="s1">&#39;*&#39;</span> pkg.file_list
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.get_repo">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">get_repo</tt><big>(</big><em>repo</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.get_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a repo from the sources.list / sources.list.d</p>
+<p>The repo passed in needs to be a complete repo entry.</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.get_repo <span class="s2">&quot;myrepo definition&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.get_selections">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">get_selections</tt><big>(</big><em>pattern=None</em>, <em>state=None</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.get_selections" title="Permalink to this definition">¶</a></dt>
+<dd><p>View package state from the dpkg database.</p>
+<p>Returns a dict of dicts containing the state, and package names:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;&lt;host&gt;&#39;</span><span class="p">:</span>
+    <span class="p">{</span><span class="s">&#39;&lt;state&gt;&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;pkg1&#39;</span><span class="p">,</span>
+                 <span class="o">...</span>
+                <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.get_selections
+salt <span class="s1">&#39;*&#39;</span> pkg.get_selections <span class="s1">&#39;python-*&#39;</span>
+salt <span class="s1">&#39;*&#39;</span> pkg.get_selections <span class="nv">state</span><span class="o">=</span>hold
+salt <span class="s1">&#39;*&#39;</span> pkg.get_selections <span class="s1">&#39;openssh*&#39;</span> <span class="nv">state</span><span class="o">=</span>hold
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.install">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">install</tt><big>(</big><em>name=None</em>, <em>refresh=False</em>, <em>fromrepo=None</em>, <em>skip_verify=False</em>, <em>debconf=None</em>, <em>pkgs=None</em>, <em>sources=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install the passed package, add refresh=True to update the dpkg database.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd><p class="first">The name of the package to be installed. Note that this parameter is
+ignored if either &quot;pkgs&quot; or &quot;sources&quot; is passed. Additionally, please
+note that this option can only be used to install packages from a
+software repository. To install a package file manually, use the
+&quot;sources&quot; option.</p>
+<p>32-bit packages can be installed on 64-bit systems by appending the
+architecture designation (<tt class="docutils literal"><span class="pre">:i386</span></tt>, etc.) to the end of the package
+name.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;package name&gt;
+</pre></div>
+</div>
+</dd>
+<dt>refresh</dt>
+<dd>Whether or not to refresh the package database before installing.</dd>
+<dt>fromrepo</dt>
+<dd>Specify a package repository to install from
+(e.g., <tt class="docutils literal"><span class="pre">apt-get</span> <span class="pre">-t</span> <span class="pre">unstable</span> <span class="pre">install</span> <span class="pre">somepackage</span></tt>)</dd>
+<dt>skip_verify</dt>
+<dd>Skip the GPG verification check (e.g., <tt class="docutils literal"><span class="pre">--allow-unauthenticated</span></tt>, or
+<tt class="docutils literal"><span class="pre">--force-bad-verify</span></tt> for install from package file).</dd>
+<dt>debconf</dt>
+<dd>Provide the path to a debconf answers file, processed before
+installation.</dd>
+<dt>version</dt>
+<dd>Install a specific version of the package, e.g. 1.2.3~0ubuntu0. Ignored
+if &quot;pkgs&quot; or &quot;sources&quot; is passed.</dd>
+</dl>
+<p>Multiple Package Installation Options:</p>
+<dl class="docutils">
+<dt>pkgs</dt>
+<dd><p class="first">A list of packages to install from a software repository. Must be
+passed as a python list.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install <span class="nv">pkgs</span><span class="o">=</span><span class="s1">&#39;[&quot;foo&quot;, &quot;bar&quot;]&#39;</span>
+salt <span class="s1">&#39;*&#39;</span> pkg.install <span class="nv">pkgs</span><span class="o">=</span><span class="s1">&#39;[&quot;foo&quot;, {&quot;bar&quot;: &quot;1.2.3-0ubuntu0&quot;}]&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt>sources</dt>
+<dd><p class="first">A list of DEB packages to install. Must be passed as a list of dicts,
+with the keys being package names, and the values being the source URI
+or local path to the package.  Dependencies are automatically resolved
+and marked as auto-installed.</p>
+<p>32-bit packages can be installed on 64-bit systems by appending the
+architecture designation (<tt class="docutils literal"><span class="pre">:i386</span></tt>, etc.) to the end of the package
+name.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version Helium.</span></p>
+</div>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install <span class="nv">sources</span><span class="o">=</span><span class="s1">&#39;[{&quot;foo&quot;: &quot;salt://foo.deb&quot;},{&quot;bar&quot;: &quot;salt://bar.deb&quot;}]&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt>force_yes</dt>
+<dd><p class="first">Passes <tt class="docutils literal"><span class="pre">--force-yes</span></tt> to the apt-get command.  Don't use this unless
+you know what you're doing.</p>
+<div class="last versionadded">
+<p><span class="versionmodified">New in version 0.17.4.</span></p>
+</div>
+</dd>
+</dl>
+<p>Returns a dict containing the new package names and versions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;&lt;package&gt;&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;old&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;old-version&gt;&#39;</span><span class="p">,</span>
+               <span class="s">&#39;new&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;new-version&gt;&#39;</span><span class="p">}}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.latest_version">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">latest_version</tt><big>(</big><em>*names</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.latest_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the latest version of the named package available for upgrade or
+installation. If more than one package name is specified, a dict of
+name/version pairs is returned.</p>
+<p>If the latest version of a given package is already installed, an empty
+string will be returned for that package.</p>
+<p>A specific repo can be requested using the <tt class="docutils literal"><span class="pre">fromrepo</span></tt> keyword argument.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.latest_version &lt;package name&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.latest_version &lt;package name&gt; <span class="nv">fromrepo</span><span class="o">=</span>unstable
+salt <span class="s1">&#39;*&#39;</span> pkg.latest_version &lt;package1&gt; &lt;package2&gt; &lt;package3&gt; ...
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.list_pkgs">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">list_pkgs</tt><big>(</big><em>versions_as_list=False</em>, <em>removed=False</em>, <em>purge_desired=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.list_pkgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the packages currently installed in a dict:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;&lt;package_name&gt;&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;version&gt;&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>removed</dt>
+<dd>If <tt class="docutils literal"><span class="pre">True</span></tt>, then only packages which have been removed (but not
+purged) will be returned.</dd>
+<dt>purge_desired</dt>
+<dd><p class="first">If <tt class="docutils literal"><span class="pre">True</span></tt>, then only packages which have been marked to be purged,
+but can't be purged due to their status as dependencies for other
+installed packages, will be returned. Note that these packages will
+appear in installed</p>
+<div class="last versionchanged">
+<p><span class="versionmodified">Changed in version 2014.1.1: </span>Packages in this state now correctly show up in the output of this
+function.</p>
+</div>
+</dd>
+</dl>
+<p>External dependencies:</p>
+<div class="highlight-python"><div class="highlight"><pre>Virtual package resolution requires dctrl-tools. Without dctrl-tools
+virtual packages will be reported as not installed.
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.list_pkgs
+salt <span class="s1">&#39;*&#39;</span> pkg.list_pkgs <span class="nv">versions_as_list</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.list_repos">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">list_repos</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.list_repos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists all repos in the sources.list (and sources.lists.d) files</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.list_repos
+salt <span class="s1">&#39;*&#39;</span> pkg.list_repos <span class="nv">disabled</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.list_upgrades">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">list_upgrades</tt><big>(</big><em>refresh=True</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.list_upgrades" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all available package upgrades.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.list_upgrades
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.mod_repo">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">mod_repo</tt><big>(</big><em>repo</em>, <em>saltenv='base'</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.mod_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify one or more values for a repo.  If the repo does not exist, it will
+be created, so long as the definition is well formed.  For Ubuntu the
+&quot;ppa:&lt;project&gt;/repo&quot; format is acceptable. &quot;ppa:&quot; format can only be
+used to create a new repository.</p>
+<p>The following options are available to modify a repo definition:</p>
+<div class="highlight-python"><div class="highlight"><pre>comps (a comma separated list of components for the repo, e.g. &quot;main&quot;)
+file (a file name to be used)
+keyserver (keyserver to get gpg key from)
+keyid (key id to load with the keyserver argument)
+key_url (URL to a gpg key to add to the apt gpg keyring)
+consolidate (if true, will attempt to de-dup and consolidate sources)
+
+* Note: Due to the way keys are stored for apt, there is a known issue
+        where the key wont be updated unless another change is made
+        at the same time.  Keys should be properly added on initial
+        configuration.
+</pre></div>
+</div>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.mod_repo <span class="s1">&#39;myrepo definition&#39;</span> <span class="nv">uri</span><span class="o">=</span>http://new/uri
+salt <span class="s1">&#39;*&#39;</span> pkg.mod_repo <span class="s1">&#39;myrepo definition&#39;</span> <span class="nv">comps</span><span class="o">=</span>main,universe
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.purge">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">purge</tt><big>(</big><em>name=None</em>, <em>pkgs=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.purge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove packages via <tt class="docutils literal"><span class="pre">apt-get</span> <span class="pre">purge</span></tt> along with all configuration files
+and unused dependencies.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The name of the package to be deleted.</dd>
+</dl>
+<p>Multiple Package Options:</p>
+<dl class="docutils">
+<dt>pkgs</dt>
+<dd>A list of packages to delete. Must be passed as a python list. The
+<tt class="docutils literal"><span class="pre">name</span></tt> parameter will be ignored if this option is passed.</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.16.0.</span></p>
+</div>
+<p>Returns a dict containing the changes.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.purge &lt;package name&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.purge &lt;package1&gt;,&lt;package2&gt;,&lt;package3&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.purge <span class="nv">pkgs</span><span class="o">=</span><span class="s1">&#39;[&quot;foo&quot;, &quot;bar&quot;]&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.refresh_db">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">refresh_db</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.refresh_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the APT database to latest packages based upon repositories</p>
+<p>Returns a dict, with the keys being package databases and the values being
+the result of the update attempt. Values can be one of the following:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">True</span></tt>: Database updated successfully</li>
+<li><tt class="docutils literal"><span class="pre">False</span></tt>: Problem updating database</li>
+<li><tt class="docutils literal"><span class="pre">None</span></tt>: Database already up-to-date</li>
+</ul>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.refresh_db
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.remove">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">remove</tt><big>(</big><em>name=None</em>, <em>pkgs=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove packages using <tt class="docutils literal"><span class="pre">apt-get</span> <span class="pre">remove</span></tt>.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The name of the package to be deleted.</dd>
+</dl>
+<p>Multiple Package Options:</p>
+<dl class="docutils">
+<dt>pkgs</dt>
+<dd>A list of packages to delete. Must be passed as a python list. The
+<tt class="docutils literal"><span class="pre">name</span></tt> parameter will be ignored if this option is passed.</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.16.0.</span></p>
+</div>
+<p>Returns a dict containing the changes.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;package name&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;package1&gt;,&lt;package2&gt;,&lt;package3&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.remove <span class="nv">pkgs</span><span class="o">=</span><span class="s1">&#39;[&quot;foo&quot;, &quot;bar&quot;]&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.set_selections">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">set_selections</tt><big>(</big><em>path=None</em>, <em>selection=None</em>, <em>clear=False</em>, <em>saltenv='base'</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.set_selections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change package state in the dpkg database.</p>
+<p>The state can be any one of, documented in <tt class="docutils literal"><span class="pre">dpkg(1)</span></tt>:</p>
+<blockquote>
+<div><ul class="simple">
+<li>install</li>
+<li>hold</li>
+<li>deinstall</li>
+<li>purge</li>
+</ul>
+</div></blockquote>
+<p>This command is commonly used to mark specific packages to be held from
+being upgraded, that is, to be kept at a certain version. When a state is
+changed to anything but being held, then it is typically followed by
+<tt class="docutils literal"><span class="pre">apt-get</span> <span class="pre">-u</span> <span class="pre">dselect-upgrade</span></tt>.</p>
+<p>Note: Be careful with the <tt class="docutils literal"><span class="pre">clear</span></tt> argument, since it will start
+with setting all packages to deinstall state.</p>
+<p>Returns a dict of dicts containing the package names, and the new and old
+versions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;&lt;host&gt;&#39;</span><span class="p">:</span>
+    <span class="p">{</span><span class="s">&#39;&lt;package&gt;&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;new&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;new-state&gt;&#39;</span><span class="p">,</span>
+                   <span class="s">&#39;old&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;old-state&gt;&#39;</span><span class="p">}</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.set_selections <span class="nv">selection</span><span class="o">=</span><span class="s1">&#39;{&quot;install&quot;: [&quot;netcat&quot;]}&#39;</span>
+salt <span class="s1">&#39;*&#39;</span> pkg.set_selections <span class="nv">selection</span><span class="o">=</span><span class="s1">&#39;{&quot;hold&quot;: [&quot;openssh-server&quot;, &quot;openssh-client&quot;]}&#39;</span>
+salt <span class="s1">&#39;*&#39;</span> pkg.set_selections salt://path/to/file
+salt <span class="s1">&#39;*&#39;</span> pkg.set_selections salt://path/to/file <span class="nv">clear</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.upgrade">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">upgrade</tt><big>(</big><em>refresh=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.upgrade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upgrades all packages via <tt class="docutils literal"><span class="pre">apt-get</span> <span class="pre">dist-upgrade</span></tt></p>
+<p>Returns a dict containing the changes.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{'&lt;package&gt;':  {'old': '&lt;old-version&gt;',</dt>
+<dd>'new': '&lt;new-version&gt;'}}</dd>
+</dl>
+</div></blockquote>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.upgrade
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.upgrade_available">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">upgrade_available</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.upgrade_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether or not an upgrade is available for a given package</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.upgrade_available &lt;package name&gt;
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.version">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">version</tt><big>(</big><em>*names</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string representing the package version or an empty string if not
+installed. If more than one package name is specified, a dict of
+name/version pairs is returned.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.version &lt;package name&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.version &lt;package1&gt; &lt;package2&gt; &lt;package3&gt; ...
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.aptpkg.version_cmp">
+<tt class="descclassname">salt.modules.aptpkg.</tt><tt class="descname">version_cmp</tt><big>(</big><em>pkg1</em>, <em>pkg2</em><big>)</big><a class="headerlink" href="#salt.modules.aptpkg.version_cmp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do a cmp-style comparison on two packages. Return -1 if pkg1 &lt; pkg2, 0 if
+pkg1 == pkg2, and 1 if pkg1 &gt; pkg2. Return None if there was a problem
+making the comparison.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.version_cmp <span class="s1">&#39;0.2.4-0ubuntu1&#39;</span> <span class="s1">&#39;0.2.4.1-0ubuntu1&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.modules.apache.html"
+                        title="previous chapter">salt.modules.apache</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.modules.archive.html"
+                        title="next chapter">salt.modules.archive</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.apache.html" title="salt.modules.apache">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.archive.html" title="salt.modules.archive">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

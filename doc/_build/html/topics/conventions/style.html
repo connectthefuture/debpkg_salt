@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt Coding Style</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="SaltStack Git Policy" href="../git/index.html">
+        <link rel="prev" title="Salt Release Process" href="release.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="release.html" title="Salt Release Process">previous</a>
+                
+            </li>
+            <li>
+                <a href="../git/index.html" title="SaltStack Git Policy">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-coding-style">
+<h1>Salt Coding Style<a class="headerlink" href="#salt-coding-style" title="Permalink to this headline">¶</a></h1>
+<p>Salt is developed with a certain coding style, while the style is dominantly
+PEP 8 it is not completely PEP 8. It is also noteworthy that a few
+development techniques are also employed which should be adhered to. In the
+end, the code is made to be &quot;Salty&quot;.</p>
+<p>Most importantly though, we will accept code that violates the coding style and
+KINDLY ask the contributor to fix it, or go ahead and fix the code on behalf of
+the contributor. Coding style is NEVER grounds to reject code contributions,
+and is never grounds to talk down to another member of the community (There are
+no grounds to treat others without respect, especially people working to
+improve Salt)!!</p>
+<div class="section" id="linting">
+<h2>Linting<a class="headerlink" href="#linting" title="Permalink to this headline">¶</a></h2>
+<p>Most Salt style conventions are codified in Salt's <cite>.pylintrc</cite> file. This file
+is found in the root of the Salt project and can be passed as an argument to the
+<a class="reference external" href="http://www.pylint.org">pylint</a> program as follows:</p>
+<p><cite>pylint --rcfile=/path/to/salt/.pylintrc salt/dir/to/lint</cite></p>
+</div>
+<div class="section" id="strings">
+<h2>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h2>
+<p>Salt follows a few rules when formatting strings:</p>
+<div class="section" id="single-quotes">
+<h3>Single Quotes<a class="headerlink" href="#single-quotes" title="Permalink to this headline">¶</a></h3>
+<p>In Salt, all strings use single quotes unless there is a good reason not to.
+This means that docstrings use single quotes, standard strings use single
+quotes etc.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A function that does things</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;A name&#39;</span>
+    <span class="k">return</span> <span class="n">name</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="formatting-strings">
+<h3>Formatting Strings<a class="headerlink" href="#formatting-strings" title="Permalink to this headline">¶</a></h3>
+<p>All strings which require formatting should use the <cite>.format</cite> string method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">data</span> <span class="o">=</span> <span class="s">&#39;some text&#39;</span>
+<span class="n">more</span> <span class="o">=</span> <span class="s">&#39;{0} and then some&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Make sure to use indices or identifiers in the format brackets, since empty
+brackets are not supported by python 2.6.</p>
+<p>Please do NOT use printf formatting.</p>
+</div>
+<div class="section" id="docstring-conventions">
+<h3>Docstring Conventions<a class="headerlink" href="#docstring-conventions" title="Permalink to this headline">¶</a></h3>
+<p>Docstrings should always add a newline, docutils takes care of the new line and
+it makes the code cleaner and more vertical:</p>
+<p><cite>GOOD</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">bar</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Here lies a docstring with a newline after the quotes and is the salty</span>
+<span class="sd">    way to handle it! Vertical code is the way to go!</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+<p><cite>BAD</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">baz</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;This is not ok!&#39;&#39;&#39;</span>
+    <span class="k">return</span>
+</pre></div>
+</div>
+<p>When adding a new function or state, where possible try to use a
+<tt class="docutils literal"><span class="pre">versionadded</span></tt> directive to denote when the function or state was added.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">new_func</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    .. versionadded:: 0.16.0</span>
+
+<span class="sd">    Prints what was passed to the function.</span>
+
+<span class="sd">    msg : None</span>
+<span class="sd">        The string to be printed.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">print</span> <span class="n">msg</span>
+</pre></div>
+</div>
+<p>If you are uncertain what version should be used, either <a class="reference internal" href="../community.html"><em>consult a core
+developer in IRC</em></a> or bring this up when opening your
+<a class="reference internal" href="../hacking.html"><em>pull request</em></a> and a core developer will add the proper
+version once your pull request has been merged. Bugfixes will be available in a
+bugfix release (i.e. 0.17.1, the first bugfix release for 0.17.0), while new
+features are held for feature releases, and this will affect what version
+number should be used in the <tt class="docutils literal"><span class="pre">versionadded</span></tt> directive.</p>
+<p>Similar to the above, when an existing function or state is modified (for
+example, when an argument is added), then under the explanation of that new
+argument a <tt class="docutils literal"><span class="pre">versionadded</span></tt> directive should be used to note the version in
+which the new argument was added. If an argument's function changes
+significantly, the <tt class="docutils literal"><span class="pre">versionchanged</span></tt> directive can be used to clarify this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">new_func</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">signature</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    .. versionadded:: 0.16.0</span>
+
+<span class="sd">    Prints what was passed to the function.</span>
+
+<span class="sd">    msg : None</span>
+<span class="sd">        The string to be printed. Will be prepended with &#39;Greetings! &#39;.</span>
+
+<span class="sd">    .. versionchanged:: 0.17.1</span>
+
+<span class="sd">    signature : None</span>
+<span class="sd">        An optional signature.</span>
+
+<span class="sd">    .. versionadded 0.17.0</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;Greetings! {0}</span><span class="se">\n\n</span><span class="s">{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
+<p>Salt code prefers importing modules and not explicit functions. This is both a
+style and functional preference. The functional preference originates around
+the fact that the module import system used by pluggable modules will include
+callable objects (functions) that exist in the direct module namespace. This
+is not only messy, but may unintentionally expose code python libs to the Salt
+interface and pose a security problem.</p>
+<p>To say this more directly with an example, this is <cite>GOOD</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">minion_path</span><span class="p">():</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">[</span><span class="s">&#39;cachedir&#39;</span><span class="p">],</span> <span class="s">&#39;minions&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">path</span>
+</pre></div>
+</div>
+<p>This on the other hand is <cite>DISCOURAGED</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
+
+<span class="k">def</span> <span class="nf">minion_path</span><span class="p">():</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">[</span><span class="s">&#39;cachedir&#39;</span><span class="p">],</span> <span class="s">&#39;minions&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">path</span>
+</pre></div>
+</div>
+<p>The time when this is changed is for importing exceptions, generally directly
+importing exceptions is preferred:</p>
+<p>This is a good way to import exceptions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">salt.exceptions</span> <span class="kn">import</span> <span class="n">CommandExecutionError</span>
+</pre></div>
+</div>
+<div class="section" id="absolute-imports">
+<h3>Absolute Imports<a class="headerlink" href="#absolute-imports" title="Permalink to this headline">¶</a></h3>
+<p>Although <a class="reference external" href="http://www.python.org/dev/peps/pep-0328/#rationale-for-absolute-imports">absolute imports</a> seems like an awesome idea, please do not use it.
+Extra care would be necessary all over salt's code in order for absolute
+imports to work as supposed. Believe it, it has been tried before and, as a
+tried example, by renaming <tt class="docutils literal"><span class="pre">salt.modules.sysmod</span></tt> to <tt class="docutils literal"><span class="pre">salt.modules.sys</span></tt>, all
+other salt modules which needed to import <a class="reference external" href="http://docs.python.org/2/library/sys.html#module-sys" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">sys</span></tt></a> would have to
+also import <a class="reference external" href="http://docs.python.org/2/library/__future__.html#module-__future__" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">absolute_import</span></tt></a>, which should be
+avoided.</p>
+</div>
+</div>
+<div class="section" id="vertical-is-better">
+<h2>Vertical is Better<a class="headerlink" href="#vertical-is-better" title="Permalink to this headline">¶</a></h2>
+<p>When writing Salt code, vertical code is generally preferred. This is not a hard
+rule but more of a guideline. As PEP 8 specifies, Salt code should not exceed 79
+characters on a line, but it is preferred to separate code out into more
+newlines in some cases for better readability:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">[</span><span class="s">&#39;sock_dir&#39;</span><span class="p">],</span>
+            <span class="s">&#39;minion_event_pub.ipc&#39;</span><span class="p">),</span>
+        <span class="mi">448</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p>Where there are more line breaks, this is also apparent when constructing a
+function with many arguments, something very common in state functions for
+instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">managed</span><span class="p">(</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">source_hash</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">template</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">makedirs</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">context</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">replace</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">defaults</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">env</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">backup</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Making function and class definitions vertical is only required if the
+arguments are longer then 80 characters. Otherwise, the formatting is
+optional and both are acceptable.</p>
+</div>
+</div>
+<div class="section" id="indenting">
+<h2>Indenting<a class="headerlink" href="#indenting" title="Permalink to this headline">¶</a></h2>
+<p>Some confusion exists in the python world about indenting things like function
+calls, the above examples use 8 spaces when indenting comma-delimited
+constructs.</p>
+<p>The confusion arises because the pep8 program INCORRECTLY flags this as wrong,
+where PEP 8, the document, cites only using 4 spaces here as wrong, as it
+doesn't differentiate from a new indent level.</p>
+<p>Right:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">managed</span><span class="p">(</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">source_hash</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>WRONG:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">managed</span><span class="p">(</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">source_hash</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Lining up the indent is also correct:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">managed</span><span class="p">(</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">source_hash</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This also applies to function calls and other hanging indents.</p>
+<p>pep8 and Flake8 (and, by extension, the vim plugin Syntastic) will complain
+about the double indent for hanging indents.  This is a <a class="reference external" href="https://github.com/jcrocholl/pep8/issues/167#issuecomment-15936564">known conflict</a> between
+pep8 (the script) and the actual PEP 8 standard.  It is recommended that this
+particular warning be ignored with the following lines in
+<tt class="docutils literal"><span class="pre">~/.config/flake8</span></tt>:</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="k">[flake8]</span>
+<span class="na">ignore</span> <span class="o">=</span> <span class="s">E226,E241,E242,E126</span>
+</pre></div>
+</div>
+<p>Make sure your Flake8/pep8 are up to date.  The first three errors are ignored
+by default and are present here to keep the behavior the same.  This will also
+work for pep8 without the Flake8 wrapper -- just replace all instances of
+'flake8' with 'pep8', including the filename.</p>
+</div>
+<div class="section" id="code-churn">
+<h2>Code Churn<a class="headerlink" href="#code-churn" title="Permalink to this headline">¶</a></h2>
+<p>Many pull requests have been submitted that only churn code in the name of
+PEP 8. Code churn is a leading source of bugs and is strongly discouraged.
+While style fixes are encouraged they should be isolated to a single file per
+commit, and the changes should be legitimate, if there are any questions about
+whether a style change is legitimate please reference this document and the
+official PEP 8 (<a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">http://www.python.org/dev/peps/pep-0008/</a>) document before
+changing code. Many claims that a change is PEP 8 have been invalid, please
+double check before committing fixes.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt Coding Style</a><ul>
+<li><a class="reference internal" href="#linting">Linting</a></li>
+<li><a class="reference internal" href="#strings">Strings</a><ul>
+<li><a class="reference internal" href="#single-quotes">Single Quotes</a></li>
+<li><a class="reference internal" href="#formatting-strings">Formatting Strings</a></li>
+<li><a class="reference internal" href="#docstring-conventions">Docstring Conventions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#imports">Imports</a><ul>
+<li><a class="reference internal" href="#absolute-imports">Absolute Imports</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vertical-is-better">Vertical is Better</a></li>
+<li><a class="reference internal" href="#indenting">Indenting</a></li>
+<li><a class="reference internal" href="#code-churn">Code Churn</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="release.html"
+                        title="previous chapter">Salt Release Process</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../git/index.html"
+                        title="next chapter">SaltStack Git Policy</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="release.html" title="Salt Release Process">previous</a>
+                
+            </li>
+            <li>
+                <a href="../git/index.html" title="SaltStack Git Policy">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

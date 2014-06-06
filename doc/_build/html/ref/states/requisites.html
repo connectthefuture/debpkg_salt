@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Requisites</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="Startup States" href="startup.html">
+        <link rel="prev" title="State Providers" href="providers.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="providers.html" title="State Providers">previous</a>
+                
+            </li>
+            <li>
+                <a href="startup.html" title="Startup States">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="requisites">
+<h1>Requisites<a class="headerlink" href="#requisites" title="Permalink to this headline">¶</a></h1>
+<p>The Salt requisite system is used to create relationships between states. The
+core idea being that, when one state is dependent somehow on another, that
+inter-dependency can be easily defined.</p>
+<p>Requisites come in two types. Direct requisites, and requisite_ins. The
+relationships are directional, so a requisite statement makes the requiring
+state declaration depend on the required state declaration:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">vim</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg.installed</span>
+
+<span class="l-Scalar-Plain">/etc/vimrc</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://edit/vimrc</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vim</span>
+</pre></div>
+</div>
+<p>So in this example, the file <tt class="docutils literal"><span class="pre">/etc/vimrc</span></tt> depends on the vim package.</p>
+<p>Requisite_in statements are the opposite, instead of saying &quot;I depend on
+something&quot;, requisite_ins say &quot;Someone depends on me&quot;:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">vim</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg.installed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require_in</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/vimrc</span>
+
+<span class="l-Scalar-Plain">/etc/vimrc</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://edit/vimrc</span>
+</pre></div>
+</div>
+<p>So here, with a requisite_in, the same thing is accomplished, but just from
+the other way around. The vim package is saying &quot;/etc/vimrc depends on me&quot;.</p>
+<p>In the end, a single dependency map is created and everything is executed in a
+finite and predictable order.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Requisite matching</p>
+<p>Requisites match on both the ID Declaration and the <tt class="docutils literal"><span class="pre">name</span></tt> parameter.
+This means that, in the example above, the <tt class="docutils literal"><span class="pre">require_in</span></tt> requisite would
+also have been matched if the <tt class="docutils literal"><span class="pre">/etc/vimrc</span></tt> state was written as follows:</p>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">vimrc</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/vimrc</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://edit/vimrc</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="requisite-and-requisite-in-types">
+<h2>Requisite and Requisite in types<a class="headerlink" href="#requisite-and-requisite-in-types" title="Permalink to this headline">¶</a></h2>
+<p>There are three requisite statements that can be used in Salt. the <tt class="docutils literal"><span class="pre">require</span></tt>,
+<tt class="docutils literal"><span class="pre">watch</span></tt> and <tt class="docutils literal"><span class="pre">use</span></tt> requisites. Each requisite also has a corresponding
+requisite_in: <tt class="docutils literal"><span class="pre">require_in</span></tt>, <tt class="docutils literal"><span class="pre">watch_in</span></tt> and <tt class="docutils literal"><span class="pre">use_in</span></tt>. All of the
+requisites define specific relationships and always work with the dependency
+logic defined above.</p>
+<div class="section" id="require">
+<h3>Require<a class="headerlink" href="#require" title="Permalink to this headline">¶</a></h3>
+<p>The most basic requisite statement is <tt class="docutils literal"><span class="pre">require</span></tt>. The behavior of require is
+simple. Make sure that the dependent state is executed before the depending
+state, and if the dependent state fails, don't run the depending state. So in
+the above examples the file <tt class="docutils literal"><span class="pre">/etc/vimrc</span></tt> will only be applied after the vim
+package is installed and only if the vim package is installed successfully.</p>
+</div>
+<div class="section" id="require-an-entire-sls-file">
+<h3>Require an entire sls file<a class="headerlink" href="#require-an-entire-sls-file" title="Permalink to this headline">¶</a></h3>
+<p>As of Salt 0.16.0, it is possible to require an entire sls file. Do this by first including
+the sls file and then setting a state to <tt class="docutils literal"><span class="pre">require</span></tt> the included sls file.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">foo</span>
+
+<span class="l-Scalar-Plain">bar</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg.installed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sls</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">foo</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="watch">
+<h3>Watch<a class="headerlink" href="#watch" title="Permalink to this headline">¶</a></h3>
+<p>The watch statement does everything the require statement does, but with a
+little more. The watch statement looks into the state modules for a function
+called <tt class="docutils literal"><span class="pre">mod_watch</span></tt>. If this function is not available in the corresponding
+state module, then watch does the same thing as require. If the <tt class="docutils literal"><span class="pre">mod_watch</span></tt>
+function is in the state module, then the watched state is checked to see if
+it made any changes to the system, if it has, then <tt class="docutils literal"><span class="pre">mod_watch</span></tt> is called.</p>
+<p>Perhaps the best example of using watch is with a <a class="reference internal" href="all/salt.states.service.html#salt.states.service.running" title="salt.states.service.running"><tt class="xref py py-mod docutils literal"><span class="pre">service.running</span></tt></a> state. When a service watches a state, then
+the service is reloaded/restarted when the watched state changes:</p>
+<div class="highlight-python"><div class="highlight"><pre>ntpd:
+  service.running:
+    - watch:
+      - file: /etc/ntp.conf
+  file.managed:
+    - name: /etc/ntp.conf
+    - source: salt://ntp/files/ntp.conf
+</pre></div>
+</div>
+</div>
+<div class="section" id="prereq">
+<h3>Prereq<a class="headerlink" href="#prereq" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">prereq</span></tt> requisite is a powerful requisite added in 0.16.0. This
+requisite allows for actions to be taken based on the expected results of
+a state that has not yet been executed. In more practical terms, a service
+can be shut down because the <tt class="docutils literal"><span class="pre">prereq</span></tt> knows that underlying code is going to
+be updated and the service should be off-line while the update occurs.</p>
+<p>The motivation to add this requisite was to allow for routines to remove a
+system from a load balancer while code is being updated.</p>
+<p>The <tt class="docutils literal"><span class="pre">prereq</span></tt> checks if the required state expects to have any changes by
+running the single state with <tt class="docutils literal"><span class="pre">test=True</span></tt>. If the pre-required state returns
+changes, then the state requiring it will execute.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">graceful-down</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd.run</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">service apache graceful</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">prereq</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">site-code</span>
+
+<span class="l-Scalar-Plain">site-code</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.recurse</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/opt/site_code</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://site/code</span>
+</pre></div>
+</div>
+<p>In this case the apache server will only be shutdown if the site-code state
+expects to deploy fresh code via the file.recurse call, and the site-code
+deployment will only be executed if the graceful-down run completes
+successfully.</p>
+</div>
+<div class="section" id="use">
+<h3>Use<a class="headerlink" href="#use" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">use</span></tt> requisite is used to inherit the arguments passed in another
+id declaration. This is useful when many files need to have the same defaults.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/etc/foo.conf</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://foo.conf</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">jinja</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mkdirs</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">apache</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">apache</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">755</span>
+
+<span class="l-Scalar-Plain">/etc/bar.conf</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://bar.conf</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">use</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/foo.conf</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">use</span></tt> statement was developed primarily for the networking states but
+can be used on any states in Salt. This made sense for the networking state
+because it can define a long list of options that need to be applied to
+multiple network interfaces.</p>
+<p>The <tt class="docutils literal"><span class="pre">use</span></tt> statement does not inherit the requisites arguments of the
+targeted state. This means also a chain of <tt class="docutils literal"><span class="pre">use</span></tt> requisites would not
+inherit inherited options.</p>
+</div>
+<div class="section" id="require-in">
+<span id="requisites-require-in"></span><h3>Require In<a class="headerlink" href="#require-in" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">require_in</span></tt> requisite is the literal reverse of <tt class="docutils literal"><span class="pre">require</span></tt>. If
+a state declaration needs to be required by another state declaration then
+require_in can accommodate it, so these two sls files would be the same in
+the end:</p>
+<p>Using <tt class="docutils literal"><span class="pre">require</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">httpd</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+  <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">running</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">httpd</span>
+</pre></div>
+</div>
+<p>Using <tt class="docutils literal"><span class="pre">require_in</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">httpd</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require_in</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">httpd</span>
+  <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">running</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">require_in</span></tt> statement is particularly useful when assigning a require
+in a separate sls file. For instance it may be common for httpd to require
+components used to set up PHP or mod_python, but the HTTP state does not need
+to be aware of the additional components that require it when it is set up:</p>
+<p>http.sls</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">httpd</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+  <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">running</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">httpd</span>
+</pre></div>
+</div>
+<p>php.sls</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">http</span>
+
+<span class="l-Scalar-Plain">php</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require_in</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">httpd</span>
+</pre></div>
+</div>
+<p>mod_python.sls</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">http</span>
+
+<span class="l-Scalar-Plain">mod_python</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require_in</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">httpd</span>
+</pre></div>
+</div>
+<p>Now the httpd server will only start if php or mod_python are first verified to
+be installed. Thus allowing for a requisite to be defined &quot;after the fact&quot;.</p>
+</div>
+<div class="section" id="watch-in">
+<span id="requisites-watch-in"></span><h3>Watch In<a class="headerlink" href="#watch-in" title="Permalink to this headline">¶</a></h3>
+<p>Watch in functions the same as require in, but applies a watch statement
+rather than a require statement to the external state declaration.</p>
+</div>
+<div class="section" id="prereq-in">
+<h3>Prereq In<a class="headerlink" href="#prereq-in" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">prereq_in</span></tt> requisite in follows the same assignment logic as the
+<tt class="docutils literal"><span class="pre">require_in</span></tt> requisite in. The <tt class="docutils literal"><span class="pre">prereq_in</span></tt> call simply assigns
+<tt class="docutils literal"><span class="pre">prereq</span></tt> to the state referenced. The above example for <tt class="docutils literal"><span class="pre">prereq</span></tt> can
+be modified to function in the same way using <tt class="docutils literal"><span class="pre">prereq_in</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">graceful-down</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd.run</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">service apache graceful</span>
+
+<span class="l-Scalar-Plain">site-code</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.recurse</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/opt/site_code</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://site/code</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">prereq_in</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">graceful-down</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Requisites</a><ul>
+<li><a class="reference internal" href="#requisite-and-requisite-in-types">Requisite and Requisite in types</a><ul>
+<li><a class="reference internal" href="#require">Require</a></li>
+<li><a class="reference internal" href="#require-an-entire-sls-file">Require an entire sls file</a></li>
+<li><a class="reference internal" href="#watch">Watch</a></li>
+<li><a class="reference internal" href="#prereq">Prereq</a></li>
+<li><a class="reference internal" href="#use">Use</a></li>
+<li><a class="reference internal" href="#require-in">Require In</a></li>
+<li><a class="reference internal" href="#watch-in">Watch In</a></li>
+<li><a class="reference internal" href="#prereq-in">Prereq In</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="providers.html"
+                        title="previous chapter">State Providers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="startup.html"
+                        title="next chapter">Startup States</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="providers.html" title="State Providers">previous</a>
+                
+            </li>
+            <li>
+                <a href="startup.html" title="Startup States">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

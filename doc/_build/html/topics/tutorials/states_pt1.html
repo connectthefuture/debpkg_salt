@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>States tutorial, part 1 - Basic Usage</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt tutorials" href="index.html">
+        <link rel="next" title="States tutorial, part 2 - More Complex States, Requisites" href="states_pt2.html">
+        <link rel="prev" title="How Do I Use Salt States?" href="starting_states.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="starting_states.html" title="How Do I Use Salt States?">previous</a>
+                
+            </li>
+            <li>
+                <a href="states_pt2.html" title="States tutorial, part 2 - More Complex States, Requisites">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="states-tutorial-part-1-basic-usage">
+<h1>States tutorial, part 1 - Basic Usage<a class="headerlink" href="#states-tutorial-part-1-basic-usage" title="Permalink to this headline">¶</a></h1>
+<p>The purpose of this tutorial is to demonstrate how quickly you can configure a
+system to be managed by Salt States. For detailed information about the state
+system please refer to the full <a class="reference internal" href="../../ref/states/index.html"><em>states reference</em></a>.</p>
+<p>This tutorial will walk you through using Salt to configure a minion to run the
+Apache HTTP server and to ensure the server is running.</p>
+<p><strong>Before continuing</strong> make sure you have a working Salt installation by
+following the <a class="reference internal" href="../installation/index.html"><em>installation</em></a> and the <a class="reference internal" href="../configuration.html"><em>configuration</em></a> instructions.</p>
+<div class="admonition-stuck admonition">
+<p class="first admonition-title">Stuck?</p>
+<p class="last">There are many ways to <a class="reference internal" href="../community.html"><em>get help from the Salt community</em></a> including our
+<a class="reference external" href="https://groups.google.com/forum/#!forum/salt-users">mailing list</a>
+and our <a class="reference external" href="http://webchat.freenode.net/?channels=salt">IRC channel</a> #salt.</p>
+</div>
+<div class="section" id="setting-up-the-salt-state-tree">
+<h2>Setting up the Salt State Tree<a class="headerlink" href="#setting-up-the-salt-state-tree" title="Permalink to this headline">¶</a></h2>
+<p>States are stored in text files on the master and transferred to the minions on
+demand via the master's File Server. The collection of state files make up the
+<a class="reference internal" href="../../ref/states/highstate.html#term-state-tree"><em class="xref std std-term">State Tree</em></a>.</p>
+<p>To start using a central state system in Salt, the Salt File Server must first
+be set up. Edit the master config file (<a class="reference internal" href="../../ref/configuration/master.html#std:conf_master-file_roots"><tt class="xref std std-conf_master docutils literal"><span class="pre">file_roots</span></tt></a>) and
+uncomment the following lines:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">file_roots</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/salt</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are deploying on FreeBSD via ports, the <tt class="docutils literal"><span class="pre">file_roots</span></tt> path defaults
+to <tt class="docutils literal"><span class="pre">/usr/local/etc/salt/states</span></tt>.</p>
+</div>
+<p>Restart the Salt master in order to pick up this change:</p>
+<div class="highlight-bash"><div class="highlight"><pre>pkill salt-master
+salt-master -d
+</pre></div>
+</div>
+</div>
+<div class="section" id="preparing-the-top-file">
+<h2>Preparing the Top File<a class="headerlink" href="#preparing-the-top-file" title="Permalink to this headline">¶</a></h2>
+<p>On the master, in the directory uncommented in the previous step,
+(<tt class="docutils literal"><span class="pre">/srv/salt</span></tt> by default), create a new file called
+<a class="reference internal" href="../../ref/configuration/master.html#std:conf_master-state_top"><tt class="xref std std-conf_master docutils literal"><span class="pre">top.sls</span></tt></a> and add the following:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+  <span class="s">&#39;*&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">webserver</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../../ref/states/highstate.html#term-top-file"><em class="xref std std-term">top file</em></a> is separated into environments (discussed later). The
+default environment is <tt class="docutils literal"><span class="pre">base</span></tt>. Under the <tt class="docutils literal"><span class="pre">base</span></tt> environment a collection of
+minion matches is defined; for now simply specify all hosts (<tt class="docutils literal"><span class="pre">*</span></tt>).</p>
+<div class="admonition-targeting-minions admonition" id="targeting-minions">
+<p class="first admonition-title">Targeting minions</p>
+<p>The expressions can use any of the targeting mechanisms used by Salt —
+minions can be matched by glob, PCRE regular expression, or by <a class="reference internal" href="../targeting/grains.html"><em>grains</em></a>. For example:</p>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+  <span class="s">&#39;os:Fedora&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">match</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">grain</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">webserver</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="create-an-sls-file">
+<h2>Create an <tt class="docutils literal"><span class="pre">sls</span></tt> file<a class="headerlink" href="#create-an-sls-file" title="Permalink to this headline">¶</a></h2>
+<p>In the same directory as the <em class="xref std std-ref">top file</em>, create a file
+named <tt class="docutils literal"><span class="pre">webserver.sls</span></tt>, containing the following:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">apache</span><span class="p-Indicator">:</span>                 <span class="c1"># ID declaration</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>                  <span class="c1"># state declaration</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>         <span class="c1"># function declaration</span>
+</pre></div>
+</div>
+<p>The first line, called the <a class="reference internal" href="../../ref/states/highstate.html#term-id-declaration"><em class="xref std std-term">ID declaration</em></a>, is an arbitrary identifier.
+In this case it defines the name of the package to be installed.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The package name for the Apache httpd web server may differ depending on
+OS or distro — for example, on Fedora it is <tt class="docutils literal"><span class="pre">httpd</span></tt> but on
+Debian/Ubuntu it is <tt class="docutils literal"><span class="pre">apache2</span></tt>.</p>
+</div>
+<p>The second line, called the <a class="reference internal" href="../../ref/states/highstate.html#term-state-declaration"><em class="xref std std-term">state declaration</em></a>, defines which of the
+Salt States we are using. In this example, we are using the <a class="reference internal" href="../../ref/states/all/salt.states.pkg.html#module-salt.states.pkg" title="salt.states.pkg"><tt class="xref py py-mod docutils literal"><span class="pre">pkg</span> <span class="pre">state</span></tt></a> to ensure that a given package is installed.</p>
+<p>The third line, called the <a class="reference internal" href="../../ref/states/highstate.html#term-function-declaration"><em class="xref std std-term">function declaration</em></a>, defines which function
+in the <a class="reference internal" href="../../ref/states/all/salt.states.pkg.html#module-salt.states.pkg" title="salt.states.pkg"><tt class="xref py py-mod docutils literal"><span class="pre">pkg</span> <span class="pre">state</span></tt></a> module to call.</p>
+<div class="admonition-renderers admonition">
+<p class="first admonition-title">Renderers</p>
+<p>States <a class="reference internal" href="../../ref/states/index.html#term-sls"><em class="xref std std-term">sls</em></a> files can be written in many formats. Salt requires only
+a simple data structure and is not concerned with how that data structure
+is built. Templating languages and <a class="reference external" href="http://en.wikipedia.org/wiki/Domain-specific_language">DSLs</a> are a dime-a-dozen and everyone
+has a favorite.</p>
+<p>Building the expected data structure is the job of Salt <a class="reference internal" href="../../ref/renderers/index.html"><em>renderers</em></a> and they are dead-simple to write.</p>
+<p class="last">In this tutorial we will be using YAML in Jinja2 templates, which is the
+default format. The default can be changed by editing
+<a class="reference internal" href="../../ref/configuration/master.html#std:conf_master-renderer"><tt class="xref std std-conf_master docutils literal"><span class="pre">renderer</span></tt></a> in the master configuration file.</p>
+</div>
+</div>
+<div class="section" id="install-the-package">
+<h2>Install the package<a class="headerlink" href="#install-the-package" title="Permalink to this headline">¶</a></h2>
+<p>Next, let's run the state we created. Open a terminal on the master and run:</p>
+<div class="highlight-bash"><div class="highlight"><pre>% salt <span class="s1">&#39;*&#39;</span> state.highstate
+</pre></div>
+</div>
+<p>Our master is instructing all targeted minions to run <a class="reference internal" href="../../ref/modules/all/salt.modules.state.html#salt.modules.state.highstate" title="salt.modules.state.highstate"><tt class="xref py py-func docutils literal"><span class="pre">state.highstate</span></tt></a>. When a minion executes a highstate call it
+will download the <a class="reference internal" href="../../ref/states/highstate.html#term-top-file"><em class="xref std std-term">top file</em></a> and attempt to match the expressions. When
+it does match an expression the modules listed for it will be downloaded,
+compiled, and executed.</p>
+<p>Once completed, the minion will report back with a summary of all actions taken
+and all changes made.</p>
+<div class="admonition-sls-file-namespace admonition" id="sls-file-namespace">
+<p class="first admonition-title">SLS File Namespace</p>
+<p>Note that in the <a class="reference internal" href="#targeting-minions"><em>example</em></a> above, the SLS file
+<tt class="docutils literal"><span class="pre">webserver.sls</span></tt> was referred to simply as <tt class="docutils literal"><span class="pre">webserver</span></tt>. The namespace
+for SLS files follows a few simple rules:</p>
+<ol class="last arabic">
+<li><p class="first">The <tt class="docutils literal"><span class="pre">.sls</span></tt> is discarded (i.e. <tt class="docutils literal"><span class="pre">webserver.sls</span></tt> becomes
+<tt class="docutils literal"><span class="pre">webserver</span></tt>).</p>
+</li>
+<li><dl class="first docutils">
+<dt>Subdirectories can be used for better organization.</dt>
+<dd><ol class="first last loweralpha simple">
+<li>Each subdirectory is represented by a dot.</li>
+<li><tt class="docutils literal"><span class="pre">webserver/dev.sls</span></tt> is referred to as <tt class="docutils literal"><span class="pre">webserver.dev</span></tt>.</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p class="first">A file called <tt class="docutils literal"><span class="pre">init.sls</span></tt> in a subdirectory is referred to by the path
+of the directory. So, <tt class="docutils literal"><span class="pre">webserver/init.sls</span></tt> is referred to as
+<tt class="docutils literal"><span class="pre">webserver</span></tt>.</p>
+</li>
+<li><p class="first">If both <tt class="docutils literal"><span class="pre">webserver.sls</span></tt> and <tt class="docutils literal"><span class="pre">webserver/init.sls</span></tt> happen to exist,
+<tt class="docutils literal"><span class="pre">webserver/init.sls</span></tt> will be ignored and <tt class="docutils literal"><span class="pre">webserver.sls</span></tt> will be the
+file referred to as <tt class="docutils literal"><span class="pre">webserver</span></tt>.</p>
+</li>
+</ol>
+</div>
+<div class="admonition-troubleshooting-salt admonition">
+<p class="first admonition-title">Troubleshooting Salt</p>
+<p>If the expected output isn't seen, the following tips can help to
+narrow down the problem.</p>
+<dl class="docutils">
+<dt>Turn up logging</dt>
+<dd><p class="first">Salt can be quite chatty when you change the logging setting to
+<tt class="docutils literal"><span class="pre">debug</span></tt>:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt-minion -l debug
+</pre></div>
+</div>
+</dd>
+<dt>Run the minion in the foreground</dt>
+<dd><p class="first">By not starting the minion in daemon mode (<em class="xref std std-option">-d</em>) one can view any output from the minion as it works:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt-minion &amp;
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Increase the default timeout value when running <strong class="command">salt</strong>. For
+example, to change the default timeout to 60 seconds:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt -t 60
+</pre></div>
+</div>
+<p>For best results, combine all three:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt-minion -l debug &amp;          <span class="c"># On the minion</span>
+salt <span class="s1">&#39;*&#39;</span> state.highstate -t 60  <span class="c"># On the master</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial focused on getting a simple Salt States configuration working.
+<a class="reference internal" href="states_pt2.html"><em>Part 2</em></a> will build on this example to cover more advanced
+<a class="reference internal" href="../../ref/states/index.html#term-sls"><em class="xref std std-term">sls</em></a> syntax and will explore more of the states that ship with Salt.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">States tutorial, part 1 - Basic Usage</a><ul>
+<li><a class="reference internal" href="#setting-up-the-salt-state-tree">Setting up the Salt State Tree</a></li>
+<li><a class="reference internal" href="#preparing-the-top-file">Preparing the Top File</a></li>
+<li><a class="reference internal" href="#create-an-sls-file">Create an <tt class="docutils literal"><span class="pre">sls</span></tt> file</a></li>
+<li><a class="reference internal" href="#install-the-package">Install the package</a></li>
+<li><a class="reference internal" href="#next-steps">Next steps</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="starting_states.html"
+                        title="previous chapter">How Do I Use Salt States?</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="states_pt2.html"
+                        title="next chapter">States tutorial, part 2 - More Complex States, Requisites</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="starting_states.html" title="How Do I Use Salt States?">previous</a>
+                
+            </li>
+            <li>
+                <a href="states_pt2.html" title="States tutorial, part 2 - More Complex States, Requisites">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

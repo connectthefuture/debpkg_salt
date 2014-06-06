@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt Proxy Minion Documentation</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="Logging" href="../../ref/configuration/logging/index.html">
+        <link rel="prev" title="Community Projects That Use Salt" href="../salt_projects.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../salt_projects.html" title="Community Projects That Use Salt">previous</a>
+                
+            </li>
+            <li>
+                <a href="../../ref/configuration/logging/index.html" title="Logging">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-proxy-minion-documentation">
+<h1>Salt Proxy Minion Documentation<a class="headerlink" href="#salt-proxy-minion-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Proxy minions are a developing Salt feature that enables controlling devices
+that, for whatever reason, cannot run a standard salt-minion.  Examples include
+network gear that has an API but runs a proprietary OS, devices with limited
+CPU or memory, or devices that could run a minion, but for security reasons,
+will not.</p>
+<p><em>Proxy minions are not an &quot;out of the box&quot; feature</em>.  Because
+there are an infinite number of controllable devices,
+you will most likely have to write the
+interface yourself. Fortunately, this is only as difficult as the actual
+interface to the proxied device.  Devices that have an existing Python module
+(PyUSB for example) would be relatively simple to interface.  Code to control
+a device that has an HTML REST-based interface should be easy.  Code to control
+your typical housecat would be excellent source material for a PhD thesis.</p>
+<p>Salt proxy-minions provide the 'plumbing' that allows device enumeration
+and discovery, control, status, remote execution, and state management.</p>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>The following diagram may be helpful in understanding the structure of a Salt
+installation that includes proxy-minions:</p>
+<img alt="../../_images/proxy_minions.png" src="../../_images/proxy_minions.png" />
+<p>The key thing to remember is the left-most section of the diagram.  Salt's
+nature is to have a minion connect to a master, then the master may control
+the minion.  However, for proxy minions, the target device cannot run a minion,
+and thus must rely on a separate minion to fire up the proxy-minion and make the
+initial and persistent connection.</p>
+<p>After the proxy minion is started and initiates its connection to the 'dumb'
+device, it connects back to the salt-master and ceases to be affiliated in
+any way with the minion that started it.</p>
+<p>To create support for a proxied device one needs to create four things:</p>
+<ol class="arabic simple">
+<li>The <a class="reference internal" href="#proxytype-connection-class">proxytype connection class</a> (located in salt/proxy).</li>
+<li>The <a class="reference internal" href="#grains-support-code">grains support code</a> (located in salt/grains).</li>
+<li><a href="#id1"><span class="problematic" id="id2">`Salt modules`_</span></a> specific to the controlled device.</li>
+<li><span class="target" id="salt-states">Salt states</span> specific to the controlled device.</li>
+</ol>
+<div class="section" id="configuration-parameters-on-the-master">
+<h3>Configuration parameters on the master<a class="headerlink" href="#configuration-parameters-on-the-master" title="Permalink to this headline">¶</a></h3>
+<p>Proxy minions require no configuration parameters in /etc/salt/master.</p>
+<p>Salt's Pillar system is ideally suited for configuring proxy-minions.  Proxies
+can either be designated via a pillar file in pillar_roots, or through an
+external pillar.  External pillars afford the opportunity for interfacing with
+a configuration management system, database, or other knowledgeable system that
+that may already contain all the details of proxy targets.  To use static files
+in pillar_roots, pattern your files after the following examples, which are
+based on the diagram above:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/pillar/top.sls</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">minioncontroller1</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">networkswitches</span>
+  <span class="l-Scalar-Plain">minioncontroller2</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">reallydumbdevices</span>
+  <span class="l-Scalar-Plain">minioncontroller3</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">smsgateway</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/pillar/networkswitches.sls</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">proxy</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">dumbdevice1</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">proxytype</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">networkswitch</span>
+    <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.23.23.5</span>
+    <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="l-Scalar-Plain">passwd</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">letmein</span>
+  <span class="l-Scalar-Plain">dumbdevice2</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">proxytype</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">networkswitch</span>
+    <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.23.23.6</span>
+    <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="l-Scalar-Plain">passwd</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">letmein</span>
+  <span class="l-Scalar-Plain">dumbdevice3</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">proxytype</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">networkswitch</span>
+    <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.23.23.7</span>
+    <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="l-Scalar-Plain">passwd</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">letmein</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/pillar/reallydumbdevices.sls</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">proxy</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">dumbdevice4</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">proxytype</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">i2c_lightshow</span>
+    <span class="l-Scalar-Plain">i2c_address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">dumbdevice5</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">proxytype</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">i2c_lightshow</span>
+    <span class="l-Scalar-Plain">i2c_address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2</span>
+  <span class="l-Scalar-Plain">dumbdevice6</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">proxytype</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">433mhz_wireless</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/pillar/smsgateway.sls</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">proxy</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">minioncontroller3</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">dumbdevice7</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">proxytype</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sms_serial</span>
+      <span class="l-Scalar-Plain">deventry</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/dev/tty04</span>
+</pre></div>
+</div>
+<p>Note the contents of each minioncontroller key may differ widely based on
+the type of device that the proxy-minion is managing.</p>
+<p>In the above example</p>
+<ul class="simple">
+<li>dumbdevices 1, 2, and 3 are network switches that have a management
+interface available at a particular IP address.</li>
+<li>dumbdevices 4 and 5 are very low-level devices controlled over an i2c bus.  In this case
+the devices are physically connected to machine 'minioncontroller2', and are addressable
+on the i2c bus at their respective i2c addresses.</li>
+<li>dumbdevice6 is a 433 MHz wireless transmitter, also physically connected to minioncontroller2</li>
+<li>dumbdevice7 is an SMS gateway connected to machine minioncontroller3 via a serial port.</li>
+</ul>
+<p>Because of the way pillar works, each of the salt-minions that fork off the
+proxy minions will only see the keys specific to the proxies it will be
+handling.  In other words, from the above example, only minioncontroller1 will
+see the connection information for dumbdevices 1, 2, and 3.  Minioncontroller2
+will see configuration data for dumbdevices 4, 5, and 6, and minioncontroller3
+will be privy to dumbdevice7.</p>
+<p>Also, in general, proxy-minions are lightweight, so the machines that run them
+could conceivably control a large number of devices.  The example above is just
+to illustrate that it is possible for the proxy services to be spread across
+many machines if necessary, or intentionally run on machines that need to
+control devices because of some physical interface (e.g. i2c and serial above).
+Another reason to divide proxy services might be security.  In more secure
+environments only certain machines may have a network path to certain devices.</p>
+<p>Now our salt-minions know if they are supposed to spawn a proxy-minion process
+to control a particular device.  That proxy-minion process will initiate
+a connection back to the master to enable control.</p>
+</div>
+<div class="section" id="proxytypes">
+<span id="proxytype-connection-class"></span><h3>Proxytypes<a class="headerlink" href="#proxytypes" title="Permalink to this headline">¶</a></h3>
+<p>A proxytype is a Python class called 'Proxyconn' that encapsulates all the code
+necessary to interface with a device.  Proxytypes are located inside the
+salt.proxy module.  At a minimum a proxytype object must implement the
+following methods:</p>
+<p><tt class="docutils literal"><span class="pre">proxytype(self)</span></tt>: Returns a string with the name of the proxy type.</p>
+<p><tt class="docutils literal"><span class="pre">proxyconn(self,</span> <span class="pre">**kwargs)</span></tt>: Provides the primary way to connect and communicate
+with the device. Some proxyconns instantiate a particular object that opens a
+network connection to a device and leaves the connection open for communication.
+Others simply abstract a serial connection or even implement endpoints to communicate
+via REST over HTTP.</p>
+<p><tt class="docutils literal"><span class="pre">id(self,</span> <span class="pre">opts)</span></tt>: Returns a unique, unchanging id for the controlled device.  This is
+the &quot;name&quot; of the device, and is used by the salt-master for targeting and key
+authentication.</p>
+<p>Optionally, the class may define a <tt class="docutils literal"><span class="pre">shutdown(self,</span> <span class="pre">opts)</span></tt> method if the
+controlled device should be informed when the minion goes away cleanly.</p>
+<p>It is highly recommended that the <tt class="docutils literal"><span class="pre">test.ping</span></tt> execution module also be defined
+for a proxytype. The code for <tt class="docutils literal"><span class="pre">ping</span></tt> should contact the controlled device and make
+sure it is really available.</p>
+<p>Here is an example proxytype used to interface to Juniper Networks devices that run
+the Junos operating system.  Note the additional library requirements--most of the
+&quot;hard part&quot; of talking to these devices is handled by the jnpr.junos, jnpr.junos.utils
+and jnpr.junos.cfg modules.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Import python libs</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">jnpr.junos</span>
+<span class="kn">import</span> <span class="nn">jnpr.junos.utils</span>
+<span class="kn">import</span> <span class="nn">jnpr.junos.cfg</span>
+<span class="n">HAS_JUNOS</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="k">class</span> <span class="nc">Proxyconn</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="n">jnpr</span><span class="o">.</span><span class="n">junos</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">details</span><span class="p">[</span><span class="s">&#39;username&#39;</span><span class="p">],</span> <span class="n">host</span><span class="o">=</span><span class="n">details</span><span class="p">[</span><span class="s">&#39;host&#39;</span><span class="p">],</span> <span class="n">password</span><span class="o">=</span><span class="n">details</span><span class="p">[</span><span class="s">&#39;passwd&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">cu</span><span class="o">=</span><span class="n">jnpr</span><span class="o">.</span><span class="n">junos</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">Resource</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">proxytype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;junos&#39;</span>
+
+
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opts</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">facts</span><span class="p">[</span><span class="s">&#39;hostname&#39;</span><span class="p">]</span>
+
+
+    <span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">connected</span>
+
+
+    <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opts</span><span class="p">):</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Proxy module {} shutting down!!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">opts</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+</pre></div>
+</div>
+<p id="grains-support-code">Grains are data about minions.  Most proxied devices will have a paltry amount
+of data as compared to a typical Linux server.  Because proxy-minions are
+started by a regular minion, they inherit a sizeable number of grain settings
+which can be useful, especially when targeting (PYTHONPATH, for example).</p>
+<p>All proxy minions set a grain called 'proxy'.  If it is present, you know the
+minion is controlling another device.  To add more grains to your proxy minion
+for a particular device, create a file in salt/grains named [proxytype].py and
+place inside it the different functions that need to be run to collect the data
+you are interested in.  Here's an example:</p>
+</div>
+</div>
+<div class="section" id="the-proxyenabled-directive">
+<h2>The __proxyenabled__ directive<a class="headerlink" href="#the-proxyenabled-directive" title="Permalink to this headline">¶</a></h2>
+<p>Salt states and execution modules, by and large, cannot &quot;automatically&quot; work
+with proxied devices.  Execution modules like <tt class="docutils literal"><span class="pre">pkg</span></tt> or <tt class="docutils literal"><span class="pre">sqlite3</span></tt> have no
+meaning on a network switch or a housecat.  For a state/execution module to be
+available to a proxy-minion, the <tt class="docutils literal"><span class="pre">__proxyenabled__</span></tt> variable must be defined
+in the module as an array containing the names of all the proxytypes that this
+module can support.  The array can contain the special value <tt class="docutils literal"><span class="pre">*</span></tt> to indicate
+that the module supports all proxies.</p>
+<p>If no <tt class="docutils literal"><span class="pre">__proxyenabled__</span></tt> variable is defined, then by default, the
+state/execution module is unavailable to any proxy.</p>
+<p>Here is an excerpt from a module that was modified to support proxy-minions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ping</span><span class="p">():</span>
+
+    <span class="k">if</span> <span class="s">&#39;proxyobject&#39;</span> <span class="ow">in</span> <span class="n">__opts__</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s">&#39;ping&#39;</span> <span class="ow">in</span> <span class="n">__opts__</span><span class="p">[</span><span class="s">&#39;proxyobject&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">__attr__</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">__opts</span><span class="p">[</span><span class="s">&#39;proxyobject&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ping</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>And then in salt.proxy.junos we find</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+   <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span>
+</pre></div>
+</div>
+<p>The Junos API layer lacks the ability to do a traditional 'ping', so the
+example simply checks the connection object field that indicates
+if the ssh connection was successfully made to the device.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt Proxy Minion Documentation</a><ul>
+<li><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li><a class="reference internal" href="#configuration-parameters-on-the-master">Configuration parameters on the master</a></li>
+<li><a class="reference internal" href="#proxytypes">Proxytypes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-proxyenabled-directive">The __proxyenabled__ directive</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../salt_projects.html"
+                        title="previous chapter">Community Projects That Use Salt</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../ref/configuration/logging/index.html"
+                        title="next chapter">Logging</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../salt_projects.html" title="Community Projects That Use Salt">previous</a>
+                
+            </li>
+            <li>
+                <a href="../../ref/configuration/logging/index.html" title="Logging">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

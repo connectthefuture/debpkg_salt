@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt 0.9.2 Release Notes</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Release notes and upgrade instructions" href="index.html">
+        <link rel="next" title="Salt 0.9.3 Release Notes" href="0.9.3.html">
+        <link rel="prev" title="Salt 0.9.1 Release Notes" href="0.9.1.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.9.1.html" title="Salt 0.9.1 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.9.3.html" title="Salt 0.9.3 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-0-9-2-release-notes">
+<h1>Salt 0.9.2 Release Notes<a class="headerlink" href="#salt-0-9-2-release-notes" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">release:</th><td class="field-body">2011-09-17</td>
+</tr>
+</tbody>
+</table>
+<p>Salt 0.9.2 has arrived! 0.9.2 is primarily a bugfix release, the exciting
+component in 0.9.2 is greatly improved support for salt states. All of the
+salt states interfaces have been more thoroughly tested and the new salt-states
+git repo is growing with example of how to use states.</p>
+<p>This release introduces salt states for early developers and testers to start
+helping us clean up the states interface and make it ready for the world!</p>
+<p>0.9.2 also fixes a number of bugs found on Python 2.6.</p>
+<div class="section" id="download">
+<h2>Download!<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<p>The Salt source can be downloaded from the salt GitHub site:</p>
+<p><a class="reference external" href="https://github.com/downloads/saltstack/salt/salt-0.9.2.tar.gz">https://github.com/downloads/saltstack/salt/salt-0.9.2.tar.gz</a></p>
+<p>Or from PyPI:</p>
+<p><a class="reference external" href="http://pypi.python.org/packages/source/s/salt/salt-0.9.2.tar.gz">http://pypi.python.org/packages/source/s/salt/salt-0.9.2.tar.gz</a></p>
+<p>For instructions on how to set up Salt please see the <a class="reference internal" href="../installation/index.html#installation"><em>Installation</em></a>
+instructions.</p>
+</div>
+<div class="section" id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="salt-call-additions">
+<h3>Salt-Call Additions<a class="headerlink" href="#salt-call-additions" title="Permalink to this headline">¶</a></h3>
+<p>The salt-call command has received an overhaul, it now hooks into the outputter
+system so command output looks clean, and the logging system has been hooked
+into salt-call, so the -l option allows the logging output from salt minion
+functions to be displayed.</p>
+<p>The end result is that the salt-call command can execute the state system and
+return clean output:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># salt-call state.highstate</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="state-system-fixes">
+<h3>State System Fixes<a class="headerlink" href="#state-system-fixes" title="Permalink to this headline">¶</a></h3>
+<p>The state system has been tested and better refined. As of this release the
+state system is ready for early testers to start playing with. If you are
+interested in working with the state system please check out the (still very
+small) salt-states GitHub repo:</p>
+<p><a class="reference external" href="https://github.com/thatch45/salt-states">https://github.com/thatch45/salt-states</a></p>
+<p>This git repo is the active development branch for determining how a clean
+salt-state database should look and act. Since the salt state system is still
+very young a lot of help is still needed here. Please fork the salt-states
+repo and help us develop a truly large and scalable system for configuration
+management!</p>
+</div>
+</div>
+<div class="section" id="notable-bug-fixes">
+<h2>Notable Bug Fixes<a class="headerlink" href="#notable-bug-fixes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="python-2-6-string-formatting">
+<h3>Python 2.6 String Formatting<a class="headerlink" href="#python-2-6-string-formatting" title="Permalink to this headline">¶</a></h3>
+<p>Python 2.6 does not support format strings without an index identifier, all of
+them have been repaired.</p>
+</div>
+<div class="section" id="cython-loading-disabled-by-default">
+<h3>Cython Loading Disabled by Default<a class="headerlink" href="#cython-loading-disabled-by-default" title="Permalink to this headline">¶</a></h3>
+<p>Cython loading requires a development tool chain to be installed on the minion,
+requiring this by default can cause problems for most Salt deployments. If
+Cython auto loading is desired it will need to be turned on in the minion
+config.</p>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt 0.9.2 Release Notes</a><ul>
+<li><a class="reference internal" href="#download">Download!</a></li>
+<li><a class="reference internal" href="#new-features">New Features</a><ul>
+<li><a class="reference internal" href="#salt-call-additions">Salt-Call Additions</a></li>
+<li><a class="reference internal" href="#state-system-fixes">State System Fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#notable-bug-fixes">Notable Bug Fixes</a><ul>
+<li><a class="reference internal" href="#python-2-6-string-formatting">Python 2.6 String Formatting</a></li>
+<li><a class="reference internal" href="#cython-loading-disabled-by-default">Cython Loading Disabled by Default</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="0.9.1.html"
+                        title="previous chapter">Salt 0.9.1 Release Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="0.9.3.html"
+                        title="next chapter">Salt 0.9.3 Release Notes</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.9.1.html" title="Salt 0.9.1 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.9.3.html" title="Salt 0.9.3 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

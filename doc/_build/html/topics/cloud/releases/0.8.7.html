@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt Cloud 0.8.7 Release Notes</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-cloud-0-8-7-release-notes">
+<h1>Salt Cloud 0.8.7 Release Notes<a class="headerlink" href="#salt-cloud-0-8-7-release-notes" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to 0.8.7! This is a landmark release which adds two new cloud providers,
+one pseudo cloud provider, and an exciting, flexible new configuration format!
+Don't worry, the old config format will still work, and you can wait to migrate
+to the new format when you're ready. However, the old and new formats are not
+compatible, so don't try and mix them.</p>
+<p>We would like to extend a special thanks to the folks at X-Mission for granting
+us access to their cloud so that we could develop the Parallels driver! Without
+their help, this driver would not exist. Please take a moment to take a look at
+their cloud offering:</p>
+<p><a class="reference external" href="http://xmission.com/cloud_hosting">http://xmission.com/cloud_hosting</a></p>
+<p>We would also like to thank Digital Ocean for their help and resources while
+developing the driver for their cloud offering. The folks over there have been
+very friendly and helpful! Please take a moment to check them out:</p>
+<p><a class="reference external" href="https://www.digitalocean.com/">https://www.digitalocean.com/</a></p>
+<p>For more details, read on!</p>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>The documentation for Salt Cloud can be found on Read the Docs:
+<a class="reference external" href="http://salt-cloud.readthedocs.org">http://salt-cloud.readthedocs.org</a></p>
+</div>
+<div class="section" id="download">
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<p>Salt Cloud can be downloaded and install via pypi:</p>
+<p><a class="reference external" href="http://pypi.python.org/packages/source/s/salt-cloud/salt-cloud-0.8.7.tar.gz">http://pypi.python.org/packages/source/s/salt-cloud/salt-cloud-0.8.7.tar.gz</a></p>
+<p>Some packages have been made available for salt-cloud and more on on their
+way. Packages for Arch and FreeBSD are being made available thanks to the
+work of Christer Edwards, and packages for RHEL and Fedora are being created
+by Clint Savage. The Ubuntu PPA is being managed by Sean Channel. Package
+availability will be announced on the salt mailing list.</p>
+</div>
+<div class="section" id="added-parallels-support">
+<h2>Added Parallels Support<a class="headerlink" href="#added-parallels-support" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned above, X-Mission was kind enough to lend us the resources to write
+a cloud driver for Parallels-based cloud providers. This driver requires only
+a <tt class="docutils literal"><span class="pre">user</span></tt>, <tt class="docutils literal"><span class="pre">password</span></tt> and a <tt class="docutils literal"><span class="pre">url</span></tt>. These can be obtained from your cloud
+provider.</p>
+<ul class="simple">
+<li>Using the legacy configuration format:</li>
+</ul>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">PARALLELS.user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">myuser</span>
+<span class="l-Scalar-Plain">PARALLELS.password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">xyzzy</span>
+<span class="l-Scalar-Plain">PARALLELS.url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://api.cloud.xmission.com:4465/paci/v1.0/</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="added-digital-ocean-support">
+<h2>Added Digital Ocean Support<a class="headerlink" href="#added-digital-ocean-support" title="Permalink to this headline">¶</a></h2>
+<p>Digital Ocean has been a highly-requested cloud provider, and we are pleased to
+be able to meet the demand. Only a <tt class="docutils literal"><span class="pre">client_key</span></tt> and an <tt class="docutils literal"><span class="pre">api_key</span></tt> are
+required for Digital Ocean.</p>
+<ul class="simple">
+<li>Using the legacy configuration format:</li>
+</ul>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">DIGITAL_OCEAN.client_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">wFGEwgregeqw3435gDger</span>
+<span class="l-Scalar-Plain">DIGITAL_OCEAN.api_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">GDE43t43REGTrkilg43934t34qT43t4dgegerGEgg</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updated-configuration-format">
+<h2>Updated Configuration Format<a class="headerlink" href="#updated-configuration-format" title="Permalink to this headline">¶</a></h2>
+<p>This is a massive change that we have been wanting for months to add. We would
+like to extend special thanks to Pedro Algarvio (s0undt3ch) for his tireless
+efforts, which included significant changes to the codebase.</p>
+<p>The old configuration format will still function as before, so there is no
+pressure just yet to move over. However, the configuration formats are not
+compatible with each other, so when you're ready to switch over, make sure to
+switch everything over at once.</p>
+<p>Luckily, the changes are not difficult to get used to. The old format looked
+like the following:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">SOMEPROVIDER.option1</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">some_stuff</span>
+<span class="l-Scalar-Plain">SOMEPROVIDER.option2</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">some_other_stuff</span>
+</pre></div>
+</div>
+<p>The new format for the above would look like:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my_provider</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">option1</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">some_stuff</span>
+  <span class="l-Scalar-Plain">option2</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">some_other_stuff</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">someprovider</span>
+</pre></div>
+</div>
+<p>This update allows for multiple accounts using the same provider. For instance,
+if using multiple accounts with Amazon EC2, your configuration may look like:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-first-ec2</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">HJGRYCILJLKJYG</span>
+  <span class="l-Scalar-Plain">key</span><span class="p-Indicator">:</span> <span class="s">&#39;kdjgfsgm;woormgl/aserigjksjdhasdfgn&#39;</span>
+  <span class="l-Scalar-Plain">keyname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">test</span>
+  <span class="l-Scalar-Plain">securitygroup</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">quick-start</span>
+  <span class="l-Scalar-Plain">private_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/root/test.pem</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2</span>
+
+<span class="l-Scalar-Plain">my-second-ec2</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">LJLKJYGHJGRYCI</span>
+  <span class="l-Scalar-Plain">key</span><span class="p-Indicator">:</span> <span class="s">&#39;rigjksjdhasdfgnkdjgfsgm;woormgl/ase&#39;</span>
+  <span class="l-Scalar-Plain">keyname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">test</span>
+  <span class="l-Scalar-Plain">securitygroup</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">quick-start</span>
+  <span class="l-Scalar-Plain">private_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/root/test.pem</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2</span>
+</pre></div>
+</div>
+<p>Profiles are then configured using the name of the configuration block, rather
+than the provider name. For instance:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">rhel-ec2</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-second-ec2</span>
+    <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ami-e565ba8c</span>
+    <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Micro Instance</span>
+</pre></div>
+</div>
+<p>Likewise, issuing commands will reference the name of the configuration block,
+rather than the provider name. For instance:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud --list-sizes my-first-ec2
+</pre></div>
+</div>
+<p>This is critical for using multiple clouds, which use the same Salt Cloud
+driver. For instance, Salt Cloud has been gaining popularity for usage with
+private clouds utilizing OpenStack. The following two commands are likely to
+return different data:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud --list-images openstack-hp
+salt-cloud --list-images openstack-rackspace
+</pre></div>
+</div>
+</div>
+<div class="section" id="provider-aliases">
+<h2>Provider Aliases<a class="headerlink" href="#provider-aliases" title="Permalink to this headline">¶</a></h2>
+<p>It is also possible to have multiple providers configured with the same name.
+This allows for similar environments across multiple providers to share the same
+name. For instance:</p>
+<div class="highlight-bash"><div class="highlight"><pre>production-config:
+  - id: HJGRYCILJLKJYG
+    key: <span class="s1">&#39;kdjgfsgm;woormgl/aserigjksjdhasdfgn&#39;</span>
+    keyname: <span class="nb">test</span>
+<span class="nb">    </span>securitygroup: quick-start
+    private_key: /root/test.pem
+    provider: aws
+
+  - id: LJLKJYGHJGRYCI
+    key: <span class="s1">&#39;rigjksjdhasdfgnkdjgfsgm;woormgl/ase&#39;</span>
+    keyname: <span class="nb">test</span>
+<span class="nb">    </span>securitygroup: quick-start
+    private_key: /root/test.pem
+    provider: ec2
+</pre></div>
+</div>
+<p>With this configuration, you can then set up the following profiles:</p>
+<div class="highlight-bash"><div class="highlight"><pre>development-instances:
+  provider: production-config:aws
+  size: Micro Instance
+  ssh_username: ec2_user
+  securitygroup: default
+
+staging-instances:
+  provider: production-config:ec2
+  size: Micro Instance
+  ssh_username: ec2_user
+  securitygroup: default
+</pre></div>
+</div>
+<p>Keep in mind that if there is only one configured provider with a specific name,
+you do not have to specify an alias. But if multiple are set up as above, you
+must use the aliased name.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud --list-sizes production-config:ec2
+</pre></div>
+</div>
+</div>
+<div class="section" id="extending-profiles">
+<h2>Extending Profiles<a class="headerlink" href="#extending-profiles" title="Permalink to this headline">¶</a></h2>
+<p>If using the new configuration format, you will have the ability to extend
+profile definitions. This can make profile configuration much easier to read and
+manage. For instance:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">development-instances</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-ec2-config</span>
+  <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Micro Instance</span>
+  <span class="l-Scalar-Plain">ssh_username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2_user</span>
+  <span class="l-Scalar-Plain">securitygroup</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">deploy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+
+<span class="l-Scalar-Plain">Amazon-Linux-AMI-2012.09-64bit</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ami-54cf5c3d</span>
+  <span class="l-Scalar-Plain">extends</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">development-instances</span>
+
+<span class="l-Scalar-Plain">Fedora-17</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ami-08d97e61</span>
+  <span class="l-Scalar-Plain">extends</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">development-instances</span>
+
+<span class="l-Scalar-Plain">CentOS-5</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-aws-config</span>
+  <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ami-09b61d60</span>
+  <span class="l-Scalar-Plain">extends</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">development-instances</span>
+</pre></div>
+</div>
+<p>In this case, the CentOS-5 profile will in fact look like:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">CentOS-5</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-aws-config</span>
+  <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Micro Instance</span>
+  <span class="l-Scalar-Plain">ssh_username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2_user</span>
+  <span class="l-Scalar-Plain">securitygroup</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">deploy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+  <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ami-09b61d60</span>
+</pre></div>
+</div>
+<p>Because it copied all of the configuration from <tt class="docutils literal"><span class="pre">development-instances</span></tt>, and
+overrode the provider with a new provider.</p>
+</div>
+<div class="section" id="extending-providers">
+<h2>Extending Providers<a class="headerlink" href="#extending-providers" title="Permalink to this headline">¶</a></h2>
+<p>If using the new configuration format, providers can be extended in the same
+way. For instance, the following will set up two different providers, each
+sharing some of the same configuration:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-develop-envs</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">HJGRYCILJLKJYG</span>
+    <span class="l-Scalar-Plain">key</span><span class="p-Indicator">:</span> <span class="s">&#39;kdjgfsgm;woormgl/aserigjksjdhasdfgn&#39;</span>
+    <span class="l-Scalar-Plain">keyname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">test</span>
+    <span class="l-Scalar-Plain">securitygroup</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">quick-start</span>
+    <span class="l-Scalar-Plain">private_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/root/test.pem</span>
+    <span class="l-Scalar-Plain">location</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ap-southeast-1</span>
+    <span class="l-Scalar-Plain">availability_zone</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ap-southeast-1b</span>
+    <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">aws</span>
+
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">myuser@mycorp.com</span>
+    <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mypass</span>
+    <span class="l-Scalar-Plain">ssh_key_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mykey</span>
+    <span class="l-Scalar-Plain">ssh_key_file</span><span class="p-Indicator">:</span> <span class="s">&#39;/etc/salt/ibm/mykey.pem&#39;</span>
+    <span class="l-Scalar-Plain">location</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Raleigh</span>
+    <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ibmsce</span>
+
+
+<span class="l-Scalar-Plain">my-productions-envs</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">extends</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-develop-envs:ibmsce</span>
+    <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-production-user@mycorp.com</span>
+    <span class="l-Scalar-Plain">location</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">us-east-1</span>
+    <span class="l-Scalar-Plain">availability_zone</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">us-east-1</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt Cloud 0.8.7 Release Notes</a><ul>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#download">Download</a></li>
+<li><a class="reference internal" href="#added-parallels-support">Added Parallels Support</a></li>
+<li><a class="reference internal" href="#added-digital-ocean-support">Added Digital Ocean Support</a></li>
+<li><a class="reference internal" href="#updated-configuration-format">Updated Configuration Format</a></li>
+<li><a class="reference internal" href="#provider-aliases">Provider Aliases</a></li>
+<li><a class="reference internal" href="#extending-profiles">Extending Profiles</a></li>
+<li><a class="reference internal" href="#extending-providers">Extending Providers</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.renderers.jinja</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin renderer modules" href="index.html">
+        <link rel="next" title="salt.renderers.json" href="salt.renderers.json.html">
+        <link rel="prev" title="salt.renderers.yaml" href="salt.renderers.yaml.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.renderers.yaml.html" title="salt.renderers.yaml">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.renderers.json.html" title="salt.renderers.json">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-renderers-jinja">
+<h1>salt.renderers.jinja<a class="headerlink" href="#salt-renderers-jinja" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="jinja-in-states">
+<h2>Jinja in States<a class="headerlink" href="#jinja-in-states" title="Permalink to this headline">¶</a></h2>
+<p>The most basic usage of Jinja in state files is using control structures to wrap
+conditional or redundant state elements:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{% if grains[&#39;os&#39;] != &#39;FreeBSD&#39; %}
+tcsh:
+    pkg:
+        - installed
+{% endif %}
+
+motd:
+  file.managed:
+    {% if grains[&#39;os&#39;] == &#39;FreeBSD&#39; %}
+    - name: /etc/motd
+    {% elif grains[&#39;os&#39;] == &#39;Debian&#39; %}
+    - name: /etc/motd.tail
+    {% endif %}
+    - source: salt://motd
+</pre></div>
+</div>
+<p>In this example, the first if block will only be evaluated on minions that
+aren't running FreeBSD, and the second block changes the file name based on the
+<em>os</em> grain.</p>
+<p>Writing <strong>if-else</strong> blocks can lead to very redundant state files however. In
+this case, using <a class="reference internal" href="../../../topics/pillar/index.html"><em>pillars</em></a>, or using a previously
+defined variable might be easier:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{% set motd = [&#39;/etc/motd&#39;] %}
+{% if grains[&#39;os&#39;] == &#39;Debian&#39; %}
+  {% set motd = [&#39;/etc/motd.tail&#39;, &#39;/var/run/motd&#39;] %}
+{% endif %}
+
+{% for motdfile in motd %}
+{{ motdfile }}:
+  file.managed:
+    - source: salt://motd
+{% endfor %}
+</pre></div>
+</div>
+<p>Using a variable set by the template, the <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#for">for loop</a> will iterate over the
+list of MOTD files to update, adding a state block for each file.</p>
+</div>
+<div class="section" id="passing-variables">
+<h2>Passing Variables<a class="headerlink" href="#passing-variables" title="Permalink to this headline">¶</a></h2>
+<p>It is also possible to pass additional variable context directly into a
+template, using the <tt class="docutils literal"><span class="pre">defaults</span></tt> and <tt class="docutils literal"><span class="pre">context</span></tt> mappings of the
+<a class="reference internal" href="../../states/all/salt.states.file.html"><em>file.managed</em></a> state:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>/etc/motd:
+  file.managed:
+    - source: salt://motd
+    - template: jinja
+    - defaults:
+        message: &#39;Foo&#39;
+    {% if grains[&#39;os&#39;] == &#39;FreeBSD&#39; %}
+    - context:
+        message: &#39;Bar&#39;
+    {% endif %}
+</pre></div>
+</div>
+<p>The template will receive a variable <tt class="docutils literal"><span class="pre">message</span></tt>, which would be accessed in the
+template using <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">message</span> <span class="pre">}}</span></tt>. If the operating system is FreeBSD, the value
+of the variable <tt class="docutils literal"><span class="pre">message</span></tt> would be <em>Bar</em>, otherwise it is the default
+<em>Foo</em></p>
+</div>
+<div class="section" id="include-and-import">
+<h2>Include and Import<a class="headerlink" href="#include-and-import" title="Permalink to this headline">¶</a></h2>
+<p>Includes and <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#import">imports</a> can be used to share common, reusable state configuration
+between state files and between files.</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{% from &#39;lib.sls&#39; import test %}
+</pre></div>
+</div>
+<p>This would import the <tt class="docutils literal"><span class="pre">test</span></tt> template variable or macro, not the <tt class="docutils literal"><span class="pre">test</span></tt>
+state element, from the file <tt class="docutils literal"><span class="pre">lib.sls</span></tt>. In the case that the included file
+performs checks again grains, or something else that requires context, passing
+the context into the included file is required:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{% from &#39;lib.sls&#39; import test with context %}
+</pre></div>
+</div>
+</div>
+<div class="section" id="variable-and-block-serializers">
+<h2>Variable and block Serializers<a class="headerlink" href="#variable-and-block-serializers" title="Permalink to this headline">¶</a></h2>
+<p>Salt allows one to serialize any variable into <strong>json</strong> or <strong>yaml</strong> or
+<strong>python</strong>. For example this variable:</p>
+<div class="highlight-python"><div class="highlight"><pre>data:
+  foo: True
+  bar: 42
+  baz:
+    - 1
+    - 2
+    - 3
+  qux: 2.0
+</pre></div>
+</div>
+<p>with this template:</p>
+<div class="highlight-python"><div class="highlight"><pre>yaml -&gt; {{ data|yaml }}
+
+json -&gt; {{ data|json }}
+
+python -&gt; {{ data|python }}
+</pre></div>
+</div>
+<p>will be rendered has:</p>
+<div class="highlight-python"><div class="highlight"><pre>yaml -&gt; {bar: 42, baz: [1, 2, 3], foo: true, qux: 2.0}
+
+json -&gt; {&quot;baz&quot;: [1, 2, 3], &quot;foo&quot;: true, &quot;bar&quot;: 42, &quot;qux&quot;: 2.0}
+
+python -&gt; {u&#39;data&#39;: {u&#39;bar&#39;: 42, u&#39;baz&#39;: [1, 2, 3], u&#39;foo&#39;: True, u&#39;qux&#39;: 2.0}}
+</pre></div>
+</div>
+<p>Strings and variables can be deserialized with <strong>load_yaml</strong> and <strong>load_json</strong>
+tags and filters. It allows one to manipulate data directly in templates, easily:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{%- set json_var = &#39;{&quot;foo&quot;: &quot;bar&quot;, &quot;baz&quot;: &quot;qux&quot;}&#39;|load_json %}
+My json_var foo is {{ json_var.foo }}
+
+{%- set yaml_var = &quot;{bar: baz: qux}&quot;|load_yaml %}
+My yaml_var bar.baz is {{ yaml_var.bar.baz }}
+
+{%- load_json as json_block %}
+  {
+    &quot;qux&quot;: {{ yaml_var|json }},
+  }
+{% endload %}
+My json_block qux.bar.baz is {{ json_block.qux.bar.baz }}
+
+{%- load_yaml as yaml_block %}
+  bar:
+    baz:
+      qux
+{% endload %}
+My yaml_block bar.baz is {{ yaml2.bar.baz }}
+</pre></div>
+</div>
+<p>will be rendered has:</p>
+<div class="highlight-python"><div class="highlight"><pre>My json_var foo is bar
+
+My yaml_var bar.baz is qux
+
+My json_block foo is quz
+
+My yaml_block bar.baz is qux
+</pre></div>
+</div>
+</div>
+<div class="section" id="template-serializers">
+<h2>Template Serializers<a class="headerlink" href="#template-serializers" title="Permalink to this headline">¶</a></h2>
+<p>Salt implements <strong>import_yaml</strong> and <strong>import_json</strong> tags. They work like the
+<a class="reference external" href="http://jinja.pocoo.org/docs/templates/#import">import tag</a>, except that the document is also deserialized.</p>
+<p>Imagine you have a generic state file in which you have the complete data of
+your infrastucture:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># everything.sls</span>
+<span class="l-Scalar-Plain">users</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">foo</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">john</span>
+  <span class="l-Scalar-Plain">bar</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">bob</span>
+  <span class="l-Scalar-Plain">baz</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">smith</span>
+</pre></div>
+</div>
+<p>But you don't want to expose everything to a minion. This state file:</p>
+<div class="highlight-yaml"><div class="highlight"><pre># specialized.sls
+{% import_yaml &quot;everything.sls&quot; as all %}
+my_admins:
+  my_foo: {{ all.users.foo|yaml }}
+</pre></div>
+</div>
+<p>will be rendered has:</p>
+<div class="highlight-python"><div class="highlight"><pre>my_admins:
+  my_foo: [john]
+</pre></div>
+</div>
+</div>
+<div class="section" id="macros">
+<h2>Macros<a class="headerlink" href="#macros" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://jinja.pocoo.org/docs/templates/#macros">Macros</a> are helpful for eliminating redundant code, however stripping whitespace
+from the template block, as well as contained blocks, may be necessary to
+emulate a variable return from the macro.</p>
+<div class="highlight-yaml"><div class="highlight"><pre># init.sls
+{% from &#39;lib.sls&#39; import pythonpkg with context %}
+
+python-virtualenv:
+  pkg.installed:
+    - name: {{ pythonpkg(&#39;virtualenv&#39;) }}
+
+python-fabric:
+  pkg.installed:
+    - name: {{ pythonpkg(&#39;fabric&#39;) }}
+</pre></div>
+</div>
+<div class="highlight-yaml"><div class="highlight"><pre># lib.sls
+{% macro pythonpkg(pkg) -%}
+  {%- if grains[&#39;os&#39;] == &#39;FreeBSD&#39; -%}
+    py27-{{ pkg }}
+  {%- elif grains[&#39;os&#39;] == &#39;Debian&#39; -%}
+    python-{{ pkg }}
+  {%- endif -%}
+{%- endmacro %}
+</pre></div>
+</div>
+<p>This would define a <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#macros">macro</a> that would return a string of the full package name,
+depending on the packaging system's naming convention. The whitespace of the
+macro was eliminated, so that the macro would return a string without line
+breaks, using <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#whitespace-control">whitespace control</a>.</p>
+</div>
+<div class="section" id="template-inheritance">
+<h2>Template Inheritance<a class="headerlink" href="#template-inheritance" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://jinja.pocoo.org/docs/templates/#template-inheritance">Template inheritance</a> works fine from state files and files. The search path
+starts at the root of the state tree or pillar.</p>
+</div>
+<div class="section" id="filters">
+<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
+<p>Saltstack extends <a class="reference external" href="http://jinja.pocoo.org/docs/templates/##builtin-filters">builtin filters</a> with his custom filters:</p>
+<dl class="docutils">
+<dt>strftime</dt>
+<dd><p class="first">Converts any time related object into a time based string. It requires a
+valid <a class="reference external" href="http://docs.python.org/2/library/datetime.html#strftime-strptime-behavior" title="(in Python v2.7)"><em class="xref std std-ref">strftime directives</em></a>. An
+<a class="reference external" href="http://docs.python.org/2/library/datetime.html#strftime-strptime-behavior" title="(in Python v2.7)"><em class="xref std std-ref">exhaustive list</em></a> can be found in
+the official Python documentation. Fuzzy dates are parsed by <a class="reference external" href="https://github.com/pediapress/timelib/">timelib</a> python
+module. Some examples are available on this pages.</p>
+<div class="last highlight-yaml"><div class="highlight"><pre>{{ &quot;2002/12/25&quot;|strftime(&quot;%y&quot;) }}
+{{ &quot;1040814000&quot;|strftime(&quot;%Y-%m-%d&quot;) }}
+{{ datetime|strftime(&quot;%u&quot;) }}
+{{ &quot;now&quot;|strftime }}
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="jinja-in-files">
+<h2>Jinja in Files<a class="headerlink" href="#jinja-in-files" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://jinja.pocoo.org/docs/templates/">Jinja</a> can be used in the same way in managed files:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># redis.sls</span>
+<span class="l-Scalar-Plain">/etc/redis/redis.conf</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://redis.conf</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">jinja</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">context</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">bind</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">127.0.0.1</span>
+</pre></div>
+</div>
+<div class="highlight-yaml"><div class="highlight"><pre># lib.sls
+{% set port = 6379 %}
+</pre></div>
+</div>
+<div class="highlight-ini"><div class="highlight"><pre># redis.conf
+{% from &#39;lib.sls&#39; import port with context %}
+port {{ port }}
+bind {{ bind }}
+</pre></div>
+</div>
+<p>As an example, configuration was pulled from the file context and from an
+external template file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Macros and variables can be shared across templates. They should not be
+starting with one or more underscores, and should be managed by one of the
+following tags: <cite>macro</cite>, <cite>set</cite>, <cite>load_yaml</cite>, <cite>load_json</cite>, <cite>import_yaml</cite> and
+<cite>import_json</cite>.</p>
+</div>
+<span class="target" id="module-salt.renderers.jinja"></span><dl class="function">
+<dt id="salt.renderers.jinja.render">
+<tt class="descclassname">salt.renderers.jinja.</tt><tt class="descname">render</tt><big>(</big><em>template_file</em>, <em>saltenv='base'</em>, <em>sls=''</em>, <em>argline=''</em>, <em>context=None</em>, <em>tmplpath=None</em>, <em>**kws</em><big>)</big><a class="headerlink" href="#salt.renderers.jinja.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the template_file, passing the functions and grains into the
+Jinja rendering system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">salt.renderers.jinja</a><ul>
+<li><a class="reference internal" href="#jinja-in-states">Jinja in States</a></li>
+<li><a class="reference internal" href="#passing-variables">Passing Variables</a></li>
+<li><a class="reference internal" href="#include-and-import">Include and Import</a></li>
+<li><a class="reference internal" href="#variable-and-block-serializers">Variable and block Serializers</a></li>
+<li><a class="reference internal" href="#template-serializers">Template Serializers</a></li>
+<li><a class="reference internal" href="#macros">Macros</a></li>
+<li><a class="reference internal" href="#template-inheritance">Template Inheritance</a></li>
+<li><a class="reference internal" href="#filters">Filters</a></li>
+<li><a class="reference internal" href="#jinja-in-files">Jinja in Files</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.renderers.yaml.html"
+                        title="previous chapter">salt.renderers.yaml</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.renderers.json.html"
+                        title="next chapter">salt.renderers.json</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.renderers.yaml.html" title="salt.renderers.yaml">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.renderers.json.html" title="salt.renderers.json">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

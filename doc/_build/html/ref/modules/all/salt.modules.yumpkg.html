@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.modules.yumpkg</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin execution modules" href="index.html">
+        <link rel="next" title="salt.modules.zcbuildout" href="salt.modules.zcbuildout.html">
+        <link rel="prev" title="salt.modules.xmpp" href="salt.modules.xmpp.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.xmpp.html" title="salt.modules.xmpp">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.zcbuildout.html" title="salt.modules.zcbuildout">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.modules.yumpkg">
+<span id="salt-modules-yumpkg"></span><h1>salt.modules.yumpkg<a class="headerlink" href="#module-salt.modules.yumpkg" title="Permalink to this headline">¶</a></h1>
+<p>Support for YUM</p>
+<dl class="function">
+<dt id="salt.modules.yumpkg.check_db">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">check_db</tt><big>(</big><em>*names</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.check_db" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
+<p>Returns a dict containing the following information for each specified
+package:</p>
+<ol class="arabic simple">
+<li>A key <tt class="docutils literal"><span class="pre">found</span></tt>, which will be a boolean value denoting if a match was
+found in the package database.</li>
+<li>If <tt class="docutils literal"><span class="pre">found</span></tt> is <tt class="docutils literal"><span class="pre">False</span></tt>, then a second key called <tt class="docutils literal"><span class="pre">suggestions</span></tt> will
+be present, which will contain a list of possible matches.</li>
+</ol>
+<p>The <tt class="docutils literal"><span class="pre">fromrepo</span></tt>, <tt class="docutils literal"><span class="pre">enablerepo</span></tt>, and <tt class="docutils literal"><span class="pre">disablerepo</span></tt> arguments are
+supported, as used in pkg states.</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.check_db &lt;package1&gt; &lt;package2&gt; &lt;package3&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.check_db &lt;package1&gt; &lt;package2&gt; &lt;package3&gt; <span class="nv">fromrepo</span><span class="o">=</span>epel-testing
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.clean_metadata">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">clean_metadata</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.clean_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
+<p>Cleans local yum metadata. Functionally identical to <a class="reference internal" href="#salt.modules.yumpkg.refresh_db" title="salt.modules.yumpkg.refresh_db"><tt class="xref py py-mod docutils literal"><span class="pre">refresh_db()</span></tt></a>.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.clean_metadata
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.del_repo">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">del_repo</tt><big>(</big><em>repo</em>, <em>basedir='/etc/yum.repos.d'</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.del_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a repo from &lt;basedir&gt; (default basedir: /etc/yum.repos.d).</p>
+<p>If the .repo file that the repo exists in does not contain any other repo
+configuration, the file itself will be deleted.</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.del_repo myrepo
+salt <span class="s1">&#39;*&#39;</span> pkg.del_repo myrepo <span class="nv">basedir</span><span class="o">=</span>/path/to/dir
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.expand_repo_def">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">expand_repo_def</tt><big>(</big><em>repokwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.expand_repo_def" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take a repository definition and expand it to the full pkg repository dict
+that can be used for comparison. This is a helper function to make
+certain repo managers sane for comparison in the pkgrepo states.</p>
+<p>There is no use to calling this function via the CLI.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.file_dict">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">file_dict</tt><big>(</big><em>*packages</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.file_dict" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
+<p>List the files that belong to a package, grouped by package. Not
+specifying any packages will return a list of _every_ file on the system's
+rpm database (not generally recommended).</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.file_list httpd
+salt <span class="s1">&#39;*&#39;</span> pkg.file_list httpd postfix
+salt <span class="s1">&#39;*&#39;</span> pkg.file_list
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.file_list">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">file_list</tt><big>(</big><em>*packages</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.file_list" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
+<p>List the files that belong to a package. Not specifying any packages will
+return a list of _every_ file on the system's rpm database (not generally
+recommended).</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.file_list httpd
+salt <span class="s1">&#39;*&#39;</span> pkg.file_list httpd postfix
+salt <span class="s1">&#39;*&#39;</span> pkg.file_list
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.get_repo">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">get_repo</tt><big>(</big><em>repo</em>, <em>basedir='/etc/yum.repos.d'</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.get_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a repo from &lt;basedir&gt; (default basedir: /etc/yum.repos.d).</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.get_repo myrepo
+salt <span class="s1">&#39;*&#39;</span> pkg.get_repo myrepo <span class="nv">basedir</span><span class="o">=</span>/path/to/dir
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.group_diff">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">group_diff</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.group_diff" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
+<p>Lists packages belonging to a certain group, and which are installed</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.group_diff <span class="s1">&#39;Perl Support&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.group_info">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">group_info</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.group_info" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
+<p>Lists packages belonging to a certain group</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.group_info <span class="s1">&#39;Perl Support&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.group_install">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">group_install</tt><big>(</big><em>name</em>, <em>skip=()</em>, <em>include=()</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.group_install" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
+<p>Install the passed package group(s). This is basically a wrapper around
+pkg.install, which performs package group resolution for the user. This
+function is currently considered experimental, and should be expected to
+undergo changes.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd><p class="first">Package group to install. To install more than one group, either use a
+comma-separated list or pass the value as a python list.</p>
+<p>CLI Examples:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.group_install <span class="s1">&#39;Group 1&#39;</span>
+salt <span class="s1">&#39;*&#39;</span> pkg.group_install <span class="s1">&#39;Group 1,Group 2&#39;</span>
+salt <span class="s1">&#39;*&#39;</span> pkg.group_install <span class="s1">&#39;[&quot;Group 1&quot;, &quot;Group 2&quot;]&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt>skip</dt>
+<dd><p class="first">The name(s), in a list, of any packages that would normally be
+installed by the package group (&quot;default&quot; packages), which should not
+be installed. Can be passed either as a comma-separated list or a
+python list.</p>
+<p>CLI Examples:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.group_install <span class="s1">&#39;My Group&#39;</span> <span class="nv">skip</span><span class="o">=</span><span class="s1">&#39;foo,bar&#39;</span>
+salt <span class="s1">&#39;*&#39;</span> pkg.group_install <span class="s1">&#39;My Group&#39;</span> <span class="nv">skip</span><span class="o">=</span><span class="s1">&#39;[&quot;foo&quot;, &quot;bar&quot;]&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt>include</dt>
+<dd><p class="first">The name(s), in a list, of any packages which are included in a group,
+which would not normally be installed (&quot;optional&quot; packages). Note that
+this will not enforce group membership; if you include packages which
+are not members of the specified groups, they will still be installed.
+Can be passed either as a comma-separated list or a python list.</p>
+<p>CLI Examples:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.group_install <span class="s1">&#39;My Group&#39;</span> <span class="nv">include</span><span class="o">=</span><span class="s1">&#39;foo,bar&#39;</span>
+salt <span class="s1">&#39;*&#39;</span> pkg.group_install <span class="s1">&#39;My Group&#39;</span> <span class="nv">include</span><span class="o">=</span><span class="s1">&#39;[&quot;foo&quot;, &quot;bar&quot;]&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Because this is essentially a wrapper around pkg.install, any argument
+which can be passed to pkg.install may also be included here, and it
+will be passed along wholesale.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.group_list">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">group_list</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.group_list" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
+<p>Lists all groups known by yum on this system</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.group_list
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.install">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">install</tt><big>(</big><em>name=None</em>, <em>refresh=False</em>, <em>fromrepo=None</em>, <em>skip_verify=False</em>, <em>pkgs=None</em>, <em>sources=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install the passed package(s), add refresh=True to clean the yum database
+before package is installed.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd><p class="first">The name of the package to be installed. Note that this parameter is
+ignored if either &quot;pkgs&quot; or &quot;sources&quot; is passed. Additionally, please
+note that this option can only be used to install packages from a
+software repository. To install a package file manually, use the
+&quot;sources&quot; option.</p>
+<p>32-bit packages can be installed on 64-bit systems by appending the
+architecture designation (<tt class="docutils literal"><span class="pre">.i686</span></tt>, <tt class="docutils literal"><span class="pre">.i586</span></tt>, etc.) to the end of the
+package name.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install &lt;package name&gt;
+</pre></div>
+</div>
+</dd>
+<dt>refresh</dt>
+<dd>Whether or not to update the yum database before executing.</dd>
+<dt>skip_verify</dt>
+<dd>Skip the GPG verification check (e.g., <tt class="docutils literal"><span class="pre">--nogpgcheck</span></tt>)</dd>
+<dt>version</dt>
+<dd>Install a specific version of the package, e.g. 1.2.3-4.el5. Ignored
+if &quot;pkgs&quot; or &quot;sources&quot; is passed.</dd>
+</dl>
+<p>Repository Options:</p>
+<dl class="docutils">
+<dt>fromrepo</dt>
+<dd>Specify a package repository (or repositories) from which to install.
+(e.g., <tt class="docutils literal"><span class="pre">yum</span> <span class="pre">--disablerepo='*'</span> <span class="pre">--enablerepo='somerepo'</span></tt>)</dd>
+<dt>enablerepo (ignored if <tt class="docutils literal"><span class="pre">fromrepo</span></tt> is specified)</dt>
+<dd>Specify a disabled package repository (or repositories) to enable.
+(e.g., <tt class="docutils literal"><span class="pre">yum</span> <span class="pre">--enablerepo='somerepo'</span></tt>)</dd>
+<dt>disablerepo (ignored if <tt class="docutils literal"><span class="pre">fromrepo</span></tt> is specified)</dt>
+<dd>Specify an enabled package repository (or repositories) to disable.
+(e.g., <tt class="docutils literal"><span class="pre">yum</span> <span class="pre">--disablerepo='somerepo'</span></tt>)</dd>
+</dl>
+<p>Multiple Package Installation Options:</p>
+<dl class="docutils">
+<dt>pkgs</dt>
+<dd><p class="first">A list of packages to install from a software repository. Must be
+passed as a python list. A specific version number can be specified
+by using a single-element dict representing the package and its
+version.</p>
+<p>CLI Examples:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install <span class="nv">pkgs</span><span class="o">=</span><span class="s1">&#39;[&quot;foo&quot;, &quot;bar&quot;]&#39;</span>
+salt <span class="s1">&#39;*&#39;</span> pkg.install <span class="nv">pkgs</span><span class="o">=</span><span class="s1">&#39;[&quot;foo&quot;, {&quot;bar&quot;: &quot;1.2.3-4.el5&quot;}]&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt>sources</dt>
+<dd><p class="first">A list of RPM packages to install. Must be passed as a list of dicts,
+with the keys being package names, and the values being the source URI
+or local path to the package.</p>
+<p>CLI Example:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install <span class="nv">sources</span><span class="o">=</span><span class="s1">&#39;[{&quot;foo&quot;: &quot;salt://foo.rpm&quot;}, {&quot;bar&quot;: &quot;salt://bar.rpm&quot;}]&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Returns a dict containing the new package names and versions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;&lt;package&gt;&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;old&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;old-version&gt;&#39;</span><span class="p">,</span>
+               <span class="s">&#39;new&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;new-version&gt;&#39;</span><span class="p">}}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.latest_version">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">latest_version</tt><big>(</big><em>*names</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.latest_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the latest version of the named package available for upgrade or
+installation. If more than one package name is specified, a dict of
+name/version pairs is returned.</p>
+<p>If the latest version of a given package is already installed, an empty
+string will be returned for that package.</p>
+<p>A specific repo can be requested using the <tt class="docutils literal"><span class="pre">fromrepo</span></tt> keyword argument.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.latest_version &lt;package name&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.latest_version &lt;package name&gt; <span class="nv">fromrepo</span><span class="o">=</span>epel-testing
+salt <span class="s1">&#39;*&#39;</span> pkg.latest_version &lt;package1&gt; &lt;package2&gt; &lt;package3&gt; ...
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.list_pkgs">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">list_pkgs</tt><big>(</big><em>versions_as_list=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.list_pkgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the packages currently installed in a dict:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;&lt;package_name&gt;&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;version&gt;&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.list_pkgs
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.list_repo_pkgs">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">list_repo_pkgs</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.list_repo_pkgs" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
+<p>Returns all available packages. Optionally, package names can be passed and
+the results will be filtered to packages matching those names. This can be
+helpful in discovering the version or repo to specify in a pkg.installed
+state. The return data is a dictionary of repo names, with each repo having
+a list of dictionaries denoting the package name and version. An example of
+the return data would look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;&lt;repo_name&gt;&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s">&#39;&lt;package1&gt;&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;version1&gt;&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#39;&lt;package2&gt;&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;version2&gt;&#39;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&#39;&lt;package3&gt;&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;version3&gt;&#39;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>fromrepo <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Only include results from the specified repo(s). Multiple repos can be
+specified, comma-separated.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.list_repo_pkgs
+salt <span class="s1">&#39;*&#39;</span> pkg.list_repo_pkgs foo bar baz
+salt <span class="s1">&#39;*&#39;</span> pkg.list_repo_pkgs <span class="s1">&#39;samba4*&#39;</span> <span class="nv">fromrepo</span><span class="o">=</span>base,updates
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.list_repos">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">list_repos</tt><big>(</big><em>basedir='/etc/yum.repos.d'</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.list_repos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists all repos in &lt;basedir&gt; (default: /etc/yum.repos.d/).</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.list_repos
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.list_upgrades">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">list_upgrades</tt><big>(</big><em>refresh=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.list_upgrades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether or not an upgrade is available for all packages</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.list_upgrades
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.mod_repo">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">mod_repo</tt><big>(</big><em>repo</em>, <em>basedir=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.mod_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify one or more values for a repo. If the repo does not exist, it will
+be created, so long as the following values are specified:</p>
+<dl class="docutils">
+<dt>repo</dt>
+<dd>name by which the yum refers to the repo</dd>
+<dt>name</dt>
+<dd>a human-readable name for the repo</dd>
+<dt>baseurl</dt>
+<dd>the URL for yum to reference</dd>
+<dt>mirrorlist</dt>
+<dd>the URL for yum to reference</dd>
+</dl>
+<p>Key/Value pairs may also be removed from a repo's configuration by setting
+a key to a blank value. Bear in mind that a name cannot be deleted, and a
+baseurl can only be deleted if a mirrorlist is specified (or vice versa).</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.mod_repo reponame <span class="nv">enabled</span><span class="o">=</span>1 <span class="nv">gpgcheck</span><span class="o">=</span>1
+salt <span class="s1">&#39;*&#39;</span> pkg.mod_repo reponame <span class="nv">basedir</span><span class="o">=</span>/path/to/dir <span class="nv">enabled</span><span class="o">=</span>1
+salt <span class="s1">&#39;*&#39;</span> pkg.mod_repo reponame <span class="nv">baseurl</span><span class="o">=</span> <span class="nv">mirrorlist</span><span class="o">=</span>http://host.com/
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.normalize_name">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">normalize_name</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.normalize_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Strips the architecture from the specified package name, if necessary.
+Circomstances where this would be done include:</p>
+<ul class="simple">
+<li>If the arch is 32 bit and the package name ends in a 32-bit arch.</li>
+<li>If the arch matches the OS arch, or is <tt class="docutils literal"><span class="pre">noarch</span></tt>.</li>
+</ul>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.normalize_name zsh.x86_64
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.purge">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">purge</tt><big>(</big><em>name=None</em>, <em>pkgs=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.purge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Package purges are not supported by yum, this function is identical to
+<a class="reference internal" href="#salt.modules.yumpkg.remove" title="salt.modules.yumpkg.remove"><tt class="xref py py-mod docutils literal"><span class="pre">pkg.remove</span></tt></a>.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The name of the package to be deleted.</dd>
+</dl>
+<p>Multiple Package Options:</p>
+<dl class="docutils">
+<dt>pkgs</dt>
+<dd>A list of packages to delete. Must be passed as a python list. The
+<tt class="docutils literal"><span class="pre">name</span></tt> parameter will be ignored if this option is passed.</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.16.0.</span></p>
+</div>
+<p>Returns a dict containing the changes.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.purge &lt;package name&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.purge &lt;package1&gt;,&lt;package2&gt;,&lt;package3&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.purge <span class="nv">pkgs</span><span class="o">=</span><span class="s1">&#39;[&quot;foo&quot;, &quot;bar&quot;]&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.refresh_db">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">refresh_db</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.refresh_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the yum repos for updated packages</p>
+<p>Returns:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">True</span></tt>: Updates are available</li>
+<li><tt class="docutils literal"><span class="pre">False</span></tt>: An error occured</li>
+<li><tt class="docutils literal"><span class="pre">None</span></tt>: No updates are available</li>
+</ul>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.refresh_db
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.remove">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">remove</tt><big>(</big><em>name=None</em>, <em>pkgs=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove packages with <tt class="docutils literal"><span class="pre">yum</span> <span class="pre">-q</span> <span class="pre">-y</span> <span class="pre">remove</span></tt>.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The name of the package to be deleted.</dd>
+</dl>
+<p>Multiple Package Options:</p>
+<dl class="docutils">
+<dt>pkgs</dt>
+<dd>A list of packages to delete. Must be passed as a python list. The
+<tt class="docutils literal"><span class="pre">name</span></tt> parameter will be ignored if this option is passed.</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.16.0.</span></p>
+</div>
+<p>Returns a dict containing the changes.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;package name&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.remove &lt;package1&gt;,&lt;package2&gt;,&lt;package3&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.remove <span class="nv">pkgs</span><span class="o">=</span><span class="s1">&#39;[&quot;foo&quot;, &quot;bar&quot;]&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.upgrade">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">upgrade</tt><big>(</big><em>refresh=True</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.upgrade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a full system upgrade, a yum upgrade</p>
+<p>Return a dict containing the new package names and versions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;&lt;package&gt;&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;old&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;old-version&gt;&#39;</span><span class="p">,</span>
+               <span class="s">&#39;new&#39;</span><span class="p">:</span> <span class="s">&#39;&lt;new-version&gt;&#39;</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.upgrade
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.upgrade_available">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">upgrade_available</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.upgrade_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether or not an upgrade is available for a given package</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.upgrade_available &lt;package name&gt;
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.verify">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">verify</tt><big>(</big><em>*names</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.verify" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
+<p>Runs an rpm -Va on a system, and returns the results in a dict</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.verify
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.yumpkg.version">
+<tt class="descclassname">salt.modules.yumpkg.</tt><tt class="descname">version</tt><big>(</big><em>*names</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.yumpkg.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string representing the package version or an empty string if not
+installed. If more than one package name is specified, a dict of
+name/version pairs is returned.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.version &lt;package name&gt;
+salt <span class="s1">&#39;*&#39;</span> pkg.version &lt;package1&gt; &lt;package2&gt; &lt;package3&gt; ...
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.modules.xmpp.html"
+                        title="previous chapter">salt.modules.xmpp</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.modules.zcbuildout.html"
+                        title="next chapter">salt.modules.zcbuildout</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.xmpp.html" title="salt.modules.xmpp">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.zcbuildout.html" title="salt.modules.zcbuildout">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

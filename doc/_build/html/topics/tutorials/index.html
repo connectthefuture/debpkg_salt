@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt tutorials</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="Salt Masterless Quickstart" href="quickstart.html">
+        <link rel="prev" title="Batch Size" href="../targeting/batch.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../targeting/batch.html" title="Batch Size">previous</a>
+                
+            </li>
+            <li>
+                <a href="quickstart.html" title="Salt Masterless Quickstart">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-tutorials">
+<h1>Salt tutorials<a class="headerlink" href="#salt-tutorials" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Salt Masterless Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#bootstrap-salt-minion">Bootstrap Salt Minion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#create-state-tree">Create State Tree</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="basics">
+<h2>Basics<a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="salt_bootstrap.html">Salt Bootstrap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="salt_bootstrap.html#supported-operating-systems">Supported Operating Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="salt_bootstrap.html#example-usage">Example Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="salt_bootstrap.html#command-line-options">Command Line Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="standalone_minion.html">Standalone Minion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="standalone_minion.html#telling-salt-call-to-run-masterless">Telling Salt Call to Run Masterless</a></li>
+<li class="toctree-l2"><a class="reference internal" href="standalone_minion.html#running-states-masterless">Running States Masterless</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="firewall.html">Opening the Firewall up for Salt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html#rhel-6-centos-6">RHEL 6 / CentOS 6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html#opensuse">openSUSE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html#iptables">iptables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firewall.html#pf-conf">pf.conf</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="firewall.html#whitelist-communication-to-master">Whitelist communication to Master</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cron.html">Using cron with Salt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cron.html#use-cron-to-initiate-a-highstate">Use cron to initiate a highstate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Remote execution tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#order-your-minions-around">Order your minions around</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pillar.html">Pillar Walkthrough</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pillar.html#setting-up-pillar">Setting Up Pillar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pillar.html#paramaterizing-states-with-pillar">Paramaterizing States With Pillar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pillar.html#pillar-makes-simple-states-grow-easily">Pillar Makes Simple States Grow Easily</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pillar.html#more-on-pillar">More On Pillar</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="states">
+<h2>States<a class="headerlink" href="#states" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="starting_states.html">How Do I Use Salt States?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="starting_states.html#it-is-all-just-data">It is All Just Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="starting_states.html#the-top-file">The Top File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="starting_states.html#default-data-yaml">Default Data - YAML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="starting_states.html#adding-configs-and-users">Adding Configs and Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="starting_states.html#moving-beyond-a-single-sls">Moving Beyond a Single SLS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="starting_states.html#extending-included-sls-data">Extending Included SLS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="starting_states.html#understanding-the-render-system">Understanding the Render System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="starting_states.html#next-reading">Next Reading</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="states_pt1.html">States tutorial, part 1 - Basic Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="states_pt1.html#setting-up-the-salt-state-tree">Setting up the Salt State Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt1.html#preparing-the-top-file">Preparing the Top File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt1.html#create-an-sls-file">Create an <tt class="docutils literal"><span class="pre">sls</span></tt> file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt1.html#install-the-package">Install the package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt1.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="states_pt2.html">States tutorial, part 2 - More Complex States, Requisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="states_pt2.html#call-multiple-states">Call multiple States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt2.html#expand-the-sls-module">Expand the SLS module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt2.html#require-other-states">Require other states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt2.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="states_pt3.html">States tutorial, part 3 - Templating, Includes, Extends</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="states_pt3.html#templating-sls-modules">Templating SLS modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt3.html#using-grains-in-sls-modules">Using Grains in SLS modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt3.html#calling-salt-modules-from-templates">Calling Salt modules from templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt3.html#advanced-sls-module-syntax">Advanced SLS module syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt3.html#next-steps">Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="states_pt4.html">States tutorial, part 4</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="states_pt4.html#salt-fileserver-path-inheritance">Salt fileserver path inheritance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt4.html#environment-configuration">Environment configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt4.html#practical-example">Practical Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt4.html#continue-learning">Continue Learning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="states_pt5.html">States Tutorial, Part 5 - Orchestration with Salt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="states_pt5.html#the-overstate-system">The OverState System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_pt5.html#the-orchestrate-runner">The Orchestrate Runner</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="states_ordering.html">Understanding State Ordering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="states_ordering.html#compiler-basics">Compiler Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states_ordering.html#ordering-layers">Ordering Layers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="advanced-topics">
+<h2>Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="walkthrough.html">SaltStack Walkthrough</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough.html#welcome">Welcome!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough.html#salt-states">Salt States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough.html#so-much-more">So Much More!</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="minionfs.html">MinionFS Backend Walkthrough</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="minionfs.html#simple-configuration">Simple Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="minionfs.html#commandline-example">Commandline Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="esky.html">Automatic Updates / Frozen Deployments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="esky.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esky.html#building-and-freezing">Building and Freezing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esky.html#using-the-frozen-build">Using the Frozen Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="esky.html#gotchas">Gotchas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="multimaster.html">Multi Master Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multimaster.html#summary-of-steps">Summary of Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimaster.html#prepping-a-redundant-master">Prepping a Redundant Master</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimaster.html#configure-minions">Configure Minions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimaster.html#sharing-files-between-masters">Sharing Files Between Masters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="preseed_key.html">Preseed Minion with Accepted Key</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootstrap_ec2.html">Bootstrapping Salt on Linux EC2 with Cloud-Init</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bootstrap_ec2.html#used-with-boto">Used With Boto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bootstrap_ec2.html#additional-notes">Additional Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="salt_bootstrap.html">Salt Bootstrap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="salt_bootstrap.html#supported-operating-systems">Supported Operating Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="salt_bootstrap.html#example-usage">Example Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="salt_bootstrap.html#command-line-options">Command Line Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gitfs.html">GitFS Backend Walkthrough</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gitfs.html#simple-configuration">Simple Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitfs.html#multiple-remotes">Multiple Remotes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitfs.html#serving-from-a-subdirectory">Serving from a Subdirectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitfs.html#multiple-backends">Multiple Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitfs.html#branches-environments-and-top-sls-files">Branches, environments and top.sls files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitfs.html#gitfs-remotes-over-ssh">GitFS Remotes over SSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitfs.html#using-git-as-an-external-pillar-source">Using Git as an External Pillar Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitfs.html#why-aren-t-my-custom-modules-states-etc-syncing-to-my-minions">Why aren't my custom modules/states/etc. syncing to my Minions?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="walkthrough_macosx.html">The MacOS X (Maverick) Developer Step By Step Guide To Salt Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#the-5-cent-salt-intro">The 5 Cent Salt Intro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#before-digging-in-the-architecture-of-the-salt-cluster">Before Digging In, The Architecture Of The Salt Cluster</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="walkthrough_macosx.html#step-1-configuring-the-salt-master-on-your-mac">Step 1 - Configuring The Salt Master On Your Mac</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#install-homebrew">Install Homebrew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#install-salt">Install Salt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#create-the-master-configuration">Create The Master Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="walkthrough_macosx.html#step-2-configuring-the-minion-vm">Step 2 - Configuring The Minion VM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#install-virtualbox">Install VirtualBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#install-vagrant">Install Vagrant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#create-the-minion-vm-folder">Create The Minion VM Folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#initialize-vagrant">Initialize Vagrant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#import-precise64-ubuntu-box">Import Precise64 Ubuntu Box</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#modify-the-vagrantfile">Modify the Vagrantfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#checking-the-vm">Checking The VM</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="walkthrough_macosx.html#step-3-connecting-master-and-minion">Step 3 - Connecting Master and Minion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#creating-the-minion-configuration-file">Creating The Minion Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#preseed-minion-keys">Preseed minion keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#modify-vagrantfile-to-use-salt-provisioner">Modify Vagrantfile to Use Salt Provisioner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#checking-master-minion-communication">Checking Master-Minion Communication</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="walkthrough_macosx.html#step-4-configure-services-to-install-on-the-minion">Step 4 - Configure Services to Install On the Minion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#checking-the-system-s-original-state">Checking the system's original state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#initialize-the-top-sls-file">Initialize the top.sls file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#create-the-nginx-configuration">Create The Nginx Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#check-minion-state">Check Minion State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walkthrough_macosx.html#where-to-go-from-here">Where To Go From Here</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="writing_tests.html">Writing Salt Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="writing_tests.html#gettign-set-up-for-tests">Gettign Set Up For Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing_tests.html#destructive-vs-non-destructive">Destructive vs Non-destructive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="writing_tests.html#automated-test-runs">Automated Test Runs</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="salt-cloud">
+<h2>Salt Cloud<a class="headerlink" href="#salt-cloud" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cloud_controller.html">Salt as a Cloud Controller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloud_controller.html#setting-up-hypervisors">Setting up Hypervisors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_controller.html#getting-virtual-machine-images-ready">Getting Virtual Machine Images Ready</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_controller.html#using-salt-virt">Using Salt Virt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_controller.html#migrating-virtual-machines">Migrating Virtual Machines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_controller.html#vnc-consoles">VNC Consoles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_controller.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="halite">
+<h2>Halite<a class="headerlink" href="#halite" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="halite.html">Installing and Configuring Halite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="halite.html#installing-halite-via-package">Installing Halite Via Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="halite.html#installing-halite-using-pip">Installing Halite Using pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="halite.html#configuring-halite-permissions">Configuring Halite Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="halite.html#configuring-halite-settings">Configuring Halite Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="halite.html#starting-halite">Starting Halite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="halite.html#running-your-halite-instance-through-nginx">Running Your Halite Instance Through Nginx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="halite.html#running-your-halite-instance-through-apache">Running Your Halite Instance Through Apache</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt tutorials</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#basics">Basics</a></li>
+<li><a class="reference internal" href="#states">States</a></li>
+<li><a class="reference internal" href="#advanced-topics">Advanced Topics</a></li>
+<li><a class="reference internal" href="#salt-cloud">Salt Cloud</a></li>
+<li><a class="reference internal" href="#halite">Halite</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../targeting/batch.html"
+                        title="previous chapter">Batch Size</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="quickstart.html"
+                        title="next chapter">Salt Masterless Quickstart</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../targeting/batch.html" title="Batch Size">previous</a>
+                
+            </li>
+            <li>
+                <a href="quickstart.html" title="Salt Masterless Quickstart">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

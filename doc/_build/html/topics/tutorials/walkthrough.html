@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>SaltStack Walkthrough</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt tutorials" href="index.html">
+        <link rel="next" title="MinionFS Backend Walkthrough" href="minionfs.html">
+        <link rel="prev" title="Understanding State Ordering" href="states_ordering.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="states_ordering.html" title="Understanding State Ordering">previous</a>
+                
+            </li>
+            <li>
+                <a href="minionfs.html" title="MinionFS Backend Walkthrough">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="saltstack-walkthrough">
+<h1>SaltStack Walkthrough<a class="headerlink" href="#saltstack-walkthrough" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="welcome">
+<h2>Welcome!<a class="headerlink" href="#welcome" title="Permalink to this headline">¶</a></h2>
+<p>Welcome to SaltStack! I am excited that you are interested in Salt and
+starting down the path to better infrastructure management. I developed
+(and am continuing to develop) Salt with the goal of making the best
+software available to manage computers of almost any kind. I hope you enjoy
+working with Salt and that the software can solve your real world needs!</p>
+<ul class="simple">
+<li>Thomas S Hatch</li>
+<li>Salt creator and chief developer</li>
+<li>CTO of SaltStack, Inc.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is the first of a series of walkthroughs and serves as the best entry
+point for people new to Salt, after this be sure to read up on pillar and
+more on states:</p>
+<p><a class="reference internal" href="starting_states.html"><em>Starting States</em></a></p>
+<p class="last"><a class="reference internal" href="pillar.html"><em>Pillar Walkthrough</em></a></p>
+</div>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-is-salt">
+<h3>What is Salt?<a class="headerlink" href="#what-is-salt" title="Permalink to this headline">¶</a></h3>
+<p>Salt is a different approach to infrastructure management, it is founded on
+the idea that high speed communication with large numbers of systems can open
+up new capabilities. This approach makes Salt a powerful multitasking system
+that can solve many specific problems in an infrastructure. The backbone of
+Salt is the remote execution engine, which creates a high speed, secure and
+bi-directional communication net for groups of systems. On top of this
+communication system Salt provides an extremely fast, flexible and easy to use
+configuration management system called <tt class="docutils literal"><span class="pre">Salt</span> <span class="pre">States</span></tt>.</p>
+<p>This unique approach to management makes for a transparent control system that
+is not only amazingly easy to set up and use, but also capable of solving very
+complex problems in infrastructures; as will be explored in this walk through.</p>
+<p>Salt is being used today by some of the largest infrastructures in the world
+and has a proven ability to scale to astounding proportions without
+modification. With the proven ability to scale out well beyond many tens of
+thousands of servers, Salt has also proven to be an excellent choice for small
+deployments as well, lowering compute and management overhead for
+infrastructures as small as just a few systems.</p>
+</div>
+<div class="section" id="installing-salt">
+<h3>Installing Salt<a class="headerlink" href="#installing-salt" title="Permalink to this headline">¶</a></h3>
+<p>SaltStack has been made to be very easy to install and get started. Setting up
+Salt should be as easy as installing Salt via distribution packages on Linux or
+via the Windows installer. The <a class="reference internal" href="../installation/index.html"><em>installation documents</em></a> cover specific platform installation in depth.</p>
+</div>
+<div class="section" id="starting-salt">
+<h3>Starting Salt<a class="headerlink" href="#starting-salt" title="Permalink to this headline">¶</a></h3>
+<p>Salt functions on a master/minion topology. A master server acts as a
+central control bus for the clients (called minions), and the minions connect
+back to the master.</p>
+<div class="section" id="setting-up-the-salt-master">
+<h4>Setting Up the Salt Master<a class="headerlink" href="#setting-up-the-salt-master" title="Permalink to this headline">¶</a></h4>
+<p>Turning on the Salt Master is easy, just turn it on! The default configuration
+is suitable for the vast majority of installations. The Salt master can be
+controlled by the local Linux/Unix service manager:</p>
+<p>On Systemd based platforms (OpenSuse, Fedora):</p>
+<div class="highlight-bash"><div class="highlight"><pre>systemctl start salt-master
+</pre></div>
+</div>
+<p>On Upstart based systems (Ubuntu, older Fedora/RHEL):</p>
+<div class="highlight-bash"><div class="highlight"><pre>service salt-master start
+</pre></div>
+</div>
+<p>On SysV Init systems (Debian, Gentoo etc.):</p>
+<div class="highlight-bash"><div class="highlight"><pre>/etc/init.d/salt-master start
+</pre></div>
+</div>
+<p>Or the master can be started directly on the command line:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-master -d
+</pre></div>
+</div>
+<p>The Salt Master can also be started in the foreground in debug mode, thus
+greatly increasing the command output:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-master -l debug
+</pre></div>
+</div>
+<p>The Salt Master needs to bind to 2 TCP network ports on the system, these ports
+are 4505 and 4506. For more in depth information on firewalling these ports,
+the firewall tutorial is available <a class="reference internal" href="firewall.html"><em>here</em></a>.</p>
+</div>
+<div class="section" id="setting-up-a-salt-minion">
+<h4>Setting up a Salt Minion<a class="headerlink" href="#setting-up-a-salt-minion" title="Permalink to this headline">¶</a></h4>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The Salt Minion can operate with or without a Salt Master. This walkthrough
+assumes that the minion will be connected to the master, for information on
+how to run a master-less minion please see the masterless quickstart guide:</p>
+<p class="last"><a class="reference internal" href="quickstart.html"><em>Masterless Minion Quickstart</em></a></p>
+</div>
+<p>The Salt Minion only needs to be aware of one piece of information to run, the
+network location of the master. By default the minion will look for the DNS
+name <tt class="docutils literal"><span class="pre">salt</span></tt> for the master, making the easiest approach to set internal DNS
+to resolve the name <tt class="docutils literal"><span class="pre">salt</span></tt> back to the Salt Master IP. Otherwise the minion
+configuration file will need to be edited, edit the configuration option
+<tt class="docutils literal"><span class="pre">master</span></tt> to point to the DNS name or the IP of the Salt Master:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The default location of the configuration files is <tt class="docutils literal"><span class="pre">/etc/salt</span></tt>. Most
+platforms adhere to this convention, but platforms such as FreeBSD and
+Microsoft Windows place this file in different locations.</p>
+</div>
+<p><tt class="docutils literal"><span class="pre">/etc/salt/minion:</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">master</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">saltmaster.example.com</span>
+</pre></div>
+</div>
+<p>Now that the master can be found, start the minion in the same way as the
+master; with the platform init system, or via the command line directly:</p>
+<p>As a daemon:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-minion -d
+</pre></div>
+</div>
+<p>In the foreground in debug mode:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-minion -l debug
+</pre></div>
+</div>
+<p>Now that the minion is started it will generate cryptographic keys and attempt
+to connect to the master. The next step is to venture back to the master server
+and accept the new minion's public key.</p>
+<p id="minion-id-generation">When the minion is started, it will generate an <tt class="docutils literal"><span class="pre">id</span></tt> value, unless it has
+been generated on a previous run and cached in the configuration directory
+(<tt class="docutils literal"><span class="pre">/etc/salt</span></tt> by default). This is the name by which the minion will attempt
+to authenticate to the master. The following steps are attempted, in order to
+try to find a value that is not <tt class="docutils literal"><span class="pre">localhost</span></tt>:</p>
+<ol class="arabic simple">
+<li>The Python function <tt class="docutils literal"><span class="pre">socket.getfqdn()</span></tt> is run</li>
+<li><tt class="docutils literal"><span class="pre">/etc/hostname</span></tt> is checked (non-Windows only)</li>
+<li><tt class="docutils literal"><span class="pre">/etc/hosts</span></tt> (<tt class="docutils literal"><span class="pre">%WINDIR%\system32\drivers\etc\hosts</span></tt> on Windows hosts) is
+checked for hostnames that map to anything within <strong>127.0.0.0/8</strong>.</li>
+</ol>
+<p>If none of the above are able to produce an id which is not <tt class="docutils literal"><span class="pre">localhost</span></tt>, then
+a sorted list of IP addresses on the minion (excluding any within
+<strong>127.0.0.0/8</strong>) is inspected. The first publicly-routable IP address is
+used, if there is one. Otherwise, the first privately-routable IP address is
+used.</p>
+<p>If all else fails, then <tt class="docutils literal"><span class="pre">localhost</span></tt> is used as a fallback.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Overriding the <tt class="docutils literal"><span class="pre">id</span></tt></p>
+<p class="last">The minion id can be manually specified using the <a class="reference internal" href="../../ref/configuration/minion.html#std:conf_minion-id"><tt class="xref std std-conf_minion docutils literal"><span class="pre">id</span></tt></a>
+parameter in the minion config file.  If this configuration value is
+specified, it will override all other sources for the <tt class="docutils literal"><span class="pre">id</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="using-salt-key">
+<h4>Using salt-key<a class="headerlink" href="#using-salt-key" title="Permalink to this headline">¶</a></h4>
+<p>Salt authenticates minions using public key encryption and authentication. For
+a minion to start accepting commands from the master the minion keys need to be
+accepted. The <tt class="docutils literal"><span class="pre">salt-key</span></tt> command is used to manage all of the keys on the
+master. To list the keys that are on the master run a salt-key list command:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-key -L
+</pre></div>
+</div>
+<p>The keys that have been rejected, accepted and pending acceptance are listed.
+The easiest way to accept the minion key is to accept all pending keys:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-key -A
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Keys should be verified! The secure thing to do before accepting a key is
+to run <tt class="docutils literal"><span class="pre">salt-key</span> <span class="pre">-p</span> <span class="pre">minion-id</span></tt> to print the public key for the minion.
+This can then be compared against the minion's public key file, which is
+located (on the minion, of course) at <tt class="docutils literal"><span class="pre">/etc/salt/pki/minion/minion.pub</span></tt>.</p>
+<p>On the master:</p>
+<div class="highlight-python"><div class="highlight"><pre># salt-key -p foo.domain.com
+Accepted Keys:
+foo.domain.com:  -----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA0JcA0IEp/yqghK5V2VLM
+jbG7FWV6qtw/ubTDBnpDGQgrvSNOtd0QcJsAzAtDcHwrudQgyxTZGVJqPY7gLc7P
+5b4EFWt5E1w3+KZ+XXy4YtW5oOzVN5BvsJ85g7c0TUnmjL7p3MUUXE4049Ue/zgX
+jtbFJ0aa1HB8bnlQdWWOeflYRNEQL8482ZCmXXATFP1l5uJA9Pr6/ltdWtQTsXUA
+bEseUGEpmq83vAkwtZIyJRG2cJh8ZRlJ6whSMg6wr7lFvStHQQzKHt9pRPml3lLK
+ba2X07myAEJq/lpJNXJm5bkKV0+o8hqYQZ1ndh9HblHb2EoDBNbuIlhYft1uv8Tp
+8beaEbq8ZST082sS/NjeL7W1T9JS6w2rw4GlUFuQlbqW8FSl1VDo+Alxu0VAr4GZ
+gZpl2DgVoL59YDEVrlB464goly2c+eY4XkNT+JdwQ9LwMr83/yAAG6EGNpjT3pZg
+Wey7WRnNTIF7H7ISwEzvik1GrhyBkn6K1RX3uAf760ZsQdhxwHmop+krgVcC0S93
+xFjbBFF3+53mNv7BNPPgl0iwgA9/WuPE3aoE0A8Cm+Q6asZjf8P/h7KS67rIBEKV
+zrQtgf3aZBbW38CT4fTzyWAP138yrU7VSGhPMm5KfTLywNsmXeaR5DnZl6GGNdL1
+fZDM+J9FIGb/50Ee77saAlUCAwEAAQ==
+-----END PUBLIC KEY-----
+</pre></div>
+</div>
+<p>On the minion:</p>
+<div class="last highlight-python"><div class="highlight"><pre># cat /etc/salt/pki/minion/minion.pub
+-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA0JcA0IEp/yqghK5V2VLM
+jbG7FWV6qtw/ubTDBnpDGQgrvSNOtd0QcJsAzAtDcHwrudQgyxTZGVJqPY7gLc7P
+5b4EFWt5E1w3+KZ+XXy4YtW5oOzVN5BvsJ85g7c0TUnmjL7p3MUUXE4049Ue/zgX
+jtbFJ0aa1HB8bnlQdWWOeflYRNEQL8482ZCmXXATFP1l5uJA9Pr6/ltdWtQTsXUA
+bEseUGEpmq83vAkwtZIyJRG2cJh8ZRlJ6whSMg6wr7lFvStHQQzKHt9pRPml3lLK
+ba2X07myAEJq/lpJNXJm5bkKV0+o8hqYQZ1ndh9HblHb2EoDBNbuIlhYft1uv8Tp
+8beaEbq8ZST082sS/NjeL7W1T9JS6w2rw4GlUFuQlbqW8FSl1VDo+Alxu0VAr4GZ
+gZpl2DgVoL59YDEVrlB464goly2c+eY4XkNT+JdwQ9LwMr83/yAAG6EGNpjT3pZg
+Wey7WRnNTIF7H7ISwEzvik1GrhyBkn6K1RX3uAf760ZsQdhxwHmop+krgVcC0S93
+xFjbBFF3+53mNv7BNPPgl0iwgA9/WuPE3aoE0A8Cm+Q6asZjf8P/h7KS67rIBEKV
+zrQtgf3aZBbW38CT4fTzyWAP138yrU7VSGhPMm5KfTLywNsmXeaR5DnZl6GGNdL1
+fZDM+J9FIGb/50Ee77saAlUCAwEAAQ==
+-----END PUBLIC KEY-----
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="sending-the-first-commands">
+<h4>Sending the First Commands<a class="headerlink" href="#sending-the-first-commands" title="Permalink to this headline">¶</a></h4>
+<p>Now that the minion is connected to the master and authenticated, the master
+can start to command the minion. Salt commands allow for a vast set of
+functions to be executed and for specific minions and groups of minions to be
+targeted for execution. This makes the <tt class="docutils literal"><span class="pre">salt</span></tt> command very powerful, but
+the command is also very usable, and easy to understand.</p>
+<p>The <tt class="docutils literal"><span class="pre">salt</span></tt> command is comprised of command options, target specification,
+the function to execute, and arguments to the function. A simple command to
+start with looks like this:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> test.ping
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">*</span></tt> is the target, which specifies all minions, and <tt class="docutils literal"><span class="pre">test.ping</span></tt> tells
+the minion to run the <a class="reference internal" href="../../ref/modules/all/salt.modules.test.html#salt.modules.test.ping" title="salt.modules.test.ping"><tt class="xref py py-func docutils literal"><span class="pre">test.ping</span></tt></a> function.
+The result of running this command will be the master instructing all of the
+minions to execute <a class="reference internal" href="../../ref/modules/all/salt.modules.test.html#salt.modules.test.ping" title="salt.modules.test.ping"><tt class="xref py py-func docutils literal"><span class="pre">test.ping</span></tt></a> in parallel
+and return the result. This is not an actual ICMP ping, but rather a simple
+function which returns <tt class="docutils literal"><span class="pre">True</span></tt>. Using <a class="reference internal" href="../../ref/modules/all/salt.modules.test.html#salt.modules.test.ping" title="salt.modules.test.ping"><tt class="xref py py-func docutils literal"><span class="pre">test.ping</span></tt></a> is a good way of confirming that a minion is
+connected.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Each minion registers itself with a unique minion id. This id defaults to
+the minion's hostname, but can be explicitly defined in the minion config as
+well by using the <a class="reference internal" href="../../ref/configuration/minion.html#std:conf_minion-id"><tt class="xref std std-conf_minion docutils literal"><span class="pre">id</span></tt></a> parameter.</p>
+</div>
+</div>
+<div class="section" id="getting-to-know-the-functions">
+<h4>Getting to Know the Functions<a class="headerlink" href="#getting-to-know-the-functions" title="Permalink to this headline">¶</a></h4>
+<p>Salt comes with a vast library of functions available for execution, and Salt
+functions are self documenting. To see what functions are available on the
+minions execute the <tt class="xref py py-func docutils literal"><span class="pre">sys.doc</span></tt> function:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> sys.doc
+</pre></div>
+</div>
+<p>This will display a very large list of available functions and documentation on
+them, this documentation is also available <a class="reference internal" href="../../ref/modules/all/index.html"><em>here</em></a>.</p>
+<p>These functions cover everything from shelling out to package management to
+manipulating database servers. They comprise a powerful system management API
+which is the backbone to Salt configuration management and many other aspects
+of Salt.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Salt comes with many plugin systems. The functions that are available via
+the <tt class="docutils literal"><span class="pre">salt</span></tt> command are called <a class="reference internal" href="../../ref/modules/all/index.html"><em>Execution Modules</em></a>.</p>
+</div>
+</div>
+<div class="section" id="helpful-functions-to-know">
+<h4>Helpful Functions to Know<a class="headerlink" href="#helpful-functions-to-know" title="Permalink to this headline">¶</a></h4>
+<p>The <a class="reference internal" href="../../ref/modules/all/salt.modules.cmdmod.html"><em>cmd</em></a> module contains
+functions to shell out on minions, such as <a class="reference internal" href="../../ref/modules/all/salt.modules.cmdmod.html#salt.modules.cmdmod.run" title="salt.modules.cmdmod.run"><tt class="xref py py-mod docutils literal"><span class="pre">cmd.run</span></tt></a> and <a class="reference internal" href="../../ref/modules/all/salt.modules.cmdmod.html#salt.modules.cmdmod.run_all" title="salt.modules.cmdmod.run_all"><tt class="xref py py-mod docutils literal"><span class="pre">cmd.run_all</span></tt></a>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cmd.run <span class="s1">&#39;ls -l /etc&#39;</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">pkg</span></tt> functions automatically map local system package managers to the
+same salt functions. This means that <tt class="docutils literal"><span class="pre">pkg.install</span></tt> will install packages via
+yum on Red Hat based systems, apt on Debian systems, etc.:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install vim
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Some custom Linux spins and derivatives of other distros are not properly
+detected by Salt. If the above command returns an error message saying that
+<tt class="docutils literal"><span class="pre">pkg.install</span></tt> is not available, then you may need to override the pkg
+provider. This process is explained <a class="reference internal" href="../../ref/states/providers.html"><em>here</em></a>.</p>
+</div>
+<p>The <a class="reference internal" href="../../ref/modules/all/salt.modules.network.html#salt.modules.network.interfaces" title="salt.modules.network.interfaces"><tt class="xref py py-mod docutils literal"><span class="pre">network.interfaces</span></tt></a> function will
+list all interfaces on a minion, along with their IP addresses, netmasks, MAC
+addresses, etc:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> network.interfaces
+</pre></div>
+</div>
+</div>
+<div class="section" id="salt-call">
+<h4><tt class="docutils literal"><span class="pre">salt-call</span></tt><a class="headerlink" href="#salt-call" title="Permalink to this headline">¶</a></h4>
+<p>The examples so far have described running commands from the Master using the
+<tt class="docutils literal"><span class="pre">salt</span></tt> command, but when troubleshooting it can be more beneficial to login
+to the minion directly and use <tt class="docutils literal"><span class="pre">salt-call</span></tt>. Doing so allows you to see the
+minion log messages specific to the command you are running (which are <em>not</em>
+part of the return data you see when running the command from the Master using
+<tt class="docutils literal"><span class="pre">salt</span></tt>), making it unnecessary to tail the minion log. More information on
+<tt class="docutils literal"><span class="pre">salt-call</span></tt> and how to use it can be found <a class="reference internal" href="../troubleshooting/index.html#using-salt-call"><em>here</em></a>.</p>
+</div>
+<div class="section" id="grains">
+<h4>Grains<a class="headerlink" href="#grains" title="Permalink to this headline">¶</a></h4>
+<p>Salt uses a system called <a class="reference internal" href="../targeting/grains.html"><em>Grains</em></a> to build up
+static data about minions. This data includes information about the operating
+system that is running, CPU architecture and much more. The grains system is
+used throughout Salt to deliver platform data to many components and to users.</p>
+<p>Grains can also be statically set, this makes it easy to assign values to
+minions for grouping and managing. A common practice is to assign grains to
+minions to specify what the role or roles a minion might be. These static
+grains can be set in the minion configuration file or via the
+<a class="reference internal" href="../../ref/modules/all/salt.modules.grains.html#salt.modules.grains.setval" title="salt.modules.grains.setval"><tt class="xref py py-mod docutils literal"><span class="pre">grains.setval</span></tt></a> function.</p>
+</div>
+<div class="section" id="targeting">
+<h4>Targeting<a class="headerlink" href="#targeting" title="Permalink to this headline">¶</a></h4>
+<p>Salt allows for minions to be targeted based on a wide range of criteria.  The
+default targeting system uses globular expressions to match minions, hence if
+there are minions named <tt class="docutils literal"><span class="pre">larry1</span></tt>, <tt class="docutils literal"><span class="pre">larry2</span></tt>, <tt class="docutils literal"><span class="pre">curly1</span></tt> and <tt class="docutils literal"><span class="pre">curly2</span></tt>, a
+glob of <tt class="docutils literal"><span class="pre">larry*</span></tt> will match <tt class="docutils literal"><span class="pre">larry1</span></tt> and <tt class="docutils literal"><span class="pre">larry2</span></tt>, and a glob of <tt class="docutils literal"><span class="pre">*1</span></tt>
+will match <tt class="docutils literal"><span class="pre">larry1</span></tt> and <tt class="docutils literal"><span class="pre">curly1</span></tt>.</p>
+<p>Many other targeting systems can be used other than globs, these systems
+include:</p>
+<dl class="docutils">
+<dt>Regular Expressions</dt>
+<dd>Target using PCRE compliant regular expressions</dd>
+<dt>Grains</dt>
+<dd>Target based on grains data:
+<a class="reference internal" href="../targeting/grains.html"><em>Targeting with Grains</em></a></dd>
+<dt>Pillar</dt>
+<dd>Target based on pillar data:
+<a class="reference internal" href="../../ref/pillar/index.html"><em>Targeting with Pillar</em></a></dd>
+<dt>IP</dt>
+<dd>Target based on IP addr/subnet/range</dd>
+<dt>Compound</dt>
+<dd>Create logic to target based on multiple targets:
+<a class="reference internal" href="../targeting/compound.html"><em>Targeting with Compound</em></a></dd>
+<dt>Nodegroup</dt>
+<dd>Target with nodegroups:
+<a class="reference internal" href="../targeting/nodegroups.html"><em>Targeting with Nodegroup</em></a></dd>
+</dl>
+<p>The concepts of targets are used on the command line with salt, but also
+function in many other areas as well, including the state system and the
+systems used for ACLs and user permissions.</p>
+</div>
+<div class="section" id="passing-in-arguments">
+<h4>Passing in Arguments<a class="headerlink" href="#passing-in-arguments" title="Permalink to this headline">¶</a></h4>
+<p>Many of the functions available accept arguments, these arguments can be
+passed in on the command line:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install vim
+</pre></div>
+</div>
+<p>This example passes the argument <tt class="docutils literal"><span class="pre">vim</span></tt> to the pkg.install function, since
+many functions can accept more complex input then just a string the arguments
+are parsed through YAML, allowing for more complex data to be sent on the
+command line:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> test.echo <span class="s1">&#39;foo: bar&#39;</span>
+</pre></div>
+</div>
+<p>In this case Salt translates the string 'foo: bar' into the dictionary
+&quot;{'foo': 'bar'}&quot;</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Any line that contains a newline will not be parsed by yaml.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="salt-states">
+<h2>Salt States<a class="headerlink" href="#salt-states" title="Permalink to this headline">¶</a></h2>
+<p>Now that the basics are covered the time has come to evaluate <tt class="docutils literal"><span class="pre">States</span></tt>.  Salt
+<tt class="docutils literal"><span class="pre">States</span></tt>, or the <tt class="docutils literal"><span class="pre">State</span> <span class="pre">System</span></tt> is the component of Salt made for
+configuration management. The State system is a fully functional configuration
+management system which has been designed to be exceptionally powerful while
+still being simple to use, fast, lightweight, deterministic and with salty
+levels of flexibility.</p>
+<p>The state system is already available with a basic salt setup, no additional
+configuration is required, states can be set up immediately.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Before diving into the state system, a brief overview of how states are
+constructed will make many of the concepts clearer. Salt states are based
+on data modeling, and build on a low level data structure that is used to
+execute each state function. Then more logical layers are built on top of
+each other. The high layers of the state system which this tutorial will
+cover consists of everything that needs to be known to use states, the two
+high layers covered here are the <cite>sls</cite> layer and the highest layer
+<cite>highstate</cite>.</p>
+<p class="last">Again, knowing that there are many layers of data management, will help with
+understanding states, but they never need to be used. Just as understanding
+how a compiler functions when learning a programming language,
+understanding what is going on under the hood of a configuration management
+system will also prove to be a valuable asset.</p>
+</div>
+<div class="section" id="the-first-sls-formula">
+<h3>The First SLS Formula<a class="headerlink" href="#the-first-sls-formula" title="Permalink to this headline">¶</a></h3>
+<p>The state system is built on sls formulas, these formulas are built out in
+files on Salt's file server. To make a very basic sls formula open up a file
+under /srv/salt named vim.sls and get vim installed:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/vim.sls:</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">vim</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg.installed</span>
+</pre></div>
+</div>
+<p>Now install vim on the minions by calling the sls directly:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> state.sls vim
+</pre></div>
+</div>
+<p>This command will invoke the state system and run the named sls which was just
+created, <tt class="docutils literal"><span class="pre">vim</span></tt>.</p>
+<p>Now, to beef up the vim sls formula, a vimrc can be added:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/vim.sls:</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">vim</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg.installed</span>
+
+<span class="l-Scalar-Plain">/etc/vimrc</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://vimrc</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">644</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+</pre></div>
+</div>
+<p>Now the desired vimrc needs to be copied into the Salt file server to
+/srv/salt/vimrc, in Salt everything is a file, so no path redirection needs
+to be accounted for. The vimrc file is placed right next to the vim.sls file.
+The same command as above can be executed to all the vim sls formulas and now
+include managing the file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Salt does not need to be restarted/reloaded or have the master manipulated
+in any way when changing sls formulas, they are instantly available.</p>
+</div>
+</div>
+<div class="section" id="adding-some-depth">
+<h3>Adding Some Depth<a class="headerlink" href="#adding-some-depth" title="Permalink to this headline">¶</a></h3>
+<p>Obviously maintaining sls formulas right in the root of the file server will
+not scale out to reasonably sized deployments. This is why more depth is
+required. Start by making an nginx formula a better way, make an nginx
+subdirectory and add an init.sls file:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/nginx/init.sls:</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">nginx</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+  <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">running</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">nginx</span>
+</pre></div>
+</div>
+<p>A few things are introduced in this sls formula, first is the service statement
+which ensures that the nginx service is running, but the nginx service can't be
+started unless the package is installed, hence the <tt class="docutils literal"><span class="pre">require</span></tt>. The <tt class="docutils literal"><span class="pre">require</span></tt>
+statement makes sure that the required component is executed before and that it
+results in success.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <cite>require</cite> option belongs to a family of options called <cite>requisites</cite>.
+Requisites are a powerful component of Salt States, for more information
+on how requisites work and what is available see:
+<a class="reference internal" href="../../ref/states/requisites.html"><em>Requisites</em></a>
+Also evaluation ordering is available in Salt as well:
+<a class="reference internal" href="../../ref/states/ordering.html"><em>Ordering States</em></a></p>
+</div>
+<p>Now this new sls formula has a special name, <tt class="docutils literal"><span class="pre">init.sls</span></tt>, when an sls formula is
+named <tt class="docutils literal"><span class="pre">init.sls</span></tt> it inherits the name of the directory path that contains it,
+so this formula can be referenced via the following command:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> state.sls nginx
+</pre></div>
+</div>
+<p>Now that subdirectories can be used the vim.sls formula can be cleaned up, but
+to make things more flexible (and to illustrate another point of course), move
+the vim.sls and vimrc into a new subdirectory called <tt class="docutils literal"><span class="pre">edit</span></tt> and change the
+vim.sls file to reflect the change:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/edit/vim.sls:</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">vim</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg.installed</span>
+
+<span class="l-Scalar-Plain">/etc/vimrc</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://edit/vimrc</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">644</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+</pre></div>
+</div>
+<p>The only change in the file is fixing the source path for the vimrc file. Now
+the formula is referenced as <tt class="docutils literal"><span class="pre">edit.vim</span></tt> because it resides in the edit
+subdirectory. Now the edit subdirectory can contain formulas for emacs, nano,
+joe or any other editor that may need to be deployed.</p>
+</div>
+<div class="section" id="next-reading">
+<h3>Next Reading<a class="headerlink" href="#next-reading" title="Permalink to this headline">¶</a></h3>
+<p>Two walkthroughs are specifically recommended at this point. First, a deeper
+run through States, followed by an explanation of Pillar.</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="starting_states.html"><em>Starting States</em></a></li>
+<li><a class="reference internal" href="pillar.html"><em>Pillar Walkthrough</em></a></li>
+</ol>
+<p>An understanding of Pillar is extremely helpful in using States.</p>
+</div>
+<div class="section" id="getting-deeper-into-states">
+<h3>Getting Deeper Into States<a class="headerlink" href="#getting-deeper-into-states" title="Permalink to this headline">¶</a></h3>
+<p>Two more in-depth States tutorials exist, which delve much more deeply into States
+functionality.</p>
+<ol class="arabic simple">
+<li>Thomas' original states tutorial, <a class="reference internal" href="starting_states.html"><em>How Do I Use Salt
+States?</em></a>, covers much more to get off the
+ground with States.</li>
+<li>The <a class="reference internal" href="states_pt1.html"><em>States Tutorial</em></a> also provides a
+fantastic introduction.</li>
+</ol>
+<p>These tutorials include much more in depth information including templating
+sls formulas etc.</p>
+</div>
+</div>
+<div class="section" id="so-much-more">
+<h2>So Much More!<a class="headerlink" href="#so-much-more" title="Permalink to this headline">¶</a></h2>
+<p>This concludes the initial Salt walkthrough, but there are many more things to
+learn still! These documents will cover important core aspects of Salt:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../pillar/index.html"><em>Pillar</em></a></li>
+<li><a class="reference internal" href="../jobs/index.html"><em>Job Management</em></a></li>
+</ul>
+<p>A few more tutorials are also available:</p>
+<ul class="simple">
+<li><a class="reference internal" href="modules.html"><em>Remote Execution Tutorial</em></a></li>
+<li><a class="reference internal" href="standalone_minion.html"><em>Standalone Minion</em></a></li>
+</ul>
+<p>This still is only scratching the surface, many components such as the reactor
+and event systems, extending Salt, modular components and more are not covered
+here. For an overview of all Salt features and documentation, look at the
+<a class="reference internal" href="../../contents.html"><em>Table of Contents</em></a>.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">SaltStack Walkthrough</a><ul>
+<li><a class="reference internal" href="#welcome">Welcome!</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li><a class="reference internal" href="#what-is-salt">What is Salt?</a></li>
+<li><a class="reference internal" href="#installing-salt">Installing Salt</a></li>
+<li><a class="reference internal" href="#starting-salt">Starting Salt</a><ul>
+<li><a class="reference internal" href="#setting-up-the-salt-master">Setting Up the Salt Master</a></li>
+<li><a class="reference internal" href="#setting-up-a-salt-minion">Setting up a Salt Minion</a></li>
+<li><a class="reference internal" href="#using-salt-key">Using salt-key</a></li>
+<li><a class="reference internal" href="#sending-the-first-commands">Sending the First Commands</a></li>
+<li><a class="reference internal" href="#getting-to-know-the-functions">Getting to Know the Functions</a></li>
+<li><a class="reference internal" href="#helpful-functions-to-know">Helpful Functions to Know</a></li>
+<li><a class="reference internal" href="#salt-call"><tt class="docutils literal"><span class="pre">salt-call</span></tt></a></li>
+<li><a class="reference internal" href="#grains">Grains</a></li>
+<li><a class="reference internal" href="#targeting">Targeting</a></li>
+<li><a class="reference internal" href="#passing-in-arguments">Passing in Arguments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#salt-states">Salt States</a><ul>
+<li><a class="reference internal" href="#the-first-sls-formula">The First SLS Formula</a></li>
+<li><a class="reference internal" href="#adding-some-depth">Adding Some Depth</a></li>
+<li><a class="reference internal" href="#next-reading">Next Reading</a></li>
+<li><a class="reference internal" href="#getting-deeper-into-states">Getting Deeper Into States</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#so-much-more">So Much More!</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="states_ordering.html"
+                        title="previous chapter">Understanding State Ordering</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="minionfs.html"
+                        title="next chapter">MinionFS Backend Walkthrough</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="states_ordering.html" title="Understanding State Ordering">previous</a>
+                
+            </li>
+            <li>
+                <a href="minionfs.html" title="MinionFS Backend Walkthrough">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

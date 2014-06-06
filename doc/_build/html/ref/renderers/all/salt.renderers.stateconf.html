@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.renderers.stateconf</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin renderer modules" href="index.html">
+        <link rel="next" title="salt.renderers.wempy" href="salt.renderers.wempy.html">
+        <link rel="prev" title="salt.renderers.pydsl" href="salt.renderers.pydsl.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.renderers.pydsl.html" title="salt.renderers.pydsl">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.renderers.wempy.html" title="salt.renderers.wempy">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.renderers.stateconf">
+<span id="salt-renderers-stateconf"></span><h1>salt.renderers.stateconf<a class="headerlink" href="#module-salt.renderers.stateconf" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">maintainer:</th><td class="field-body">Jack Kuan &lt;<a class="reference external" href="mailto:kjkuan&#37;&#52;&#48;gmail&#46;com">kjkuan<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">maturity:</th><td class="field-body">new</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">platform:</th><td class="field-body">all</td>
+</tr>
+</tbody>
+</table>
+<p>This module provides a custom renderer that processes a salt file with a
+specified templating engine (e.g., Jinja) and a chosen data renderer (e.g., YAML),
+extracts arguments for any <tt class="docutils literal"><span class="pre">stateconf.set</span></tt> state, and provides the extracted
+arguments (including Salt-specific args, such as <tt class="docutils literal"><span class="pre">require</span></tt>, etc) as template
+context. The goal is to make writing reusable/configurable/parameterized
+salt files easier and cleaner.</p>
+<p>To use this renderer, either set it as the default renderer via the
+<tt class="docutils literal"><span class="pre">renderer</span></tt> option in master/minion's config, or use the shebang line in each
+individual sls file, like so: <tt class="docutils literal"><span class="pre">#!stateconf</span></tt>. Note, due to the way this
+renderer works, it must be specified as the first renderer in a render
+pipeline. That is, you cannot specify <tt class="docutils literal"><span class="pre">#!mako|yaml|stateconf</span></tt>, for example.
+Instead, you specify them as renderer arguments: <tt class="docutils literal"><span class="pre">#!stateconf</span> <span class="pre">mako</span> <span class="pre">.</span> <span class="pre">yaml</span></tt>.</p>
+<p>Here's a list of features enabled by this renderer.</p>
+<ul>
+<li><p class="first">Prefixes any state id (declaration or reference) that starts with a dot (<tt class="docutils literal"><span class="pre">.</span></tt>)
+to avoid duplicated state ids when the salt file is included by other salt
+files.</p>
+<p>For example, in the <cite>salt://some/file.sls</cite>, a state id such as <tt class="docutils literal"><span class="pre">.sls_params</span></tt>
+will be turned into <tt class="docutils literal"><span class="pre">some.file::sls_params</span></tt>. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
+
+.vim:
+  pkg.installed
+</pre></div>
+</div>
+<p>Above will be translated into:</p>
+<div class="highlight-python"><div class="highlight"><pre>some.file::vim:
+  pkg.installed:
+    - name: vim
+</pre></div>
+</div>
+<p>Notice how that if a state under a dot-prefixed state id has no <tt class="docutils literal"><span class="pre">name</span></tt>
+argument then one will be added automatically by using the state id with
+the leading dot stripped off.</p>
+<p>The leading dot trick can be used with extending state ids as well,
+so you can include relatively and extend relatively. For example, when
+extending a state in <cite>salt://some/other_file.sls</cite>, e.g.,:</p>
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
+
+include:
+  - .file
+
+extend:
+  .file::sls_params:
+    stateconf.set:
+      - name1: something
+</pre></div>
+</div>
+<p>Above will be pre-processed into:</p>
+<div class="highlight-python"><div class="highlight"><pre>include:
+  - some.file
+
+extend:
+  some.file::sls_params:
+    stateconf.set:
+      - name1: something
+</pre></div>
+</div>
+</li>
+<li><p class="first">Adds a <tt class="docutils literal"><span class="pre">sls_dir</span></tt> context variable that expands to the directory containing
+the rendering salt file. So, you can write <tt class="docutils literal"><span class="pre">salt://{{sls_dir}}/...</span></tt> to
+reference templates files used by your salt file.</p>
+</li>
+<li><p class="first">Recognizes the special state function, <tt class="docutils literal"><span class="pre">stateconf.set</span></tt>, that configures a
+default list of named arguments usable within the template context of
+the salt file. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
+
+.sls_params:
+  stateconf.set:
+    - name1: value1
+    - name2: value2
+    - name3:
+      - value1
+      - value2
+      - value3
+    - require_in:
+      - cmd: output
+
+# --- end of state config ---
+
+.output:
+  cmd.run:
+    - name: |
+        echo &#39;name1={{sls_params.name1}}
+              name2={{sls_params.name2}}
+              name3[1]={{sls_params.name3[1]}}
+        &#39;
+</pre></div>
+</div>
+<p>This even works with <tt class="docutils literal"><span class="pre">include</span></tt> + <tt class="docutils literal"><span class="pre">extend</span></tt> so that you can override
+the default configured arguments by including the salt file and then
+<tt class="docutils literal"><span class="pre">extend</span></tt> the <tt class="docutils literal"><span class="pre">stateconf.set</span></tt> states that come from the included salt
+file. (<em>IMPORTANT: Both the included and the extending sls files must use the
+stateconf renderer for this ``extend`` to work!</em>)</p>
+<p>Notice that the end of configuration marker (<tt class="docutils literal"><span class="pre">#</span> <span class="pre">---</span> <span class="pre">end</span> <span class="pre">of</span> <span class="pre">state</span> <span class="pre">config</span> <span class="pre">--</span></tt>)
+is needed to separate the use of 'stateconf.set' form the rest of your salt
+file. The regex that matches such marker can be configured via the
+<tt class="docutils literal"><span class="pre">stateconf_end_marker</span></tt> option in your master or minion config file.</p>
+<p>Sometimes, you'd like to set a default argument value that's based on
+earlier arguments in the same <tt class="docutils literal"><span class="pre">stateconf.set</span></tt>. For example, you may be
+tempted to do something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
+
+.apache:
+  stateconf.set:
+    - host: localhost
+    - port: 1234
+    - url: &#39;http://{{host}}:{{port}}/&#39;
+
+# --- end of state config ---
+
+.test:
+  cmd.run:
+    - name: echo &#39;{{apache.url}}&#39;
+    - cwd: /
+</pre></div>
+</div>
+<p>However, this won't work, but can be worked around like so:</p>
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
+
+.apache:
+  stateconf.set:
+    - host: localhost
+    - port: 1234
+{#  - url: &#39;http://{{host}}:{{port}}/&#39; #}
+
+# --- end of state config ---
+# {{ apache.setdefault(&#39;url&#39;, &quot;http://%(host)s:%(port)s/&quot; % apache) }}
+
+.test:
+  cmd.run:
+    - name: echo &#39;{{apache.url}}&#39;
+    - cwd: /
+</pre></div>
+</div>
+</li>
+<li><p class="first">Adds support for relative include and exclude of .sls files. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
+
+include:
+  - .apache
+  - .db.mysql
+
+exclude:
+  - sls: .users
+</pre></div>
+</div>
+<p>If the above is written in a salt file at <cite>salt://some/where.sls</cite> then
+it will include <cite>salt://some/apache.sls</cite> and <cite>salt://some/db/mysql.sls</cite>,
+and exclude <cite>salt://some/users.ssl</cite>. Actually, it does that by rewriting
+the above <tt class="docutils literal"><span class="pre">include</span></tt> and <tt class="docutils literal"><span class="pre">exclude</span></tt> into:</p>
+<div class="highlight-python"><div class="highlight"><pre>include:
+  - some.apache
+  - some.db.mysql
+
+exclude:
+  - sls: some.users
+</pre></div>
+</div>
+</li>
+<li><p class="first">Optionally (enabled by default, <em>disable</em> via the <cite>-G</cite> renderer option,
+e.g., in the shebang line: <tt class="docutils literal"><span class="pre">#!stateconf</span> <span class="pre">-G</span></tt>), generates a
+<tt class="docutils literal"><span class="pre">stateconf.set</span></tt> goal state (state id named as <tt class="docutils literal"><span class="pre">.goal</span></tt> by default,
+configurable via the master/minion config option, <tt class="docutils literal"><span class="pre">stateconf_goal_state</span></tt>)
+that requires all other states in the salt file. Note, the <tt class="docutils literal"><span class="pre">.goal</span></tt>
+state id is subject to dot-prefix rename rule mentioned earlier.</p>
+<p>Such goal state is intended to be required by some state in an including
+salt file. For example, in your webapp salt file, if you include a
+sls file that is supposed to setup Tomcat, you might want to make sure that
+all states in the Tomcat sls file will be executed before some state in
+the webapp sls file.</p>
+</li>
+<li><p class="first">Optionally (enable via the <cite>-o</cite> renderer option, e.g., in the shebang line:
+<tt class="docutils literal"><span class="pre">#!stateconf</span> <span class="pre">-o</span></tt>), orders the states in a sls file by adding a
+<tt class="docutils literal"><span class="pre">require</span></tt> requisite to each state such that every state requires the
+state defined just before it. The order of the states here is the order
+they are defined in the sls file. (Note: this feature is only available
+if your minions are using Python &gt;= 2.7. For Python2.6, it should also
+work if you install the <cite>ordereddict</cite> module from PyPI)</p>
+<p>By enabling this feature, you are basically agreeing to author your sls
+files in a way that gives up the explicit (or implicit?) ordering imposed
+by the use of <tt class="docutils literal"><span class="pre">require</span></tt>, <tt class="docutils literal"><span class="pre">watch</span></tt>, <tt class="docutils literal"><span class="pre">require_in</span></tt> or <tt class="docutils literal"><span class="pre">watch_in</span></tt>
+requisites, and instead, you rely on the order of states you define in
+the sls files. This may or may not be a better way for you. However, if
+there are many states defined in a sls file, then it tends to be easier
+to see the order they will be executed with this feature.</p>
+<p>You are still allowed to use all the requisites, with a few restrictions.
+You cannot <tt class="docutils literal"><span class="pre">require</span></tt> or <tt class="docutils literal"><span class="pre">watch</span></tt> a state defined <em>after</em> the current
+state. Similarly, in a state, you cannot <tt class="docutils literal"><span class="pre">require_in</span></tt> or <tt class="docutils literal"><span class="pre">watch_in</span></tt>
+a state defined <em>before</em> it. Breaking any of the two restrictions above
+will result in a state loop. The renderer will check for such incorrect
+uses if this feature is enabled.</p>
+<p>Additionally, <tt class="docutils literal"><span class="pre">names</span></tt> declarations cannot be used with this feature
+because the way they are compiled into low states make it impossible to
+guarantee the order in which they will be executed. This is also checked
+by the renderer. As a workaround for not being able to use <tt class="docutils literal"><span class="pre">names</span></tt>,
+you can achieve the same effect, by generate your states with the
+template engine available within your sls file.</p>
+<p>Finally, with the use of this feature, it becomes possible to easily make
+an included sls file execute all its states <em>after</em> some state (say, with
+id <tt class="docutils literal"><span class="pre">X</span></tt>) in the including sls file.  All you have to do is to make state,
+<tt class="docutils literal"><span class="pre">X</span></tt>, <tt class="docutils literal"><span class="pre">require_in</span></tt> the first state defined in the included sls file.</p>
+</li>
+</ul>
+<p>When writing sls files with this renderer, you should avoid using what can be
+defined in a <tt class="docutils literal"><span class="pre">name</span></tt> argument of a state as the state's id. That is, avoid
+writing your states like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>/path/to/some/file:
+  file.managed:
+    - source: salt://some/file
+
+cp /path/to/some/file file2:
+  cmd.run:
+    - cwd: /
+    - require:
+      - file: /path/to/some/file
+</pre></div>
+</div>
+<p>Instead, you should define the state id and the <tt class="docutils literal"><span class="pre">name</span></tt> argument separately
+for each state, and the id should be something meaningful and easy to reference
+within a requisite (which I think is a good habit anyway, and such extra
+indirection would also makes your sls file easier to modify later). Thus, the
+above states should be written like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>add-some-file:
+  file.managed:
+    - name: /path/to/some/file
+    - source: salt://some/file
+
+copy-files:
+  cmd.run:
+    - name: cp /path/to/some/file file2
+    - cwd: /
+    - require:
+      - file: add-some-file
+</pre></div>
+</div>
+<p>Moreover, when referencing a state from a requisite, you should reference the
+state's id plus the state name rather than the state name plus its <tt class="docutils literal"><span class="pre">name</span></tt>
+argument. (Yes, in the above example, you can actually <tt class="docutils literal"><span class="pre">require</span></tt> the
+<tt class="docutils literal"><span class="pre">file:</span> <span class="pre">/path/to/some/file</span></tt>, instead of the <tt class="docutils literal"><span class="pre">file:</span> <span class="pre">add-some-file</span></tt>). The
+reason is that this renderer will re-write or rename state id's and their
+references for state id's prefixed with <tt class="docutils literal"><span class="pre">.</span></tt>. So, if you reference <tt class="docutils literal"><span class="pre">name</span></tt>
+then there's no way to reliably rewrite such reference.</p>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.renderers.pydsl.html"
+                        title="previous chapter">salt.renderers.pydsl</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.renderers.wempy.html"
+                        title="next chapter">salt.renderers.wempy</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.renderers.pydsl.html" title="salt.renderers.pydsl">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.renderers.wempy.html" title="salt.renderers.wempy">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

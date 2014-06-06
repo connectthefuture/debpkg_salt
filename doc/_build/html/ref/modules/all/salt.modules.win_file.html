@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.modules.win_file</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin execution modules" href="index.html">
+        <link rel="next" title="salt.modules.win_firewall" href="salt.modules.win_firewall.html">
+        <link rel="prev" title="salt.modules.win_dns_client" href="salt.modules.win_dns_client.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.win_dns_client.html" title="salt.modules.win_dns_client">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.win_firewall.html" title="salt.modules.win_firewall">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.modules.win_file">
+<span id="salt-modules-win-file"></span><h1>salt.modules.win_file<a class="headerlink" href="#module-salt.modules.win_file" title="Permalink to this headline">¶</a></h1>
+<p>Manage information about files on the minion, set/read user, group
+data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">depends:</th><td class="field-body"><ul class="first last simple">
+<li>win32api</li>
+<li>win32con</li>
+<li>win32file</li>
+<li>win32security</li>
+<li>ntsecuritycon</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="salt.modules.win_file.chgrp">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">chgrp</tt><big>(</big><em>path</em>, <em>group</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.chgrp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the group of a file</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.chgrp c:<span class="se">\t</span>emp<span class="se">\t</span>est.txt administrators
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.chown">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">chown</tt><big>(</big><em>path</em>, <em>user</em>, <em>group</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.chown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chown a file, pass the file the desired user and group</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.chown c:<span class="se">\t</span>emp<span class="se">\t</span>est.txt myusername administrators
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.get_attributes">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">get_attributes</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary object with the Windows
+file attributes for a file.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.get_attributes c:<span class="se">\t</span>emp<span class="se">\a</span>.txt
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.get_gid">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">get_gid</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.get_gid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the id of the group that owns a given file</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.get_gid c:<span class="se">\t</span>emp<span class="se">\t</span>est.txt
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.get_group">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">get_group</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.get_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the group that owns a given file</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.get_group c:<span class="se">\t</span>emp<span class="se">\t</span>est.txt
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.get_mode">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">get_mode</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.get_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the mode of a file</p>
+<p>Right now we're just returning None
+because Windows' doesn't have a mode
+like Linux</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.get_mode /etc/passwd
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.get_uid">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">get_uid</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.get_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the id of the user that owns a given file</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.get_uid c:<span class="se">\t</span>emp<span class="se">\t</span>est.txt
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.get_user">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">get_user</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.get_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the user that owns a given file</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.get_user c:<span class="se">\t</span>emp<span class="se">\t</span>est.txt
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.gid_to_group">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">gid_to_group</tt><big>(</big><em>gid</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.gid_to_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the group id to the group name on this system</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.gid_to_group S-1-5-21-626487655-2533044672-482107328-1010
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.group_to_gid">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">group_to_gid</tt><big>(</big><em>group</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.group_to_gid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the group to the gid on this system</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.group_to_gid administrators
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.set_attributes">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">set_attributes</tt><big>(</big><em>path</em>, <em>archive=None</em>, <em>hidden=None</em>, <em>normal=None</em>, <em>notIndexed=None</em>, <em>readonly=None</em>, <em>system=None</em>, <em>temporary=None</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.set_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set file attributes for a file.  Note that the normal attribute
+means that all others are false.  So setting it will clear all others.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.set_attributes c:<span class="se">\t</span>emp<span class="se">\a</span>.txt <span class="nv">normal</span><span class="o">=</span>True
+salt <span class="s1">&#39;*&#39;</span> file.set_attributes c:<span class="se">\t</span>emp<span class="se">\a</span>.txt <span class="nb">readonly</span><span class="o">=</span>True <span class="nv">hidden</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.set_mode">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">set_mode</tt><big>(</big><em>path</em>, <em>mode</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.set_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the mode of a file</p>
+<p>This just calls get_mode, which returns None because we don't use mode on
+Windows</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.set_mode /etc/passwd 0644
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.stats">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">stats</tt><big>(</big><em>path</em>, <em>hash_type='md5'</em>, <em>follow_symlinks=False</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict containing the stats for a given file</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.stats /etc/passwd
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.uid_to_user">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">uid_to_user</tt><big>(</big><em>uid</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.uid_to_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a uid to a user name</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.uid_to_user S-1-5-21-626487655-2533044672-482107328-1010
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.win_file.user_to_uid">
+<tt class="descclassname">salt.modules.win_file.</tt><tt class="descname">user_to_uid</tt><big>(</big><em>user</em><big>)</big><a class="headerlink" href="#salt.modules.win_file.user_to_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert user name to a uid</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.user_to_uid myusername
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.modules.win_dns_client.html"
+                        title="previous chapter">salt.modules.win_dns_client</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.modules.win_firewall.html"
+                        title="next chapter">salt.modules.win_firewall</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.win_dns_client.html" title="salt.modules.win_dns_client">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.win_firewall.html" title="salt.modules.win_firewall">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

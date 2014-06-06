@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Windows Software Repository</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../_static/basic.css">
+    <link rel="stylesheet" href="../_static/pygments.css">
+
+    <link rel="stylesheet" href="../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../_static/underscore.js"></script>
+    
+    
+    <script src="../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../_static/favicon.ico">
+        <link rel="top" title="None" href="../index.html">
+        <link rel="next" title="Command Line Reference" href="cli/index.html">
+        <link rel="prev" title="Network Topology" href="topology.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../index.html"><img src="../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="topology.html" title="Network Topology">previous</a>
+                
+            </li>
+            <li>
+                <a href="cli/index.html" title="Command Line Reference">next</a>
+                
+            </li>
+            <li>
+                <a href="../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="windows-software-repository">
+<h1>Windows Software Repository<a class="headerlink" href="#windows-software-repository" title="Permalink to this headline">¶</a></h1>
+<p>The Salt Windows Software Repository provides a package manager and software
+repository similar to what is provided by yum and apt on Linux.</p>
+<p>It permits the installation of software using the installers on remote
+windows machines. In many senses, the operation is similar to that of
+the other package managers salt is aware of:</p>
+<ul class="simple">
+<li>the <tt class="docutils literal"><span class="pre">pkg.installed</span></tt> and similar states work on Windows.</li>
+<li>the <tt class="docutils literal"><span class="pre">pkg.install</span></tt> and similar module functions work on Windows.</li>
+<li>each windows machine needs to have <tt class="docutils literal"><span class="pre">pkg.refresh_db</span></tt> executed
+against it to pick up the latest version of the package database.</li>
+</ul>
+<p>High level differences to yum and apt are:</p>
+<ul class="simple">
+<li>The repository metadata (sls files) is hosted through either salt or
+git.</li>
+<li>Packages can be downloaded from within the salt repository, a git
+repository or from http(s) or ftp urls.</li>
+<li>No dependencies are managed. Dependencies between packages needs to
+be managed manually.</li>
+</ul>
+<div class="section" id="operation">
+<h2>Operation<a class="headerlink" href="#operation" title="Permalink to this headline">¶</a></h2>
+<p>The install state/module function of the windows package manager works
+roughly as follows:</p>
+<ol class="arabic simple">
+<li>Execute <tt class="docutils literal"><span class="pre">pkg.list_pkgs</span></tt> and store the result</li>
+<li>Check if any action needs to be taken. (ie compare required package
+and version against <tt class="docutils literal"><span class="pre">pkg.list_pkgs</span></tt> results)</li>
+<li>If so, run the installer command.</li>
+<li>Execute <tt class="docutils literal"><span class="pre">pkg.list_pkgs</span></tt> and compare to the result stored from
+before installation.</li>
+<li>Sucess/Failure/Changes will be reported based on the differences
+between the original and final <tt class="docutils literal"><span class="pre">pkg.list_pkgs</span></tt> results.</li>
+</ol>
+<p>If there are any problems in using the package manager it is likely to
+be due to the data in your sls files not matching the difference
+between the pre and post <tt class="docutils literal"><span class="pre">pkg.list_pkgs</span></tt> results.</p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>By default, the Windows software repository is found at <tt class="docutils literal"><span class="pre">/srv/salt/win/repo</span></tt>
+This can be changed in the master config file (default location is
+<tt class="docutils literal"><span class="pre">/etc/salt/master</span></tt>) by modifying the  <tt class="docutils literal"><span class="pre">win_repo</span></tt> variable.  Each piece of
+software should have its own directory which contains the installers and a
+package definition file. This package definition file is a YAML file named
+<tt class="docutils literal"><span class="pre">init.sls</span></tt>.</p>
+<p>The package definition file should look similar to this example for Firefox:
+<tt class="docutils literal"><span class="pre">/srv/salt/win/repo/firefox/init.sls</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">firefox</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">17.0.1</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">installer</span><span class="p-Indicator">:</span> <span class="s">&#39;salt://win/repo/firefox/English/Firefox</span><span class="nv"> </span><span class="s">Setup</span><span class="nv"> </span><span class="s">17.0.1.exe&#39;</span>
+    <span class="l-Scalar-Plain">full_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Mozilla Firefox 17.0.1 (x86 en-US)</span>
+    <span class="l-Scalar-Plain">locale</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">en_US</span>
+    <span class="l-Scalar-Plain">reboot</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+    <span class="l-Scalar-Plain">install_flags</span><span class="p-Indicator">:</span> <span class="s">&#39;</span><span class="nv"> </span><span class="s">-ms&#39;</span>
+    <span class="l-Scalar-Plain">uninstaller</span><span class="p-Indicator">:</span> <span class="s">&#39;%ProgramFiles(x86)%/Mozilla</span><span class="nv"> </span><span class="s">Firefox/uninstall/helper.exe&#39;</span>
+    <span class="l-Scalar-Plain">uninstall_flags</span><span class="p-Indicator">:</span> <span class="s">&#39;</span><span class="nv"> </span><span class="s">/S&#39;</span>
+  <span class="l-Scalar-Plain">16.0.2</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">installer</span><span class="p-Indicator">:</span> <span class="s">&#39;salt://win/repo/firefox/English/Firefox</span><span class="nv"> </span><span class="s">Setup</span><span class="nv"> </span><span class="s">16.0.2.exe&#39;</span>
+    <span class="l-Scalar-Plain">full_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Mozilla Firefox 16.0.2 (x86 en-US)</span>
+    <span class="l-Scalar-Plain">locale</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">en_US</span>
+    <span class="l-Scalar-Plain">reboot</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+    <span class="l-Scalar-Plain">install_flags</span><span class="p-Indicator">:</span> <span class="s">&#39;</span><span class="nv"> </span><span class="s">-ms&#39;</span>
+    <span class="l-Scalar-Plain">uninstaller</span><span class="p-Indicator">:</span> <span class="s">&#39;%ProgramFiles(x86)%/Mozilla</span><span class="nv"> </span><span class="s">Firefox/uninstall/helper.exe&#39;</span>
+    <span class="l-Scalar-Plain">uninstall_flags</span><span class="p-Indicator">:</span> <span class="s">&#39;</span><span class="nv"> </span><span class="s">/S&#39;</span>
+  <span class="l-Scalar-Plain">15.0.1</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">installer</span><span class="p-Indicator">:</span> <span class="s">&#39;salt://win/repo/firefox/English/Firefox</span><span class="nv"> </span><span class="s">Setup</span><span class="nv"> </span><span class="s">15.0.1.exe&#39;</span>
+    <span class="l-Scalar-Plain">full_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Mozilla Firefox 15.0.1 (x86 en-US)</span>
+    <span class="l-Scalar-Plain">locale</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">en_US</span>
+    <span class="l-Scalar-Plain">reboot</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+    <span class="l-Scalar-Plain">install_flags</span><span class="p-Indicator">:</span> <span class="s">&#39;</span><span class="nv"> </span><span class="s">-ms&#39;</span>
+    <span class="l-Scalar-Plain">uninstaller</span><span class="p-Indicator">:</span> <span class="s">&#39;%ProgramFiles(x86)%/Mozilla</span><span class="nv"> </span><span class="s">Firefox/uninstall/helper.exe&#39;</span>
+    <span class="l-Scalar-Plain">uninstall_flags</span><span class="p-Indicator">:</span> <span class="s">&#39;</span><span class="nv"> </span><span class="s">/S&#39;</span>
+</pre></div>
+</div>
+<p>More examples can be found here: <a class="reference external" href="https://github.com/saltstack/salt-winrepo">https://github.com/saltstack/salt-winrepo</a></p>
+<p>The version number and <tt class="docutils literal"><span class="pre">full_name</span></tt> need to match the output from <tt class="docutils literal"><span class="pre">pkg.list_pkgs</span></tt>
+so that the status can be verfied when running highstate.
+Note: It is still possible to successfully install packages using <tt class="docutils literal"><span class="pre">pkg.install</span></tt>
+even if they don't match which can make this hard to troubleshoot.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;test-2008&#39;</span> pkg.list_pkgs
+<span class="nb">test</span>-2008
+    ----------
+    7-Zip 9.20 <span class="o">(</span>x64 edition<span class="o">)</span>:
+        9.20.00.0
+    Microsoft .NET Framework 4 Client Profile:
+        4.0.30319,4.0.30319
+    Microsoft .NET Framework 4 Extended:
+        4.0.30319,4.0.30319
+    Microsoft Visual C++ 2008 Redistributable - x64 9.0.21022:
+        9.0.21022
+    Mozilla Firefox 17.0.1 <span class="o">(</span>x86 en-US<span class="o">)</span>:
+        17.0.1
+    Mozilla Maintenance Service:
+        17.0.1
+    NSClient++ <span class="o">(</span>x64<span class="o">)</span>:
+        0.3.8.76
+    Notepad++:
+        6.4.2
+    Salt Minion 0.16.0:
+        0.16.0
+</pre></div>
+</div>
+<p>If any of these preinstalled packages already exist in winrepo the full_name
+will be automatically renamed to their package name during the next update
+(running highstate or installing another package).</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">test</span>-2008:
+    ----------
+    7zip:
+        9.20.00.0
+    Microsoft .NET Framework 4 Client Profile:
+        4.0.30319,4.0.30319
+    Microsoft .NET Framework 4 Extended:
+        4.0.30319,4.0.30319
+    Microsoft Visual C++ 2008 Redistributable - x64 9.0.21022:
+        9.0.21022
+    Mozilla Maintenance Service:
+        17.0.1
+    Notepad++:
+        6.4.2
+    Salt Minion 0.16.0:
+        0.16.0
+    firefox:
+        17.0.1
+    nsclient:
+        0.3.9.328
+</pre></div>
+</div>
+<p>Add <tt class="docutils literal"><span class="pre">msiexec:</span> <span class="pre">True</span></tt> if using an MSI installer requiring the use of <tt class="docutils literal"><span class="pre">msiexec</span>
+<span class="pre">/i</span></tt> to install and <tt class="docutils literal"><span class="pre">msiexec</span> <span class="pre">/x</span></tt> to uninstall.</p>
+<p>The <tt class="docutils literal"><span class="pre">install_flags</span></tt> and <tt class="docutils literal"><span class="pre">uninstall_flags</span></tt> are flags passed to the software
+installer to cause it to perform a silent install. These can often be found by
+adding <tt class="docutils literal"><span class="pre">/?</span></tt> or <tt class="docutils literal"><span class="pre">/h</span></tt> when running the installer from the command line. A
+great resource for finding these silent install flags can be found on the WPKG
+project's <a class="reference external" href="http://wpkg.org/Category:Silent_Installers">wiki</a>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">7zip</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">9.20.00.0</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">installer</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://win/repo/7zip/7z920-x64.msi</span>
+    <span class="l-Scalar-Plain">full_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">7-Zip 9.20 (x64 edition)</span>
+    <span class="l-Scalar-Plain">reboot</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+    <span class="l-Scalar-Plain">install_flags</span><span class="p-Indicator">:</span> <span class="s">&#39;</span><span class="nv"> </span><span class="s">/q</span><span class="nv"> </span><span class="s">&#39;</span>
+    <span class="l-Scalar-Plain">msiexec</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+    <span class="l-Scalar-Plain">uninstaller</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://win/repo/7zip/7z920-x64.msi</span>
+    <span class="l-Scalar-Plain">uninstall_flags</span><span class="p-Indicator">:</span> <span class="s">&#39;</span><span class="nv"> </span><span class="s">/qn&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generate-repo-cache-file">
+<h2>Generate Repo Cache File<a class="headerlink" href="#generate-repo-cache-file" title="Permalink to this headline">¶</a></h2>
+<p>Once the sls file has been created, generate the repository cache file with the winrepo runner:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run winrepo.genrepo
+</pre></div>
+</div>
+<p>Then update the repository cache file on your minions, exactly how it's done for the Linux package managers:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.refresh_db
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-windows-software">
+<h2>Install Windows Software<a class="headerlink" href="#install-windows-software" title="Permalink to this headline">¶</a></h2>
+<p>Now you can query the available version of Firefox using the Salt pkg module.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.available_version firefox
+
+<span class="o">{</span><span class="s1">&#39;davewindows&#39;</span>: <span class="o">{</span><span class="s1">&#39;15.0.1&#39;</span>: <span class="s1">&#39;Mozilla Firefox 15.0.1 (x86 en-US)&#39;</span>,
+                 <span class="s1">&#39;16.0.2&#39;</span>: <span class="s1">&#39;Mozilla Firefox 16.0.2 (x86 en-US)&#39;</span>,
+                 <span class="s1">&#39;17.0.1&#39;</span>: <span class="s1">&#39;Mozilla Firefox 17.0.1 (x86 en-US)&#39;</span><span class="o">}}</span>
+</pre></div>
+</div>
+<p>As you can see, there are three versions of Firefox available for installation.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install firefox
+</pre></div>
+</div>
+<p>The above line will install the latest version of Firefox.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.install firefox <span class="nv">version</span><span class="o">=</span>16.0.2
+</pre></div>
+</div>
+<p>The above line will install version 16.0.2 of Firefox.</p>
+<p>If a different version of the package is already installed it will
+be replaced with the version in winrepo (only if the package itself supports
+live updating)</p>
+</div>
+<div class="section" id="uninstall-windows-software">
+<h2>Uninstall Windows Software<a class="headerlink" href="#uninstall-windows-software" title="Permalink to this headline">¶</a></h2>
+<p>Uninstall software using the pkg module:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pkg.remove firefox
+
+salt <span class="s1">&#39;*&#39;</span> pkg.purge firefox
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">pkg.purge</span></tt> just executes <tt class="docutils literal"><span class="pre">pkg.remove</span></tt> on Windows. At some point in the
+future <tt class="docutils literal"><span class="pre">pkg.purge</span></tt> may direct the installer to remove all configs and
+settings for software packages that support that option.</p>
+</div>
+<div class="section" id="standalone-minion-salt-windows-repo-module">
+<h2>Standalone Minion Salt Windows Repo Module<a class="headerlink" href="#standalone-minion-salt-windows-repo-module" title="Permalink to this headline">¶</a></h2>
+<p>In order to facilitate managing a Salt Windows software repo with Salt on a
+Standalone Minion on Windows, a new module named winrepo has been added to
+Salt. winrepo matches what is available in the salt runner and allows you to
+manage the Windows software repo contents. Example: <tt class="docutils literal"><span class="pre">salt</span> <span class="pre">'*'</span>
+<span class="pre">winrepo.genrepo</span></tt></p>
+</div>
+<div class="section" id="git-hosted-repo">
+<h2>Git Hosted Repo<a class="headerlink" href="#git-hosted-repo" title="Permalink to this headline">¶</a></h2>
+<p>Windows software package definitions can also be hosted in one or more git
+repositories. The default repo is one hosted on Github.com by SaltStack,Inc., which
+includes package definitions for open source software. This repo points to the
+HTTP or ftp locations of the installer files. Anyone is welcome to send a pull
+request to this repo to add new package definitions. Browse the repo
+here: <a class="reference external" href="https://github.com/saltstack/salt-winrepo">https://github.com/saltstack/salt-winrepo</a> .</p>
+<p>Configure which git repos the master can search for package definitions by
+modifying or extending the <tt class="docutils literal"><span class="pre">win_gitrepos</span></tt> configuration option list in the
+master config.</p>
+<p>Checkout each git repo in <tt class="docutils literal"><span class="pre">win_gitrepos</span></tt>, compile your package repository
+cache and then refresh each minion's package cache:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run winrepo.update_git_repos
+salt-run winrepo.genrepo
+salt <span class="s1">&#39;*&#39;</span> pkg.refresh_db
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="incorrect-name-version">
+<h3>Incorrect name/version<a class="headerlink" href="#incorrect-name-version" title="Permalink to this headline">¶</a></h3>
+<p>If the package seems to install properly, but salt reports a failure
+then it is likely you have a version or <tt class="docutils literal"><span class="pre">full_name</span></tt> mismatch.</p>
+<p>Check the exact <tt class="docutils literal"><span class="pre">full_name</span></tt> and version used by the package. Use
+<tt class="docutils literal"><span class="pre">pkg.list_pkgs</span></tt> to check that the names and version exactly match
+what is installed.</p>
+</div>
+<div class="section" id="changes-to-sls-files-not-being-picked-up">
+<h3>Changes to sls files not being picked up<a class="headerlink" href="#changes-to-sls-files-not-being-picked-up" title="Permalink to this headline">¶</a></h3>
+<p>Ensure you have (re)generated the repository cache file and then
+updated the repository cache on the relevant minions:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run winrepo.genrepo
+salt <span class="s1">&#39;MINION&#39;</span> pkg.refresh_db
+</pre></div>
+</div>
+</div>
+<div class="section" id="packages-management-under-windows-2003">
+<h3>Packages management under Windows 2003<a class="headerlink" href="#packages-management-under-windows-2003" title="Permalink to this headline">¶</a></h3>
+<p>On windows server 2003, you need to install optional windows component
+&quot;wmi windows installer provider&quot; to have full list of installed packages.
+If you don't have this, salt-minion can't report some installed software.</p>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Windows Software Repository</a><ul>
+<li><a class="reference internal" href="#operation">Operation</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#generate-repo-cache-file">Generate Repo Cache File</a></li>
+<li><a class="reference internal" href="#install-windows-software">Install Windows Software</a></li>
+<li><a class="reference internal" href="#uninstall-windows-software">Uninstall Windows Software</a></li>
+<li><a class="reference internal" href="#standalone-minion-salt-windows-repo-module">Standalone Minion Salt Windows Repo Module</a></li>
+<li><a class="reference internal" href="#git-hosted-repo">Git Hosted Repo</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#incorrect-name-version">Incorrect name/version</a></li>
+<li><a class="reference internal" href="#changes-to-sls-files-not-being-picked-up">Changes to sls files not being picked up</a></li>
+<li><a class="reference internal" href="#packages-management-under-windows-2003">Packages management under Windows 2003</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="topology.html"
+                        title="previous chapter">Network Topology</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="cli/index.html"
+                        title="next chapter">Command Line Reference</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="topology.html" title="Network Topology">previous</a>
+                
+            </li>
+            <li>
+                <a href="cli/index.html" title="Command Line Reference">next</a>
+                
+            </li>
+            <li>
+                <a href="../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

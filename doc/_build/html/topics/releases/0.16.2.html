@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt 0.16.2 Release Notes</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Release notes and upgrade instructions" href="index.html">
+        <link rel="next" title="Salt 0.16.3 Release Notes" href="0.16.3.html">
+        <link rel="prev" title="Salt 0.16.1 Release Notes" href="0.16.1.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.16.1.html" title="Salt 0.16.1 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.16.3.html" title="Salt 0.16.3 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-0-16-2-release-notes">
+<h1>Salt 0.16.2 Release Notes<a class="headerlink" href="#salt-0-16-2-release-notes" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">release:</th><td class="field-body">2013-08-01</td>
+</tr>
+</tbody>
+</table>
+<p>Version 0.16.2 is a bugfix release for <a class="reference internal" href="0.16.0.html"><em>0.16.0</em></a>,
+and contains a number of fixes.</p>
+<div class="section" id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Only allow Administrator's group and SYSTEM user access to C:\salt. This
+eliminates a race condition where a non-admin user could modify a template or
+managed file before it is executed by the minion (which is running as an
+elevated user), thus avoiding a potential escalation of privileges. (<a class="reference external" href="https://github.com/saltstack/salt/issues/6361">issue 6361</a>)</li>
+</ul>
+</div>
+<div class="section" id="grains">
+<h2>Grains<a class="headerlink" href="#grains" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed detection of <tt class="docutils literal"><span class="pre">virtual</span></tt> grain on OpenVZ hardware nodes</li>
+<li>Gracefully handle lsb_release data when it is enclosed in quotes</li>
+<li>LSB grains are now prefixed with <tt class="docutils literal"><span class="pre">lsb_distrib_</span></tt> instead of simply <tt class="docutils literal"><span class="pre">lsb_</span></tt>.
+The old naming is not preserved, so SLS may be affected.</li>
+<li>Improved grains detection on MacOS</li>
+</ul>
+</div>
+<div class="section" id="pillar">
+<h2>Pillar<a class="headerlink" href="#pillar" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Don't try to load <a class="reference internal" href="../../ref/pillar/all/salt.pillar.git_pillar.html"><em>git_pillar</em></a>
+if not enabled in master config (<a class="reference external" href="https://github.com/saltstack/salt/issues/6052">issue 6052</a>)</li>
+<li>Functions <a class="reference internal" href="../../ref/modules/all/salt.modules.pillar.html#salt.modules.pillar.item" title="salt.modules.pillar.item"><tt class="xref py py-mod docutils literal"><span class="pre">pillar.item</span></tt></a> and
+<a class="reference internal" href="../../ref/modules/all/salt.modules.pillar.html#salt.modules.pillar.items" title="salt.modules.pillar.items"><tt class="xref py py-mod docutils literal"><span class="pre">pillar.items</span></tt></a> added for parity with
+<a class="reference internal" href="../../ref/modules/all/salt.modules.grains.html#salt.modules.grains.item" title="salt.modules.grains.item"><tt class="xref py py-mod docutils literal"><span class="pre">grains.item</span></tt></a>/<a class="reference internal" href="../../ref/modules/all/salt.modules.grains.html#salt.modules.grains.items" title="salt.modules.grains.items"><tt class="xref py py-mod docutils literal"><span class="pre">grains.items</span></tt></a>. The old function <tt class="docutils literal"><span class="pre">pillar.data</span></tt> is preserved
+for backwards compatibility.</li>
+<li>Fixed minion traceback when Pillar SLS is malformed (<a class="reference external" href="https://github.com/saltstack/salt/issues/5910">issue 5910</a>)</li>
+</ul>
+</div>
+<div class="section" id="peer-publishing">
+<h2>Peer Publishing<a class="headerlink" href="#peer-publishing" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>More gracefully handle improperly quoted publish commands (<a class="reference external" href="https://github.com/saltstack/salt/issues/5958">issue 5958</a>)</li>
+<li>Fixed traceback when timeout specified via the CLI fo <a class="reference internal" href="../../ref/modules/all/salt.modules.publish.html#salt.modules.publish.publish" title="salt.modules.publish.publish"><tt class="xref py py-mod docutils literal"><span class="pre">publish.publish</span></tt></a>, <a class="reference internal" href="../../ref/modules/all/salt.modules.publish.html#salt.modules.publish.full_data" title="salt.modules.publish.full_data"><tt class="xref py py-mod docutils literal"><span class="pre">publish.full_data</span></tt></a> (<a class="reference external" href="https://github.com/saltstack/salt/issues/5959">issue 5959</a>)</li>
+<li>Fixed unintended change in output of <a class="reference internal" href="../../ref/modules/all/salt.modules.publish.html#salt.modules.publish.publish" title="salt.modules.publish.publish"><tt class="xref py py-mod docutils literal"><span class="pre">publish.publish</span></tt></a> (<a class="reference external" href="https://github.com/saltstack/salt/issues/5928">issue 5928</a>)</li>
+</ul>
+</div>
+<div class="section" id="minion">
+<h2>Minion<a class="headerlink" href="#minion" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed salt-key usage in minionswarm script</li>
+<li>Quieted warning about <strong>SALT_MINION_CONFIG</strong> environment variable on
+minion startup and for CLI commands run via <tt class="docutils literal"><span class="pre">salt-call</span></tt> (<a class="reference external" href="https://github.com/saltstack/salt/issues/5956">issue 5956</a>)</li>
+<li>Added minion config parameter <a class="reference internal" href="../../ref/configuration/minion.html#std:conf_minion-random_reauth_delay"><tt class="xref std std-conf_minion docutils literal"><span class="pre">random_reauth_delay</span></tt></a> to stagger
+re-auth attempts when the minion is waiting for the master to approve its
+public key. This helps prevent SYN flooding in larger environments.</li>
+</ul>
+</div>
+<div class="section" id="user-group-management">
+<h2>User/Group Management<a class="headerlink" href="#user-group-management" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Implement previously-ignored <tt class="docutils literal"><span class="pre">unique</span></tt> option for <a class="reference internal" href="../../ref/states/all/salt.states.user.html#salt.states.user.present" title="salt.states.user.present"><tt class="xref py py-mod docutils literal"><span class="pre">user.present</span></tt></a> states in FreeBSD</li>
+<li>Report in state output when a <a class="reference internal" href="../../ref/states/all/salt.states.group.html#salt.states.group.present" title="salt.states.group.present"><tt class="xref py py-mod docutils literal"><span class="pre">group.present</span></tt></a> state attempts to use a gid in use by another
+group</li>
+<li>Fixed regression that prevents a <a class="reference internal" href="../../ref/states/all/salt.states.user.html#salt.states.user.present" title="salt.states.user.present"><tt class="xref py py-mod docutils literal"><span class="pre">user.present</span></tt></a> state to set the password hash to the system
+default (i.e. an unset password)</li>
+<li>Fixed multiple <a class="reference internal" href="../../ref/states/all/salt.states.group.html#salt.states.group.present" title="salt.states.group.present"><tt class="xref py py-mod docutils literal"><span class="pre">group.present</span></tt></a> states with
+the same group (<a class="reference external" href="https://github.com/saltstack/salt/issues/6439">issue 6439</a>)</li>
+</ul>
+</div>
+<div class="section" id="file-management">
+<h2>File Management<a class="headerlink" href="#file-management" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed file.mkdir setting incorrect permissions (<a class="reference external" href="https://github.com/saltstack/salt/issues/6033">issue 6033</a>)</li>
+<li>Fixed cleanup of source files for templates when <tt class="docutils literal"><span class="pre">/tmp</span></tt> is in file_roots
+(<a class="reference external" href="https://github.com/saltstack/salt/issues/6118">issue 6118</a>)</li>
+<li>Fixed caching of zero-byte files when a non-empty file was previously cached
+at the same path</li>
+<li>Added HTTP authentication support to the cp module (<a class="reference external" href="https://github.com/saltstack/salt/issues/5641">issue 5641</a>)</li>
+<li>Diffs are now suppressed when binary files are changed</li>
+</ul>
+</div>
+<div class="section" id="package-repository-management">
+<h2>Package/Repository Management<a class="headerlink" href="#package-repository-management" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed traceback when there is only one target for <a class="reference internal" href="../../ref/states/all/salt.states.pkg.html#salt.states.pkg.latest" title="salt.states.pkg.latest"><tt class="xref py py-mod docutils literal"><span class="pre">pkg.latest</span></tt></a> states</li>
+<li>Fixed regression in detection of virtual packages (apt)</li>
+<li>Limit number of pkg database refreshes to once per <a class="reference internal" href="../../ref/modules/all/salt.modules.state.html#salt.modules.state.sls" title="salt.modules.state.sls"><tt class="xref py py-mod docutils literal"><span class="pre">state.sls</span></tt></a>/<a class="reference internal" href="../../ref/modules/all/salt.modules.state.html#salt.modules.state.highstate" title="salt.modules.state.highstate"><tt class="xref py py-mod docutils literal"><span class="pre">state.highstate</span></tt></a></li>
+<li>YUM: Allow 32-bit packages with arches other than i686 to be managed on
+64-bit systems (<a class="reference external" href="https://github.com/saltstack/salt/issues/6299">issue 6299</a>)</li>
+<li>Fixed incorrect reporting in pkgrepo.managed states (<a class="reference external" href="https://github.com/saltstack/salt/issues/5517">issue 5517</a>)</li>
+<li>Fixed 32-bit binary package installs on 64-bit RHEL-based distros, and added
+proper support for 32-bit packages on 64-bit Debian-based distros
+(<a class="reference external" href="https://github.com/saltstack/salt/issues/6303">issue 6303</a>)</li>
+<li>Fixed issue where requisites were inadvertently being put into YUM repo files
+(<a class="reference external" href="https://github.com/saltstack/salt/issues/6471">issue 6471</a>)</li>
+</ul>
+</div>
+<div class="section" id="service-management">
+<h2>Service Management<a class="headerlink" href="#service-management" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed inaccurate reporting of results in <a class="reference internal" href="../../ref/states/all/salt.states.service.html#salt.states.service.running" title="salt.states.service.running"><tt class="xref py py-mod docutils literal"><span class="pre">service.running</span></tt></a> states when the service fails to start
+(<a class="reference external" href="https://github.com/saltstack/salt/issues/5894">issue 5894</a>)</li>
+<li>Fixed handling of custom initscripts in RHEL-based distros so that they are
+immediately available, negating the need for a second state run to manage the
+service that the initscript controls</li>
+</ul>
+</div>
+<div class="section" id="networking">
+<h2>Networking<a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Function network.hwaddr renamed to <a class="reference internal" href="../../ref/modules/all/salt.modules.network.html#salt.modules.network.hw_addr" title="salt.modules.network.hw_addr"><tt class="xref py py-mod docutils literal"><span class="pre">network.hw_addr</span></tt></a> to match <a class="reference internal" href="../../ref/modules/all/salt.modules.network.html#salt.modules.network.ip_addrs" title="salt.modules.network.ip_addrs"><tt class="xref py py-mod docutils literal"><span class="pre">network.ip_addrs</span></tt></a> and <a class="reference internal" href="../../ref/modules/all/salt.modules.network.html#salt.modules.network.ip_addrs6" title="salt.modules.network.ip_addrs6"><tt class="xref py py-mod docutils literal"><span class="pre">network.ip_addrs6</span></tt></a>. All three functions also now work without
+the underscore in the name, as well.</li>
+<li>Fixed traceback in <a class="reference internal" href="../../ref/modules/all/salt.modules.bridge.html#salt.modules.bridge.show" title="salt.modules.bridge.show"><tt class="xref py py-mod docutils literal"><span class="pre">bridge.show</span></tt></a> when
+interface is not present (<a class="reference external" href="https://github.com/saltstack/salt/issues/6326">issue 6326</a>)</li>
+</ul>
+</div>
+<div class="section" id="ssh">
+<h2>SSH<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed incorrect result reporting for some <a class="reference internal" href="../../ref/states/all/salt.states.ssh_known_hosts.html#salt.states.ssh_known_hosts.present" title="salt.states.ssh_known_hosts.present"><tt class="xref py py-mod docutils literal"><span class="pre">ssh_known_hosts.present</span></tt></a> states</li>
+<li>Fixed inaccurate reporting when <a class="reference internal" href="../../ref/states/all/salt.states.ssh_auth.html#salt.states.ssh_auth.present" title="salt.states.ssh_auth.present"><tt class="xref py py-mod docutils literal"><span class="pre">ssh_auth.present</span></tt></a> states are run with <tt class="docutils literal"><span class="pre">test=True</span></tt>, when
+rsa/dss is used for the <tt class="docutils literal"><span class="pre">enc</span></tt> param instead of ssh-rsa/ssh-dss
+(<a class="reference external" href="https://github.com/saltstack/salt/issues/5374">issue 5374</a>)</li>
+</ul>
+</div>
+<div class="section" id="pip">
+<h2>pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Properly handle <tt class="docutils literal"><span class="pre">-f</span></tt> lines in pip freeze output</li>
+<li>Fixed regression in pip.installed states with specifying a requirements file
+(<a class="reference external" href="https://github.com/saltstack/salt/issues/6003">issue 6003</a>)</li>
+<li>Fixed use of <tt class="docutils literal"><span class="pre">editable</span></tt> argument in <tt class="xref py py-mod docutils literal"><span class="pre">pip.installed</span></tt> states (<a class="reference external" href="https://github.com/saltstack/salt/issues/6025">issue 6025</a>)</li>
+<li>Deprecated <tt class="docutils literal"><span class="pre">runas</span></tt> parameter in execution function calls, in favor of
+<tt class="docutils literal"><span class="pre">user</span></tt></li>
+</ul>
+</div>
+<div class="section" id="mysql">
+<h2>MySQL<a class="headerlink" href="#mysql" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Allow specification of <a class="reference internal" href="../../ref/modules/all/salt.modules.mysql.html"><em>MySQL</em></a>
+connection arguments via the CLI, overriding/bypassing minion config params</li>
+<li>Allow <a class="reference internal" href="../../ref/states/all/salt.states.mysql_user.html#salt.states.mysql_user.present" title="salt.states.mysql_user.present"><tt class="xref py py-mod docutils literal"><span class="pre">mysql_user.present</span></tt></a> states to
+set a passwordless login (<a class="reference external" href="https://github.com/saltstack/salt/issues/5550">issue 5550</a>)</li>
+<li>Fixed endless loop when <a class="reference internal" href="../../ref/modules/all/salt.modules.mysql.html#salt.modules.mysql.processlist" title="salt.modules.mysql.processlist"><tt class="xref py py-mod docutils literal"><span class="pre">mysql.processlist</span></tt></a> is run (<a class="reference external" href="https://github.com/saltstack/salt/issues/6297">issue 6297</a>)</li>
+</ul>
+</div>
+<div class="section" id="postgresql">
+<h2>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed traceback in <a class="reference internal" href="../../ref/modules/all/salt.modules.postgres.html#salt.modules.postgres.user_list" title="salt.modules.postgres.user_list"><tt class="xref py py-mod docutils literal"><span class="pre">postgres.user_list</span></tt></a> (<a class="reference external" href="https://github.com/saltstack/salt/issues/6352">issue 6352</a>)</li>
+</ul>
+</div>
+<div class="section" id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Don't allow <a class="reference internal" href="../../ref/states/all/salt.states.npm.html"><em>npm states</em></a> to be used if
+<a class="reference internal" href="../../ref/modules/all/salt.modules.npm.html"><em>npm module</em></a> is not available</li>
+<li>Fixed <a class="reference internal" href="../../ref/states/all/salt.states.alternatives.html#salt.states.alternatives.install" title="salt.states.alternatives.install"><tt class="xref py py-mod docutils literal"><span class="pre">alternatives.install</span></tt></a> states
+for which the target is a symlink (<a class="reference external" href="https://github.com/saltstack/salt/issues/6162">issue 6162</a>)</li>
+<li>Fixed traceback in <a class="reference internal" href="../../ref/modules/all/salt.modules.sysbench.html"><em>sysbench module</em></a> (<a class="reference external" href="https://github.com/saltstack/salt/issues/6175">issue 6175</a>)</li>
+<li>Fixed traceback in job cache</li>
+<li>Fixed tempfile cleanup for windows</li>
+<li>Fixed issue where SLS files using the <a class="reference internal" href="../../ref/renderers/all/salt.renderers.pydsl.html"><em>pydsl renderer</em></a> were not being run</li>
+<li>Fixed issue where returners were being passed incorrect information
+(<a class="reference external" href="https://github.com/saltstack/salt/issues/5518">issue 5518</a>)</li>
+<li>Fixed traceback when numeric args are passed to <a class="reference internal" href="../../ref/states/all/salt.states.cmd.html#salt.states.cmd.script" title="salt.states.cmd.script"><tt class="xref py py-mod docutils literal"><span class="pre">cmd.script</span></tt></a> states</li>
+<li>Fixed bug causing <a class="reference internal" href="../../ref/modules/all/salt.modules.cp.html#salt.modules.cp.get_dir" title="salt.modules.cp.get_dir"><tt class="xref py py-mod docutils literal"><span class="pre">cp.get_dir</span></tt></a> to return more
+directories than expected (<a class="reference external" href="https://github.com/saltstack/salt/issues/6048">issue 6048</a>)</li>
+<li>Fixed traceback when <a class="reference internal" href="../../ref/states/all/salt.states.supervisord.html#salt.states.supervisord.running" title="salt.states.supervisord.running"><tt class="xref py py-mod docutils literal"><span class="pre">supervisord.running</span></tt></a> states are run with <tt class="docutils literal"><span class="pre">test=True</span></tt>
+(<a class="reference external" href="https://github.com/saltstack/salt/issues/6053">issue 6053</a>)</li>
+<li>Fixed tracebacks when Salt encounters problems running rbenv (<a class="reference external" href="https://github.com/saltstack/salt/issues/5888">issue 5888</a>)</li>
+<li>Only make the <a class="reference internal" href="../../ref/modules/all/salt.modules.monit.html"><em>monit module</em></a>
+available if monit binary is present (<a class="reference external" href="https://github.com/saltstack/salt/issues/5871">issue 5871</a>)</li>
+<li>Fixed incorrect behavior of <a class="reference internal" href="../../ref/modules/all/salt.modules.img.html#salt.modules.img.mount_image" title="salt.modules.img.mount_image"><tt class="xref py py-mod docutils literal"><span class="pre">img.mount_image</span></tt></a></li>
+<li>Fixed traceback in <a class="reference internal" href="../../ref/modules/all/salt.modules.tomcat.html#salt.modules.tomcat.deploy_war" title="salt.modules.tomcat.deploy_war"><tt class="xref py py-mod docutils literal"><span class="pre">tomcat.deploy_war</span></tt></a>
+in Windows</li>
+<li>Don't re-write /etc/fstab if mount fails</li>
+<li>Fixed tracebacks when Salt encounters problems running gem (<a class="reference external" href="https://github.com/saltstack/salt/issues/5886">issue 5886</a>)</li>
+<li>Fixed incorrect behavior of <a class="reference internal" href="../../ref/states/all/salt.states.selinux.html#salt.states.selinux.boolean" title="salt.states.selinux.boolean"><tt class="xref py py-mod docutils literal"><span class="pre">selinux.boolean</span></tt></a> states (<a class="reference external" href="https://github.com/saltstack/salt/issues/5912">issue 5912</a>)</li>
+<li><a class="reference internal" href="../../ref/modules/all/salt.modules.rabbitmq.html"><em>RabbitMQ</em></a>: Quote passwords to
+avoid symbols being interpolated by the shell (<a class="reference external" href="https://github.com/saltstack/salt/issues/6338">issue 6338</a>)</li>
+<li>Fixed tracebacks in <a class="reference internal" href="../../ref/modules/all/salt.modules.extfs.html#salt.modules.extfs.mkfs" title="salt.modules.extfs.mkfs"><tt class="xref py py-mod docutils literal"><span class="pre">extfs.mkfs</span></tt></a> and
+<a class="reference internal" href="../../ref/modules/all/salt.modules.extfs.html#salt.modules.extfs.tune" title="salt.modules.extfs.tune"><tt class="xref py py-mod docutils literal"><span class="pre">extfs.tune</span></tt></a> (<a class="reference external" href="https://github.com/saltstack/salt/issues/6462">issue 6462</a>)</li>
+<li>Fixed a regression with the <a class="reference internal" href="../../ref/states/all/salt.states.module.html#salt.states.module.run" title="salt.states.module.run"><tt class="xref py py-mod docutils literal"><span class="pre">module.run</span></tt></a> state
+where the <tt class="docutils literal"><span class="pre">m_name</span></tt> and <tt class="docutils literal"><span class="pre">m_fun</span></tt> arguments were being ignored (<a class="reference external" href="https://github.com/saltstack/salt/issues/6464">issue 6464</a>)</li>
+</ul>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt 0.16.2 Release Notes</a><ul>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+<li><a class="reference internal" href="#grains">Grains</a></li>
+<li><a class="reference internal" href="#pillar">Pillar</a></li>
+<li><a class="reference internal" href="#peer-publishing">Peer Publishing</a></li>
+<li><a class="reference internal" href="#minion">Minion</a></li>
+<li><a class="reference internal" href="#user-group-management">User/Group Management</a></li>
+<li><a class="reference internal" href="#file-management">File Management</a></li>
+<li><a class="reference internal" href="#package-repository-management">Package/Repository Management</a></li>
+<li><a class="reference internal" href="#service-management">Service Management</a></li>
+<li><a class="reference internal" href="#networking">Networking</a></li>
+<li><a class="reference internal" href="#ssh">SSH</a></li>
+<li><a class="reference internal" href="#pip">pip</a></li>
+<li><a class="reference internal" href="#mysql">MySQL</a></li>
+<li><a class="reference internal" href="#postgresql">PostgreSQL</a></li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="0.16.1.html"
+                        title="previous chapter">Salt 0.16.1 Release Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="0.16.3.html"
+                        title="next chapter">Salt 0.16.3 Release Notes</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.16.1.html" title="Salt 0.16.1 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.16.3.html" title="Salt 0.16.3 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

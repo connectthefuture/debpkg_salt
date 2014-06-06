@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.modules.git</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin execution modules" href="index.html">
+        <link rel="next" title="salt.modules.glance" href="salt.modules.glance.html">
+        <link rel="prev" title="salt.modules.gentoolkitmod" href="salt.modules.gentoolkitmod.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.gentoolkitmod.html" title="salt.modules.gentoolkitmod">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.glance.html" title="salt.modules.glance">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.modules.git">
+<span id="salt-modules-git"></span><h1>salt.modules.git<a class="headerlink" href="#module-salt.modules.git" title="Permalink to this headline">¶</a></h1>
+<p>Support for the Git SCM</p>
+<dl class="function">
+<dt id="salt.modules.git.add">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">add</tt><big>(</big><em>cwd</em>, <em>file_name</em>, <em>user=None</em>, <em>opts=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a file to git</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>file_name</dt>
+<dd>Path to the file in the cwd</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.add /path/to/git/repo /path/to/file
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.archive">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">archive</tt><big>(</big><em>cwd</em>, <em>output</em>, <em>rev='HEAD'</em>, <em>fmt=None</em>, <em>prefix=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.archive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export a tarball from the repository</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>output</dt>
+<dd>The path to the archive tarball</dd>
+<dt>rev: HEAD</dt>
+<dd>The revision to create an archive from</dd>
+<dt>fmt: None</dt>
+<dd>Format of the resulting archive, zip and tar are commonly used</dd>
+<dt>prefix <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Prepend &lt;prefix&gt;/ to every filename in the archive</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>If <tt class="docutils literal"><span class="pre">prefix</span></tt> is not specified it defaults to the basename of the repo
+directory.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.archive /path/to/repo /path/to/archive.tar.gz
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.checkout">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">checkout</tt><big>(</big><em>cwd</em>, <em>rev</em>, <em>force=False</em>, <em>opts=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.checkout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checkout a given revision</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>rev</dt>
+<dd>The remote branch or revision to checkout</dd>
+<dt>force <span class="classifier-delimiter">:</span> <span class="classifier">False</span></dt>
+<dd>Force a checkout even if there might be overwritten changes</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.checkout /path/to/repo somebranch <span class="nv">user</span><span class="o">=</span>jeff
+
+salt <span class="s1">&#39;*&#39;</span> git.checkout /path/to/repo <span class="nv">opts</span><span class="o">=</span><span class="s1">&#39;testbranch -- conf/file1 file2&#39;</span>
+
+salt <span class="s1">&#39;*&#39;</span> git.checkout /path/to/repo <span class="nv">rev</span><span class="o">=</span>origin/mybranch <span class="nv">opts</span><span class="o">=</span>--track
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.clone">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">clone</tt><big>(</big><em>cwd</em>, <em>repository</em>, <em>opts=None</em>, <em>user=None</em>, <em>identity=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clone a new repository</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>repository</dt>
+<dd>The git URI of the repository</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+<dt>identity <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>A path to a private key to use over SSH</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.clone /path/to/repo git://github.com/saltstack/salt.git
+
+salt <span class="s1">&#39;*&#39;</span> git.clone /path/to/repo.git<span class="se">\</span>
+        git://github.com/saltstack/salt.git <span class="s1">&#39;--bare --origin github&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.commit">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">commit</tt><big>(</big><em>cwd</em>, <em>message</em>, <em>user=None</em>, <em>opts=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.commit" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a commit</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>message</dt>
+<dd>The commit message</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.commit /path/to/git/repo <span class="s1">&#39;The commit message&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.config_get">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">config_get</tt><big>(</big><em>cwd</em>, <em>setting_name</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.config_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a key from the git configuration file (.git/config) of the repository.</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>setting_name</dt>
+<dd>The name of the configuration key to get</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.config_get /path/to/repo user.email
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.config_set">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">config_set</tt><big>(</big><em>cwd</em>, <em>setting_name</em>, <em>setting_value</em>, <em>user=None</em>, <em>is_global=False</em><big>)</big><a class="headerlink" href="#salt.modules.git.config_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a key in the git configuration file (.git/config) of the repository or
+globally.</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>setting_name</dt>
+<dd>The name of the configuration key to set</dd>
+<dt>setting_value</dt>
+<dd>The (new) value to set</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+<dt>is_global <span class="classifier-delimiter">:</span> <span class="classifier">False</span></dt>
+<dd>Set to True to use the '--global' flag with 'git config'</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.config_set /path/to/repo user.email me@example.com
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.current_branch">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">current_branch</tt><big>(</big><em>cwd</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.current_branch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current branch name, if on a branch.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.current_branch /path/to/repo
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.describe">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">describe</tt><big>(</big><em>cwd</em>, <em>rev='HEAD'</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.describe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the git describe string (or the SHA hash if there are no tags) for
+the given revision</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>rev: HEAD</dt>
+<dd>The revision to describe</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.describe /path/to/repo
+
+salt <span class="s1">&#39;*&#39;</span> git.describe /path/to/repo develop
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.fetch">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">fetch</tt><big>(</big><em>cwd</em>, <em>opts=None</em>, <em>user=None</em>, <em>identity=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a fetch on the given repository</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+<dt>identity <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>A path to a private key to use over SSH</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.fetch /path/to/repo <span class="s1">&#39;--all&#39;</span>
+
+salt <span class="s1">&#39;*&#39;</span> git.fetch <span class="nv">cwd</span><span class="o">=</span>/path/to/repo <span class="nv">opts</span><span class="o">=</span><span class="s1">&#39;--all&#39;</span> <span class="nv">user</span><span class="o">=</span>johnny
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.init">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">init</tt><big>(</big><em>cwd</em>, <em>opts=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a new git repository</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.init /path/to/repo.git <span class="nv">opts</span><span class="o">=</span><span class="s1">&#39;--bare&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.ls_remote">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">ls_remote</tt><big>(</big><em>cwd</em>, <em>repository='origin'</em>, <em>branch='master'</em>, <em>user=None</em>, <em>identity=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.ls_remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the upstream hash for any given URL and branch.</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>repository: origin</dt>
+<dd>The name of the repository to get the revision from. Can be the name of
+a remote, an URL, etc.</dd>
+<dt>branch: master</dt>
+<dd>The name of the branch to get the revision from.</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">none</span></dt>
+<dd>run git as a user other than what the minion runs as</dd>
+<dt>identity <span class="classifier-delimiter">:</span> <span class="classifier">none</span></dt>
+<dd>a path to a private key to use over ssh</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.ls_remote /pat/to/repo origin master
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.merge">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">merge</tt><big>(</big><em>cwd</em>, <em>branch='&#64;{upstream}'</em>, <em>opts=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge a given branch</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>branch <span class="classifier-delimiter">:</span> <span class="classifier">&#64;{upstream}</span></dt>
+<dd>The remote branch or revision to merge into the current branch</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.fetch /path/to/repo
+salt <span class="s1">&#39;*&#39;</span> git.merge /path/to/repo @<span class="o">{</span>upstream<span class="o">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.pull">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">pull</tt><big>(</big><em>cwd</em>, <em>opts=None</em>, <em>user=None</em>, <em>identity=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.pull" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a pull on the given repository</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+<dt>identity <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>A path to a private key to use over SSH</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.pull /path/to/repo <span class="nv">opts</span><span class="o">=</span><span class="s1">&#39;--rebase origin master&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.push">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">push</tt><big>(</big><em>cwd</em>, <em>remote_name</em>, <em>branch='master'</em>, <em>user=None</em>, <em>opts=None</em>, <em>identity=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Push to remote</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>remote_name</dt>
+<dd>Name of the remote to push to</dd>
+<dt>branch <span class="classifier-delimiter">:</span> <span class="classifier">master</span></dt>
+<dd>Name of the branch to push</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+<dt>identity <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>A path to a private key to use over SSH</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.push /path/to/git/repo remote-name
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.rebase">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">rebase</tt><big>(</big><em>cwd</em>, <em>rev='master'</em>, <em>opts=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.rebase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rebase the current branch</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>rev <span class="classifier-delimiter">:</span> <span class="classifier">master</span></dt>
+<dd>The revision to rebase onto the current branch</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.rebase /path/to/repo master
+salt <span class="s1">&#39;*&#39;</span> git.rebase /path/to/repo <span class="s1">&#39;origin master&#39;</span>
+</pre></div>
+</div>
+<p>That is the same as:</p>
+<div class="highlight-bash"><div class="highlight"><pre>git rebase master
+git rebase origin master
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.remote_get">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">remote_get</tt><big>(</big><em>cwd</em>, <em>remote='origin'</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.remote_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the fetch and push URL for a specified remote name</p>
+<dl class="docutils">
+<dt>remote <span class="classifier-delimiter">:</span> <span class="classifier">origin</span></dt>
+<dd>the remote name used to define the fetch and push URL</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.remote_get /path/to/repo
+salt <span class="s1">&#39;*&#39;</span> git.remote_get /path/to/repo upstream
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.remote_set">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">remote_set</tt><big>(</big><em>cwd</em>, <em>name='origin'</em>, <em>url=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.remote_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets a remote with name and URL like git remote add &lt;remote_name&gt; &lt;remote_url&gt;</p>
+<dl class="docutils">
+<dt>remote_name <span class="classifier-delimiter">:</span> <span class="classifier">origin</span></dt>
+<dd>defines the remote name</dd>
+<dt>remote_url <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>defines the remote URL; should not be None!</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.remote_set /path/to/repo <span class="nv">remote_url</span><span class="o">=</span>git@github.com:saltstack/salt.git
+salt <span class="s1">&#39;*&#39;</span> git.remote_set /path/to/repo origin git@github.com:saltstack/salt.git
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.remotes">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">remotes</tt><big>(</big><em>cwd</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.remotes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get remotes like git remote -v</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.remotes /path/to/repo
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.reset">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">reset</tt><big>(</big><em>cwd</em>, <em>opts=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the repository checkout</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.reset /path/to/repo master
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.revision">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">revision</tt><big>(</big><em>cwd</em>, <em>rev='HEAD'</em>, <em>short=False</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.revision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the long hash of a given identifier (hash, branch, tag, HEAD, etc)</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>rev: HEAD</dt>
+<dd>The revision</dd>
+<dt>short: False</dt>
+<dd>Return an abbreviated SHA1 git hash</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.revision /path/to/repo mybranch
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.rm">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">rm</tt><big>(</big><em>cwd</em>, <em>file_name</em>, <em>user=None</em>, <em>opts=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.rm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a file from git</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>file_name</dt>
+<dd>Path to the file in the cwd</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.rm /path/to/git/repo /path/to/file
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.stash">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">stash</tt><big>(</big><em>cwd</em>, <em>opts=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.stash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stash changes in the repository checkout</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.stash /path/to/repo master
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.status">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">status</tt><big>(</big><em>cwd</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the status of the repository. The returned format uses the status
+codes of gits 'porcelain' output mode</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.status /path/to/git/repo
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.git.submodule">
+<tt class="descclassname">salt.modules.git.</tt><tt class="descname">submodule</tt><big>(</big><em>cwd</em>, <em>init=True</em>, <em>opts=None</em>, <em>user=None</em>, <em>identity=None</em><big>)</big><a class="headerlink" href="#salt.modules.git.submodule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize git submodules</p>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>The path to the Git repository</dd>
+<dt>init <span class="classifier-delimiter">:</span> <span class="classifier">True</span></dt>
+<dd>Ensure that new submodules are initialized</dd>
+<dt>opts <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Any additional options to add to the command line</dd>
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Run git as a user other than what the minion runs as</dd>
+<dt>identity <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>A path to a private key to use over SSH</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> git.submodule /path/to/repo.git/sub/repo
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.modules.gentoolkitmod.html"
+                        title="previous chapter">salt.modules.gentoolkitmod</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.modules.glance.html"
+                        title="next chapter">salt.modules.glance</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.gentoolkitmod.html" title="salt.modules.gentoolkitmod">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.glance.html" title="salt.modules.glance">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

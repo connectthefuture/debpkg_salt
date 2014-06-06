@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>States Tutorial, Part 5 - Orchestration with Salt</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt tutorials" href="index.html">
+        <link rel="next" title="Understanding State Ordering" href="states_ordering.html">
+        <link rel="prev" title="States tutorial, part 4" href="states_pt4.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="states_pt4.html" title="States tutorial, part 4">previous</a>
+                
+            </li>
+            <li>
+                <a href="states_ordering.html" title="Understanding State Ordering">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="states-tutorial-part-5-orchestration-with-salt">
+<h1>States Tutorial, Part 5 - Orchestration with Salt<a class="headerlink" href="#states-tutorial-part-5-orchestration-with-salt" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This tutorial builds on some of the topics covered in the earlier
+<a class="reference internal" href="states_pt1.html"><em>States Walkthrough</em></a> pages. It is recommended to start with
+<a class="reference internal" href="states_pt1.html"><em>Part 1</em></a> if you are not familiar with how to use states.</p>
+</div>
+<p>Orchestration can be accomplished in two distinct ways:</p>
+<ol class="arabic simple">
+<li>The <a class="reference internal" href="#states-overstate"><em>OverState System</em></a>. Added in version 0.11.0,
+this Salt <a class="reference internal" href="../../ref/runners/index.html"><em>Runner</em></a> allows for SLS files to be
+organized into stages, and to require that one or more stages successfully
+execute before another stage will run.</li>
+<li>The <a class="reference internal" href="#orchestrate-runner"><em>Orchestrate Runner</em></a>. Added in version 0.17.0,
+this Salt <a class="reference internal" href="../../ref/runners/index.html"><em>Runner</em></a> can use the full suite of
+<a class="reference internal" href="../../ref/states/requisites.html"><em>requisites</em></a> available in states, and can also
+execute states/functions using salt-ssh. This runner was designed with the
+eventual goal of replacing the <a class="reference internal" href="#states-overstate"><em>OverState</em></a>.</li>
+</ol>
+<div class="section" id="the-overstate-system">
+<span id="states-overstate"></span><h2>The OverState System<a class="headerlink" href="#the-overstate-system" title="Permalink to this headline">¶</a></h2>
+<p>Often servers need to be set up and configured in a specific order, and systems
+should only be set up if systems earlier in the sequence has been set up
+without any issues.</p>
+<p>The OverState system can be used to orchestrate deployment in a smooth and
+reliable way across multiple systems in small to large environments.</p>
+<div class="section" id="the-overstate-sls">
+<h3>The OverState SLS<a class="headerlink" href="#the-overstate-sls" title="Permalink to this headline">¶</a></h3>
+<p>The OverState system is managed by an SLS file named <tt class="docutils literal"><span class="pre">overstate.sls</span></tt>, located
+in the root of a Salt fileserver environment.</p>
+<p>The overstate.sls configures an unordered list of stages, each stage defines
+the minions on which to execute the state, and can define what sls files to
+run, execute a <a class="reference internal" href="../../ref/modules/all/salt.modules.state.html#salt.modules.state.highstate" title="salt.modules.state.highstate"><tt class="xref py py-mod docutils literal"><span class="pre">state.highstate</span></tt></a>, or
+execute a function. Here's a sample overstate.sls:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">mysql</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">match</span><span class="p-Indicator">:</span> <span class="s">&#39;db*&#39;</span>
+  <span class="l-Scalar-Plain">sls</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mysql.server</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">drbd</span>
+<span class="l-Scalar-Plain">webservers</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">match</span><span class="p-Indicator">:</span> <span class="s">&#39;web*&#39;</span>
+  <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mysql</span>
+<span class="l-Scalar-Plain">all</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">match</span><span class="p-Indicator">:</span> <span class="s">&#39;*&#39;</span>
+  <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mysql</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">webservers</span>
+</pre></div>
+</div>
+<p>Given the above setup, the OverState will be carried out as follows:</p>
+<ol class="arabic simple">
+<li>The <tt class="docutils literal"><span class="pre">mysql</span></tt> stage will be executed first because it is required by the
+<tt class="docutils literal"><span class="pre">webservers</span></tt> and <tt class="docutils literal"><span class="pre">all</span></tt> stages.  It will execute <a class="reference internal" href="../../ref/modules/all/salt.modules.state.html#salt.modules.state.sls" title="salt.modules.state.sls"><tt class="xref py py-mod docutils literal"><span class="pre">state.sls</span></tt></a> once for each of the two listed SLS targets
+(<tt class="docutils literal"><span class="pre">mysql.server</span></tt> and <tt class="docutils literal"><span class="pre">drbd</span></tt>).  These states will be executed on all
+minions whose minion ID starts with &quot;db&quot;.</li>
+<li>The <tt class="docutils literal"><span class="pre">webservers</span></tt> stage will then be executed, but only if the <tt class="docutils literal"><span class="pre">mysql</span></tt>
+stage executes without any failures. The <tt class="docutils literal"><span class="pre">webservers</span></tt> stage will execute a
+<a class="reference internal" href="../../ref/modules/all/salt.modules.state.html#salt.modules.state.highstate" title="salt.modules.state.highstate"><tt class="xref py py-mod docutils literal"><span class="pre">state.highstate</span></tt></a> on all minions whose
+minion IDs start with &quot;web&quot;.</li>
+<li>Finally, the <tt class="docutils literal"><span class="pre">all</span></tt> stage will execute, running <a class="reference internal" href="../../ref/modules/all/salt.modules.state.html#salt.modules.state.highstate" title="salt.modules.state.highstate"><tt class="xref py py-mod docutils literal"><span class="pre">state.highstate</span></tt></a> on all systems, if and only if the <tt class="docutils literal"><span class="pre">mysql</span></tt>
+and <tt class="docutils literal"><span class="pre">webservers</span></tt> stages completed without any failures.</li>
+</ol>
+<p>Any failure in the above steps would cause the requires to fail, preventing the
+dependent stages from executing.</p>
+</div>
+<div class="section" id="using-functions-with-overstate">
+<h3>Using Functions with OverState<a class="headerlink" href="#using-functions-with-overstate" title="Permalink to this headline">¶</a></h3>
+<p>In the above example, you'll notice that the stages lacking an <tt class="docutils literal"><span class="pre">sls</span></tt> entry
+run a <a class="reference internal" href="../../ref/modules/all/salt.modules.state.html#salt.modules.state.highstate" title="salt.modules.state.highstate"><tt class="xref py py-mod docutils literal"><span class="pre">state.highstate</span></tt></a>. As mentioned
+earlier, it is also possible to execute other functions in a stage. This
+functionality was added in version 0.15.0.</p>
+<p>Running a function is easy:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">http</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">function</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pkg.install</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">httpd</span>
+</pre></div>
+</div>
+<p>The list of function arguments are defined after the declared function. So, the
+above stage would run <tt class="docutils literal"><span class="pre">pkg.install</span> <span class="pre">http</span></tt>. Requisites only function properly
+if the given function supports returning a custom return code.</p>
+</div>
+<div class="section" id="executing-an-overstate">
+<h3>Executing an OverState<a class="headerlink" href="#executing-an-overstate" title="Permalink to this headline">¶</a></h3>
+<p>Since the OverState is a <a class="reference internal" href="../../ref/runners/index.html"><em>Runner</em></a>, it is executed
+using the <tt class="docutils literal"><span class="pre">salt-run</span></tt> command. The runner function for the OverState is
+<tt class="docutils literal"><span class="pre">state.over</span></tt>.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run state.over
+</pre></div>
+</div>
+<p>The function will by default look in the root of the <tt class="docutils literal"><span class="pre">base</span></tt> environment (as
+defined in <a class="reference internal" href="../../ref/configuration/master.html#std:conf_master-file_roots"><tt class="xref std std-conf_master docutils literal"><span class="pre">file_roots</span></tt></a>) for a file called <tt class="docutils literal"><span class="pre">overstate.sls</span></tt>, and
+then execute the stages defined within that file.</p>
+<p>Different environments and paths can be used as well, by adding them as
+positional arguments:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run state.over dev /root/other-overstate.sls
+</pre></div>
+</div>
+<p>The above would run an OverState using the <tt class="docutils literal"><span class="pre">dev</span></tt> fileserver environment, with
+the stages defined in <tt class="docutils literal"><span class="pre">/root/other-overstate.sls</span></tt>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Since these are positional arguments, when defining the path to the
+overstate file the environment must also be specified, even if it is the
+<tt class="docutils literal"><span class="pre">base</span></tt> environment.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Remember, salt-run is always executed on the master.</p>
+</div>
+</div>
+</div>
+<div class="section" id="the-orchestrate-runner">
+<span id="orchestrate-runner"></span><h2>The Orchestrate Runner<a class="headerlink" href="#the-orchestrate-runner" title="Permalink to this headline">¶</a></h2>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
+<p>As noted above in the introduction, the Orchestrate Runner (originally called
+the state.sls runner) offers all the functionality of the OverState, but with a
+couple advantages:</p>
+<ul class="simple">
+<li>All <a class="reference internal" href="../../ref/states/requisites.html"><em>requisites</em></a> available in states can be
+used.</li>
+<li>The states/functions can be executed using salt-ssh.</li>
+</ul>
+<p>The Orchestrate Runner was added with the intent to eventually deprecate the
+OverState system, however the OverState will still be maintained for the
+foreseeable future.</p>
+<div class="section" id="configuration-syntax">
+<h3>Configuration Syntax<a class="headerlink" href="#configuration-syntax" title="Permalink to this headline">¶</a></h3>
+<p>The configuration differs slightly from that of the OverState, and more closely
+resembles the configuration schema used for states.</p>
+<p>To execute a state, use <a class="reference internal" href="../../ref/states/all/salt.states.saltmod.html#salt.states.saltmod.state" title="salt.states.saltmod.state"><tt class="xref py py-mod docutils literal"><span class="pre">salt.state</span></tt></a>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">install_nginx</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">salt.state</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tgt</span><span class="p-Indicator">:</span> <span class="s">&#39;web*&#39;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sls</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">nginx</span>
+</pre></div>
+</div>
+<p>To execute a function, use <a class="reference internal" href="../../ref/states/all/salt.states.saltmod.html#salt.states.saltmod.function" title="salt.states.saltmod.function"><tt class="xref py py-mod docutils literal"><span class="pre">salt.function</span></tt></a>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">cmd.run</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">salt.function</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tgt</span><span class="p-Indicator">:</span> <span class="s">&#39;*&#39;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">arg</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">rm -rf /tmp/foo</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="triggering-a-highstate">
+<h3>Triggering a Highstate<a class="headerlink" href="#triggering-a-highstate" title="Permalink to this headline">¶</a></h3>
+<p>Wheras with the OverState, a Highstate is run by simply omitting an <tt class="docutils literal"><span class="pre">sls</span></tt> or
+<tt class="docutils literal"><span class="pre">function</span></tt> argument, with the Orchestrate Runner the Highstate must
+explicitly be requested by using <tt class="docutils literal"><span class="pre">highstate:</span> <span class="pre">True</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">webserver_setup</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">salt.state</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tgt</span><span class="p-Indicator">:</span> <span class="s">&#39;web*&#39;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">highstate</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="executing-the-orchestrate-runner">
+<h3>Executing the Orchestrate Runner<a class="headerlink" href="#executing-the-orchestrate-runner" title="Permalink to this headline">¶</a></h3>
+<p>The Orchestrate Runner can be executed using the <tt class="docutils literal"><span class="pre">state.orchestrate</span></tt> runner
+function. <tt class="docutils literal"><span class="pre">state.orch</span></tt> also works, for those that would like to type less.</p>
+<p>Assuming that your <tt class="docutils literal"><span class="pre">base</span></tt> environment is located at <tt class="docutils literal"><span class="pre">/srv/salt</span></tt>, and you
+have placed a configuration file in <tt class="docutils literal"><span class="pre">/srv/salt/orchestration/webserver.sls</span></tt>,
+then the following could both be used:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run state.orchestrate orchestration.webserver
+salt-run state.orch orchestration.webserver
+</pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2014.1.1: </span>The runner function was renamed to <tt class="docutils literal"><span class="pre">state.orchestrate</span></tt>. In versions
+0.17.0 through 2014.1.0, <tt class="docutils literal"><span class="pre">state.sls</span></tt> must be used. This was renamed to
+avoid confusion with the <a class="reference internal" href="../../ref/modules/all/salt.modules.state.html#salt.modules.state.sls" title="salt.modules.state.sls"><tt class="xref py py-mod docutils literal"><span class="pre">state.sls</span></tt></a>
+execution function.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run state.sls orchestration.webserver
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="more-complex-orchestration">
+<h3>More Complex Orchestration<a class="headerlink" href="#more-complex-orchestration" title="Permalink to this headline">¶</a></h3>
+<p>Many states/functions can be configured in a single file, which when combined
+with the full suite of <a class="reference internal" href="../../ref/states/requisites.html"><em>requisites</em></a>, can be used
+to easily configure complex orchestration tasks. Additionally, the
+states/functions will be executed in the order in which they are defined,
+unless prevented from doing so by any <a class="reference internal" href="../../ref/states/requisites.html"><em>requisites</em></a>, as is the default in SLS files since 0.17.0.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">cmd.run</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">salt.function</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tgt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10.0.0.0/24</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tgt_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ipcidr</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">arg</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">bootstrap</span>
+
+<span class="l-Scalar-Plain">storage_setup</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">salt.state</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tgt</span><span class="p-Indicator">:</span> <span class="s">&#39;role:storage&#39;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tgt_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">grain</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sls</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ceph</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">salt</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">webserver_setup</span>
+
+<span class="l-Scalar-Plain">webserver_setup</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">salt.state</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tgt</span><span class="p-Indicator">:</span> <span class="s">&#39;web*&#39;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">highstate</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<p>Given the above setup, the orchestration will be carried out as follows:</p>
+<ol class="arabic simple">
+<li>The shell command <tt class="docutils literal"><span class="pre">bootstrap</span></tt> will be executed on all minions in the
+10.0.0.0/24 subnet.</li>
+<li>A Highstate will be run on all minions whose ID starts with &quot;web&quot;, since
+the <tt class="docutils literal"><span class="pre">storage_setup</span></tt> state requires it.</li>
+<li>Finally, the <tt class="docutils literal"><span class="pre">ceph</span></tt> SLS target will be executed on all minions which have
+a grain called <tt class="docutils literal"><span class="pre">role</span></tt> with a value of <tt class="docutils literal"><span class="pre">storage</span></tt>.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">States Tutorial, Part 5 - Orchestration with Salt</a><ul>
+<li><a class="reference internal" href="#the-overstate-system">The OverState System</a><ul>
+<li><a class="reference internal" href="#the-overstate-sls">The OverState SLS</a></li>
+<li><a class="reference internal" href="#using-functions-with-overstate">Using Functions with OverState</a></li>
+<li><a class="reference internal" href="#executing-an-overstate">Executing an OverState</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-orchestrate-runner">The Orchestrate Runner</a><ul>
+<li><a class="reference internal" href="#configuration-syntax">Configuration Syntax</a></li>
+<li><a class="reference internal" href="#triggering-a-highstate">Triggering a Highstate</a></li>
+<li><a class="reference internal" href="#executing-the-orchestrate-runner">Executing the Orchestrate Runner</a></li>
+<li><a class="reference internal" href="#more-complex-orchestration">More Complex Orchestration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="states_pt4.html"
+                        title="previous chapter">States tutorial, part 4</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="states_ordering.html"
+                        title="next chapter">Understanding State Ordering</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="states_pt4.html" title="States tutorial, part 4">previous</a>
+                
+            </li>
+            <li>
+                <a href="states_ordering.html" title="Understanding State Ordering">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt 0.17.0 Release Notes</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Release notes and upgrade instructions" href="index.html">
+        <link rel="next" title="Salt 0.17.1 Release Notes" href="0.17.1.html">
+        <link rel="prev" title="Salt 0.16.4 Release Notes" href="0.16.4.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.16.4.html" title="Salt 0.16.4 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.17.1.html" title="Salt 0.17.1 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-0-17-0-release-notes">
+<h1>Salt 0.17.0 Release Notes<a class="headerlink" href="#salt-0-17-0-release-notes" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">release:</th><td class="field-body">2013-09-26</td>
+</tr>
+</tbody>
+</table>
+<p>The 0.17.0 release is a very exciting release of Salt, this brings to Salt
+some very powerful new features and advances. The advances range from the
+state system to the test suite, covering new transport capabilities and
+making states easier and more powerful, to extending Salt Virt and much more!</p>
+<p>The 0.17.0 release will also be the last release of Salt to follow the old
+0.XX.X numbering system, the next release of Salt will change the numbering to
+be date based following this format:</p>
+<p>&lt;Year&gt;.&lt;Month&gt;.&lt;Minor&gt;</p>
+<p>So if the release happens in November of 2013 the number will be 13.11.0, the
+first bugfix release will be 13.11.1 and so forth.</p>
+<div class="section" id="major-features">
+<h2>Major Features<a class="headerlink" href="#major-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="halite">
+<h3>Halite<a class="headerlink" href="#halite" title="Permalink to this headline">¶</a></h3>
+<p>The new Halite web GUI is now available on PyPI. A great deal of work has
+been put into Halite to make it fully event driven and amazingly fast. The
+Halite UI can be started from within the Salt Master (after being installed
+from PyPI), or standalone, and does not require an external database to run.
+It is very lightweight!</p>
+<p>This initial release of Halite is primarily the framework for the UI and the
+communication systems, making it easy to extend and build the UI up. It
+presently supports watching the event bus and firing commands over Salt.</p>
+<p>At this time, Halite is not available as a package, but installation
+documentation is available at:
+<a class="reference external" href="http://docs.saltstack.com/topics/tutorials/halite.html">http://docs.saltstack.com/topics/tutorials/halite.html</a></p>
+<p>Halite is, like the rest of Salt, Open Source!</p>
+<p>Much more will be coming in the future of Halite!</p>
+</div>
+<div class="section" id="salt-ssh">
+<h3>Salt SSH<a class="headerlink" href="#salt-ssh" title="Permalink to this headline">¶</a></h3>
+<p>The new <tt class="docutils literal"><span class="pre">salt-ssh</span></tt> command has been added to Salt. This system allows for
+remote execution and states to be run over ssh. The benefit here being, that
+salt can run relying only on the ssh agent, rather than requiring a minion
+to be deployed.</p>
+<p>The <tt class="docutils literal"><span class="pre">salt-ssh</span></tt> system runs states in a compatible way as Salt and states
+created and run with salt-ssh can be moved over to a standard salt deployment
+without modification.</p>
+<p>Since this is the initial release of salt-ssh, there is plenty of room for
+improvement, but it is fully operational, not just a bootstrap tool.</p>
+</div>
+<div class="section" id="rosters">
+<h3>Rosters<a class="headerlink" href="#rosters" title="Permalink to this headline">¶</a></h3>
+<p>Salt is designed to have the minions be aware of the master and the master does
+not need to be aware of the location of the minions. The new salt roster system
+was created and designed to facilitate listing the targets for salt-ssh.</p>
+<p>The roster system, like most of Salt, is a plugin system, allowing for the list
+of systems to target to be derived from any pluggable backend. The rosters
+shipping with 0.17.0 are flat and scan. Flat is a file which is read in via the
+salt render system and the scan roster does simple network scanning to discover
+ssh servers.</p>
+</div>
+<div class="section" id="state-auto-order">
+<h3>State Auto Order<a class="headerlink" href="#state-auto-order" title="Permalink to this headline">¶</a></h3>
+<p>This is a major change in how states are evaluated in Salt. State Auto Order
+is a new feature that makes states get evaluated and executed in the order in
+which they are defined in the sls file. This feature makes it very easy to
+see the finite order in which things will be executed, making Salt now, fully
+imperative AND fully declarative.</p>
+<p>The requisite system still takes precedence over the order in which states are
+defined, so no existing states should break with this change. But this new
+feature can be turned off by setting <tt class="docutils literal"><span class="pre">state_auto_order:</span> <span class="pre">False</span></tt> in the master
+config, thus reverting to the old lexicographical order.</p>
+</div>
+<div class="section" id="state-sls-runner">
+<h3>state.sls Runner<a class="headerlink" href="#state-sls-runner" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">state.sls</span></tt> runner has been created to allow for a more powerful system
+for orchestrating state runs and function calls across the salt minions. This
+new system uses the state system for organizing executions.</p>
+<p>This allows for states to be defined that are executed on the master to call
+states on minions via <tt class="docutils literal"><span class="pre">salt-run</span> <span class="pre">state.sls</span></tt>.</p>
+</div>
+<div class="section" id="salt-thin">
+<h3>Salt Thin<a class="headerlink" href="#salt-thin" title="Permalink to this headline">¶</a></h3>
+<p>Salt Thin is an exciting new component of Salt, this is the ability to execute
+Salt routines without any transport mechanisms installed, it is a pure python
+subset of Salt.</p>
+<p>Salt Thin does not have any networking capability, but can be dropped into any
+system with Python installed and then <tt class="docutils literal"><span class="pre">salt-call</span></tt> can be called directly. The
+Salt Thin system, is used by the <tt class="docutils literal"><span class="pre">salt-ssh</span></tt> command, but can still be used to
+just drop salt somewhere for easy use.</p>
+</div>
+<div class="section" id="event-namespacing">
+<h3>Event Namespacing<a class="headerlink" href="#event-namespacing" title="Permalink to this headline">¶</a></h3>
+<p>Events have been updated to be much more flexible. The tags in events have all
+been namespaced allowing easier tracking of event names.</p>
+</div>
+<div class="section" id="mercurial-fileserver-backend">
+<h3>Mercurial Fileserver Backend<a class="headerlink" href="#mercurial-fileserver-backend" title="Permalink to this headline">¶</a></h3>
+<p>The popular git fileserver backend has been joined by the mercurial fileserver
+backend, allowing the state tree to be managed entirely via mercurial.</p>
+</div>
+<div class="section" id="external-logging-handlers">
+<h3>External Logging Handlers<a class="headerlink" href="#external-logging-handlers" title="Permalink to this headline">¶</a></h3>
+<p>The external logging handler system allows for Salt to directly hook into any
+external logging system. Currently supported are sentry and logstash.</p>
+</div>
+<div class="section" id="jenkins-testing">
+<h3>Jenkins Testing<a class="headerlink" href="#jenkins-testing" title="Permalink to this headline">¶</a></h3>
+<p>The testing systems in Salt have been greatly enhanced, tests for salt are now
+executed, via jenkins.saltstack.com, across many supported platforms. Jenkins
+calls out to salt-cloud to create virtual machines on Rackspace, then the
+minion on the virtual machine checks into the master running on Jenkins where
+a state run is executed that sets up the minion to run tests and executes the
+test suite.</p>
+<p>This now automates the sequence of running platform tests and allows for
+continuous destructive tests to be run.</p>
+</div>
+<div class="section" id="salt-testing-project">
+<h3>Salt Testing Project<a class="headerlink" href="#salt-testing-project" title="Permalink to this headline">¶</a></h3>
+<p>The testing libraries for salt have been moved out of the main salt code base
+and into a standalone codebase. This has been done to ease the use of the
+testing systems being used in salt based projects other than Salt itself.</p>
+</div>
+<div class="section" id="stormpath-external-authentication">
+<h3>StormPath External Authentication<a class="headerlink" href="#stormpath-external-authentication" title="Permalink to this headline">¶</a></h3>
+<p>The external auth system now supports the fantastic Stormpath cloud based
+authentication system.</p>
+</div>
+<div class="section" id="lxc-support">
+<h3>LXC Support<a class="headerlink" href="#lxc-support" title="Permalink to this headline">¶</a></h3>
+<p>Extensive additions have been added to Salt for LXC support. This included
+the backend libs for managing LXC containers. Addition into the salt-virt
+system is still in the works.</p>
+</div>
+<div class="section" id="mac-os-x-user-group-support">
+<h3>Mac OS X User/Group Support<a class="headerlink" href="#mac-os-x-user-group-support" title="Permalink to this headline">¶</a></h3>
+<p>Salt is now able to manage users and groups on Minions running Mac OS X.
+However, at this time user passwords cannot be managed.</p>
+</div>
+<div class="section" id="django-orm-external-pillar">
+<h3>Django ORM External Pillar<a class="headerlink" href="#django-orm-external-pillar" title="Permalink to this headline">¶</a></h3>
+<p>Pillar data can now be derived from Django managed databases.</p>
+</div>
+<div class="section" id="fixes-from-rc-to-release">
+<h3>Fixes from RC to release<a class="headerlink" href="#fixes-from-rc-to-release" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Multiple documentation fixes</li>
+<li>Add multiple source files + templating for <a class="reference internal" href="../../ref/states/all/salt.states.file.html#salt.states.file.append" title="salt.states.file.append"><tt class="xref py py-mod docutils literal"><span class="pre">file.append</span></tt></a> (<a class="reference external" href="https://github.com/saltstack/salt/issues/6905">issue 6905</a>)</li>
+<li>Support sysctl configuration files in systemd&gt;=207 (<a class="reference external" href="https://github.com/saltstack/salt/issues/7351">issue 7351</a>)</li>
+<li>Add <a class="reference internal" href="../../ref/modules/all/salt.modules.file.html#salt.modules.file.search" title="salt.modules.file.search"><tt class="xref py py-mod docutils literal"><span class="pre">file.search</span></tt></a> and <a class="reference internal" href="../../ref/modules/all/salt.modules.file.html#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-mod docutils literal"><span class="pre">file.replace</span></tt></a></li>
+<li>Fix cross-calling execution functions in provider overrides</li>
+<li>Fix locale override for postgres (<a class="reference external" href="https://github.com/saltstack/salt/issues/4543">issue 4543</a>)</li>
+<li>Fix Raspbian identification for service/pkg support (<a class="reference external" href="https://github.com/saltstack/salt/issues/7371">issue 7371</a>)</li>
+<li>Fix <a class="reference internal" href="../../ref/modules/all/salt.modules.cp.html#salt.modules.cp.push" title="salt.modules.cp.push"><tt class="xref py py-mod docutils literal"><span class="pre">cp.push</span></tt></a> file corruption (<a class="reference external" href="https://github.com/saltstack/salt/issues/6495">issue 6495</a>)</li>
+<li>Fix ALT Linux password hash specification (<a class="reference external" href="https://github.com/saltstack/salt/issues/3474">issue 3474</a>)</li>
+<li>Multiple salt-ssh-related fixes and improvements</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt 0.17.0 Release Notes</a><ul>
+<li><a class="reference internal" href="#major-features">Major Features</a><ul>
+<li><a class="reference internal" href="#halite">Halite</a></li>
+<li><a class="reference internal" href="#salt-ssh">Salt SSH</a></li>
+<li><a class="reference internal" href="#rosters">Rosters</a></li>
+<li><a class="reference internal" href="#state-auto-order">State Auto Order</a></li>
+<li><a class="reference internal" href="#state-sls-runner">state.sls Runner</a></li>
+<li><a class="reference internal" href="#salt-thin">Salt Thin</a></li>
+<li><a class="reference internal" href="#event-namespacing">Event Namespacing</a></li>
+<li><a class="reference internal" href="#mercurial-fileserver-backend">Mercurial Fileserver Backend</a></li>
+<li><a class="reference internal" href="#external-logging-handlers">External Logging Handlers</a></li>
+<li><a class="reference internal" href="#jenkins-testing">Jenkins Testing</a></li>
+<li><a class="reference internal" href="#salt-testing-project">Salt Testing Project</a></li>
+<li><a class="reference internal" href="#stormpath-external-authentication">StormPath External Authentication</a></li>
+<li><a class="reference internal" href="#lxc-support">LXC Support</a></li>
+<li><a class="reference internal" href="#mac-os-x-user-group-support">Mac OS X User/Group Support</a></li>
+<li><a class="reference internal" href="#django-orm-external-pillar">Django ORM External Pillar</a></li>
+<li><a class="reference internal" href="#fixes-from-rc-to-release">Fixes from RC to release</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="0.16.4.html"
+                        title="previous chapter">Salt 0.16.4 Release Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="0.17.1.html"
+                        title="next chapter">Salt 0.17.1 Release Notes</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.16.4.html" title="Salt 0.16.4 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.17.1.html" title="Salt 0.17.1 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

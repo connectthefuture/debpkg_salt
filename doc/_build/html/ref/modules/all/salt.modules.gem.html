@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.modules.gem</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin execution modules" href="index.html">
+        <link rel="next" title="salt.modules.gentoo_service" href="salt.modules.gentoo_service.html">
+        <link rel="prev" title="salt.modules.freebsdservice" href="salt.modules.freebsdservice.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.freebsdservice.html" title="salt.modules.freebsdservice">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.gentoo_service.html" title="salt.modules.gentoo_service">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.modules.gem">
+<span id="salt-modules-gem"></span><h1>salt.modules.gem<a class="headerlink" href="#module-salt.modules.gem" title="Permalink to this headline">¶</a></h1>
+<p>Manage ruby gems.</p>
+<dl class="function">
+<dt id="salt.modules.gem.install">
+<tt class="descclassname">salt.modules.gem.</tt><tt class="descname">install</tt><big>(</big><em>gems</em>, <em>ruby=None</em>, <em>runas=None</em>, <em>version=None</em>, <em>rdoc=False</em>, <em>ri=False</em><big>)</big><a class="headerlink" href="#salt.modules.gem.install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Installs one or several gems.</p>
+<dl class="docutils">
+<dt>gems</dt>
+<dd>The gems to install</dd>
+<dt>ruby <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>If RVM is installed, the ruby version and gemset to use.</dd>
+<dt>runas <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>The user to run gem as.</dd>
+<dt>version <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>Specify the version to install for the gem.
+Doesn't play nice with multiple gems at once</dd>
+<dt>rdoc <span class="classifier-delimiter">:</span> <span class="classifier">False</span></dt>
+<dd>Generate RDoc documentation for the gem(s).</dd>
+<dt>ri <span class="classifier-delimiter">:</span> <span class="classifier">False</span></dt>
+<dd>Generate RI documentation for the gem(s).</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> gem.install vagrant
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.gem.list_">
+<tt class="descclassname">salt.modules.gem.</tt><tt class="descname">list_</tt><big>(</big><em>prefix=''</em>, <em>ruby=None</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.gem.list_" title="Permalink to this definition">¶</a></dt>
+<dd><p>List locally installed gems.</p>
+<dl class="docutils">
+<dt>prefix :</dt>
+<dd>Only list gems when the name matches this prefix.</dd>
+<dt>ruby <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>If RVM is installed, the ruby version and gemset to use.</dd>
+<dt>runas <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>The user to run gem as.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> gem.list
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.gem.sources_add">
+<tt class="descclassname">salt.modules.gem.</tt><tt class="descname">sources_add</tt><big>(</big><em>source_uri</em>, <em>ruby=None</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.gem.sources_add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a gem source.</p>
+<dl class="docutils">
+<dt>source_uri</dt>
+<dd>The source URI to add.</dd>
+<dt>ruby <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>If RVM is installed, the ruby version and gemset to use.</dd>
+<dt>runas <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>The user to run gem as.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> gem.sources_add http://rubygems.org/
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.gem.sources_list">
+<tt class="descclassname">salt.modules.gem.</tt><tt class="descname">sources_list</tt><big>(</big><em>ruby=None</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.gem.sources_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the configured gem sources.</p>
+<dl class="docutils">
+<dt>ruby <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>If RVM is installed, the ruby version and gemset to use.</dd>
+<dt>runas <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>The user to run gem as.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> gem.sources_list
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.gem.sources_remove">
+<tt class="descclassname">salt.modules.gem.</tt><tt class="descname">sources_remove</tt><big>(</big><em>source_uri</em>, <em>ruby=None</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.gem.sources_remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a gem source.</p>
+<dl class="docutils">
+<dt>source_uri</dt>
+<dd>The source URI to remove.</dd>
+<dt>ruby <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>If RVM is installed, the ruby version and gemset to use.</dd>
+<dt>runas <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>The user to run gem as.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> gem.sources_remove http://rubygems.org/
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.gem.uninstall">
+<tt class="descclassname">salt.modules.gem.</tt><tt class="descname">uninstall</tt><big>(</big><em>gems</em>, <em>ruby=None</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.gem.uninstall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uninstall one or several gems.</p>
+<dl class="docutils">
+<dt>gems</dt>
+<dd>The gems to uninstall.</dd>
+<dt>ruby <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>If RVM is installed, the ruby version and gemset to use.</dd>
+<dt>runas <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>The user to run gem as.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> gem.uninstall vagrant
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.gem.update">
+<tt class="descclassname">salt.modules.gem.</tt><tt class="descname">update</tt><big>(</big><em>gems</em>, <em>ruby=None</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.gem.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update one or several gems.</p>
+<dl class="docutils">
+<dt>gems</dt>
+<dd>The gems to update.</dd>
+<dt>ruby <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>If RVM is installed, the ruby version and gemset to use.</dd>
+<dt>runas <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>The user to run gem as.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> gem.update vagrant
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.gem.update_system">
+<tt class="descclassname">salt.modules.gem.</tt><tt class="descname">update_system</tt><big>(</big><em>version=''</em>, <em>ruby=None</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.gem.update_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update rubygems.</p>
+<dl class="docutils">
+<dt>version <span class="classifier-delimiter">:</span> <span class="classifier">(newest)</span></dt>
+<dd>The version of rubygems to install.</dd>
+<dt>ruby <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>If RVM is installed, the ruby version and gemset to use.</dd>
+<dt>runas <span class="classifier-delimiter">:</span> <span class="classifier">None</span></dt>
+<dd>The user to run gem as.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> gem.update_system
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.modules.freebsdservice.html"
+                        title="previous chapter">salt.modules.freebsdservice</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.modules.gentoo_service.html"
+                        title="next chapter">salt.modules.gentoo_service</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.freebsdservice.html" title="salt.modules.freebsdservice">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.gentoo_service.html" title="salt.modules.gentoo_service">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.states.mysql_user</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin state modules" href="index.html">
+        <link rel="next" title="salt.states.network" href="salt.states.network.html">
+        <link rel="prev" title="salt.states.mysql_grants" href="salt.states.mysql_grants.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.states.mysql_grants.html" title="salt.states.mysql_grants">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.states.network.html" title="salt.states.network">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.states.mysql_user">
+<span id="salt-states-mysql-user"></span><h1>salt.states.mysql_user<a class="headerlink" href="#module-salt.states.mysql_user" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="management-of-mysql-users">
+<h2>Management of MySQL users<a class="headerlink" href="#management-of-mysql-users" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">depends:</th><td class="field-body"><ul class="first simple">
+<li>MySQLdb Python module</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">configuration:</th><td class="field-body"><p class="first last">See <a class="reference internal" href="../../modules/all/salt.modules.mysql.html#module-salt.modules.mysql" title="salt.modules.mysql"><tt class="xref py py-mod docutils literal"><span class="pre">salt.modules.mysql</span></tt></a> for setup instructions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">frank</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">mysql_user.present</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bobcat</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.16.2: </span>Authentication overrides have been added.</p>
+</div>
+<p>The MySQL authentication information specified in the minion config file can be
+overidden in states using the following arguments: <tt class="docutils literal"><span class="pre">connection_host</span></tt>,
+<tt class="docutils literal"><span class="pre">connection_port</span></tt>, <tt class="docutils literal"><span class="pre">connection_user</span></tt>, <tt class="docutils literal"><span class="pre">connection_pass</span></tt>,
+<tt class="docutils literal"><span class="pre">connection_db</span></tt>, <tt class="docutils literal"><span class="pre">connection_unix_socket</span></tt>, <tt class="docutils literal"><span class="pre">connection_default_file</span></tt> and
+<tt class="docutils literal"><span class="pre">connection_charset</span></tt>.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">frank</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">mysql_user.present</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="s">&quot;bob@cat&quot;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">connection_user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">someuser</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">connection_pass</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">somepass</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">connection_charset</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">utf8</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">saltenv</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">LC_ALL</span><span class="p-Indicator">:</span> <span class="s">&quot;en_US.utf8&quot;</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="salt.states.mysql_user.absent">
+<tt class="descclassname">salt.states.mysql_user.</tt><tt class="descname">absent</tt><big>(</big><em>name</em>, <em>host='localhost'</em>, <em>**connection_args</em><big>)</big><a class="headerlink" href="#salt.states.mysql_user.absent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure that the named user is absent</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The name of the user to remove</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.mysql_user.present">
+<tt class="descclassname">salt.states.mysql_user.</tt><tt class="descname">present</tt><big>(</big><em>name</em>, <em>host='localhost'</em>, <em>password=None</em>, <em>password_hash=None</em>, <em>allow_passwordless=False</em>, <em>unix_socket=False</em>, <em>**connection_args</em><big>)</big><a class="headerlink" href="#salt.states.mysql_user.present" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure that the named user is present with the specified properties. A
+passwordless user can be configured by omitting <tt class="docutils literal"><span class="pre">password</span></tt> and
+<tt class="docutils literal"><span class="pre">password_hash</span></tt>, and setting <tt class="docutils literal"><span class="pre">allow_passwordless</span></tt> to <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The name of the user to manage</dd>
+<dt>host</dt>
+<dd>Host for which this user/password combo applies</dd>
+<dt>password</dt>
+<dd>The password to use for this user. Will take precedence over the
+<tt class="docutils literal"><span class="pre">password_hash</span></tt> option if both are specified.</dd>
+<dt>password_hash</dt>
+<dd><p class="first">The password in hashed form. Be sure to quote the password because YAML
+doesn't like the <tt class="docutils literal"><span class="pre">*</span></tt>. A password hash can be obtained from the mysql
+command-line client like so:</p>
+<div class="last highlight-python"><div class="highlight"><pre>mysql&gt; SELECT PASSWORD(&#39;mypass&#39;);
++-------------------------------------------+
+| PASSWORD(&#39;mypass&#39;)                        |
++-------------------------------------------+
+| *6C8989366EAF75BB670AD8EA7A7FC1176A95CEF4 |
++-------------------------------------------+
+1 row in set (0.00 sec)
+</pre></div>
+</div>
+</dd>
+<dt>allow_passwordless</dt>
+<dd>If <tt class="docutils literal"><span class="pre">True</span></tt>, then <tt class="docutils literal"><span class="pre">password</span></tt> and <tt class="docutils literal"><span class="pre">password_hash</span></tt> can be omitted to
+permit a passwordless login.</dd>
+<dt>unix_socket</dt>
+<dd>If <tt class="docutils literal"><span class="pre">True</span></tt> and allow_passwordless is <tt class="docutils literal"><span class="pre">True</span></tt> then will be used unix_socket auth plugin.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">allow_passwordless</span></tt> option will be available in version 0.16.2.</p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">salt.states.mysql_user</a><ul>
+<li><a class="reference internal" href="#management-of-mysql-users">Management of MySQL users</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.states.mysql_grants.html"
+                        title="previous chapter">salt.states.mysql_grants</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.states.network.html"
+                        title="next chapter">salt.states.network</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.states.mysql_grants.html" title="salt.states.mysql_grants">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.states.network.html" title="salt.states.network">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

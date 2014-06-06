@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Getting Started With AWS EC2</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt Cloud Documentation" href="index.html">
+        <link rel="next" title="Getting Started With Azure" href="azure.html">
+        <link rel="prev" title="Cloud Actions" href="action.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="action.html" title="Cloud Actions">previous</a>
+                
+            </li>
+            <li>
+                <a href="azure.html" title="Getting Started With Azure">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="getting-started-with-aws-ec2">
+<h1>Getting Started With AWS EC2<a class="headerlink" href="#getting-started-with-aws-ec2" title="Permalink to this headline">¶</a></h1>
+<p>Amazon EC2 is a very widely used public cloud platform and one of the core
+platforms Salt Cloud has been built to support.</p>
+<p>Previously, the suggested provider for AWS EC2 was the <cite>aws</cite> provider. This has
+been deprecated in favor of the <cite>ec2</cite> provider. Configuration using the old
+<cite>aws</cite> provider will still function, but that driver is no longer in active
+development.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># Note: This example is for /etc/salt/cloud.providers or any file in the</span>
+<span class="c1"># /etc/salt/cloud.providers.d/ directory.</span>
+
+<span class="l-Scalar-Plain">my-ec2-southeast-public-ips</span><span class="p-Indicator">:</span>
+  <span class="c1"># Set up the location of the salt master</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">minion</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">master</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">saltmaster.example.com</span>
+
+  <span class="c1"># Set up grains information, which will be common for all nodes</span>
+  <span class="c1"># using this provider</span>
+  <span class="l-Scalar-Plain">grains</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">node_type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">broker</span>
+    <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1.0.1</span>
+
+  <span class="c1"># Specify whether to use public or private IP for deploy script.</span>
+  <span class="c1">#</span>
+  <span class="c1"># Valid options are:</span>
+  <span class="c1">#     private_ips - The salt-master is also hosted with EC2</span>
+  <span class="c1">#     public_ips - The salt-master is hosted outside of EC2</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">ssh_interface</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">public_ips</span>
+
+  <span class="c1"># Set the EC2 access credentials (see below)</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">HJGRYCILJLKJYG</span>
+  <span class="l-Scalar-Plain">key</span><span class="p-Indicator">:</span> <span class="s">&#39;kdjgfsgm;woormgl/aserigjksjdhasdfgn&#39;</span>
+
+  <span class="c1"># Make sure this key is owned by root with permissions 0400.</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">private_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/salt/my_test_key.pem</span>
+  <span class="l-Scalar-Plain">keyname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my_test_key</span>
+  <span class="l-Scalar-Plain">securitygroup</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+
+  <span class="c1"># Optionally configure default region</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">location</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ap-southeast-1</span>
+  <span class="l-Scalar-Plain">availability_zone</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ap-southeast-1b</span>
+
+  <span class="c1"># Configure which user to use to run the deploy script. This setting is</span>
+  <span class="c1"># dependent upon the AMI that is used to deploy. It is usually safer to</span>
+  <span class="c1"># configure this individually in a profile, than globally. Typical users</span>
+  <span class="c1"># are:</span>
+  <span class="c1">#</span>
+  <span class="c1"># Amazon Linux -&gt; ec2-user</span>
+  <span class="c1"># RHEL         -&gt; ec2-user</span>
+  <span class="c1"># CentOS       -&gt; ec2-user</span>
+  <span class="c1"># Ubuntu       -&gt; ubuntu</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">ssh_username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2-user</span>
+
+  <span class="c1"># Optionally add an IAM profile</span>
+  <span class="l-Scalar-Plain">iam_profile</span><span class="p-Indicator">:</span> <span class="s">&#39;arn:aws:iam::123456789012:instance-profile/ExampleInstanceProfile&#39;</span>
+
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2</span>
+
+
+<span class="l-Scalar-Plain">my-ec2-southeast-private-ips</span><span class="p-Indicator">:</span>
+  <span class="c1"># Set up the location of the salt master</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">minion</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">master</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">saltmaster.example.com</span>
+
+  <span class="c1"># Specify whether to use public or private IP for deploy script.</span>
+  <span class="c1">#</span>
+  <span class="c1"># Valid options are:</span>
+  <span class="c1">#     private_ips - The salt-master is also hosted with EC2</span>
+  <span class="c1">#     public_ips - The salt-master is hosted outside of EC2</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">ssh_interface</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">private_ips</span>
+
+  <span class="c1"># Set the EC2 access credentials (see below)</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">HJGRYCILJLKJYG</span>
+  <span class="l-Scalar-Plain">key</span><span class="p-Indicator">:</span> <span class="s">&#39;kdjgfsgm;woormgl/aserigjksjdhasdfgn&#39;</span>
+
+  <span class="c1"># Make sure this key is owned by root with permissions 0400.</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">private_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/salt/my_test_key.pem</span>
+  <span class="l-Scalar-Plain">keyname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my_test_key</span>
+  <span class="l-Scalar-Plain">securitygroup</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+
+  <span class="c1"># Optionally configure default region</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">location</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ap-southeast-1</span>
+  <span class="l-Scalar-Plain">availability_zone</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ap-southeast-1b</span>
+
+  <span class="c1"># Configure which user to use to run the deploy script. This setting is</span>
+  <span class="c1"># dependent upon the AMI that is used to deploy. It is usually safer to</span>
+  <span class="c1"># configure this individually in a profile, than globally. Typical users</span>
+  <span class="c1"># are:</span>
+  <span class="c1">#</span>
+  <span class="c1"># Amazon Linux -&gt; ec2-user</span>
+  <span class="c1"># RHEL         -&gt; ec2-user</span>
+  <span class="c1"># CentOS       -&gt; ec2-user</span>
+  <span class="c1"># Ubuntu       -&gt; ubuntu</span>
+  <span class="c1">#</span>
+  <span class="l-Scalar-Plain">ssh_username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2-user</span>
+
+  <span class="c1"># Optionally add an IAM profile</span>
+  <span class="l-Scalar-Plain">iam_profile</span><span class="p-Indicator">:</span> <span class="s">&#39;my</span><span class="nv"> </span><span class="s">other</span><span class="nv"> </span><span class="s">profile</span><span class="nv"> </span><span class="s">name&#39;</span>
+
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2</span>
+</pre></div>
+</div>
+<div class="section" id="access-credentials">
+<h2>Access Credentials<a class="headerlink" href="#access-credentials" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">id</span></tt> and <tt class="docutils literal"><span class="pre">key</span></tt> settings may be found in the Security Credentials area
+of the AWS Account page:</p>
+<p><a class="reference external" href="https://portal.aws.amazon.com/gp/aws/securityCredentials">https://portal.aws.amazon.com/gp/aws/securityCredentials</a></p>
+<p>Both are located in the Access Credentials area of the page, under the Access
+Keys tab. The <tt class="docutils literal"><span class="pre">id</span></tt> setting is labeled Access Key ID, and the <tt class="docutils literal"><span class="pre">key</span></tt> setting
+is labeled Secret Access Key.</p>
+</div>
+<div class="section" id="key-pairs">
+<h2>Key Pairs<a class="headerlink" href="#key-pairs" title="Permalink to this headline">¶</a></h2>
+<p>In order to create an instance with Salt installed and configured, a key pair
+will need to be created. This can be done in the EC2 Management Console, in the
+Key Pairs area. These key pairs are unique to a specific region. Keys in the
+us-east-1 region can be configured at:</p>
+<p><a class="reference external" href="https://console.aws.amazon.com/ec2/home?region=us-east-1#s=KeyPairs">https://console.aws.amazon.com/ec2/home?region=us-east-1#s=KeyPairs</a></p>
+<p>Keys in the us-west-1 region can be configured at</p>
+<p><a class="reference external" href="https://console.aws.amazon.com/ec2/home?region=us-west-1#s=KeyPairs">https://console.aws.amazon.com/ec2/home?region=us-west-1#s=KeyPairs</a></p>
+<p>...and so on. When creating a key pair, the browser will prompt to download a
+pem file. This file must be placed in a directory accessable by Salt Cloud,
+with permissions set to either 0400 or 0600.</p>
+</div>
+<div class="section" id="security-groups">
+<h2>Security Groups<a class="headerlink" href="#security-groups" title="Permalink to this headline">¶</a></h2>
+<p>An instance on EC2 needs to belong to a security group. Like key pairs, these
+are unique to a specific region. These are also configured in the EC2
+Management Console. Security groups for the us-east-1 region can be configured
+at:</p>
+<p><a class="reference external" href="https://console.aws.amazon.com/ec2/home?region=us-east-1#s=SecurityGroups">https://console.aws.amazon.com/ec2/home?region=us-east-1#s=SecurityGroups</a></p>
+<p>...and so on.</p>
+<p>A security group defines firewall rules which an instance will adhere to. If
+the salt-master is configured outside of EC2, the security group must open the
+SSH port (usually port 22) in order for Salt Cloud to install Salt.</p>
+</div>
+<div class="section" id="iam-profile">
+<h2>IAM Profile<a class="headerlink" href="#iam-profile" title="Permalink to this headline">¶</a></h2>
+<p>Amazon EC2 instances support the concept of an <a class="reference external" href="http://docs.aws.amazon.com/IAM/latest/UserGuide/instance-profiles.html">instance profile</a>, which
+is a logical container for the IAM role. At the time that you launch an EC2
+instance, you can associate the instance with an instance profile, which in
+turn corresponds to the IAM role. Any software that runs on the EC2 instance
+is able to access AWS using the permissions associated with the IAM role.</p>
+<p>Scaffolding the profile is a 2 steps configurations:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Configure an IAM Role from the <a class="reference external" href="https://console.aws.amazon.com/iam/home?#roles">IAM Management Console</a>.</p>
+</li>
+<li><p class="first">Attach this role to a new profile. It can be done with the <a class="reference external" href="http://docs.aws.amazon.com/cli/latest/index.html">AWS CLI</a>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>&gt; aws iam create-instance-profile --instance-profile-name PROFILE_NAME
+&gt; aws iam add-role-to-instance-profile --instance-profile-name PROFILE_NAME --role-name ROLE_NAME
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+<p>Once the profile is created, you can use the <strong>PROFILE_NAME</strong> to configure
+your cloud profiles.</p>
+</div>
+<div class="section" id="cloud-profiles">
+<h2>Cloud Profiles<a class="headerlink" href="#cloud-profiles" title="Permalink to this headline">¶</a></h2>
+<p>Set up an initial profile at <tt class="docutils literal"><span class="pre">/etc/salt/cloud.profiles</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base_ec2_private</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-ec2-southeast-private-ips</span>
+  <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ami-e565ba8c</span>
+  <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Micro Instance</span>
+  <span class="l-Scalar-Plain">ssh_username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2-user</span>
+
+<span class="l-Scalar-Plain">base_ec2_public</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-ec2-southeast-public-ips</span>
+  <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ami-e565ba8c</span>
+  <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Micro Instance</span>
+  <span class="l-Scalar-Plain">ssh_username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2-user</span>
+
+<span class="l-Scalar-Plain">base_ec2_db</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-ec2-southeast-public-ips</span>
+  <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ami-e565ba8c</span>
+  <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">m1.xlarge</span>
+  <span class="l-Scalar-Plain">ssh_username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2-user</span>
+  <span class="l-Scalar-Plain">volumes</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">size</span><span class="p-Indicator">:</span> <span class="nv">10</span><span class="p-Indicator">,</span> <span class="nv">device</span><span class="p-Indicator">:</span> <span class="nv">/dev/sdf</span> <span class="p-Indicator">}</span>
+    <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">size</span><span class="p-Indicator">:</span> <span class="nv">10</span><span class="p-Indicator">,</span> <span class="nv">device</span><span class="p-Indicator">:</span> <span class="nv">/dev/sdg</span><span class="p-Indicator">,</span> <span class="nv">type</span><span class="p-Indicator">:</span> <span class="nv">io1</span><span class="p-Indicator">,</span> <span class="nv">iops</span><span class="p-Indicator">:</span> <span class="nv">1000</span> <span class="p-Indicator">}</span>
+    <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">size</span><span class="p-Indicator">:</span> <span class="nv">10</span><span class="p-Indicator">,</span> <span class="nv">device</span><span class="p-Indicator">:</span> <span class="nv">/dev/sdh</span><span class="p-Indicator">,</span> <span class="nv">type</span><span class="p-Indicator">:</span> <span class="nv">io1</span><span class="p-Indicator">,</span> <span class="nv">iops</span><span class="p-Indicator">:</span> <span class="nv">1000</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+<p>The profile can be realized now with a salt command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># salt-cloud -p base_ec2 ami.example.com</span>
+<span class="c"># salt-cloud -p base_ec2_public ami.example.com</span>
+<span class="c"># salt-cloud -p base_ec2_private ami.example.com</span>
+</pre></div>
+</div>
+<p>This will create an instance named <tt class="docutils literal"><span class="pre">ami.example.com</span></tt> in EC2. The minion that
+is installed on this instance will have an <tt class="docutils literal"><span class="pre">id</span></tt> of <tt class="docutils literal"><span class="pre">ami.example.com</span></tt>. If
+the command was executed on the salt-master, its Salt key will automatically be
+signed on the master.</p>
+<p>Once the instance has been created with salt-minion installed, connectivity to
+it can be verified with Salt:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># salt &#39;ami.example.com&#39; test.ping</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="required-settings">
+<h2>Required Settings<a class="headerlink" href="#required-settings" title="Permalink to this headline">¶</a></h2>
+<p>The following settings are always required for EC2:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># Set the EC2 login data</span>
+<span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">HJGRYCILJLKJYG</span>
+  <span class="l-Scalar-Plain">key</span><span class="p-Indicator">:</span> <span class="s">&#39;kdjgfsgm;woormgl/aserigjksjdhasdfgn&#39;</span>
+  <span class="l-Scalar-Plain">keyname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">test</span>
+  <span class="l-Scalar-Plain">securitygroup</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">quick-start</span>
+  <span class="l-Scalar-Plain">private_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/root/test.pem</span>
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="optional-settings">
+<h2>Optional Settings<a class="headerlink" href="#optional-settings" title="Permalink to this headline">¶</a></h2>
+<p>EC2 allows a location to be set for servers to be deployed in. Availability
+zones exist inside regions, and may be added to increase specificity.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="c1"># Optionally configure default region</span>
+  <span class="l-Scalar-Plain">location</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ap-southeast-1</span>
+  <span class="l-Scalar-Plain">availability_zone</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ap-southeast-1b</span>
+</pre></div>
+</div>
+<p>EC2 instances can have a public or private IP, or both. When an instance is
+deployed, Salt Cloud needs to log into it via SSH to run the deploy script.
+By default, the public IP will be used for this. If the salt-cloud command is
+run from another EC2 instance, the private IP should be used.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="c1"># Specify whether to use public or private IP for deploy script</span>
+  <span class="c1"># private_ips or public_ips</span>
+  <span class="l-Scalar-Plain">ssh_interface</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">public_ips</span>
+</pre></div>
+</div>
+<p>Many EC2 instances do not allow remote access to the root user by default.
+Instead, another user must be used to run the deploy script using sudo. Some
+common usernames include ec2-user (for Amazon Linux), ubuntu (for Ubuntu
+instances), admin (official Debian) and bitnami (for images provided by
+Bitnami).</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="c1"># Configure which user to use to run the deploy script</span>
+  <span class="l-Scalar-Plain">ssh_username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2-user</span>
+</pre></div>
+</div>
+<p>Multiple usernames can be provided, in which case Salt Cloud will attempt to
+guess the correct username. This is mostly useful in the main configuration
+file:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">ssh_username</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ec2-user</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ubuntu</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">admin</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">bitnami</span>
+</pre></div>
+</div>
+<p>Multiple security groups can also be specified in the same fashion:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">securitygroup</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">default</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">extra</span>
+</pre></div>
+</div>
+<p>Block device mappings enable you to specify additional EBS volumes or instance
+store volumes when the instance is launched. This setting is also available on
+each cloud profile. Note that the number of instance stores varies by instance type.
+If more mappings are provided than are supported by the instance type, mappings will be
+created in the order provided and additional mappings will be ignored. Consult the
+<a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html">AWS documentation</a> for a listing of the available instance stores, device names, and mount points.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">block_device_mappings</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">DeviceName</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/dev/sdb</span>
+      <span class="l-Scalar-Plain">VirtualName</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ephemeral0</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">DeviceName</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/dev/sdc</span>
+      <span class="l-Scalar-Plain">VirtualName</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ephemeral1</span>
+</pre></div>
+</div>
+<p>You can also use block device mappings to change the size of the root device at the
+provisioing time. For example, assuming the root device is '/dev/sda', you can set
+its size to 100G by using the following configuration.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">block_device_mappings</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">DeviceName</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/dev/sda</span>
+      <span class="l-Scalar-Plain">Ebs.VolumeSize</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100</span>
+</pre></div>
+</div>
+<p>Tags can be set once an instance has been launched.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">tag</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">tag0</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">value</span>
+        <span class="l-Scalar-Plain">tag2</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">value</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modify-ec2-tags">
+<h2>Modify EC2 Tags<a class="headerlink" href="#modify-ec2-tags" title="Permalink to this headline">¶</a></h2>
+<p>One of the features of EC2 is the ability to tag resources. In fact, under the
+hood, the names given to EC2 instances by salt-cloud are actually just stored
+as a tag called Name. Salt Cloud has the ability to manage these tags:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -a get_tags mymachine
+salt-cloud -a set_tags mymachine <span class="nv">tag1</span><span class="o">=</span>somestuff <span class="nv">tag2</span><span class="o">=</span><span class="s1">&#39;Other stuff&#39;</span>
+salt-cloud -a del_tags mymachine tag1,tag2,tag3
+</pre></div>
+</div>
+</div>
+<div class="section" id="rename-ec2-instances">
+<h2>Rename EC2 Instances<a class="headerlink" href="#rename-ec2-instances" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned above, EC2 instances are named via a tag. However, renaming an
+instance by renaming its tag will cause the salt keys to mismatch. A rename
+function exists which renames both the instance, and the salt keys.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -a rename mymachine <span class="nv">newname</span><span class="o">=</span>yourmachine
+</pre></div>
+</div>
+</div>
+<div class="section" id="ec2-termination-protection">
+<h2>EC2 Termination Protection<a class="headerlink" href="#ec2-termination-protection" title="Permalink to this headline">¶</a></h2>
+<p>EC2 allows the user to enable and disable termination protection on a specific
+instance. An instance with this protection enabled cannot be destroyed.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -a enable_term_protect mymachine
+salt-cloud -a disable_term_protect mymachine
+</pre></div>
+</div>
+</div>
+<div class="section" id="rename-on-destroy">
+<h2>Rename on Destroy<a class="headerlink" href="#rename-on-destroy" title="Permalink to this headline">¶</a></h2>
+<p>When instances on EC2 are destroyed, there will be a lag between the time that
+the action is sent, and the time that Amazon cleans up the instance. During
+this time, the instance still retails a Name tag, which will cause a collision
+if the creation of an instance with the same name is attempted before the
+cleanup occurs. In order to avoid such collisions, Salt Cloud can be configured
+to rename instances when they are destroyed. The new name will look something
+like:</p>
+<div class="highlight-bash"><div class="highlight"><pre>myinstance-DEL20f5b8ad4eb64ed88f2c428df80a1a0c
+</pre></div>
+</div>
+<p>In order to enable this, add rename_on_destroy line to the main
+configuration file:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">rename_on_destroy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="listing-images">
+<h2>Listing Images<a class="headerlink" href="#listing-images" title="Permalink to this headline">¶</a></h2>
+<p>Normally, images can be queried on a cloud provider by passing the
+<tt class="docutils literal"><span class="pre">--list-images</span></tt> argument to Salt Cloud. This still holds true for EC2:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud --list-images my-ec2-config
+</pre></div>
+</div>
+<p>However, the full list of images on EC2 is extremely large, and querying all of
+the available images may cause Salt Cloud to behave as if frozen. Therefore,
+the default behavior of this option may be modified, by adding an <tt class="docutils literal"><span class="pre">owner</span></tt>
+argument to the provider configuration:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">owner</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">aws-marketplace</span>
+</pre></div>
+</div>
+<p>The possible values for this setting are <tt class="docutils literal"><span class="pre">amazon</span></tt>, <tt class="docutils literal"><span class="pre">aws-marketplace</span></tt>,
+<tt class="docutils literal"><span class="pre">self</span></tt>, <tt class="docutils literal"><span class="pre">&lt;AWS</span> <span class="pre">account</span> <span class="pre">ID&gt;</span></tt> or <tt class="docutils literal"><span class="pre">all</span></tt>. The default setting is <tt class="docutils literal"><span class="pre">amazon</span></tt>.
+Take note that <tt class="docutils literal"><span class="pre">all</span></tt> and <tt class="docutils literal"><span class="pre">aws-marketplace</span></tt> may cause Salt Cloud to appear
+as if it is freezing, as it tries to handle the large amount of data.</p>
+<p>It is also possible to perform this query using different settings without
+modifying the configuration files. To do this, call the <tt class="docutils literal"><span class="pre">avail_images</span></tt>
+function directly:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -f avail_images my-ec2-config <span class="nv">owner</span><span class="o">=</span>aws-marketplace
+</pre></div>
+</div>
+</div>
+<div class="section" id="ec2-images">
+<h2>EC2 Images<a class="headerlink" href="#ec2-images" title="Permalink to this headline">¶</a></h2>
+<p>The following are lists of available AMI images, generally sorted by OS. These
+lists are on 3rd-party websites, are not managed by Salt Stack in any way. They
+are provided here as a reference for those who are interested, and contain no
+warranty (express or implied) from anyone affiliated with Salt Stack. Most of
+them have never been used, much less tested, by the Salt Stack team.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://wiki.archlinux.org/index.php/Arch_Linux_AMIs_for_Amazon_Web_Services">Arch Linux</a></li>
+<li><a class="reference external" href="http://www.daemonology.net/freebsd-on-ec2/">FreeBSD</a></li>
+<li><a class="reference external" href="https://fedoraproject.org/wiki/Cloud_images">Fedora</a></li>
+<li><a class="reference external" href="http://wiki.centos.org/Cloud/AWS">CentOS</a></li>
+<li><a class="reference external" href="http://cloud-images.ubuntu.com/locator/ec2/">Ubuntu</a></li>
+<li><a class="reference external" href="http://wiki.debian.org/Cloud/AmazonEC2Image">Debian</a></li>
+<li><a class="reference external" href="https://aws.amazon.com/amis?platform=Gentoo&amp;selection=platform">Gentoo</a></li>
+<li><a class="reference external" href="http://omnios.omniti.com/wiki.php/Installation#IntheCloud">OmniOS</a></li>
+<li><a class="reference external" href="https://aws.amazon.com/amis">All Images on Amazon</a></li>
+</ul>
+</div>
+<div class="section" id="show-image">
+<h2>show_image<a class="headerlink" href="#show-image" title="Permalink to this headline">¶</a></h2>
+<p>This is a function that describes an AMI on EC2. This will give insight as to
+the defaults that will be applied to an instance using a particular AMI.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>salt-cloud -f show_image ec2 <span class="nv">image</span><span class="o">=</span>ami-fd20ad94
+</pre></div>
+</div>
+</div>
+<div class="section" id="show-instance">
+<h2>show_instance<a class="headerlink" href="#show-instance" title="Permalink to this headline">¶</a></h2>
+<p>This action is a thin wrapper around --full-query, which displays details on a
+single instance only. In an environment with several machines, this will save a
+user from having to sort through all instance data, just to examine a single
+instance.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>salt-cloud -a show_instance myinstance
+</pre></div>
+</div>
+</div>
+<div class="section" id="ebs-optimized">
+<h2>ebs_optimized<a class="headerlink" href="#ebs-optimized" title="Permalink to this headline">¶</a></h2>
+<p>This argument enables switching of the EbsOptimized setting which default
+to 'false'. Indicates whether the instance is optimized for EBS I/O. This
+optimization provides dedicated throughput to Amazon EBS and an optimized
+configuration stack to provide optimal Amazon EBS I/O performance. This
+optimization isn't available with all instance types. Additional usage
+charges apply when using an EBS-optimized instance.</p>
+<p>This setting can be added to the profile or map file for an instance.</p>
+<p>If set to True, this setting will enable an instance to be EbsOptimized</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">ebs_optimized</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<p>This can also be set as a cloud provider setting in the EC2 cloud
+configuration:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">ebs_optimized</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="del-root-vol-on-destroy">
+<h2>del_root_vol_on_destroy<a class="headerlink" href="#del-root-vol-on-destroy" title="Permalink to this headline">¶</a></h2>
+<p>This argument overrides the default DeleteOnTermination setting in the AMI for
+the EBS root volumes for an instance. Many AMIs contain 'false' as a default,
+resulting in orphaned volumes in the EC2 account, which may unknowingly be
+charged to the account. This setting can be added to the profile or map file
+for an instance.</p>
+<p>If set, this setting will apply to the root EBS volume</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">del_root_vol_on_destroy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<p>This can also be set as a cloud provider setting in the EC2 cloud
+configuration:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">del_root_vol_on_destroy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="del-all-vols-on-destroy">
+<h2>del_all_vols_on_destroy<a class="headerlink" href="#del-all-vols-on-destroy" title="Permalink to this headline">¶</a></h2>
+<p>This argument overrides the default DeleteOnTermination setting in the AMI for
+the not-root EBS volumes for an instance. Many AMIs contain 'false' as a
+default, resulting in orphaned volumes in the EC2 account, which may
+unknowingly be charged to the account. This setting can be added to the profile
+or map file for an instance.</p>
+<p>If set, this setting will apply to any (non-root) volumes that were created
+by salt-cloud using the 'volumes' setting.</p>
+<p>The volumes will not be deleted under the following conditions
+* If a volume is detached before terminating the instance
+* If a volume is created without this setting and attached to the instance</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">del_all_vols_on_destroy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<p>This can also be set as a cloud provider setting in the EC2 cloud
+configuration:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">del_all_vols_on_destroy</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+<p>The setting for this may be changed on all volumes of an existing instance
+using one of the following commands:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -a delvol_on_destroy myinstance
+salt-cloud -a keepvol_on_destroy myinstance
+salt-cloud -a show_delvol_on_destroy myinstance
+</pre></div>
+</div>
+<p>The setting for this may be changed on a volume on an existing instance
+using one of the following commands:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -a delvol_on_destroy myinstance <span class="nv">device</span><span class="o">=</span>/dev/sda1
+salt-cloud -a delvol_on_destroy myinstance <span class="nv">volume_id</span><span class="o">=</span>vol-1a2b3c4d
+salt-cloud -a keepvol_on_destroy myinstance <span class="nv">device</span><span class="o">=</span>/dev/sda1
+salt-cloud -a keepvol_on_destroy myinstance <span class="nv">volume_id</span><span class="o">=</span>vol-1a2b3c4d
+salt-cloud -a show_delvol_on_destroy myinstance <span class="nv">device</span><span class="o">=</span>/dev/sda1
+salt-cloud -a show_delvol_on_destroy myinstance <span class="nv">volume_id</span><span class="o">=</span>vol-1a2b3c4d
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>EC2 Termination Protection<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>EC2 allows the user to enable and disable termination protection on a specific
+instance. An instance with this protection enabled cannot be destroyed. The EC2
+driver adds a show_term_protect action to the regular EC2 functionality.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -a show_term_protect mymachine
+salt-cloud -a enable_term_protect mymachine
+salt-cloud -a disable_term_protect mymachine
+</pre></div>
+</div>
+</div>
+<div class="section" id="alternate-endpoint">
+<h2>Alternate Endpoint<a class="headerlink" href="#alternate-endpoint" title="Permalink to this headline">¶</a></h2>
+<p>Normally, EC2 endpoints are build using the region and the service_url. The
+resulting endpoint would follow this pattern:</p>
+<div class="highlight-bash"><div class="highlight"><pre>ec2.&lt;region&gt;.&lt;service_url&gt;
+</pre></div>
+</div>
+<p>This results in an endpoint that looks like:</p>
+<div class="highlight-bash"><div class="highlight"><pre>ec2.us-east-1.amazonaws.com
+</pre></div>
+</div>
+<p>There are other projects that support an EC2 compatibility layer, which this
+scheme does not account for. This can be overridden by specifying the endpoint
+directly in the main cloud configuration file:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">endpoint</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">myendpoint.example.com:1138/services/Cloud</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="volume-management">
+<h2>Volume Management<a class="headerlink" href="#volume-management" title="Permalink to this headline">¶</a></h2>
+<p>The EC2 driver has several functions and actions for management of EBS volumes.</p>
+<div class="section" id="creating-volumes">
+<h3>Creating Volumes<a class="headerlink" href="#creating-volumes" title="Permalink to this headline">¶</a></h3>
+<p>A volume may be created, independent of an instance. A zone must be specified.
+A size or a snapshot may be specified (in GiB). If neither is given, a default
+size of 10 GiB will be used. If a snapshot is given, the size of the snapshot
+will be used.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -f create_volume ec2 <span class="nv">zone</span><span class="o">=</span>us-east-1b
+salt-cloud -f create_volume ec2 <span class="nv">zone</span><span class="o">=</span>us-east-1b <span class="nv">size</span><span class="o">=</span>10
+salt-cloud -f create_volume ec2 <span class="nv">zone</span><span class="o">=</span>us-east-1b <span class="nv">snapshot</span><span class="o">=</span>snap12345678
+salt-cloud -f create_volume ec2 <span class="nv">size</span><span class="o">=</span>10 <span class="nb">type</span><span class="o">=</span>standard
+salt-cloud -f create_volume ec2 <span class="nv">size</span><span class="o">=</span>10 <span class="nb">type</span><span class="o">=</span>io1 <span class="nv">iops</span><span class="o">=</span>1000
+</pre></div>
+</div>
+</div>
+<div class="section" id="attaching-volumes">
+<h3>Attaching Volumes<a class="headerlink" href="#attaching-volumes" title="Permalink to this headline">¶</a></h3>
+<p>Unattached volumes may be attached to an instance. The following values are
+required; name or instance_id, volume_id and device.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -a attach_volume myinstance <span class="nv">volume_id</span><span class="o">=</span>vol-12345 <span class="nv">device</span><span class="o">=</span>/dev/sdb1
+</pre></div>
+</div>
+</div>
+<div class="section" id="show-a-volume">
+<h3>Show a Volume<a class="headerlink" href="#show-a-volume" title="Permalink to this headline">¶</a></h3>
+<p>The details about an existing volume may be retrieved.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -a show_volume myinstance <span class="nv">volume_id</span><span class="o">=</span>vol-12345
+salt-cloud -f show_volume ec2 <span class="nv">volume_id</span><span class="o">=</span>vol-12345
+</pre></div>
+</div>
+</div>
+<div class="section" id="detaching-volumes">
+<h3>Detaching Volumes<a class="headerlink" href="#detaching-volumes" title="Permalink to this headline">¶</a></h3>
+<p>An existing volume may be detached from an instance.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -a detach_volume myinstance <span class="nv">volume_id</span><span class="o">=</span>vol-12345
+</pre></div>
+</div>
+</div>
+<div class="section" id="deleting-volumes">
+<h3>Deleting Volumes<a class="headerlink" href="#deleting-volumes" title="Permalink to this headline">¶</a></h3>
+<p>A volume that is not attached to an instance may be deleted.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -f delete_volume ec2 <span class="nv">volume_id</span><span class="o">=</span>vol-12345
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="managing-key-pairs">
+<h2>Managing Key Pairs<a class="headerlink" href="#managing-key-pairs" title="Permalink to this headline">¶</a></h2>
+<p>The EC2 driver has the ability to manage key pairs.</p>
+<div class="section" id="creating-a-key-pair">
+<h3>Creating a Key Pair<a class="headerlink" href="#creating-a-key-pair" title="Permalink to this headline">¶</a></h3>
+<p>A key pair is required in order to create an instance. When creating a key pair
+with this function, the return data will contain a copy of the private key.
+This private key is not stored by Amazon, and will not be obtainable past this
+point, and should be stored immediately.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -f create_keypair ec2 <span class="nv">keyname</span><span class="o">=</span>mykeypair
+</pre></div>
+</div>
+</div>
+<div class="section" id="show-a-key-pair">
+<h3>Show a Key Pair<a class="headerlink" href="#show-a-key-pair" title="Permalink to this headline">¶</a></h3>
+<p>This function will show the details related to a key pair, not including the
+private key itself (which is not stored by Amazon).</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -f show_keypair ec2 <span class="nv">keyname</span><span class="o">=</span>mykeypair
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-a-key-pair">
+<h3>Delete a Key Pair<a class="headerlink" href="#delete-a-key-pair" title="Permalink to this headline">¶</a></h3>
+<p>This function removes the key pair from Amazon.</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -f delete_keypair ec2 <span class="nv">keyname</span><span class="o">=</span>mykeypair
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting Started With AWS EC2</a><ul>
+<li><a class="reference internal" href="#access-credentials">Access Credentials</a></li>
+<li><a class="reference internal" href="#key-pairs">Key Pairs</a></li>
+<li><a class="reference internal" href="#security-groups">Security Groups</a></li>
+<li><a class="reference internal" href="#iam-profile">IAM Profile</a></li>
+<li><a class="reference internal" href="#cloud-profiles">Cloud Profiles</a></li>
+<li><a class="reference internal" href="#required-settings">Required Settings</a></li>
+<li><a class="reference internal" href="#optional-settings">Optional Settings</a></li>
+<li><a class="reference internal" href="#modify-ec2-tags">Modify EC2 Tags</a></li>
+<li><a class="reference internal" href="#rename-ec2-instances">Rename EC2 Instances</a></li>
+<li><a class="reference internal" href="#ec2-termination-protection">EC2 Termination Protection</a></li>
+<li><a class="reference internal" href="#rename-on-destroy">Rename on Destroy</a></li>
+<li><a class="reference internal" href="#listing-images">Listing Images</a></li>
+<li><a class="reference internal" href="#ec2-images">EC2 Images</a></li>
+<li><a class="reference internal" href="#show-image">show_image</a></li>
+<li><a class="reference internal" href="#show-instance">show_instance</a></li>
+<li><a class="reference internal" href="#ebs-optimized">ebs_optimized</a></li>
+<li><a class="reference internal" href="#del-root-vol-on-destroy">del_root_vol_on_destroy</a></li>
+<li><a class="reference internal" href="#del-all-vols-on-destroy">del_all_vols_on_destroy</a></li>
+<li><a class="reference internal" href="#id10">EC2 Termination Protection</a></li>
+<li><a class="reference internal" href="#alternate-endpoint">Alternate Endpoint</a></li>
+<li><a class="reference internal" href="#volume-management">Volume Management</a><ul>
+<li><a class="reference internal" href="#creating-volumes">Creating Volumes</a></li>
+<li><a class="reference internal" href="#attaching-volumes">Attaching Volumes</a></li>
+<li><a class="reference internal" href="#show-a-volume">Show a Volume</a></li>
+<li><a class="reference internal" href="#detaching-volumes">Detaching Volumes</a></li>
+<li><a class="reference internal" href="#deleting-volumes">Deleting Volumes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#managing-key-pairs">Managing Key Pairs</a><ul>
+<li><a class="reference internal" href="#creating-a-key-pair">Creating a Key Pair</a></li>
+<li><a class="reference internal" href="#show-a-key-pair">Show a Key Pair</a></li>
+<li><a class="reference internal" href="#delete-a-key-pair">Delete a Key Pair</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="action.html"
+                        title="previous chapter">Cloud Actions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="azure.html"
+                        title="next chapter">Getting Started With Azure</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="action.html" title="Cloud Actions">previous</a>
+                
+            </li>
+            <li>
+                <a href="azure.html" title="Getting Started With Azure">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

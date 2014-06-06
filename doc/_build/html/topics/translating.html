@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Translating Documentation</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../_static/basic.css">
+    <link rel="stylesheet" href="../_static/pygments.css">
+
+    <link rel="stylesheet" href="../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../_static/underscore.js"></script>
+    
+    
+    <script src="../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../_static/favicon.ico">
+        <link rel="top" title="None" href="../index.html">
+        <link rel="next" title="Community Projects That Use Salt" href="salt_projects.html">
+        <link rel="prev" title="Package Providers" href="development/package_providers.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../index.html"><img src="../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="development/package_providers.html" title="Package Providers">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt_projects.html" title="Community Projects That Use Salt">next</a>
+                
+            </li>
+            <li>
+                <a href="../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="translating-documentation">
+<h1>Translating Documentation<a class="headerlink" href="#translating-documentation" title="Permalink to this headline">¶</a></h1>
+<p>If you wish to help translate the Salt documentation to your language, please
+head over to the <a class="reference external" href="https://www.transifex.com">Transifex</a> website and <a class="reference external" href="https://www.transifex.com/signup/">signup</a> for an account.</p>
+<p>Once registered, head over to the <a class="reference external" href="https://www.transifex.com/projects/p/salt/">Salt Translation Project</a>, and either
+click on <strong>Request Language</strong> if you can't find yours, or, select the language
+for which you wish to contribute and click <strong>Join Team</strong>.</p>
+<p><a class="reference external" href="https://www.transifex.com">Transifex</a> provides some useful reading resources on their <a class="reference external" href="http://support.transifex.com/">support
+domain</a>, namely, some useful articles <a class="reference external" href="http://support.transifex.com/customer/portal/topics/414107-translators/articles">directed to translators</a>.</p>
+<div class="section" id="building-a-localized-version-of-the-documentation">
+<h2>Building A Localized Version of the Documentation<a class="headerlink" href="#building-a-localized-version-of-the-documentation" title="Permalink to this headline">¶</a></h2>
+<p>While you're working on your translation on <a class="reference external" href="https://www.transifex.com">Transifex</a>, you might want to
+have a look at how it's rendering.</p>
+<div class="section" id="install-the-transifex-client">
+<h3>Install The Transifex Client<a class="headerlink" href="#install-the-transifex-client" title="Permalink to this headline">¶</a></h3>
+<p>To interact with the <a class="reference external" href="https://www.transifex.com">Transifex</a> web service you will need to install the
+<a class="reference external" href="https://github.com/transifex/transifex-client">transifex-client</a>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>pip install transifex-client
+</pre></div>
+</div>
+</div>
+<div class="section" id="configure-the-transifex-client">
+<h3>Configure The Transifex Client<a class="headerlink" href="#configure-the-transifex-client" title="Permalink to this headline">¶</a></h3>
+<p>Once installed, you will need to set it up on your computer. We created a
+script to help you with that:</p>
+<div class="highlight-bash"><div class="highlight"><pre>.scripts/setup-transifex-config
+</pre></div>
+</div>
+</div>
+<div class="section" id="download-remote-translations">
+<h3>Download Remote Translations<a class="headerlink" href="#download-remote-translations" title="Permalink to this headline">¶</a></h3>
+<p>There's a little script which simplifies the download process of the
+translations(which isn't that complicated in the first place).
+So, let's assume you're translating <tt class="docutils literal"><span class="pre">pt_PT</span></tt>, Portuguese(Portugal). To
+download the translations, execute from the <tt class="docutils literal"><span class="pre">doc/</span></tt> directory of your Salt
+checkout:</p>
+<div class="highlight-bash"><div class="highlight"><pre>make download-translations <span class="nv">SPHINXLANG</span><span class="o">=</span>pt_PT
+</pre></div>
+</div>
+<p>To download <tt class="docutils literal"><span class="pre">pt_PT</span></tt>, Portuguese(Portugal) and <tt class="docutils literal"><span class="pre">nl</span></tt>, Dutch, you can use the
+helper script directly:</p>
+<div class="highlight-bash"><div class="highlight"><pre>.scripts/download-translation-catalog pt_PT nl
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-localized-documentation">
+<h3>Build Localized Documentation<a class="headerlink" href="#build-localized-documentation" title="Permalink to this headline">¶</a></h3>
+<p>After the download process finishes, which might take a while, the next step is
+to build a localized version of the documentation.
+Following the <tt class="docutils literal"><span class="pre">pt_PT</span></tt> example above:</p>
+<div class="highlight-bash"><div class="highlight"><pre>make html <span class="nv">SPHINXLANG</span><span class="o">=</span>pt_PT
+</pre></div>
+</div>
+</div>
+<div class="section" id="view-localized-documentation">
+<h3>View Localized Documentation<a class="headerlink" href="#view-localized-documentation" title="Permalink to this headline">¶</a></h3>
+<p>Open your browser, point it to the local documentation path and check the
+localized output you've just build.</p>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Translating Documentation</a><ul>
+<li><a class="reference internal" href="#building-a-localized-version-of-the-documentation">Building A Localized Version of the Documentation</a><ul>
+<li><a class="reference internal" href="#install-the-transifex-client">Install The Transifex Client</a></li>
+<li><a class="reference internal" href="#configure-the-transifex-client">Configure The Transifex Client</a></li>
+<li><a class="reference internal" href="#download-remote-translations">Download Remote Translations</a></li>
+<li><a class="reference internal" href="#build-localized-documentation">Build Localized Documentation</a></li>
+<li><a class="reference internal" href="#view-localized-documentation">View Localized Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="development/package_providers.html"
+                        title="previous chapter">Package Providers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt_projects.html"
+                        title="next chapter">Community Projects That Use Salt</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="development/package_providers.html" title="Package Providers">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt_projects.html" title="Community Projects That Use Salt">next</a>
+                
+            </li>
+            <li>
+                <a href="../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

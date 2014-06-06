@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Pillar Walkthrough</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt tutorials" href="index.html">
+        <link rel="next" title="How Do I Use Salt States?" href="starting_states.html">
+        <link rel="prev" title="Remote execution tutorial" href="modules.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="modules.html" title="Remote execution tutorial">previous</a>
+                
+            </li>
+            <li>
+                <a href="starting_states.html" title="How Do I Use Salt States?">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="pillar-walkthrough">
+<h1>Pillar Walkthrough<a class="headerlink" href="#pillar-walkthrough" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This walkthrough assumes that the reader has already completed the initial
+Salt <a class="reference internal" href="walkthrough.html"><em>walkthrough</em></a>.</p>
+</div>
+<p>The pillar interface inside of Salt is one of the most important components
+of a Salt deployment. Pillar is the interface used to generate arbitrary data
+for specific minions. The data generated in pillar is made available to almost
+every component of Salt and is used for a number of purposes:</p>
+<dl class="docutils">
+<dt>Highly Sensitive Data:</dt>
+<dd>Information transferred via pillar is guaranteed to only be presented to
+the minions that are targeted, this makes pillar the engine to use in Salt
+for managing security information, such as cryptographic keys and
+passwords.</dd>
+<dt>Minion Configuration:</dt>
+<dd>Minion modules such as the execution modules, states, and returners can
+often be configured via data stored in pillar.</dd>
+<dt>Variables:</dt>
+<dd>Variables which need to be assigned to specific minions or groups of
+minions can be defined in pillar and then accessed inside sls formulas
+and template files.</dd>
+<dt>Arbitrary Data:</dt>
+<dd>Pillar can contain any basic data structure, so a list of values, or a
+key/value store can be defined making it easy to iterate over a group
+of values in sls formulas</dd>
+</dl>
+<p>Pillar is therefore one of the most important systems when using Salt, this
+walkthrough is designed to get a simple pillar up and running in a few minutes
+and then to dive into the capabilities of pillar and where the data is
+available.</p>
+<div class="section" id="setting-up-pillar">
+<h2>Setting Up Pillar<a class="headerlink" href="#setting-up-pillar" title="Permalink to this headline">¶</a></h2>
+<p>The pillar is already running in Salt by default. The data in the minion's
+pillars can be seen via the following command:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pillar.items
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Prior to version 0.16.2, this function is named <tt class="docutils literal"><span class="pre">pillar.data</span></tt>. This
+function name is still supported for backwards compatibility.</p>
+</div>
+<p>By default the contents of the master configuration file are loaded into
+pillar for all minions, this is to enable the master configuration file to
+be used for global configuration of minions.</p>
+<p>The pillar is built in a similar fashion as the state tree, it is comprised
+of sls files and has a top file, just like the state tree. The pillar is stored
+in a different location on the Salt master than the state tree. The default
+location for the pillar is in /srv/pillar.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The pillar location can be configured via the <cite>pillar_roots</cite> option inside
+the master configuration file.</p>
+</div>
+<p>To start setting up the pillar, the /srv/pillar directory needs to be present:</p>
+<div class="highlight-bash"><div class="highlight"><pre>mkdir /srv/pillar
+</pre></div>
+</div>
+<p>Now a simple top file, following the same format as the top file used for
+states needs to be created:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/pillar/top.sls</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+  <span class="s">&#39;*&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">data</span>
+</pre></div>
+</div>
+<p>This top file associates the data.sls file to all minions. Now the
+<tt class="docutils literal"><span class="pre">/srv/pillar/data.sls</span></tt> file needs to be populated:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/pillar/data.sls</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">info</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">some data</span>
+</pre></div>
+</div>
+<p>Now that the file has been saved the minions' pillars will be updated:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pillar.items
+</pre></div>
+</div>
+<p>The key <tt class="docutils literal"><span class="pre">info</span></tt> should now appear in the returned pillar data.</p>
+<div class="section" id="more-complex-data">
+<h3>More Complex Data<a class="headerlink" href="#more-complex-data" title="Permalink to this headline">¶</a></h3>
+<p>Pillar files are sls files, just like states, but unlike states they do not
+need to define <strong>formulas</strong>, the data can be arbitrary, this example for
+instance sets up user data with a UID:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/pillar/users/init.sls</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">users</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">thatch</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1000</span>
+  <span class="l-Scalar-Plain">shouse</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1001</span>
+  <span class="l-Scalar-Plain">utahdave</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1002</span>
+  <span class="l-Scalar-Plain">redbeard</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1003</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The same directory lookups that exist in states exist in pillar, so the
+file <tt class="docutils literal"><span class="pre">users/init.sls</span></tt> can be referenced with <tt class="docutils literal"><span class="pre">users</span></tt> in the <a class="reference internal" href="../../ref/states/highstate.html#term-top-file"><em class="xref std std-term">top
+file</em></a>.</p>
+</div>
+<p>The top file will need to be updated to include this sls file:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/pillar/top.sls</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+  <span class="s">&#39;*&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">data</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">users</span>
+</pre></div>
+</div>
+<p>Now the data will be available to the minions. To use the pillar data in a
+state just access the pillar via Jinja:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/users/init.sls</span></tt></p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span><span class="o">,</span> <span class="nv">uid</span> <span class="k">in</span> <span class="nv">pillar.get</span><span class="o">(</span><span class="s1">&#39;users&#39;</span><span class="o">,</span> <span class="o">{})</span><span class="nv">.items</span><span class="o">()</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{{</span><span class="nv">user</span><span class="cp">}}</span><span class="x">:</span>
+<span class="x">  user.present:</span>
+<span class="x">    - uid: </span><span class="cp">{{</span><span class="nv">uid</span><span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>This approach allows for users to be safely defined in a pillar and then the
+user data is applied in an sls file.</p>
+</div>
+</div>
+<div class="section" id="paramaterizing-states-with-pillar">
+<h2>Paramaterizing States With Pillar<a class="headerlink" href="#paramaterizing-states-with-pillar" title="Permalink to this headline">¶</a></h2>
+<p>One of the most powerful abstractions in pillar is the ability to parameterize
+states. Instead of defining macros or functions within the state context the
+entire state tree can be freely parameterized relative to the minion's pillar.</p>
+<p>This approach allows for Salt to be very flexible while staying very
+straightforward. It also means that simple sls formulas used in the state tree
+can be directly parameterized without needing to refactor the state tree.</p>
+<p>A simple example is to set up a mapping of package names in pillar for
+separate Linux distributions:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/pillar/pkg/init.sls</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">pkgs:</span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">grains</span><span class="o">[</span><span class="s1">&#39;os_family&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;RedHat&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">  apache: httpd</span>
+<span class="x">  vim: vim-enhanced</span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">elif</span> <span class="nv">grains</span><span class="o">[</span><span class="s1">&#39;os_family&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;Debian&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">  apache: apache2</span>
+<span class="x">  vim: vim</span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">elif</span> <span class="nv">grains</span><span class="o">[</span><span class="s1">&#39;os&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;Arch&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">  apache: apache</span>
+<span class="x">  vim: vim</span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>The new <tt class="docutils literal"><span class="pre">pkg</span></tt> sls needs to be added to the top file:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/pillar/top.sls</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+  <span class="s">&#39;*&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">data</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">users</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span>
+</pre></div>
+</div>
+<p>Now the minions will auto map values based on respective operating systems
+inside of the pillar, so sls files can be safely parameterized:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/apache/init.sls</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">apache:</span>
+<span class="x">  pkg.installed:</span>
+<span class="x">    - name: </span><span class="cp">{{</span> <span class="nv">pillar</span><span class="o">[</span><span class="s1">&#39;pkgs&#39;</span><span class="o">][</span><span class="s1">&#39;apache&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Or, if no pillar is available a default can be set as well:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The function <tt class="docutils literal"><span class="pre">pillar.get</span></tt> used in this example was added to Salt in
+version 0.14.0</p>
+</div>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/apache/init.sls</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">apache:</span>
+<span class="x">  pkg.installed:</span>
+<span class="x">    - name: </span><span class="cp">{{</span> <span class="nv">salt</span><span class="o">[</span><span class="s1">&#39;pillar.get&#39;</span><span class="o">](</span><span class="s1">&#39;pkgs:apache&#39;</span><span class="o">,</span> <span class="s1">&#39;httpd&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>In the above example, if the pillar value <tt class="docutils literal"><span class="pre">pillar['pkgs']['apache']</span></tt> is not
+set in the minion's pillar, then the default of <tt class="docutils literal"><span class="pre">httpd</span></tt> will be used.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Under the hood, pillar is just a python dict, so python dict methods such
+as <cite>get</cite> and <cite>items</cite> can be used.</p>
+</div>
+</div>
+<div class="section" id="pillar-makes-simple-states-grow-easily">
+<h2>Pillar Makes Simple States Grow Easily<a class="headerlink" href="#pillar-makes-simple-states-grow-easily" title="Permalink to this headline">¶</a></h2>
+<p>One of the design goals of pillar is to make simple sls formulas easily grow
+into more flexible formulas without refactoring or complicating the states.</p>
+<p>A simple formula:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/edit/vim.sls</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">vim</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+
+<span class="l-Scalar-Plain">/etc/vimrc</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://edit/vimrc</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">644</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vim</span>
+</pre></div>
+</div>
+<p>Can be easily transformed into a powerful, parameterized formula:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/salt/edit/vim.sls</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">vim:</span>
+<span class="x">  pkg:</span>
+<span class="x">    - installed</span>
+<span class="x">    - name: </span><span class="cp">{{</span> <span class="nv">pillar</span><span class="o">[</span><span class="s1">&#39;pkgs&#39;</span><span class="o">][</span><span class="s1">&#39;vim&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="x">/etc/vimrc:</span>
+<span class="x">  file.managed:</span>
+<span class="x">    - source: </span><span class="cp">{{</span> <span class="nv">pillar</span><span class="o">[</span><span class="s1">&#39;vimrc&#39;</span><span class="o">]</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    - mode: 644</span>
+<span class="x">    - user: root</span>
+<span class="x">    - group: root</span>
+<span class="x">    - require:</span>
+<span class="x">      - pkg: vim</span>
+</pre></div>
+</div>
+<p>Where the vimrc source location can now be changed via pillar:</p>
+<p><tt class="docutils literal"><span class="pre">/srv/pillar/edit/vim.sls</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">grains</span><span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="o">]</span><span class="nv">.startswith</span><span class="o">(</span><span class="s1">&#39;dev&#39;</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">vimrc: salt://edit/dev_vimrc</span>
+<span class="cp">{%</span> <span class="k">elif</span> <span class="nv">grains</span><span class="o">[</span><span class="s1">&#39;id&#39;</span><span class="o">]</span><span class="nv">.startswith</span><span class="o">(</span><span class="s1">&#39;qa&#39;</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">vimrc: salt://edit/qa_vimrc</span>
+<span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">vimrc: salt://edit/vimrc</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Ensuring that the right vimrc is sent out to the correct minions.</p>
+</div>
+<div class="section" id="more-on-pillar">
+<h2>More On Pillar<a class="headerlink" href="#more-on-pillar" title="Permalink to this headline">¶</a></h2>
+<p>The pillar data is generated on the Salt master and securely distributed to
+minions. Salt is not restricted to the pillar sls files when defining the
+pillar but can retrieve data from external sources. This can be useful when
+information about an infrastructure is stored in a separate location.</p>
+<p>Reference information on pillar and the external pillar interface can be found
+in the Salt documentation:</p>
+<p><a class="reference internal" href="../pillar/index.html"><em>Pillar</em></a></p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Pillar Walkthrough</a><ul>
+<li><a class="reference internal" href="#setting-up-pillar">Setting Up Pillar</a><ul>
+<li><a class="reference internal" href="#more-complex-data">More Complex Data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#paramaterizing-states-with-pillar">Paramaterizing States With Pillar</a></li>
+<li><a class="reference internal" href="#pillar-makes-simple-states-grow-easily">Pillar Makes Simple States Grow Easily</a></li>
+<li><a class="reference internal" href="#more-on-pillar">More On Pillar</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">Remote execution tutorial</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="starting_states.html"
+                        title="next chapter">How Do I Use Salt States?</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="modules.html" title="Remote execution tutorial">previous</a>
+                
+            </li>
+            <li>
+                <a href="starting_states.html" title="How Do I Use Salt States?">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>
