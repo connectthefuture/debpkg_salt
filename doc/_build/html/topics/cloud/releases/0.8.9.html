@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt Cloud 0.8.9 Release Notes</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-cloud-0-8-9-release-notes">
+<h1>Salt Cloud 0.8.9 Release Notes<a class="headerlink" href="#salt-cloud-0-8-9-release-notes" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to 0.8.9! It has been a long time since the last release, and we're
+excited to get this one out the door!</p>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>The documentation for Salt Cloud can be found on Read the Docs:
+<a class="reference external" href="http://salt-cloud.readthedocs.org">http://salt-cloud.readthedocs.org</a></p>
+</div>
+<div class="section" id="download">
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<p>Salt Cloud can be downloaded and install via pypi:</p>
+<p><a class="reference external" href="http://pypi.python.org/packages/source/s/salt-cloud/salt-cloud-0.8.9.tar.gz">http://pypi.python.org/packages/source/s/salt-cloud/salt-cloud-0.8.9.tar.gz</a></p>
+<p>Some packages have been made available for salt-cloud and more on on their
+way. Packages for Arch and FreeBSD are being made available thanks to the
+work of Christer Edwards, and packages for RHEL and Fedora are being created
+by Clint Savage. The Ubuntu PPA is being managed by Sean Channel. Package
+availability will be announced on the salt mailing list.</p>
+</div>
+<div class="section" id="new-cloudstack-driver">
+<h2>New Cloudstack Driver<a class="headerlink" href="#new-cloudstack-driver" title="Permalink to this headline">¶</a></h2>
+<p>One of the more impressive stories this release involves the Cloud Stack driver,
+written by Sebastien Goasguen. After meeting Thomas Hatch at the LinuxTag
+conference, Sebastien went out and wrote a Cloud Stack driver for Salt Cloud, in
+less time than it took to compile these release notes. His story is here:</p>
+<p><a class="reference external" href="http://sebgoa.blogspot.com/2013/05/the-linuxtag-hack.html">http://sebgoa.blogspot.com/2013/05/the-linuxtag-hack.html</a></p>
+<p>Several people have been asking for this driver, and we are very grateful to
+Sebastien for adding it for us!</p>
+</div>
+<div class="section" id="updated-joyent-support">
+<h2>Updated Joyent Support<a class="headerlink" href="#updated-joyent-support" title="Permalink to this headline">¶</a></h2>
+<p>Joyent has updated their API, and Salt Cloud has included the updates in this
+version. Bob Szabo did the bulk of this work, and we would like to extend a
+special thanks to him for his efforts. The Joyent driver has also been
+optimized to access the API directly, resulting in faster operations, and
+opening up more of Joyent's native API for future use. Some of the features
+that have already been added as a result of this pertain to SSH key management,
+directly from Salt Cloud. The following functions have been added:</p>
+<ul class="simple">
+<li>list_keys</li>
+<li>show_key</li>
+<li>import_key</li>
+<li>delete_key</li>
+</ul>
+</div>
+<div class="section" id="mapping-independent-hierarchies">
+<h2>Mapping Independent Hierarchies<a class="headerlink" href="#mapping-independent-hierarchies" title="Permalink to this headline">¶</a></h2>
+<p>Salt Cloud 0.8.5 introduced the ability to spin up an instance and install
+the salt-master package on it. This functionality has been extended, so that
+a map file may now spin up a new master, and its minions, and pre-seed the
+master with the minion keys so that they are immediately accepted by the time
+the new salt-master starts up, and each minion is started up. A map file that
+can accomplish this might look like:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">Ubuntu-12.04-64bit</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">TT_Master</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">minion</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">retry_dns</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+    <span class="l-Scalar-Plain">make_master</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+  <span class="l-Scalar-Plain">TT2</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">minion</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">retry_dns</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+  <span class="l-Scalar-Plain">TT3</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">minion</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">retry_dns</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+</pre></div>
+</div>
+<p>This functionality was added by Pedro Algarvio, to spin up hierarchies for
+testing purposes, and then remove them when finished. This can be instrumental
+to organizations wishing to extend their testing and build environments. We
+would like to thank him for this, and the many other contributions that he has
+added to this and other releases!</p>
+</div>
+<div class="section" id="parallel-creation-and-logging">
+<h2>Parallel Creation and Logging<a class="headerlink" href="#parallel-creation-and-logging" title="Permalink to this headline">¶</a></h2>
+<p>There have been reports of issues in the past pertaining to screen issues when
+running salt-cloud in parallel mode (-P). This mode has been greatly stabilized
+in this release. Additionally, parallel logging capabilities have been added,
+allowing users to store parallel execution logs. Finally, keyboard interrupts
+(such as ^C) are now properly handled.</p>
+</div>
+<div class="section" id="internal-data-structure">
+<h2>Internal Data Structure<a class="headerlink" href="#internal-data-structure" title="Permalink to this headline">¶</a></h2>
+<p>On 0.8.7 we unleashed the power of multiple cloud provider profiles, it even
+allows multiple profiles for the same cloud provider.  That was a much asked
+feature and was adopted by users right away.  Unfortunately, all that power had
+a small point of failure when multiple profiles existed for the same cloud
+provider. Only the first was used in most operations.
+To fix this small issue, salt-cloud's internal data structure changed quite a
+bit. Every action, function, virtual machine creation, etc, is now, <strong>always</strong>
+&quot;attached&quot; to a provider alias and the(one of the) cloud drivers defined.
+Internally, when loading the configuration, all the defined profiles are
+matched to the available providers. If the provider does not exits, the profile
+gets removed. The same happens for the defined providers, they all know which
+profiles they can manage. This closes that small point of failure.</p>
+</div>
+<div class="section" id="data-presentation">
+<h2>Data Presentation<a class="headerlink" href="#data-presentation" title="Permalink to this headline">¶</a></h2>
+<p>With the internal data structure change also came a data presentation change.
+Most, unless not applicable, output is now done in an <tt class="docutils literal"><span class="pre">&lt;provider-alias&gt;</span></tt>
+→ <tt class="docutils literal"><span class="pre">&lt;provider-driver&gt;</span></tt> → <tt class="docutils literal"><span class="pre">&lt;detailed-output&gt;</span></tt>. An example is
+always better. For an <tt class="docutils literal"><span class="pre">ec2-config</span></tt> provider alias with an <tt class="docutils literal"><span class="pre">ec2</span></tt> driver
+configured:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-cloud -f show_image ec2-config <span class="nv">image</span><span class="o">=</span>ami-35eb835c
+</pre></div>
+</div>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">ec2-config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">----------</span>
+    <span class="l-Scalar-Plain">ec2</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">----------</span>
+        <span class="l-Scalar-Plain">- architecture</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">x86_64</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">blockDeviceMapping</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">----------</span>
+            <span class="l-Scalar-Plain">item</span><span class="p-Indicator">:</span>
+                <span class="l-Scalar-Plain">----------</span>
+                <span class="l-Scalar-Plain">deviceName</span><span class="p-Indicator">:</span>
+                    <span class="l-Scalar-Plain">/dev/sda</span>
+                <span class="l-Scalar-Plain">ebs</span><span class="p-Indicator">:</span>
+                    <span class="l-Scalar-Plain">----------</span>
+                    <span class="l-Scalar-Plain">deleteOnTermination</span><span class="p-Indicator">:</span>
+                        <span class="l-Scalar-Plain">true</span>
+                    <span class="l-Scalar-Plain">snapshotId</span><span class="p-Indicator">:</span>
+                        <span class="l-Scalar-Plain">snap-59724004</span>
+                    <span class="l-Scalar-Plain">volumeSize</span><span class="p-Indicator">:</span>
+                        <span class="l-Scalar-Plain">8</span>
+                    <span class="l-Scalar-Plain">volumeType</span><span class="p-Indicator">:</span>
+                        <span class="l-Scalar-Plain">standard</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">OmniOS r151006 Base (Stable)</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hypervisor</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">xen</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">imageId</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">ami-35eb835c</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">imageLocation</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">182711560792/OmniOS r151006c</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">imageOwnerId</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">182711560792</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">imageState</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">available</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">imageType</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">machine</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">isPublic</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">true</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">kernelId</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">aki-b4aa75dd</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">OmniOS r151006c</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">rootDeviceName</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">/dev/sda</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">rootDeviceType</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">ebs</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">virtualizationType</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">paravirtual</span>
+</pre></div>
+</div>
+<p>We're now always aware of what was done using what.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt Cloud 0.8.9 Release Notes</a><ul>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#download">Download</a></li>
+<li><a class="reference internal" href="#new-cloudstack-driver">New Cloudstack Driver</a></li>
+<li><a class="reference internal" href="#updated-joyent-support">Updated Joyent Support</a></li>
+<li><a class="reference internal" href="#mapping-independent-hierarchies">Mapping Independent Hierarchies</a></li>
+<li><a class="reference internal" href="#parallel-creation-and-logging">Parallel Creation and Logging</a></li>
+<li><a class="reference internal" href="#internal-data-structure">Internal Data Structure</a></li>
+<li><a class="reference internal" href="#data-presentation">Data Presentation</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Reactor System</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="Salt Formulas" href="../conventions/formulas.html">
+        <link rel="prev" title="Writing Unit Tests" href="../tests/unit.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../tests/unit.html" title="Writing Unit Tests">previous</a>
+                
+            </li>
+            <li>
+                <a href="../conventions/formulas.html" title="Salt Formulas">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="reactor-system">
+<h1>Reactor System<a class="headerlink" href="#reactor-system" title="Permalink to this headline">¶</a></h1>
+<p>Salt version 0.11.0 introduced the reactor system. The premise behind the
+reactor system is that with Salt's events and the ability to execute commands,
+a logic engine could be put in place to allow events to trigger actions, or
+more accurately, reactions.</p>
+<p>This system binds sls files to event tags on the master. These sls files then
+define reactions. This means that the reactor system has two parts. First, the
+reactor option needs to be set in the master configuration file.  The reactor
+option allows for event tags to be associated with sls reaction files. Second,
+these reaction files use highdata (like the state system) to define reactions
+to be executed.</p>
+<div class="section" id="event-system">
+<h2>Event System<a class="headerlink" href="#event-system" title="Permalink to this headline">¶</a></h2>
+<p>A basic understanding of the event system is required to understand reactors.
+The event system is a local ZeroMQ PUB interface which fires salt events. This
+event bus is an open system used for sending information notifying Salt and
+other systems about operations.</p>
+<p>The event system fires events with a very specific criteria. Every event has a
+<strong>tag</strong>. Event tags allow for fast top level filtering of events. In
+addition to the tag, each event has a data structure. This data structure is a
+dict, which contains information about the event.</p>
+</div>
+<div class="section" id="mapping-events-to-reactor-sls-files">
+<h2>Mapping Events to Reactor SLS Files<a class="headerlink" href="#mapping-events-to-reactor-sls-files" title="Permalink to this headline">¶</a></h2>
+<p>Reactor SLS files and event tags are associated in the master config file.
+By default this is /etc/salt/master, or /etc/salt/master.d/reactor.conf.</p>
+<p>In the master config section 'reactor:' is a list of event tags to be matched
+and each event tag has a list of reactor SLS files to be run.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">reactor</span><span class="p-Indicator">:</span>                           <span class="c1"># Master config section &quot;reactor&quot;</span>
+
+  <span class="p-Indicator">-</span> <span class="s">&#39;salt/minion/*/start&#39;</span><span class="p-Indicator">:</span>                <span class="c1"># Match tag &quot;salt/minion/*/start&quot;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/reactor/start.sls</span>       <span class="c1"># Things to do when a minion starts</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/reactor/monitor.sls</span>     <span class="c1"># Other things to do</span>
+
+  <span class="p-Indicator">-</span> <span class="s">&#39;salt/cloud/*/destroyed&#39;</span><span class="p-Indicator">:</span>     <span class="c1"># Globs can be used to matching tags</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/reactor/decommision.sls</span> <span class="c1"># Things to do when a server is removed</span>
+</pre></div>
+</div>
+<p>Reactor sls files are similar to state and pillar sls files.  They are
+by default yaml + Jinja templates and are passed familar context variables.</p>
+<p>They differ because of the addtion of the <tt class="docutils literal"><span class="pre">tag</span></tt> and <tt class="docutils literal"><span class="pre">data</span></tt> variables.</p>
+<ul class="simple">
+<li>The <tt class="docutils literal"><span class="pre">tag</span></tt> variable is just the tag in the fired event.</li>
+<li>The <tt class="docutils literal"><span class="pre">data</span></tt> variable is the event's data dict.</li>
+</ul>
+<p>Here is a simple reactor sls:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{% if data[&#39;id&#39;] == &#39;mysql1&#39; %}
+highstate_run:
+  cmd.state.highstate:
+    - tgt: mysql1
+{% endif %}
+</pre></div>
+</div>
+<p>This simple reactor file uses Jinja to further refine the reaction to be made.
+If the <tt class="docutils literal"><span class="pre">id</span></tt> in the event data is <tt class="docutils literal"><span class="pre">mysql1</span></tt> (in other words, if the name of
+the minion is <tt class="docutils literal"><span class="pre">mysql1</span></tt>) then the following reaction is defined.  The same
+data structure and compiler used for the state system is used for the reactor
+system. The only difference is that the data is matched up to the salt command
+API and the runner system.  In this example, a command is published to the
+<tt class="docutils literal"><span class="pre">mysql1</span></tt> minion with a function of <tt class="docutils literal"><span class="pre">state.highstate</span></tt>. Similarly, a runner
+can be called:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{% if data[&#39;data&#39;][&#39;overstate&#39;] == &#39;refresh&#39; %}
+overstate_run:
+  runner.state.over
+{% endif %}
+</pre></div>
+</div>
+<p>This example will execute the state.overstate runner and initiate an overstate
+execution.</p>
+</div>
+<div class="section" id="fire-an-event">
+<h2>Fire an event<a class="headerlink" href="#fire-an-event" title="Permalink to this headline">¶</a></h2>
+<p>To fire an event from a minion call <tt class="docutils literal"><span class="pre">event.fire_master</span></tt></p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-call event.fire_master <span class="s1">&#39;{&quot;overstate&quot;: &quot;refresh&quot;}&#39;</span> <span class="s1">&#39;foo&#39;</span>
+</pre></div>
+</div>
+<p>After this is called, any reactor sls files matching event tag <tt class="docutils literal"><span class="pre">foo</span></tt> will
+execute with <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">data['data']['overstate']</span> <span class="pre">}}</span></tt> equal to <tt class="docutils literal"><span class="pre">'refresh'</span></tt>.</p>
+<p>See <a class="reference internal" href="../../ref/modules/all/salt.modules.event.html#module-salt.modules.event" title="salt.modules.event"><tt class="xref py py-mod docutils literal"><span class="pre">salt.modules.event</span></tt></a> for more information.</p>
+</div>
+<div class="section" id="knowing-what-event-is-being-fired">
+<h2>Knowing what event is being fired<a class="headerlink" href="#knowing-what-event-is-being-fired" title="Permalink to this headline">¶</a></h2>
+<p>Knowing exactly which event is being fired and what data is has for use in the
+sls files can be challenging. The easiest way to see exactly what's going on is
+to use the <strong>eventlisten.py</strong> script. This script is not part of packages
+but is part of the source.</p>
+<p>If the master process is using the default socket, no additional options will be
+required. Otherwise, you will need to specify the socket location.</p>
+<p>Example usage:</p>
+<div class="highlight-bash"><div class="highlight"><pre>wget https://raw.github.com/saltstack/salt/develop/tests/eventlisten.py
+python eventlisten.py
+
+<span class="c"># OR</span>
+python eventlisten.py --sock-dir /path/to/var/run/salt
+</pre></div>
+</div>
+<p>Example output:</p>
+<div class="highlight-text"><div class="highlight"><pre>Event fired at Fri Dec 20 10:43:00 2013
+*************************
+Tag: salt/auth
+Data:
+{&#39;_stamp&#39;: &#39;2013-12-20_10:47:54.584699&#39;,
+ &#39;act&#39;: &#39;accept&#39;,
+ &#39;id&#39;: &#39;fuzzer.domain.tld&#39;,
+ &#39;pub&#39;: &#39;-----BEGIN PUBLIC KEY-----\nMIICIDANBgk+TRIMMED+EMZ8CAQE=\n-----END PUBLIC KEY-----\n&#39;,
+ &#39;result&#39;: True}
+
+Event fired at Fri Dec 20 10:43:01 2013
+*************************
+Tag: salt/minion/fuzzer.domain.tld/start
+Data:
+{&#39;_stamp&#39;: &#39;2013-12-20_10:43:01.638387&#39;,
+ &#39;cmd&#39;: &#39;_minion_event&#39;,
+ &#39;data&#39;: &#39;Minion fuzzer.domain.tld started at Fri Dec 20 10:43:01 2013&#39;,
+ &#39;id&#39;: &#39;fuzzer.domain.tld&#39;,
+ &#39;pretag&#39;: None,
+ &#39;tag&#39;: &#39;salt/minion/fuzzer.domain.tld/start&#39;}
+</pre></div>
+</div>
+</div>
+<div class="section" id="understanding-the-structure-of-reactor-formulas">
+<h2>Understanding the Structure of Reactor Formulas<a class="headerlink" href="#understanding-the-structure-of-reactor-formulas" title="Permalink to this headline">¶</a></h2>
+<p>While the reactor system uses the same data structure as the state system, this
+data does not translate the same way to operations. In state files formula
+information is mapped to the state functions, but in the reactor system
+information is mapped to a number of available subsystems on the master. These
+systems are the <strong>LocalClient</strong> and the <strong>Runners</strong>. The
+<strong>state declaration</strong> field takes a reference to the function to call in
+each interface. So to trigger a salt-run call the <strong>state declaration</strong>
+field will start with <strong>runner</strong>, followed by the runner function to
+call. This means that a call to what would be on the command line
+<strong>salt-run manage.up</strong> will be <strong>runner.manage.up</strong>. An example of
+this in a reactor formula would look like this:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">manage_up</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">runner.manage.up</span>
+</pre></div>
+</div>
+<p>If the runner takes arguments then they can be specified as well:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">overstate_dev_env</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">runner.state.over</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dev</span>
+</pre></div>
+</div>
+<p>Executing remote commands maps to the <strong>LocalClient</strong> interface which is
+used by the <strong>salt</strong> command. This interface more specifically maps to
+the <strong>cmd_async</strong> method inside of the <strong>LocalClient</strong> class. This
+means that the arguments passed are being passed to the <strong>cmd_async</strong>
+method, not the remote method. A field starts with <strong>cmd</strong> to use the
+<strong>LocalClient</strong> subsystem. The result is, to execute a remote command,
+a reactor fomular would look like this:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">clean_tmp</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd.cmd.run</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tgt</span><span class="p-Indicator">:</span> <span class="s">&#39;*&#39;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">arg</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">rm -rf /tmp/*</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">arg</span></tt> option takes a list of arguments as they would be presented on the
+command line, so the above declaration is the same as running this salt
+command:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cmd.run <span class="s1">&#39;rm -rf /tmp/*&#39;</span>
+</pre></div>
+</div>
+<p>Use the <tt class="docutils literal"><span class="pre">expr_form</span></tt> argument to specify a matcher:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">clean_tmp</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd.cmd.run</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tgt</span><span class="p-Indicator">:</span> <span class="s">&#39;os:Ubuntu&#39;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">expr_form</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">grain</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">arg</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">rm -rf /tmp/*</span>
+
+
+<span class="l-Scalar-Plain">clean_tmp</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd.cmd.run</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tgt</span><span class="p-Indicator">:</span> <span class="s">&#39;G@roles:hbase_master&#39;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">expr_form</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">compound</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">arg</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">rm -rf /tmp/*</span>
+</pre></div>
+</div>
+<p>An interesting trick to pass data from the Reactor script to
+<tt class="docutils literal"><span class="pre">state.highstate</span></tt> or <tt class="docutils literal"><span class="pre">state.sls</span></tt> is to pass it as inline Pillar data since
+both functions take a keyword argument named <tt class="docutils literal"><span class="pre">pillar</span></tt>.</p>
+<p>The following example uses Salt's Reactor to listen for the event that is fired
+when the key for a new minion is accepted on the master using <tt class="docutils literal"><span class="pre">salt-key</span></tt>.</p>
+<p><tt class="file docutils literal"><span class="pre">/etc/salt/master.d/reactor.conf</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">reactor</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="s">&#39;salt/key&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/salt/haproxy/react_new_minion.sls</span>
+</pre></div>
+</div>
+<p>The Reactor then fires a <tt class="docutils literal"><span class="pre">state.sls</span></tt> command targeted to the HAProxy servers
+and passes the ID of the new minion from the event to the state file via inline
+Pillar.</p>
+<p>Note, the Pillar data will need to be passed as a string since that is how it
+is passed at the CLI. That string will be parsed as YAML on the minion (same as
+how it works at the CLI).</p>
+<p><tt class="file docutils literal"><span class="pre">/srv/salt/haproxy/react_new_minion.sls</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{% if data[&#39;act&#39;] == &#39;accept&#39; and data[&#39;id&#39;].startswith(&#39;web&#39;) %}
+add_new_minion_to_pool:
+  cmd.state.sls:
+    - tgt: &#39;haproxy*&#39;
+    - arg:
+      - haproxy.refresh_pool
+      - &#39;pillar={new_minion: {{ data[&#39;id&#39;] }}}&#39;
+{% endif %}
+</pre></div>
+</div>
+<p>The above command is equivalent to the following command at the CLI:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;haproxy*&#39;</span> state.sls haproxy.refresh_pool <span class="s1">&#39;pillar={new_minion: minionid}&#39;</span>
+</pre></div>
+</div>
+<p>Finally, that data is available in the state file using the normal Pillar
+lookup syntax. The following example is grabbing web server names and IP
+addresses from <a class="reference internal" href="../mine/index.html#salt-mine"><em>Salt Mine</em></a>. If this state is invoked from the
+Reactor then the custom Pillar value from above will be available and the new
+minion will be added to the pool but with the <tt class="docutils literal"><span class="pre">disabled</span></tt> flag so that HAProxy
+won't yet direct traffic to it.</p>
+<p><tt class="file docutils literal"><span class="pre">/srv/salt/haproxy/refresh_pool.sls</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{% set new_minion = salt[&#39;pillar.get&#39;](&#39;new_minion&#39;) %}
+
+listen web *:80
+    balance source
+    {% for server,ip in salt[&#39;mine.get&#39;](&#39;web*&#39;, &#39;network.interfaces&#39;, [&#39;eth0&#39;]).items() %}
+    {% if server == new_minion %}
+    server {{ server }} {{ ip }}:80 disabled
+    {% else %}
+    server {{ server }} {{ ip }}:80 check
+    {% endif %}
+    {% endfor %}
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-complete-example">
+<h2>A complete example<a class="headerlink" href="#a-complete-example" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we're going to assume that we have a group of servers that
+will come online at random and need to have keys automatically accepted. We'll
+also add that we don't want all servers being automatically accepted. For this
+example, we'll assume that all hosts that have an id that starts with 'ink'
+will be automatically accepted and have state.highstate executed. On top of
+thise, we're going to add that a host coming up that was replaced (meaning a new
+key) will also be accepted.</p>
+<p>Our master configuration will be rather simple. All minions that attempte to
+authenticate will match the <strong>tag</strong> of <strong>salt/auth</strong>. When it comes
+to the minion key being accepted, we get a more refined <strong>tag</strong> that
+includes the minion id, which we can use for matching.</p>
+<p><tt class="file docutils literal"><span class="pre">/etc/salt/master.d/reactor.conf</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">reactor</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="s">&#39;salt/auth&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/reactor/auth-pending.sls</span>
+  <span class="p-Indicator">-</span> <span class="s">&#39;salt/minion/ink*/start&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/srv/reactor/auth-complete.sls</span>
+</pre></div>
+</div>
+<p>In this sls file, we say that if the key was rejected we will delete the key on
+the master and then also tell the master to ssh in to the minion and tell it to
+restart the minion, since a minion process will die if the key is rejected.</p>
+<p>We also say that if the key is pending and the id starts with ink we will accept
+the key. A minion that is waiting on a pending key will retry authentication
+authentication every ten second by default.</p>
+<p><tt class="file docutils literal"><span class="pre">/srv/reactor/auth-pending.sls</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{# Ink server faild to authenticate -- remove accepted key #}
+{% if not data[&#39;result&#39;] and data[&#39;id&#39;].startswith(&#39;ink&#39;) %}
+minion_remove:
+  wheel.key.delete:
+    - match: {{ data[&#39;id&#39;] }}
+minion_rejoin:
+  cmd.cmd.run:
+    - tgt: salt-master.domain.tld
+    - arg:
+      - ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no &quot;{{ data[&#39;id&#39;] }}&quot; &#39;sleep 10 &amp;&amp; /etc/init.d/salt-minion restart&#39;
+{% endif %}
+
+{# Ink server is sending new key -- accept this key #}
+{% if &#39;act&#39; in data and data[&#39;act&#39;] == &#39;pend&#39; and data[&#39;id&#39;].startswith(&#39;ink&#39;) %}
+minion_add:
+  wheel.key.accept:
+    - match: {{ data[&#39;id&#39;] }}
+{% endif %}
+</pre></div>
+</div>
+<p>No if statements are needed here because we already limited this action to just
+Ink servers in the master configuration.</p>
+<p><tt class="file docutils literal"><span class="pre">/srv/reactor/auth-complete.sls</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">{</span><span class="c1"># When an Ink server connects, run state.highstate. #}</span>
+<span class="nv">highstate_run</span><span class="p-Indicator">:</span>
+  <span class="nv">cmd.state.highstate</span><span class="p-Indicator">:</span>
+    <span class="nv">- tgt</span><span class="p-Indicator">:</span> <span class="p-Indicator">{{</span> <span class="nv">data</span><span class="p-Indicator">[</span><span class="s">&#39;id&#39;</span><span class="p-Indicator">]</span> <span class="p-Indicator">}}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Reactor System</a><ul>
+<li><a class="reference internal" href="#event-system">Event System</a></li>
+<li><a class="reference internal" href="#mapping-events-to-reactor-sls-files">Mapping Events to Reactor SLS Files</a></li>
+<li><a class="reference internal" href="#fire-an-event">Fire an event</a></li>
+<li><a class="reference internal" href="#knowing-what-event-is-being-fired">Knowing what event is being fired</a></li>
+<li><a class="reference internal" href="#understanding-the-structure-of-reactor-formulas">Understanding the Structure of Reactor Formulas</a></li>
+<li><a class="reference internal" href="#a-complete-example">A complete example</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../tests/unit.html"
+                        title="previous chapter">Writing Unit Tests</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../conventions/formulas.html"
+                        title="next chapter">Salt Formulas</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../tests/unit.html" title="Writing Unit Tests">previous</a>
+                
+            </li>
+            <li>
+                <a href="../conventions/formulas.html" title="Salt Formulas">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.modules.pip</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin execution modules" href="index.html">
+        <link rel="next" title="salt.modules.pkg_resource" href="salt.modules.pkg_resource.html">
+        <link rel="prev" title="salt.modules.pillar" href="salt.modules.pillar.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.pillar.html" title="salt.modules.pillar">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.pkg_resource.html" title="salt.modules.pkg_resource">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.modules.pip">
+<span id="salt-modules-pip"></span><h1>salt.modules.pip<a class="headerlink" href="#module-salt.modules.pip" title="Permalink to this headline">¶</a></h1>
+<p>Install Python packages with pip to either the system or a virtualenv</p>
+<dl class="function">
+<dt id="salt.modules.pip.freeze">
+<tt class="descclassname">salt.modules.pip.</tt><tt class="descname">freeze</tt><big>(</big><em>bin_env=None</em>, <em>user=None</em>, <em>runas=None</em>, <em>cwd=None</em><big>)</big><a class="headerlink" href="#salt.modules.pip.freeze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of installed packages either globally or in the specified
+virtualenv</p>
+<dl class="docutils">
+<dt>bin_env</dt>
+<dd>path to pip bin or path to virtualenv. If doing an uninstall from
+the system python and want to use a specific pip bin (pip-2.7,
+pip-2.6, etc..) just specify the pip bin you want.
+If uninstalling from a virtualenv, just use the path to the virtualenv
+(/home/code/path/to/virtualenv/)</dd>
+<dt>user</dt>
+<dd>The user under which to run pip</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">runas</span></tt> argument is deprecated as of 0.16.2. <tt class="docutils literal"><span class="pre">user</span></tt> should be
+used instead.</p>
+</div>
+<dl class="docutils">
+<dt>cwd</dt>
+<dd>Current working directory to run pip from</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pip.freeze /home/code/path/to/virtualenv/
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pip.install">
+<tt class="descclassname">salt.modules.pip.</tt><tt class="descname">install</tt><big>(</big><em>pkgs=None</em>, <em>requirements=None</em>, <em>env=None</em>, <em>bin_env=None</em>, <em>use_wheel=False</em>, <em>log=None</em>, <em>proxy=None</em>, <em>timeout=None</em>, <em>editable=None</em>, <em>find_links=None</em>, <em>index_url=None</em>, <em>extra_index_url=None</em>, <em>no_index=False</em>, <em>mirrors=None</em>, <em>build=None</em>, <em>target=None</em>, <em>download=None</em>, <em>download_cache=None</em>, <em>source=None</em>, <em>upgrade=False</em>, <em>force_reinstall=False</em>, <em>ignore_installed=False</em>, <em>exists_action=None</em>, <em>no_deps=False</em>, <em>no_install=False</em>, <em>no_download=False</em>, <em>global_options=None</em>, <em>install_options=None</em>, <em>user=None</em>, <em>runas=None</em>, <em>no_chown=False</em>, <em>cwd=None</em>, <em>activate=False</em>, <em>pre_releases=False</em>, <em>__env__=None</em>, <em>saltenv='base'</em><big>)</big><a class="headerlink" href="#salt.modules.pip.install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install packages with pip</p>
+<p>Install packages individually or from a pip requirements file. Install
+packages globally or to a virtualenv.</p>
+<dl class="docutils">
+<dt>pkgs</dt>
+<dd>comma separated list of packages to install</dd>
+<dt>requirements</dt>
+<dd>path to requirements</dd>
+<dt>bin_env</dt>
+<dd>path to pip bin or path to virtualenv. If doing a system install,
+and want to use a specific pip bin (pip-2.7, pip-2.6, etc..) just
+specify the pip bin you want.
+If installing into a virtualenv, just use the path to the virtualenv
+(/home/code/path/to/virtualenv/)</dd>
+<dt>env</dt>
+<dd>deprecated, use bin_env now</dd>
+<dt>use_wheel</dt>
+<dd>Prefer wheel archives (requires pip&gt;=1.4)</dd>
+<dt>log</dt>
+<dd>Log file where a complete (maximum verbosity) record will be kept</dd>
+<dt>proxy</dt>
+<dd>Specify a proxy in the form
+user:passwd&#64;proxy.server:port. Note that the
+user:password&#64; is optional and required only if you
+are behind an authenticated proxy.  If you provide
+user&#64;proxy.server:port then you will be prompted for a
+password.</dd>
+<dt>timeout</dt>
+<dd>Set the socket timeout (default 15 seconds)</dd>
+<dt>editable</dt>
+<dd>install something editable (i.e.
+git+https://github.com/worldcompany/djangoembed.git#egg=djangoembed)</dd>
+<dt>find_links</dt>
+<dd>URL to look for packages at</dd>
+<dt>index_url</dt>
+<dd>Base URL of Python Package Index</dd>
+<dt>extra_index_url</dt>
+<dd>Extra URLs of package indexes to use in addition to <tt class="docutils literal"><span class="pre">index_url</span></tt></dd>
+<dt>no_index</dt>
+<dd>Ignore package index</dd>
+<dt>mirrors</dt>
+<dd>Specific mirror URL(s) to query (automatically adds --use-mirrors)</dd>
+<dt>build</dt>
+<dd>Unpack packages into <tt class="docutils literal"><span class="pre">build</span></tt> dir</dd>
+<dt>target</dt>
+<dd>Install packages into <tt class="docutils literal"><span class="pre">target</span></tt> dir</dd>
+<dt>download</dt>
+<dd>Download packages into <tt class="docutils literal"><span class="pre">download</span></tt> instead of installing them</dd>
+<dt>download_cache</dt>
+<dd>Cache downloaded packages in <tt class="docutils literal"><span class="pre">download_cache</span></tt> dir</dd>
+<dt>source</dt>
+<dd>Check out <tt class="docutils literal"><span class="pre">editable</span></tt> packages into <tt class="docutils literal"><span class="pre">source</span></tt> dir</dd>
+<dt>upgrade</dt>
+<dd>Upgrade all packages to the newest available version</dd>
+<dt>force_reinstall</dt>
+<dd>When upgrading, reinstall all packages even if they are already
+up-to-date.</dd>
+<dt>ignore_installed</dt>
+<dd>Ignore the installed packages (reinstalling instead)</dd>
+<dt>exists_action</dt>
+<dd>Default action when a path already exists: (s)witch, (i)gnore, (w)wipe,
+(b)ackup</dd>
+<dt>no_deps</dt>
+<dd>Ignore package dependencies</dd>
+<dt>no_install</dt>
+<dd>Download and unpack all packages, but don't actually install them</dd>
+<dt>no_download</dt>
+<dd>Don't download any packages, just install the ones
+already downloaded (completes an install run with
+--no-install)</dd>
+<dt>install_options</dt>
+<dd>Extra arguments to be supplied to the setup.py install
+command (use like --install-option=&quot;--install-
+scripts=/usr/local/bin&quot;).  Use multiple --install-
+option options to pass multiple options to setup.py
+install.  If you are using an option with a directory
+path, be sure to use absolute path.</dd>
+<dt>global_options</dt>
+<dd>Extra global options to be supplied to the setup.py call before the
+install command.</dd>
+<dt>user</dt>
+<dd>The user under which to run pip</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">runas</span></tt> argument is deprecated as of 0.16.2. <tt class="docutils literal"><span class="pre">user</span></tt> should be
+used instead.</p>
+</div>
+<dl class="docutils">
+<dt>no_chown</dt>
+<dd>When user is given, do not attempt to copy and chown
+a requirements file</dd>
+<dt>cwd</dt>
+<dd>Current working directory to run pip from</dd>
+<dt>activate</dt>
+<dd>Activates the virtual environment, if given via bin_env,
+before running install.</dd>
+<dt>pre_releases</dt>
+<dd>Include pre-releases in the available versions</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pip.install &lt;package name&gt;,&lt;package2 name&gt;
+salt <span class="s1">&#39;*&#39;</span> pip.install <span class="nv">requirements</span><span class="o">=</span>/path/to/requirements.txt
+salt <span class="s1">&#39;*&#39;</span> pip.install &lt;package name&gt; <span class="nv">bin_env</span><span class="o">=</span>/path/to/virtualenv
+salt <span class="s1">&#39;*&#39;</span> pip.install &lt;package name&gt; <span class="nv">bin_env</span><span class="o">=</span>/path/to/pip_bin
+</pre></div>
+</div>
+<p>Complicated CLI example:</p>
+<div class="highlight-python"><div class="highlight"><pre>salt &#39;*&#39; pip.install markdown,django editable=git+https://github.com/worldcompany/djangoembed.git#egg=djangoembed upgrade=True no_deps=True
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pip.list_">
+<tt class="descclassname">salt.modules.pip.</tt><tt class="descname">list_</tt><big>(</big><em>prefix=None</em>, <em>bin_env=None</em>, <em>user=None</em>, <em>runas=None</em>, <em>cwd=None</em><big>)</big><a class="headerlink" href="#salt.modules.pip.list_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter list of installed apps from <tt class="docutils literal"><span class="pre">freeze</span></tt> and check to see if
+<tt class="docutils literal"><span class="pre">prefix</span></tt> exists in the list of packages installed.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pip.list salt
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pip.uninstall">
+<tt class="descclassname">salt.modules.pip.</tt><tt class="descname">uninstall</tt><big>(</big><em>pkgs=None</em>, <em>requirements=None</em>, <em>bin_env=None</em>, <em>log=None</em>, <em>proxy=None</em>, <em>timeout=None</em>, <em>user=None</em>, <em>runas=None</em>, <em>no_chown=False</em>, <em>cwd=None</em>, <em>__env__=None</em>, <em>saltenv='base'</em><big>)</big><a class="headerlink" href="#salt.modules.pip.uninstall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uninstall packages with pip</p>
+<p>Uninstall packages individually or from a pip requirements file. Uninstall
+packages globally or from a virtualenv.</p>
+<dl class="docutils">
+<dt>pkgs</dt>
+<dd>comma separated list of packages to install</dd>
+<dt>requirements</dt>
+<dd>path to requirements</dd>
+<dt>bin_env</dt>
+<dd>path to pip bin or path to virtualenv. If doing an uninstall from
+the system python and want to use a specific pip bin (pip-2.7,
+pip-2.6, etc..) just specify the pip bin you want.
+If uninstalling from a virtualenv, just use the path to the virtualenv
+(/home/code/path/to/virtualenv/)</dd>
+<dt>log</dt>
+<dd>Log file where a complete (maximum verbosity) record will be kept</dd>
+<dt>proxy</dt>
+<dd>Specify a proxy in the form
+user:passwd&#64;proxy.server:port. Note that the
+user:password&#64; is optional and required only if you
+are behind an authenticated proxy.  If you provide
+user&#64;proxy.server:port then you will be prompted for a
+password.</dd>
+<dt>timeout</dt>
+<dd>Set the socket timeout (default 15 seconds)</dd>
+<dt>user</dt>
+<dd>The user under which to run pip</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">runas</span></tt> argument is deprecated as of 0.16.2. <tt class="docutils literal"><span class="pre">user</span></tt> should be
+used instead.</p>
+</div>
+<dl class="docutils">
+<dt>no_chown</dt>
+<dd>When user is given, do not attempt to copy and chown
+a requirements file</dd>
+<dt>cwd</dt>
+<dd>Current working directory to run pip from</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pip.uninstall &lt;package name&gt;,&lt;package2 name&gt;
+salt <span class="s1">&#39;*&#39;</span> pip.uninstall <span class="nv">requirements</span><span class="o">=</span>/path/to/requirements.txt
+salt <span class="s1">&#39;*&#39;</span> pip.uninstall &lt;package name&gt; <span class="nv">bin_env</span><span class="o">=</span>/path/to/virtualenv
+salt <span class="s1">&#39;*&#39;</span> pip.uninstall &lt;package name&gt; <span class="nv">bin_env</span><span class="o">=</span>/path/to/pip_bin
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.pip.version">
+<tt class="descclassname">salt.modules.pip.</tt><tt class="descname">version</tt><big>(</big><em>bin_env=None</em><big>)</big><a class="headerlink" href="#salt.modules.pip.version" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
+<p>Returns the version of pip. Use <tt class="docutils literal"><span class="pre">bin_env</span></tt> to specify the path to a
+virtualenv and get the version of pip in that virtualenv.</p>
+<p>If unable to detect the pip version, returns <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pip.version
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.modules.pillar.html"
+                        title="previous chapter">salt.modules.pillar</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.modules.pkg_resource.html"
+                        title="next chapter">salt.modules.pkg_resource</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.pillar.html" title="salt.modules.pillar">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.pkg_resource.html" title="salt.modules.pkg_resource">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Renderers</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="Full list of builtin renderer modules" href="all/index.html">
+        <link rel="prev" title="salt.states.zcbuildout" href="../states/all/salt.states.zcbuildout.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../states/all/salt.states.zcbuildout.html" title="salt.states.zcbuildout">previous</a>
+                
+            </li>
+            <li>
+                <a href="all/index.html" title="Full list of builtin renderer modules">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="renderers">
+<h1>Renderers<a class="headerlink" href="#renderers" title="Permalink to this headline">¶</a></h1>
+<p>The Salt state system operates by gathering information from simple data
+structures. The state system was designed in this way to make interacting with
+it generic and simple. This also means that state files (SLS files) can be one
+of many formats.</p>
+<p>By default SLS files are rendered as Jinja templates and then parsed as YAML
+documents. But since the only thing the state system cares about is raw data,
+the SLS files can be any structured format that can be dreamed up.</p>
+<p>Currently there is support for <tt class="docutils literal"><span class="pre">Jinja</span> <span class="pre">+</span> <span class="pre">YAML</span></tt>, <tt class="docutils literal"><span class="pre">Mako</span> <span class="pre">+</span> <span class="pre">YAML</span></tt>,
+<tt class="docutils literal"><span class="pre">Wempy</span> <span class="pre">+</span> <span class="pre">YAML</span></tt>, <tt class="docutils literal"><span class="pre">Jinja</span> <span class="pre">+</span> <span class="pre">json</span></tt> <tt class="docutils literal"><span class="pre">Mako</span> <span class="pre">+</span> <span class="pre">json</span></tt> and <tt class="docutils literal"><span class="pre">Wempy</span> <span class="pre">+</span> <span class="pre">json</span></tt>. But
+renderers can be written to support anything. This means that the Salt states
+could be managed by XML files, HTML files, puppet files, or any format that
+can be translated into the data structure used by the state system.</p>
+<div class="section" id="multiple-renderers">
+<h2>Multiple Renderers<a class="headerlink" href="#multiple-renderers" title="Permalink to this headline">¶</a></h2>
+<p>When deploying a state tree a default renderer is selected in the master
+configuration file with the renderer option. But multiple renderers can be
+used inside the same state tree.</p>
+<p>When rendering SLS files Salt checks for the presence of a Salt specific
+shebang line. The shebang line syntax was chosen because it is familiar to
+the target audience, the systems admin and systems engineer.</p>
+<p>The shebang line directly calls the name of the renderer as it is specified
+within Salt. One of the most common reasons to use multiple renderers in to
+use the Python or <tt class="docutils literal"><span class="pre">py</span></tt> renderer:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#!py</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Install the python-mako package</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">&#39;include&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;python&#39;</span><span class="p">],</span>
+            <span class="s">&#39;python-mako&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;pkg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;installed&#39;</span><span class="p">]}}</span>
+</pre></div>
+</div>
+<p>The first line is a shebang that references the <tt class="docutils literal"><span class="pre">py</span></tt> renderer.</p>
+</div>
+<div class="section" id="composing-renderers">
+<h2>Composing Renderers<a class="headerlink" href="#composing-renderers" title="Permalink to this headline">¶</a></h2>
+<p>A renderer can be composed from other renderers by connecting them in a series
+of pipes(<tt class="docutils literal"><span class="pre">|</span></tt>). In fact, the default <tt class="docutils literal"><span class="pre">Jinja</span> <span class="pre">+</span> <span class="pre">YAML</span></tt> renderer is implemented
+by combining a YAML renderer and a Jinja renderer. Such renderer configuration
+is specified as: <tt class="docutils literal"><span class="pre">jinja</span> <span class="pre">|</span> <span class="pre">yaml</span></tt>.</p>
+<p>Other renderer combinations are possible, here's a few examples:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">yaml</span></tt></dt>
+<dd>i.e, just YAML, no templating.</dd>
+<dt><tt class="docutils literal"><span class="pre">mako</span> <span class="pre">|</span> <span class="pre">yaml</span></tt></dt>
+<dd>pass the input to the <tt class="docutils literal"><span class="pre">mako</span></tt> renderer, whose output is then fed into the
+<tt class="docutils literal"><span class="pre">yaml</span></tt> renderer.</dd>
+<dt><tt class="docutils literal"><span class="pre">jinja</span> <span class="pre">|</span> <span class="pre">mako</span> <span class="pre">|</span> <span class="pre">yaml</span></tt></dt>
+<dd>This one allows you to use both jinja and mako templating syntax in the
+input and then parse the final rendered output as YAML.</dd>
+</dl>
+</div></blockquote>
+<p>And here's a contrived example sls file using the <tt class="docutils literal"><span class="pre">jinja</span> <span class="pre">|</span> <span class="pre">mako</span> <span class="pre">|</span> <span class="pre">yaml</span></tt> renderer:</p>
+<div class="highlight-python"><div class="highlight"><pre>#!jinja|mako|yaml
+
+An_Example:
+  cmd.run:
+    - name: |
+        echo &quot;Using Salt ${grains[&#39;saltversion&#39;]}&quot; \
+             &quot;from path {{grains[&#39;saltpath&#39;]}}.&quot;
+    - cwd: /
+
+&lt;%doc&gt; ${...} is Mako&#39;s notation, and so is this comment. &lt;/%doc&gt;
+{#     Similarly, {{...}} is Jinja&#39;s notation, and so is this comment. #}
+</pre></div>
+</div>
+<p>For backward compatibility, <tt class="docutils literal"><span class="pre">jinja</span> <span class="pre">|</span> <span class="pre">yaml</span></tt>  can also be written as
+<tt class="docutils literal"><span class="pre">yaml_jinja</span></tt>, and similarly, the <tt class="docutils literal"><span class="pre">yaml_mako</span></tt>, <tt class="docutils literal"><span class="pre">yaml_wempy</span></tt>,
+<tt class="docutils literal"><span class="pre">json_jinja</span></tt>, <tt class="docutils literal"><span class="pre">json_mako</span></tt>, and <tt class="docutils literal"><span class="pre">json_wempy</span></tt> renderers are all supported
+as well.</p>
+<p>Keep in mind that not all renderers can be used alone or with any other renderers.
+For example, the template renderers shouldn't be used alone as their outputs are
+just strings, which still need to be parsed by another renderer to turn them into
+highstate data structures. Also, for example, it doesn't make sense to specify
+<tt class="docutils literal"><span class="pre">yaml</span> <span class="pre">|</span> <span class="pre">jinja</span></tt> either, because the output of the yaml renderer is a highstate
+data structure(a dict in Python), which cannot be used as the input to a template
+renderer. Therefore, when combining renderers, you should know what each renderer
+accepts as input and what it returns as output.</p>
+</div>
+<div class="section" id="writing-renderers">
+<h2>Writing Renderers<a class="headerlink" href="#writing-renderers" title="Permalink to this headline">¶</a></h2>
+<p>Writing a renderer is easy, all that is required is that a Python module is
+placed in the rendered directory and that the module implements the <tt class="docutils literal"><span class="pre">render</span></tt>
+function. The <tt class="docutils literal"><span class="pre">render</span></tt> function will be passed the path of the SLS file.  In
+the <tt class="docutils literal"><span class="pre">render</span></tt> function, parse the passed file and return the data structure
+derived from the file. You can place your custom renderers in a <tt class="docutils literal"><span class="pre">_renderers</span></tt>
+directory within the <a class="reference internal" href="../configuration/master.html#std:conf_master-file_roots"><tt class="xref std std-conf_master docutils literal"><span class="pre">file_roots</span></tt></a> specified by the master config
+file. These custom renderers are distributed when <a class="reference internal" href="../modules/all/salt.modules.state.html#salt.modules.state.highstate" title="salt.modules.state.highstate"><tt class="xref py py-mod docutils literal"><span class="pre">state.highstate</span></tt></a> is run, or by executing the
+<a class="reference internal" href="../modules/all/salt.modules.saltutil.html#salt.modules.saltutil.sync_renderers" title="salt.modules.saltutil.sync_renderers"><tt class="xref py py-mod docutils literal"><span class="pre">saltutil.sync_renderers</span></tt></a> or
+<a class="reference internal" href="../modules/all/salt.modules.saltutil.html#salt.modules.saltutil.sync_all" title="salt.modules.saltutil.sync_all"><tt class="xref py py-mod docutils literal"><span class="pre">saltutil.sync_all</span></tt></a> functions.</p>
+<p>Any custom renderers which have been synced to a minion, that are named the
+same as one of Salt's default set of renderers, will take the place of the
+default renderer with the same name.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>The best place to find examples of renderers is in the Salt source code. The
+renderers included with Salt can be found here:</p>
+<p><a class="reference external" href="https://github.com/saltstack/salt/blob/develop/salt/renderers">https://github.com/saltstack/salt/blob/develop/salt/renderers</a></p>
+<p>Here is a simple YAML renderer example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">yaml</span>
+<span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="n">yaml_data</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">sls</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">yaml_data</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
+        <span class="n">yaml_data</span> <span class="o">=</span> <span class="n">yaml_data</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">yaml_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span> <span class="k">if</span> <span class="n">data</span> <span class="k">else</span> <span class="p">{}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Renderers</a><ul>
+<li><a class="reference internal" href="#multiple-renderers">Multiple Renderers</a></li>
+<li><a class="reference internal" href="#composing-renderers">Composing Renderers</a></li>
+<li><a class="reference internal" href="#writing-renderers">Writing Renderers</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../states/all/salt.states.zcbuildout.html"
+                        title="previous chapter">salt.states.zcbuildout</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="all/index.html"
+                        title="next chapter">Full list of builtin renderer modules</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../states/all/salt.states.zcbuildout.html" title="salt.states.zcbuildout">previous</a>
+                
+            </li>
+            <li>
+                <a href="all/index.html" title="Full list of builtin renderer modules">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>State Enforcement</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="State System Layers" href="layers.html">
+        <link rel="prev" title="Include and Exclude" href="include.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="include.html" title="Include and Exclude">previous</a>
+                
+            </li>
+            <li>
+                <a href="layers.html" title="State System Layers">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="state-enforcement">
+<h1>State Enforcement<a class="headerlink" href="#state-enforcement" title="Permalink to this headline">¶</a></h1>
+<p>Salt offers an optional interface to manage the configuration or &quot;state&quot; of the
+Salt minions. This interface is a fully capable mechanism used to enforce the
+state of systems from a central manager.</p>
+<p>The Salt state system is made to be accurate, simple, and fast. And like the
+rest of the Salt system, Salt states are highly modular.</p>
+<div class="section" id="state-management">
+<h2>State management<a class="headerlink" href="#state-management" title="Permalink to this headline">¶</a></h2>
+<p>State management, also frequently called software configuration management
+(SCM), is a program that puts and keeps a system into a predetermined state. It
+installs software packages, starts or restarts services, or puts configuration
+files in place and watches them for changes.</p>
+<p>Having a state management system in place allows you to easily and reliably
+configure and manage a few servers or a few thousand servers. It allows you to
+keep that configuration under version control.</p>
+<p>Salt States is an extension of the Salt Modules that we discussed in the
+previous <a class="reference internal" href="../../topics/tutorials/modules.html"><em>remote execution</em></a> tutorial. Instead
+of calling one-off executions the state of a system can be easily defined and
+then enforced.</p>
+</div>
+<div class="section" id="understanding-the-salt-state-system-components">
+<h2>Understanding the Salt State System Components<a class="headerlink" href="#understanding-the-salt-state-system-components" title="Permalink to this headline">¶</a></h2>
+<p>The Salt state system is comprised of a number of components. As a user, an
+understanding of the SLS and renderer systems are needed. But as a developer,
+an understanding of Salt states and how to write the states is needed as well.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">States are compiled and executed only on minions that have been targeted.
+To execute things on masters, see <a class="reference external" href="/ref/runners">runners</a>.</p>
+</div>
+<div class="section" id="salt-sls-system">
+<h3>Salt SLS System<a class="headerlink" href="#salt-sls-system" title="Permalink to this headline">¶</a></h3>
+<dl class="glossary docutils">
+<dt id="term-sls">SLS</dt>
+<dd><p class="first">The primary system used by the Salt state system is the SLS system. SLS
+stands for <strong>S</strong>a<strong>L</strong>t <strong>S</strong>tate.</p>
+<p>The Salt States are files which contain the information about how to
+configure Salt minions. The states are laid out in a directory tree and
+can be written in many different formats.</p>
+<p class="last">The contents of the files and they way they are laid out is intended to
+be as simple as possible while allowing for maximum flexibility. The
+files are laid out in states and contains information about how the
+minion needs to be configured.</p>
+</dd>
+</dl>
+<div class="section" id="sls-file-layout">
+<h4>SLS File Layout<a class="headerlink" href="#sls-file-layout" title="Permalink to this headline">¶</a></h4>
+<p>SLS files are laid out in the Salt file server. A simple layout can look like
+this:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">top.sls</span>
+<span class="l-Scalar-Plain">ssh.sls</span>
+<span class="l-Scalar-Plain">sshd_config</span>
+<span class="l-Scalar-Plain">users/init.sls</span>
+<span class="l-Scalar-Plain">users/admin.sls</span>
+<span class="l-Scalar-Plain">salt/init.sls</span>
+<span class="l-Scalar-Plain">salt/master.sls</span>
+</pre></div>
+</div>
+<p>This example shows the core concepts of file layout. The top file is a key
+component and is used with Salt matchers to match SLS states with minions.
+The <tt class="docutils literal"><span class="pre">.sls</span></tt> files are states. The rest of the files are seen by the Salt
+master as just files that can be downloaded.</p>
+<p>The states are translated into dot notation, so the <tt class="docutils literal"><span class="pre">ssh.sls</span></tt> file is
+seen as the ssh state, the <tt class="docutils literal"><span class="pre">users/admin.sls</span></tt> file is seen as the
+users.admin states.</p>
+<p>The init.sls files are translated to be the state name of the parent
+directory, so the <tt class="docutils literal"><span class="pre">salt/init.sls</span></tt> file translates to the Salt state.</p>
+<p>The plain files are visible to the minions, as well as the state files. In
+Salt, everything is a file; there is no &quot;magic translation&quot; of files and file
+types. This means that a state file can be distributed to minions just like a
+plain text or binary file.</p>
+</div>
+<div class="section" id="sls-files">
+<h4>SLS Files<a class="headerlink" href="#sls-files" title="Permalink to this headline">¶</a></h4>
+<p>The Salt state files are simple sets of data. Since the SLS files are just data
+they can be represented in a number of different ways. The default format is
+yaml generated from a Jinja template. This allows for the states files to have
+all the language constructs of Python and the simplicity of yaml. State files
+can then be complicated Jinja templates that translate down to yaml, or just
+plain and simple yaml files!</p>
+<p>The State files are constructed data structures in a simple format. The format
+allows for many real activates to be expressed in very little text, while
+maintaining the utmost in readability and usability.</p>
+<p>Here is an example of a Salt State:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">vim</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+
+<span class="l-Scalar-Plain">salt</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">latest</span>
+  <span class="l-Scalar-Plain">service.running</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/salt/minion</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">names</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">salt-master</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">salt-minion</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">watch</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/salt/minion</span>
+
+<span class="l-Scalar-Plain">/etc/salt/minion</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://salt/minion</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">644</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt</span>
+</pre></div>
+</div>
+<p>This short stanza will ensure that vim is installed, Salt is installed and up
+to date, the salt-master and salt-minion daemons are running and the Salt
+minion configuration file is in place. It will also ensure everything is
+deployed in the right order and that the Salt services are restarted when the
+watched file updated.</p>
+</div>
+<div class="section" id="the-top-file">
+<h4>The Top File<a class="headerlink" href="#the-top-file" title="Permalink to this headline">¶</a></h4>
+<p>The top file is the mapping for the state system. The top file specifies which
+minions should have which modules applied and which environments they should
+draw the states from.</p>
+<p>The top file works by specifying the environment, containing matchers with
+lists of Salt states sent to the matching minions:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+  <span class="s">&#39;*&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">salt</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">users</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">users.admin</span>
+  <span class="s">&#39;saltmaster.*&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">match</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">pcre</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">salt.master</span>
+</pre></div>
+</div>
+<p>This simple example uses the base environment, which is built into the default
+Salt setup, and then all minions will have the modules salt, users and
+users.admin since '*' will match all minions. Then the regular expression
+matcher will match all minions' with an id matching saltmaster.* and add the
+salt.master state.</p>
+</div>
+</div>
+<div class="section" id="renderer-system">
+<h3>Renderer System<a class="headerlink" href="#renderer-system" title="Permalink to this headline">¶</a></h3>
+<p>The Renderer system is a key component to the state system. SLS files are
+representations of Salt &quot;high data&quot; structures. All Salt cares about when
+reading an SLS file is the data structure that is produced from the file.</p>
+<p>This allows Salt states to be represented by multiple types of files. The
+Renderer system can be used to allow different formats to be used for SLS
+files.</p>
+<p>The available renderers can be found in the renderers directory in the Salt
+source code:</p>
+<p><a class="reference external" href="https://github.com/saltstack/salt/blob/develop/salt/renderers">https://github.com/saltstack/salt/blob/develop/salt/renderers</a></p>
+<p>By default SLS files are rendered using Jinja as a templating engine, and yaml
+as the serialization format. Since the rendering system can be extended simply
+by adding a new renderer to the renderers directory, it is possible that any
+structured file could be used to represent the SLS files.</p>
+<p>In the future XML will be added, as well as many other formats.</p>
+</div>
+<div class="section" id="reloading-modules">
+<h3>Reloading Modules<a class="headerlink" href="#reloading-modules" title="Permalink to this headline">¶</a></h3>
+<p>Some salt states require specific packages to be installed in order for the
+module to load, as an example the <a class="reference internal" href="all/salt.states.pip_state.html#module-salt.states.pip_state" title="salt.states.pip_state"><tt class="xref py py-mod docutils literal"><span class="pre">pip</span></tt></a> state
+module requires the <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> package for proper name and version parsing.  On
+most of the common cases, salt is clever enough to transparently reload the
+modules, for example, if you install a package, salt reloads modules because
+some other module or state might require just that package which was installed.
+On some edge-cases salt might need to be told to reload the modules. Consider
+the following state file which we'll call <tt class="docutils literal"><span class="pre">pep8.sls</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">python-pip</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">run</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cwd</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">easy_install --script-dir=/usr/bin -U pip</span>
+
+<span class="l-Scalar-Plain">pep8</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pip.installed</span>
+  <span class="l-Scalar-Plain">requires</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">python-pip</span>
+</pre></div>
+</div>
+<p>The above example installs <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> using <tt class="docutils literal"><span class="pre">easy_install</span></tt> from <a class="reference external" href="https://pypi.python.org/pypi/setuptools">setuptools</a> and
+installs <a class="reference external" href="https://pypi.python.org/pypi/pep8">pep8</a> using <a class="reference internal" href="all/salt.states.pip_state.html#module-salt.states.pip_state" title="salt.states.pip_state"><tt class="xref py py-mod docutils literal"><span class="pre">pip</span></tt></a>, which, as told
+earlier, requires <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> to be installed system-wide. Let's execute this state:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-call state.sls pep8
+</pre></div>
+</div>
+<p>The execution output would be something like:</p>
+<div class="highlight-text"><div class="highlight"><pre>----------
+    State: - pip
+    Name:      pep8
+    Function:  installed
+        Result:    False
+        Comment:   State pip.installed found in sls pep8 is unavailable
+
+        Changes:
+
+Summary
+------------
+Succeeded: 1
+Failed:    1
+------------
+Total:     2
+</pre></div>
+</div>
+<p>If we executed the state again the output would be:</p>
+<div class="highlight-text"><div class="highlight"><pre>----------
+    State: - pip
+    Name:      pep8
+    Function:  installed
+        Result:    True
+        Comment:   Package was successfully installed
+        Changes:   pep8==1.4.6: Installed
+
+Summary
+------------
+Succeeded: 2
+Failed:    0
+------------
+Total:     2
+</pre></div>
+</div>
+<p>Since we installed <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> using <a class="reference internal" href="all/salt.states.cmd.html#module-salt.states.cmd" title="salt.states.cmd"><tt class="xref py py-mod docutils literal"><span class="pre">cmd</span></tt></a>, salt has no way
+to know that a system-wide package was installed. On the second execution,
+since the required <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> package was installed, the state executed perfectly.</p>
+<p>To those thinking, could not salt reload modules on every state step since it
+already does for some cases?  It could, but it should not since it would
+greatly slow down state execution.</p>
+<p>So how do we solve this <em>edge-case</em>? <tt class="docutils literal"><span class="pre">reload_modules</span></tt>!</p>
+<p><tt class="docutils literal"><span class="pre">reload_modules</span></tt> is a boolean option recognized by salt on <strong>all</strong> available
+states which, does exactly what it tells use, forces salt to reload it's
+modules once that specific state finishes. The fixed state file would now be:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">python-pip</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">run</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cwd</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">easy_install --script-dir=/usr/bin -U pip</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">reload_modules</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+
+<span class="l-Scalar-Plain">pep8</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pip.installed</span>
+  <span class="l-Scalar-Plain">requires</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">python-pip</span>
+</pre></div>
+</div>
+<p>Let's run it, once:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-call state.sls pep8
+</pre></div>
+</div>
+<p>And it's output now is:</p>
+<div class="highlight-text"><div class="highlight"><pre>----------
+    State: - pip
+    Name:      pep8
+    Function:  installed
+        Result:    True
+        Comment:   Package was successfully installed
+        Changes:   pep8==1.4.6: Installed
+
+Summary
+------------
+Succeeded: 2
+Failed:    0
+------------
+Total:     2
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">State Enforcement</a><ul>
+<li><a class="reference internal" href="#state-management">State management</a></li>
+<li><a class="reference internal" href="#understanding-the-salt-state-system-components">Understanding the Salt State System Components</a><ul>
+<li><a class="reference internal" href="#salt-sls-system">Salt SLS System</a><ul>
+<li><a class="reference internal" href="#sls-file-layout">SLS File Layout</a></li>
+<li><a class="reference internal" href="#sls-files">SLS Files</a></li>
+<li><a class="reference internal" href="#the-top-file">The Top File</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#renderer-system">Renderer System</a></li>
+<li><a class="reference internal" href="#reloading-modules">Reloading Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="include.html"
+                        title="previous chapter">Include and Exclude</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="layers.html"
+                        title="next chapter">State System Layers</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="include.html" title="Include and Exclude">previous</a>
+                
+            </li>
+            <li>
+                <a href="layers.html" title="State System Layers">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Package Providers</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt Development Guidelines" href="index.html">
+        <link rel="next" title="Translating Documentation" href="../translating.html">
+        <link rel="prev" title="Modular Systems" href="modular_systems.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="modular_systems.html" title="Modular Systems">previous</a>
+                
+            </li>
+            <li>
+                <a href="../translating.html" title="Translating Documentation">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="package-providers">
+<h1>Package Providers<a class="headerlink" href="#package-providers" title="Permalink to this headline">¶</a></h1>
+<p>This page contains guidelines for writing package providers.</p>
+<div class="section" id="package-functions">
+<h2>Package Functions<a class="headerlink" href="#package-functions" title="Permalink to this headline">¶</a></h2>
+<p>One of the most important features of Salt is package management. There is no
+shortage of package managers, so in the interest of providing a consistent
+experience in <a class="reference internal" href="../../ref/states/all/salt.states.pkg.html#module-salt.states.pkg" title="salt.states.pkg"><tt class="xref py py-mod docutils literal"><span class="pre">pkg</span></tt></a> states, there are certain functions
+that should be present in a package provider. Note that these are subject to
+change as new features are added or existing features are enhanced.</p>
+<div class="section" id="list-pkgs">
+<h3>list_pkgs<a class="headerlink" href="#list-pkgs" title="Permalink to this headline">¶</a></h3>
+<p>This function should declare an empty dict, and then add packages to it by
+calling <a class="reference internal" href="../../ref/modules/all/salt.modules.pkg_resource.html#salt.modules.pkg_resource.add_pkg" title="salt.modules.pkg_resource.add_pkg"><tt class="xref py py-mod docutils literal"><span class="pre">pkg_resource.add_pkg</span></tt></a>, like
+so:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;pkg_resource.add_pkg&#39;</span><span class="p">](</span><span class="n">ret</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The last thing that should be done before returning is to execute
+<a class="reference internal" href="../../ref/modules/all/salt.modules.pkg_resource.html#salt.modules.pkg_resource.sort_pkglist" title="salt.modules.pkg_resource.sort_pkglist"><tt class="xref py py-mod docutils literal"><span class="pre">pkg_resource.sort_pkglist</span></tt></a>. This
+function does not presently do anything to the return dict, but will be used in
+future versions of Salt.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;pkg_resource.sort_pkglist&#39;</span><span class="p">](</span><span class="n">ret</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">list_pkgs</span></tt> returns a dictionary of installed packages, with the keys being
+the package names and the values being the version installed. Example return
+data:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;foo&#39;</span><span class="p">:</span> <span class="s">&#39;1.2.3-4&#39;</span><span class="p">,</span>
+ <span class="s">&#39;bar&#39;</span><span class="p">:</span> <span class="s">&#39;5.6.7-8&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="latest-version">
+<h3>latest_version<a class="headerlink" href="#latest-version" title="Permalink to this headline">¶</a></h3>
+<p>Accepts an arbitrary number of arguments. Each argument is a package name. The
+return value for a package will be an empty string if the package is not found
+or if the package is up-to-date. The only case in which a non-empty string is
+returned is if the package is available for new installation (i.e. not already
+installed) or if there is an upgrade available.</p>
+<p>If only one argument was passed, this function return a string, otherwise a
+dict of name/version pairs is returned.</p>
+<p>This function must also accept <tt class="docutils literal"><span class="pre">**kwargs</span></tt>, in order to receive the
+<tt class="docutils literal"><span class="pre">fromrepo</span></tt> and <tt class="docutils literal"><span class="pre">repo</span></tt> keyword arguments from pkg states. Where supported,
+these arguments should be used to find the install/upgrade candidate in the
+specified repository. The <tt class="docutils literal"><span class="pre">fromrepo</span></tt> kwarg takes precedence over <tt class="docutils literal"><span class="pre">repo</span></tt>, so
+if both of those kwargs are present, the repository specified in <tt class="docutils literal"><span class="pre">fromrepo</span></tt>
+should be used. However, if <tt class="docutils literal"><span class="pre">repo</span></tt> is used instead of <tt class="docutils literal"><span class="pre">fromrepo</span></tt>, it should
+still work, to preserve backwards compatibility with older versions of Salt.</p>
+</div>
+<div class="section" id="version">
+<h3>version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h3>
+<p>Like <tt class="docutils literal"><span class="pre">latest_version</span></tt>, accepts an arbitrary number of arguments and
+returns a string if a single package name was passed, or a dict of name/value
+pairs if more than one was passed. The only difference is that the return
+values are the currently-installed versions of whatever packages are passed. If
+the package is not installed, an empty string is returned for that package.</p>
+</div>
+<div class="section" id="upgrade-available">
+<h3>upgrade_available<a class="headerlink" href="#upgrade-available" title="Permalink to this headline">¶</a></h3>
+<p>Deprecated and destined to be removed. For now, should just do the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">return</span> <span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;pkg.latest_version&#39;</span><span class="p">](</span><span class="n">name</span><span class="p">)</span> <span class="o">!=</span> <span class="s">&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install">
+<h3>install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h3>
+<p>The following arguments are required and should default to <tt class="docutils literal"><span class="pre">None</span></tt>:</p>
+<ol class="arabic simple">
+<li>name (for single-package pkg states)</li>
+<li>pkgs (for multiple-package pkg states)</li>
+<li>sources (for binary package file installation)</li>
+</ol>
+<p>The first thing that this function should do is call
+<a class="reference internal" href="../../ref/modules/all/salt.modules.pkg_resource.html#salt.modules.pkg_resource.parse_targets" title="salt.modules.pkg_resource.parse_targets"><tt class="xref py py-mod docutils literal"><span class="pre">pkg_resource.parse_targets</span></tt></a>
+(see below). This function will convert the SLS input into a more easily parsed
+data structure.
+<a class="reference internal" href="../../ref/modules/all/salt.modules.pkg_resource.html#salt.modules.pkg_resource.parse_targets" title="salt.modules.pkg_resource.parse_targets"><tt class="xref py py-mod docutils literal"><span class="pre">pkg_resource.parse_targets</span></tt></a> may
+need to be modified to support your new package provider, as it does things
+like parsing package metadata which cannot be done for every package management
+system.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pkg_params</span><span class="p">,</span> <span class="n">pkg_type</span> <span class="o">=</span> <span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;pkg_resource.parse_targets&#39;</span><span class="p">](</span><span class="n">name</span><span class="p">,</span>
+                                                              <span class="n">pkgs</span><span class="p">,</span>
+                                                              <span class="n">sources</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Two values will be returned to the <strong>install</strong> function. The first of
+them will be a dictionary. The keys of this dictionary will be package names,
+though the values will differ depending on what kind of installation is being
+done:</p>
+<ul class="simple">
+<li>If <strong>name</strong> was provided (and <strong>pkgs</strong> was not), then there will
+be a single key in the dictionary, and its value will be <tt class="docutils literal"><span class="pre">None</span></tt>. Once the
+data has been returned, if the <strong>version</strong> keyword argument was
+provided, then it should replace the <tt class="docutils literal"><span class="pre">None</span></tt> value in the dictionary.</li>
+<li>If <strong>pkgs</strong> was provided, then <strong>name</strong> is ignored, and the
+dictionary will contain one entry for each package in the <strong>pkgs</strong>
+list. The values in the dictionary will be <tt class="docutils literal"><span class="pre">None</span></tt> if a version was not
+specified for the package, and the desired version if specified. See the
+<strong>Multiple Package Installation Options</strong> section of the
+<a class="reference internal" href="../../ref/states/all/salt.states.pkg.html#salt.states.pkg.installed" title="salt.states.pkg.installed"><tt class="xref py py-mod docutils literal"><span class="pre">pkg.installed</span></tt></a> state for more info.</li>
+<li>If <strong>sources</strong> was provided, then <strong>name</strong> is ignored, and the
+dictionary values will be the path/URI for the package.</li>
+</ul>
+<p>The second return value will be a string with two possible values:
+<tt class="docutils literal"><span class="pre">repository</span></tt> or <tt class="docutils literal"><span class="pre">file</span></tt>. The <strong>install</strong> function can use this value
+(if necessary) to build the proper command to install the targeted package(s).</p>
+<p>Both before and after the installing the target(s), you should run
+<strong>list_pkgs</strong> to obtain a list of the installed packages. You should then
+return the output of <tt class="docutils literal"><span class="pre">salt.utils.compare_dicts()</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">return</span> <span class="n">salt</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">compare_dicts</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove">
+<h3>remove<a class="headerlink" href="#remove" title="Permalink to this headline">¶</a></h3>
+<p>Removes the passed package and return a list of the packages removed.</p>
+</div>
+</div>
+<div class="section" id="package-repo-functions">
+<h2>Package Repo Functions<a class="headerlink" href="#package-repo-functions" title="Permalink to this headline">¶</a></h2>
+<p>There are some functions provided by <tt class="docutils literal"><span class="pre">pkg</span></tt> which are specific to package
+repositories, and not to packages themselves. When writing modules for new
+package managers, these functions should be made available as stated below, in
+order to provide compatibility with the <tt class="docutils literal"><span class="pre">pkgrepo</span></tt> state.</p>
+<p>All repo functions should accept a basedir option, which defines which
+directory repository configuration should be found in. The default for this
+is dictated by the repo manager that is being used, and rarely needs to be
+changed.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">basedir</span> <span class="o">=</span> <span class="s">&#39;/etc/yum.repos.d&#39;</span>
+<span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;pkg.list_repos&#39;</span><span class="p">](</span><span class="n">basedir</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="list-repos">
+<h3>list_repos<a class="headerlink" href="#list-repos" title="Permalink to this headline">¶</a></h3>
+<p>Lists the repositories that are currently configured on this system.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;pkg.list_repos&#39;</span><span class="p">]()</span>
+</pre></div>
+</div>
+<p>Returns a dictionary, in the following format:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;reponame&#39;</span><span class="p">:</span> <span class="s">&#39;config_key_1&#39;</span><span class="p">:</span> <span class="s">&#39;config value 1&#39;</span><span class="p">,</span>
+             <span class="s">&#39;config_key_2&#39;</span><span class="p">:</span> <span class="s">&#39;config value 2&#39;</span><span class="p">,</span>
+             <span class="s">&#39;config_key_3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;list item 1 (when appropriate)&#39;</span><span class="p">,</span>
+                              <span class="s">&#39;list item 2 (when appropriate)]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-repo">
+<h3>get_repo<a class="headerlink" href="#get-repo" title="Permalink to this headline">¶</a></h3>
+<p>Displays all local configuration for a specific repository.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;pkg.get_repo&#39;</span><span class="p">](</span><span class="n">repo</span><span class="o">=</span><span class="s">&#39;myrepo&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The information is formatted in much the same way as list_repos, but is
+specific to only one repo.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;config_key_1&#39;</span><span class="p">:</span> <span class="s">&#39;config value 1&#39;</span><span class="p">,</span>
+ <span class="s">&#39;config_key_2&#39;</span><span class="p">:</span> <span class="s">&#39;config value 2&#39;</span><span class="p">,</span>
+ <span class="s">&#39;config_key_3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;list item 1 (when appropriate)&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;list item 2 (when appropriate)]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="del-repo">
+<h3>del_repo<a class="headerlink" href="#del-repo" title="Permalink to this headline">¶</a></h3>
+<p>Removes the local configuration for a specific repository. Requires a <cite>repo</cite>
+argument, which must match the locally configured name. This function returns
+a string, which informs the user as to whether or not the operation was a
+success.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;pkg.del_repo&#39;</span><span class="p">](</span><span class="n">repo</span><span class="o">=</span><span class="s">&#39;myrepo&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mod-repo">
+<h3>mod_repo<a class="headerlink" href="#mod-repo" title="Permalink to this headline">¶</a></h3>
+<p>Modify the local configuration for one or more option for a configured repo.
+This is also the way to create new repository configuration on the local
+system; if a repo is specified which does not yet exist, it will be created.</p>
+<p>The options specified for this function are specific to the system; please
+refer to the documentation for your specific repo manager for specifics.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;pkg.mod_repo&#39;</span><span class="p">](</span><span class="n">repo</span><span class="o">=</span><span class="s">&#39;myrepo&#39;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s">&#39;http://myurl.com/repo&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="low-package-functions">
+<h2>Low-Package Functions<a class="headerlink" href="#low-package-functions" title="Permalink to this headline">¶</a></h2>
+<p>In general, the standard package functions as describes above will meet your
+needs. These functions use the system's native repo manager (for instance,
+yum or the apt tools). In most cases, the repo manager is actually separate
+from the package manager. For instance, yum is usually a front-end for rpm, and
+apt is usually a front-end for dpkg. When possible, the package functions that
+use those package managers directly should do so through the low package
+functions.</p>
+<p>It is normal and sane for <tt class="docutils literal"><span class="pre">pkg</span></tt> to make calls to <tt class="docutils literal"><span class="pre">lowpkgs</span></tt>, but <tt class="docutils literal"><span class="pre">lowpkg</span></tt>
+must never make calls to <tt class="docutils literal"><span class="pre">pkg</span></tt>. This is affects functions which are required
+by both <tt class="docutils literal"><span class="pre">pkg</span></tt> and <tt class="docutils literal"><span class="pre">lowpkg</span></tt>, but the technique in <tt class="docutils literal"><span class="pre">pkg</span></tt> is more performant
+than what is available to <tt class="docutils literal"><span class="pre">lowpkg</span></tt>. When this is the case, the <tt class="docutils literal"><span class="pre">lowpkg</span></tt>
+function that requires that technique must still use the <tt class="docutils literal"><span class="pre">lowpkg</span></tt> version.</p>
+<div class="section" id="id1">
+<h3>list_pkgs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Returns a dict of packages installed, including the package name and version.
+Can accept a list of packages; if none are specified, then all installed
+packages will be listed.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">installed</span> <span class="o">=</span> <span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;lowpkg.list_pkgs&#39;</span><span class="p">](</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="s">&#39;bar&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example output:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;foo&#39;</span><span class="p">:</span> <span class="s">&#39;1.2.3-4&#39;</span><span class="p">,</span>
+ <span class="s">&#39;bar&#39;</span><span class="p">:</span> <span class="s">&#39;5.6.7-8&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="verify">
+<h3>verify<a class="headerlink" href="#verify" title="Permalink to this headline">¶</a></h3>
+<p>Many (but not all) package management systems provide a way to verify that the
+files installed by the package manager have or have not changed. This function
+accepts a list of packages; if none are specified, all packages will be
+included.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">installed</span> <span class="o">=</span> <span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;lowpkg.verify&#39;</span><span class="p">](</span><span class="s">&#39;httpd&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example output:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;/etc/httpd/conf/httpd.conf&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;mismatch&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;size&#39;</span><span class="p">,</span> <span class="s">&#39;md5sum&#39;</span><span class="p">,</span> <span class="s">&#39;mtime&#39;</span><span class="p">],</span>
+                                <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&#39;config&#39;</span><span class="p">}}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="file-list">
+<h3>file_list<a class="headerlink" href="#file-list" title="Permalink to this headline">¶</a></h3>
+<p>Lists all of the files installed by all packages specified. If not packages are
+specified, then all files for all known packages are returned.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">installed</span> <span class="o">=</span> <span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;lowpkg.file_list&#39;</span><span class="p">](</span><span class="s">&#39;httpd&#39;</span><span class="p">,</span> <span class="s">&#39;apache&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function does not return which files belong to which packages; all files
+are returned as one giant list (hence the <cite>file_list</cite> function name. However,
+This information is still returned inside of a dict, so that it can provide
+any errors to the user in a sane manner.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;errors&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;package apache is not installed&#39;</span><span class="p">],</span>
+  <span class="s">&#39;files&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;/etc/httpd&#39;</span><span class="p">,</span>
+            <span class="s">&#39;/etc/httpd/conf&#39;</span><span class="p">,</span>
+            <span class="s">&#39;/etc/httpd/conf.d&#39;</span><span class="p">,</span>
+            <span class="s">&#39;...SNIP...&#39;</span><span class="p">]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="file-dict">
+<h3>file_dict<a class="headerlink" href="#file-dict" title="Permalink to this headline">¶</a></h3>
+<p>Lists all of the files installed by all packages specified. If not packages are
+specified, then all files for all known packages are returned.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">installed</span> <span class="o">=</span> <span class="n">__salt__</span><span class="p">[</span><span class="s">&#39;lowpkg.file_dict&#39;</span><span class="p">](</span><span class="s">&#39;httpd&#39;</span><span class="p">,</span> <span class="s">&#39;apache&#39;</span><span class="p">,</span> <span class="s">&#39;kernel&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Unlike <cite>file_list</cite>, this function will break down which files belong to which
+packages. It will also return errors in the same manner as <cite>file_list</cite>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;errors&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;package apache is not installed&#39;</span><span class="p">],</span>
+ <span class="s">&#39;packages&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;httpd&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;/etc/httpd&#39;</span><span class="p">,</span>
+                        <span class="s">&#39;/etc/httpd/conf&#39;</span><span class="p">,</span>
+                        <span class="s">&#39;...SNIP...&#39;</span><span class="p">],</span>
+              <span class="s">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;/boot/.vmlinuz-2.6.32-279.el6.x86_64.hmac&#39;</span><span class="p">,</span>
+                         <span class="s">&#39;/boot/System.map-2.6.32-279.el6.x86_64&#39;</span><span class="p">,</span>
+                         <span class="s">&#39;...SNIP...&#39;</span><span class="p">]}}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Package Providers</a><ul>
+<li><a class="reference internal" href="#package-functions">Package Functions</a><ul>
+<li><a class="reference internal" href="#list-pkgs">list_pkgs</a></li>
+<li><a class="reference internal" href="#latest-version">latest_version</a></li>
+<li><a class="reference internal" href="#version">version</a></li>
+<li><a class="reference internal" href="#upgrade-available">upgrade_available</a></li>
+<li><a class="reference internal" href="#install">install</a></li>
+<li><a class="reference internal" href="#remove">remove</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#package-repo-functions">Package Repo Functions</a><ul>
+<li><a class="reference internal" href="#list-repos">list_repos</a></li>
+<li><a class="reference internal" href="#get-repo">get_repo</a></li>
+<li><a class="reference internal" href="#del-repo">del_repo</a></li>
+<li><a class="reference internal" href="#mod-repo">mod_repo</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#low-package-functions">Low-Package Functions</a><ul>
+<li><a class="reference internal" href="#id1">list_pkgs</a></li>
+<li><a class="reference internal" href="#verify">verify</a></li>
+<li><a class="reference internal" href="#file-list">file_list</a></li>
+<li><a class="reference internal" href="#file-dict">file_dict</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modular_systems.html"
+                        title="previous chapter">Modular Systems</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../translating.html"
+                        title="next chapter">Translating Documentation</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="modular_systems.html" title="Modular Systems">previous</a>
+                
+            </li>
+            <li>
+                <a href="../translating.html" title="Translating Documentation">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

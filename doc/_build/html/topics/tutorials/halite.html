@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Installing and Configuring Halite</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt tutorials" href="index.html">
+        <link rel="next" title="Access Control System" href="../eauth/access_control.html">
+        <link rel="prev" title="Salt as a Cloud Controller" href="cloud_controller.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="cloud_controller.html" title="Salt as a Cloud Controller">previous</a>
+                
+            </li>
+            <li>
+                <a href="../eauth/access_control.html" title="Access Control System">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="installing-and-configuring-halite">
+<h1>Installing and Configuring Halite<a class="headerlink" href="#installing-and-configuring-halite" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we'll walk through installing and setting up Halite. As of
+2013-10-12, a packaged version of Halite is not available. In addition, the
+current version of Halite is considered pre-alpha and is supported only in
+Salt 0.17 or greater. Additional information is available on GitHub:
+<a class="reference external" href="https://github.com/saltstack/halite">https://github.com/saltstack/halite</a></p>
+<p>Before beginning this tutorial, ensure that the salt-master is installed. To
+install the salt-master, please review the installation documentation:
+<a class="reference external" href="http://docs.saltstack.com/topics/installation/index.html">http://docs.saltstack.com/topics/installation/index.html</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Halite only works with Salt versions greater than 0.17.</p>
+</div>
+<div class="section" id="installing-halite-via-package">
+<h2>Installing Halite Via Package<a class="headerlink" href="#installing-halite-via-package" title="Permalink to this headline">¶</a></h2>
+<p>On CentOS, RHEL, or Fedora:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>yum install python-halite
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By default python-halite only installs CherryPy. If you would like to use
+a different webserver please review the instructions below to install
+pip and your server of choice. The package does not modify the master
+configuration with <tt class="docutils literal"><span class="pre">/etc/salt/master</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="installing-halite-using-pip">
+<h2>Installing Halite Using pip<a class="headerlink" href="#installing-halite-using-pip" title="Permalink to this headline">¶</a></h2>
+<p>To begin the installation of Halite from PyPi, you'll need to install pip. The
+Salt package, as well as the bootstrap, do not install pip by default.</p>
+<p>On CentOS, RHEL, or Fedora:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>yum install python-pip
+</pre></div>
+</div>
+<p>On Debian:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>apt-get install python-pip
+</pre></div>
+</div>
+<p>Once you have pip installed, use it to install halite:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install -U halite
+</pre></div>
+</div>
+<p>Depending on the webserver you want to run halite through, you'll need to
+install that piece as well. On RHEL based distros, use one of the following:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install cherrypy
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install paste
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>yum install python-devel
+<span class="nv">$ </span>yum install gcc
+<span class="nv">$ </span>pip install gevent
+</pre></div>
+</div>
+<p>On Debian based distributions:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install CherryPy
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install paste
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>apt-get install gcc
+<span class="nv">$ </span>apt-get install python-dev
+<span class="nv">$ </span>apt-get install libevent-dev
+<span class="nv">$ </span>pip install gevent
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-halite-permissions">
+<h2>Configuring Halite Permissions<a class="headerlink" href="#configuring-halite-permissions" title="Permalink to this headline">¶</a></h2>
+<p>Configuring Halite access permissions is easy. By default, you only need to
+ensure that the &#64;runner group is configured. In the <tt class="docutils literal"><span class="pre">/etc/salt/master</span> <span class="pre">file</span></tt>,
+uncomment and modify the following lines:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">external_auth</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pam</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">testuser</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">.*</span>
+      <span class="p-Indicator">-</span> <span class="s">&#39;@runner&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You cannot use the root user for pam login; it will fail to authenticate.</p>
+</div>
+<p>Halite uses the runner manage.status to get the status of minions, so runner
+permissions are required. As you can see in this example, the root user has
+been configured. If you aren't running Halite as the root user, you'll need
+to modify this value. For example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">external_auth</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pam</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">mytestuser</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">.*</span>
+      <span class="p-Indicator">-</span> <span class="s">&#39;@runner&#39;</span>
+      <span class="p-Indicator">-</span> <span class="s">&#39;@wheel&#39;</span>
+</pre></div>
+</div>
+<p>Currently Halite allows, but does not require, any wheel modules.</p>
+</div>
+<div class="section" id="configuring-halite-settings">
+<h2>Configuring Halite Settings<a class="headerlink" href="#configuring-halite-settings" title="Permalink to this headline">¶</a></h2>
+<p>Once you've configured the permissions for Halite, you'll need to set up the
+Halite settings in the /etc/salt/master file. Halite supports CherryPy, Paste
+and Gevent out of the box.</p>
+<p>To configure cherrypy, add the following to the bottom of your /etc/salt/master file:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">halite</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">level</span><span class="p-Indicator">:</span> <span class="s">&#39;debug&#39;</span>
+  <span class="l-Scalar-Plain">server</span><span class="p-Indicator">:</span> <span class="s">&#39;cherrypy&#39;</span>
+  <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="s">&#39;0.0.0.0&#39;</span>
+  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="s">&#39;8080&#39;</span>
+  <span class="l-Scalar-Plain">cors</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+  <span class="l-Scalar-Plain">tls</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+  <span class="l-Scalar-Plain">certpath</span><span class="p-Indicator">:</span> <span class="s">&#39;/etc/pki/tls/certs/localhost.crt&#39;</span>
+  <span class="l-Scalar-Plain">keypath</span><span class="p-Indicator">:</span> <span class="s">&#39;/etc/pki/tls/certs/localhost.key&#39;</span>
+  <span class="l-Scalar-Plain">pempath</span><span class="p-Indicator">:</span> <span class="s">&#39;/etc/pki/tls/certs/localhost.pem&#39;</span>
+</pre></div>
+</div>
+<p>If you wish to use paste:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">halite</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">level</span><span class="p-Indicator">:</span> <span class="s">&#39;debug&#39;</span>
+  <span class="l-Scalar-Plain">server</span><span class="p-Indicator">:</span> <span class="s">&#39;paste&#39;</span>
+  <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="s">&#39;0.0.0.0&#39;</span>
+  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="s">&#39;8080&#39;</span>
+  <span class="l-Scalar-Plain">cors</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+  <span class="l-Scalar-Plain">tls</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+  <span class="l-Scalar-Plain">certpath</span><span class="p-Indicator">:</span> <span class="s">&#39;/etc/pki/tls/certs/localhost.crt&#39;</span>
+  <span class="l-Scalar-Plain">keypath</span><span class="p-Indicator">:</span> <span class="s">&#39;/etc/pki/tls/certs/localhost.key&#39;</span>
+  <span class="l-Scalar-Plain">pempath</span><span class="p-Indicator">:</span> <span class="s">&#39;/etc/pki/tls/certs/localhost.pem&#39;</span>
+</pre></div>
+</div>
+<p>To use gevent:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">halite</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">level</span><span class="p-Indicator">:</span> <span class="s">&#39;debug&#39;</span>
+  <span class="l-Scalar-Plain">server</span><span class="p-Indicator">:</span> <span class="s">&#39;gevent&#39;</span>
+  <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="s">&#39;0.0.0.0&#39;</span>
+  <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="s">&#39;8080&#39;</span>
+  <span class="l-Scalar-Plain">cors</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+  <span class="l-Scalar-Plain">tls</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+  <span class="l-Scalar-Plain">certpath</span><span class="p-Indicator">:</span> <span class="s">&#39;/etc/pki/tls/certs/localhost.crt&#39;</span>
+  <span class="l-Scalar-Plain">keypath</span><span class="p-Indicator">:</span> <span class="s">&#39;/etc/pki/tls/certs/localhost.key&#39;</span>
+  <span class="l-Scalar-Plain">pempath</span><span class="p-Indicator">:</span> <span class="s">&#39;/etc/pki/tls/certs/localhost.pem&#39;</span>
+</pre></div>
+</div>
+<p>The &quot;cherrypy&quot; and &quot;gevent&quot; servers require the certpath and keypath files
+to run tls/ssl. The .crt file holds the public cert and the .key file holds
+the private key. Whereas the &quot;paste&quot; server requires a single .pem file that
+contains both the cert and key. This can be created simply by concatenating
+the .crt and .key files.</p>
+<p>If you want to use a self-signed cert, you can create one using the Salt.tls
+module:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You might wish to target only a specific minion. The example below
+targets all connected minions.</p>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> tls.create_self_signed_cert <span class="nb">test</span>
+</pre></div>
+</div>
+<p>You can also use <tt class="docutils literal"><span class="pre">salt-call</span></tt> to create a self-signed cert.
+.. code-block:: bash</p>
+<blockquote>
+<div>salt-call tls.create_self_signed_cert tls</div></blockquote>
+<p>When using self-signed certs, browsers will need approval before accepting the
+cert. If the web application page has been cached with a non-HTTPS version of
+the app, then the browser cache will have to be cleared before it will
+recognize and prompt to accept the self-signed certificate.</p>
+</div>
+<div class="section" id="starting-halite">
+<h2>Starting Halite<a class="headerlink" href="#starting-halite" title="Permalink to this headline">¶</a></h2>
+<p>Once you've configured the halite section of your /etc/salt/master, you can
+restart the salt-master service, and your halite instance will be available.
+Depending on your configuration, the instance will be available either at
+<a class="reference external" href="http://localhost:8080/app">http://localhost:8080/app</a>, <a class="reference external" href="http://domain:8080/app">http://domain:8080/app</a>, or
+<a class="reference external" href="http://123.456.789.012:8080/app">http://123.456.789.012:8080/app</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">halite requires an HTML 5 compliant browser.</p>
+</div>
+<p>All logs relating to halite are logged to the default /var/log/salt/master file.</p>
+</div>
+<div class="section" id="running-your-halite-instance-through-nginx">
+<h2>Running Your Halite Instance Through Nginx<a class="headerlink" href="#running-your-halite-instance-through-nginx" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="running-your-halite-instance-through-apache">
+<h2>Running Your Halite Instance Through Apache<a class="headerlink" href="#running-your-halite-instance-through-apache" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installing and Configuring Halite</a><ul>
+<li><a class="reference internal" href="#installing-halite-via-package">Installing Halite Via Package</a></li>
+<li><a class="reference internal" href="#installing-halite-using-pip">Installing Halite Using pip</a></li>
+<li><a class="reference internal" href="#configuring-halite-permissions">Configuring Halite Permissions</a></li>
+<li><a class="reference internal" href="#configuring-halite-settings">Configuring Halite Settings</a></li>
+<li><a class="reference internal" href="#starting-halite">Starting Halite</a></li>
+<li><a class="reference internal" href="#running-your-halite-instance-through-nginx">Running Your Halite Instance Through Nginx</a></li>
+<li><a class="reference internal" href="#running-your-halite-instance-through-apache">Running Your Halite Instance Through Apache</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="cloud_controller.html"
+                        title="previous chapter">Salt as a Cloud Controller</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../eauth/access_control.html"
+                        title="next chapter">Access Control System</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="cloud_controller.html" title="Salt as a Cloud Controller">previous</a>
+                
+            </li>
+            <li>
+                <a href="../eauth/access_control.html" title="Access Control System">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

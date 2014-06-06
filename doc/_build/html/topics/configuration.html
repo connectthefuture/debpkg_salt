@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Configuring Salt</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../_static/basic.css">
+    <link rel="stylesheet" href="../_static/pygments.css">
+
+    <link rel="stylesheet" href="../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../_static/underscore.js"></script>
+    
+    
+    <script src="../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../_static/favicon.ico">
+        <link rel="top" title="None" href="../index.html">
+        <link rel="next" title="Developing Salt" href="hacking.html">
+        <link rel="prev" title="SUSE Installation" href="installation/suse.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../index.html"><img src="../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="installation/suse.html" title="SUSE Installation">previous</a>
+                
+            </li>
+            <li>
+                <a href="hacking.html" title="Developing Salt">next</a>
+                
+            </li>
+            <li>
+                <a href="../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="configuring-salt">
+<h1>Configuring Salt<a class="headerlink" href="#configuring-salt" title="Permalink to this headline">¶</a></h1>
+<p>Salt configuration is very simple. The default configuration for the
+<a class="reference internal" href="#term-master"><em class="xref std std-term">master</em></a> will work for most installations and the only requirement for
+setting up a <a class="reference internal" href="#term-minion"><em class="xref std std-term">minion</em></a> is to set the location of the master in the minion
+configuration file.</p>
+<dl class="glossary docutils">
+<dt id="term-master">master</dt>
+<dd>The Salt master is the central server that all minions connect to.
+Commands are run on the minions through the master, and minions send data
+back to the master (unless otherwise redirected with a <a class="reference internal" href="../ref/returners/index.html"><em>returner</em></a>). It is started with the
+<strong class="command">salt-master</strong> program.</dd>
+<dt id="term-minion">minion</dt>
+<dd>Salt minions are the potentially hundreds or thousands of servers that
+may be queried and controlled from the master.</dd>
+</dl>
+<p>The configuration files will be installed to <tt class="file docutils literal"><span class="pre">/etc/salt</span></tt> and are named
+after the respective components, <tt class="file docutils literal"><span class="pre">/etc/salt/master</span></tt> and
+<tt class="file docutils literal"><span class="pre">/etc/salt/minion</span></tt>.</p>
+<div class="section" id="master-configuration">
+<h2>Master Configuration<a class="headerlink" href="#master-configuration" title="Permalink to this headline">¶</a></h2>
+<p>By default the Salt master listens on ports 4505 and 4506 on all
+interfaces (0.0.0.0). To bind Salt to a specific IP, redefine the
+&quot;interface&quot; directive in the master configuration file, typically
+<tt class="docutils literal"><span class="pre">/etc/salt/master</span></tt>, as follows:</p>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gd">- #interface: 0.0.0.0</span>
+<span class="gi">+ interface: 10.0.0.1</span>
+</pre></div>
+</div>
+<p>After updating the configuration file, restart the Salt master.
+See the <a class="reference internal" href="../ref/configuration/master.html"><em>master configuration reference</em></a>
+for more details about other configurable options.</p>
+</div>
+<div class="section" id="minion-configuration">
+<h2>Minion Configuration<a class="headerlink" href="#minion-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Although there are many Salt Minion configuration options, configuring
+a Salt Minion is very simple. By default a Salt Minion will
+try to connect to the DNS name &quot;salt&quot;; if the Minion is able to
+resolve that name correctly, no configuration is needed.</p>
+<p>If the DNS name &quot;salt&quot; does not resolve to point to the correct
+location of the Master, redefine the &quot;master&quot; directive in the minion
+configuration file, typically <tt class="docutils literal"><span class="pre">/etc/salt/minion</span></tt>, as follows:</p>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gd">- #master: salt</span>
+<span class="gi">+ master: 10.0.0.1</span>
+</pre></div>
+</div>
+<p>After updating the configuration file, restart the Salt minion.
+See the <a class="reference internal" href="../ref/configuration/minion.html"><em>minion configuration reference</em></a>
+for more details about other configurable options.</p>
+</div>
+<div class="section" id="running-salt">
+<h2>Running Salt<a class="headerlink" href="#running-salt" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Start the master in the foreground (to daemonize the process, pass the
+<a class="reference internal" href="../ref/cli/salt-master.html#cmdoption-salt-master-d"><em class="xref std std-option">-d flag</em></a>):</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-master
+</pre></div>
+</div>
+</li>
+<li><p class="first">Start the minion in the foreground (to daemonize the process, pass the
+<a class="reference internal" href="../ref/cli/salt-minion.html#cmdoption-salt-minion-d"><em class="xref std std-option">-d flag</em></a>):</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-minion
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition-having-trouble admonition">
+<p class="first admonition-title">Having trouble?</p>
+<p>The simplest way to troubleshoot Salt is to run the master and minion in
+the foreground with <a class="reference internal" href="../ref/cli/salt-master.html#cmdoption-salt-master-l"><em class="xref std std-option">log level</em></a> set to <tt class="docutils literal"><span class="pre">debug</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">salt</span><span class="o">-</span><span class="n">master</span> <span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="n">level</span><span class="o">=</span><span class="n">debug</span>
+</pre></div>
+</div>
+<p class="last">For information on salt's logging system please see the <a class="reference internal" href="../ref/configuration/logging/index.html"><em>logging
+document</em></a>.</p>
+</div>
+<div class="admonition-run-as-an-unprivileged-non-root-user admonition">
+<p class="first admonition-title">Run as an unprivileged (non-root) user</p>
+<p>To run Salt as another user, set the <a class="reference internal" href="../ref/configuration/master.html#std:conf_master-user"><tt class="xref std std-conf_master docutils literal"><span class="pre">user</span></tt></a> parameter in the
+master config file.</p>
+<p>Additionally, ownership and permissions need to be set such that the
+desired user can read from and write to the following directories (and
+their subdirectories, where applicable):</p>
+<ul class="simple">
+<li>/etc/salt</li>
+<li>/var/cache/salt</li>
+<li>/var/log/salt</li>
+</ul>
+<p class="last">More information about running salt as a non-privileged user can be found
+<a class="reference internal" href="nonroot.html"><em>here</em></a>.</p>
+</div>
+<p>There is also a full <a class="reference internal" href="troubleshooting/index.html"><em>troubleshooting guide</em></a>
+available.</p>
+</div>
+<div class="section" id="key-management">
+<h2>Key Management<a class="headerlink" href="#key-management" title="Permalink to this headline">¶</a></h2>
+<p>Salt uses AES encryption for all communication between the Master and
+the Minion. This ensures that the commands sent to the Minions cannot
+be tampered with, and that communication between Master and Minion is
+authenticated through trusted, accepted keys.</p>
+<p>Before commands can be sent to a Minion, its key must be accepted on
+the Master. Run the <tt class="docutils literal"><span class="pre">salt-key</span></tt> command to list the keys known to
+the Salt Master:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>root@master ~<span class="o">]</span><span class="c"># salt-key -L</span>
+Unaccepted Keys:
+alpha
+bravo
+charlie
+delta
+Accepted Keys:
+</pre></div>
+</div>
+<p>This example shows that the Salt Master is aware of four Minions, but none of
+the keys has been accepted. To accept the keys and allow the Minions to be
+controlled by the Master, again use the <tt class="docutils literal"><span class="pre">salt-key</span></tt> command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>root@master ~<span class="o">]</span><span class="c"># salt-key -A</span>
+<span class="o">[</span>root@master ~<span class="o">]</span><span class="c"># salt-key -L</span>
+Unaccepted Keys:
+Accepted Keys:
+alpha
+bravo
+charlie
+delta
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">salt-key</span></tt> command allows for signing keys individually or in bulk. The
+example above, using <tt class="docutils literal"><span class="pre">-A</span></tt> bulk-accepts all pending keys. To accept keys
+individually use the lowercase of the same option, <tt class="docutils literal"><span class="pre">-a</span> <span class="pre">keyname</span></tt>.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="../ref/cli/salt-key.html"><em>salt-key manpage</em></a></p>
+</div>
+</div>
+<div class="section" id="sending-commands">
+<h2>Sending Commands<a class="headerlink" href="#sending-commands" title="Permalink to this headline">¶</a></h2>
+<p>Communication between the Master and a Minion may be verified by running
+the <tt class="docutils literal"><span class="pre">test.ping</span></tt> command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>root@master ~<span class="o">]</span><span class="c"># salt alpha test.ping</span>
+alpha:
+    True
+</pre></div>
+</div>
+<p>Communication between the Master and all Minions may be tested in a
+similar way:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>root@master ~<span class="o">]</span><span class="c"># salt &#39;*&#39; test.ping</span>
+alpha:
+    True
+bravo:
+    True
+charlie:
+    True
+delta:
+    True
+</pre></div>
+</div>
+<p>Each of the Minions should send a <tt class="docutils literal"><span class="pre">True</span></tt> response as shown above.</p>
+</div>
+<div class="section" id="what-s-next">
+<h2>What's Next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h2>
+<p>Understanding <a class="reference internal" href="targeting/index.html"><em>targeting</em></a> is important. From there,
+depending on the way you wish to use Salt, you should also proceed to learn
+about <a class="reference internal" href="tutorials/starting_states.html"><em>States</em></a> and <a class="reference internal" href="../ref/modules/index.html"><em>Execution Modules</em></a>.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configuring Salt</a><ul>
+<li><a class="reference internal" href="#master-configuration">Master Configuration</a></li>
+<li><a class="reference internal" href="#minion-configuration">Minion Configuration</a></li>
+<li><a class="reference internal" href="#running-salt">Running Salt</a></li>
+<li><a class="reference internal" href="#key-management">Key Management</a></li>
+<li><a class="reference internal" href="#sending-commands">Sending Commands</a></li>
+<li><a class="reference internal" href="#what-s-next">What's Next?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation/suse.html"
+                        title="previous chapter">SUSE Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="hacking.html"
+                        title="next chapter">Developing Salt</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="installation/suse.html" title="SUSE Installation">previous</a>
+                
+            </li>
+            <li>
+                <a href="hacking.html" title="Developing Salt">next</a>
+                
+            </li>
+            <li>
+                <a href="../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

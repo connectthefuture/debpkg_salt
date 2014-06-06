@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt-key</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="salt-cp" href="salt-cp.html">
+        <link rel="prev" title="salt-minion" href="salt-minion.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt-minion.html" title="salt-minion">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt-cp.html" title="salt-cp">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-key">
+<h1><tt class="docutils literal"><span class="pre">salt-key</span></tt><a class="headerlink" href="#salt-key" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<p>salt-key [ options ]</p>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Salt-key executes simple management of Salt server public keys used for
+authentication.</p>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<dl class="option">
+<dt id="cmdoption-salt-key--version">
+<tt class="descname">--version</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key--version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the version of Salt that is running.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key--versions-report">
+<tt class="descname">--versions-report</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key--versions-report" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show program's dependencies and version number, and then exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-h">
+<span id="cmdoption-salt-key--help"></span><tt class="descname">-h</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-c">
+<span id="cmdoption-salt-key--config-dir"></span><tt class="descname">-c</tt><tt class="descclassname"> CONFIG_DIR</tt><tt class="descclassname">, </tt><tt class="descname">--config-dir</tt><tt class="descclassname">=CONFIG_dir</tt><a class="headerlink" href="#cmdoption-salt-key-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>The location of the Salt configuration directory. This directory contains
+the configuration files for Salt master and minions. The default location
+on most systems is <tt class="docutils literal"><span class="pre">/etc/salt</span></tt>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-q">
+<span id="cmdoption-salt-key--quiet"></span><tt class="descname">-q</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--quiet</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Suppress output</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-y">
+<span id="cmdoption-salt-key--yes"></span><tt class="descname">-y</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--yes</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key-y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Answer 'Yes' to all questions presented, defaults to False</p>
+</dd></dl>
+
+<div class="section" id="logging-options">
+<h3>Logging Options<a class="headerlink" href="#logging-options" title="Permalink to this headline">¶</a></h3>
+<p>Logging options which override any settings defined on the configuration files.</p>
+<dl class="option">
+<dt id="cmdoption-salt-key--log-file">
+<tt class="descname">--log-file</tt><tt class="descclassname">=LOG_FILE</tt><a class="headerlink" href="#cmdoption-salt-key--log-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log file path. Default: /var/log/salt/minion.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key--log-file-level">
+<tt class="descname">--log-file-level</tt><tt class="descclassname">=LOG_LEVEL_LOGFILE</tt><a class="headerlink" href="#cmdoption-salt-key--log-file-level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logfile logging log level. One of <tt class="docutils literal"><span class="pre">all</span></tt>, <tt class="docutils literal"><span class="pre">garbage</span></tt>, <tt class="docutils literal"><span class="pre">trace</span></tt>,
+<tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">quiet</span></tt>. Default:
+<tt class="docutils literal"><span class="pre">warning</span></tt>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="output-options">
+<h3>Output Options<a class="headerlink" href="#output-options" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-salt-key--out">
+<tt class="descname">--out</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key--out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pass in an alternative outputter to display the return of data. This
+outputter can be any of the available outputters:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">grains</span></tt>, <tt class="docutils literal"><span class="pre">highstate</span></tt>, <tt class="docutils literal"><span class="pre">json</span></tt>, <tt class="docutils literal"><span class="pre">key</span></tt>, <tt class="docutils literal"><span class="pre">overstatestage</span></tt>, <tt class="docutils literal"><span class="pre">pprint</span></tt>, <tt class="docutils literal"><span class="pre">raw</span></tt>, <tt class="docutils literal"><span class="pre">txt</span></tt>, <tt class="docutils literal"><span class="pre">yaml</span></tt></div></blockquote>
+<p>Some outputters are formatted only for data returned from specific
+functions; for instance, the <tt class="docutils literal"><span class="pre">grains</span></tt> outputter will not work for non-grains
+data.</p>
+<p>If an outputter is used that does not support the data passed into it, then
+Salt will fall back on the <tt class="docutils literal"><span class="pre">pprint</span></tt> outputter and display the return data
+using the Python <tt class="docutils literal"><span class="pre">pprint</span></tt> standard library module.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If using <tt class="docutils literal"><span class="pre">--out=json</span></tt>, you will probably want <tt class="docutils literal"><span class="pre">--static</span></tt> as well.
+Without the static option, you will get a JSON string for each minion.
+This is due to using an iterative outputter. So if you want to feed it
+to a JSON parser, use <tt class="docutils literal"><span class="pre">--static</span></tt> as well.</p>
+</div>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key--out-indent">
+<span id="cmdoption-salt-key--output-indent"></span><tt class="descname">--out-indent</tt><tt class="descclassname"> OUTPUT_INDENT</tt><tt class="descclassname">, </tt><tt class="descname">--output-indent</tt><tt class="descclassname"> OUTPUT_INDENT</tt><a class="headerlink" href="#cmdoption-salt-key--out-indent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the output indented by the provided value in spaces. Negative values
+disable indentation. Only applicable in outputters that support
+indentation.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key--out-file">
+<span id="cmdoption-salt-key--output-file"></span><tt class="descname">--out-file</tt><tt class="descclassname">=OUTPUT_FILE</tt><tt class="descclassname">, </tt><tt class="descname">--output-file</tt><tt class="descclassname">=OUTPUT_FILE</tt><a class="headerlink" href="#cmdoption-salt-key--out-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the output to the specified file.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key--no-color">
+<tt class="descname">--no-color</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key--no-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable all colored output</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key--force-color">
+<tt class="descname">--force-color</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key--force-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Force colored output</p>
+</dd></dl>
+
+</div>
+<div class="section" id="actions">
+<h3>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-salt-key-l">
+<span id="cmdoption-salt-key--list"></span><tt class="descname">-l</tt><tt class="descclassname"> ARG</tt><tt class="descclassname">, </tt><tt class="descname">--list</tt><tt class="descclassname">=ARG</tt><a class="headerlink" href="#cmdoption-salt-key-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the public keys. The args <tt class="docutils literal"><span class="pre">pre</span></tt>, <tt class="docutils literal"><span class="pre">un</span></tt>, and <tt class="docutils literal"><span class="pre">unaccepted</span></tt> will
+list unaccepted/unsigned keys. <tt class="docutils literal"><span class="pre">acc</span></tt> or <tt class="docutils literal"><span class="pre">accepted</span></tt> will list
+accepted/signed keys. <tt class="docutils literal"><span class="pre">rej</span></tt> or <tt class="docutils literal"><span class="pre">rejected</span></tt> will list rejected keys.
+Finally, <tt class="docutils literal"><span class="pre">all</span></tt> will list all keys.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-L">
+<span id="cmdoption-salt-key--list-all"></span><tt class="descname">-L</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--list-all</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key-L" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all public keys. (Deprecated: use <tt class="docutils literal"><span class="pre">--list</span> <span class="pre">all</span></tt>)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-a">
+<span id="cmdoption-salt-key--accept"></span><tt class="descname">-a</tt><tt class="descclassname"> ACCEPT</tt><tt class="descclassname">, </tt><tt class="descname">--accept</tt><tt class="descclassname">=ACCEPT</tt><a class="headerlink" href="#cmdoption-salt-key-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accept the specified public key (use --include-all to match rejected keys
+in addition to pending keys). Globs are supported.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-A">
+<span id="cmdoption-salt-key--accept-all"></span><tt class="descname">-A</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--accept-all</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key-A" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accepts all pending keys.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-r">
+<span id="cmdoption-salt-key--reject"></span><tt class="descname">-r</tt><tt class="descclassname"> REJECT</tt><tt class="descclassname">, </tt><tt class="descname">--reject</tt><tt class="descclassname">=REJECT</tt><a class="headerlink" href="#cmdoption-salt-key-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reject the specified public key (use --include-all to match accepted keys
+in addition to pending keys). Globs are supported.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-R">
+<span id="cmdoption-salt-key--reject-all"></span><tt class="descname">-R</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--reject-all</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key-R" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rejects all pending keys.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key--include-all">
+<tt class="descname">--include-all</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key--include-all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Include non-pending keys when accepting/rejecting.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-p">
+<span id="cmdoption-salt-key--print"></span><tt class="descname">-p</tt><tt class="descclassname"> PRINT</tt><tt class="descclassname">, </tt><tt class="descname">--print</tt><tt class="descclassname">=PRINT</tt><a class="headerlink" href="#cmdoption-salt-key-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the specified public key.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-P">
+<span id="cmdoption-salt-key--print-all"></span><tt class="descname">-P</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--print-all</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key-P" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print all public keys</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-d">
+<span id="cmdoption-salt-key--delete"></span><tt class="descname">-d</tt><tt class="descclassname"> DELETE</tt><tt class="descclassname">, </tt><tt class="descname">--delete</tt><tt class="descclassname">=DELETE</tt><a class="headerlink" href="#cmdoption-salt-key-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the specified key. Globs are supported.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-D">
+<span id="cmdoption-salt-key--delete-all"></span><tt class="descname">-D</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--delete-all</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key-D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all keys.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-f">
+<span id="cmdoption-salt-key--finger"></span><tt class="descname">-f</tt><tt class="descclassname"> FINGER</tt><tt class="descclassname">, </tt><tt class="descname">--finger</tt><tt class="descclassname">=FINGER</tt><a class="headerlink" href="#cmdoption-salt-key-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the specified key's fingerprint.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key-F">
+<span id="cmdoption-salt-key--finger-all"></span><tt class="descname">-F</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--finger-all</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-key-F" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print all keys' fingerprints.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="key-generation-options">
+<h3>Key Generation Options<a class="headerlink" href="#key-generation-options" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-salt-key--gen-keys">
+<tt class="descname">--gen-keys</tt><tt class="descclassname">=GEN_KEYS</tt><a class="headerlink" href="#cmdoption-salt-key--gen-keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a name to generate a keypair for use with salt</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key--gen-keys-dir">
+<tt class="descname">--gen-keys-dir</tt><tt class="descclassname">=GEN_KEYS_DIR</tt><a class="headerlink" href="#cmdoption-salt-key--gen-keys-dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the directory to save the generated keypair.  Only works
+with 'gen_keys_dir' option; default is the current directory.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-key--keysize">
+<tt class="descname">--keysize</tt><tt class="descclassname">=KEYSIZE</tt><a class="headerlink" href="#cmdoption-salt-key--keysize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the keysize for the generated key, only works with
+the '--gen-keys' option, the key size must be 2048 or
+higher, otherwise it will be rounded up to 2048. The
+default is 2048.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p><em class="manpage">salt(7)</em>
+<em class="manpage">salt-master(1)</em>
+<em class="manpage">salt-minion(1)</em></p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">salt-key</span></tt></a><ul>
+<li><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#options">Options</a><ul>
+<li><a class="reference internal" href="#logging-options">Logging Options</a></li>
+<li><a class="reference internal" href="#output-options">Output Options</a></li>
+<li><a class="reference internal" href="#actions">Actions</a></li>
+<li><a class="reference internal" href="#key-generation-options">Key Generation Options</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt-minion.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">salt-minion</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt-cp.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">salt-cp</span></tt></a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt-minion.html" title="salt-minion">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt-cp.html" title="salt-cp">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

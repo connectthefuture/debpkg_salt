@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Opening the Firewall up for Salt</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt tutorials" href="index.html">
+        <link rel="next" title="Using cron with Salt" href="cron.html">
+        <link rel="prev" title="Standalone Minion" href="standalone_minion.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="standalone_minion.html" title="Standalone Minion">previous</a>
+                
+            </li>
+            <li>
+                <a href="cron.html" title="Using cron with Salt">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="opening-the-firewall-up-for-salt">
+<h1>Opening the Firewall up for Salt<a class="headerlink" href="#opening-the-firewall-up-for-salt" title="Permalink to this headline">¶</a></h1>
+<p>The Salt master communicates with the minions using an AES-encrypted ZeroMQ
+connection. These communications are done over TCP ports 4505 and 4506, which need
+to be accessible on the master only. This document outlines suggested firewall
+rules for allowing these incoming connections to the master.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">No firewall configuration needs to be done on Salt minions. These changes
+refer to the master only.</p>
+</div>
+<div class="section" id="rhel-6-centos-6">
+<h2>RHEL 6 / CentOS 6<a class="headerlink" href="#rhel-6-centos-6" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">lokkit</span></tt> command packaged with some Linux distributions makes opening
+iptables firewall ports very simple via the command line. Just be careful
+to not lock out access to the server by neglecting to open the ssh
+port.</p>
+<p><strong>lokkit example</strong>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>lokkit -p 22:tcp -p 4505:tcp -p 4506:tcp
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">system-config-firewall-tui</span></tt> command provides a text-based interface to modifying
+the firewall.</p>
+<p><strong>system-config-firewall-tui</strong>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>system-config-firewall-tui
+</pre></div>
+</div>
+</div>
+<div class="section" id="opensuse">
+<h2>openSUSE<a class="headerlink" href="#opensuse" title="Permalink to this headline">¶</a></h2>
+<p>Salt installs firewall rules in <a class="reference external" href="https://github.com/saltstack/salt/blob/develop/pkg/suse/salt.SuSEfirewall2">/etc/sysconfig/SuSEfirewall2.d/services/salt</a>.
+Enable with:</p>
+<div class="highlight-bash"><div class="highlight"><pre>SuSEfirewall2 open
+SuSEfirewall2 start
+</pre></div>
+</div>
+<p>If you have an older package of Salt where the above configuration file is not included, the <tt class="docutils literal"><span class="pre">SuSEfirewall2</span></tt> command makes opening iptables firewall ports
+very simple via the command line.</p>
+<p><strong>SuSEfirewall example</strong>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>SuSEfirewall2 open EXT TCP 4505
+SuSEfirewall2 open EXT TCP 4506
+</pre></div>
+</div>
+<p>The firewall module in YaST2 provides a text-based interface to modifying the firewall.</p>
+<p><strong>YaST2</strong>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>yast2 firewall
+</pre></div>
+</div>
+</div>
+<div class="section" id="iptables">
+<span id="linux-iptables"></span><h2>iptables<a class="headerlink" href="#iptables" title="Permalink to this headline">¶</a></h2>
+<p>Different Linux distributions store their <cite>iptables</cite> (also known as
+<a class="reference external" href="http://www.netfilter.org/">netfilter</a>) rules in different places, which makes it difficult to
+standardize firewall documentation. Included are some of the more
+common locations, but your mileage may vary.</p>
+<p><strong>Fedora / RHEL / CentOS</strong>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>/etc/sysconfig/iptables
+</pre></div>
+</div>
+<p><strong>Arch Linux</strong>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>/etc/iptables/iptables.rules
+</pre></div>
+</div>
+<p><strong>Debian</strong></p>
+<p>Follow these instructions: <a class="reference external" href="http://wiki.debian.org/iptables">http://wiki.debian.org/iptables</a></p>
+<p>Once you've found your firewall rules, you'll need to add the two lines below
+to allow traffic on <tt class="docutils literal"><span class="pre">tcp/4505</span></tt> and <tt class="docutils literal"><span class="pre">tcp/4506</span></tt>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>-A INPUT -m state --state new -m tcp -p tcp --dport 4505 -j ACCEPT
+-A INPUT -m state --state new -m tcp -p tcp --dport 4506 -j ACCEPT
+</pre></div>
+</div>
+<p><strong>Ubuntu</strong></p>
+<p>Salt installs firewall rules in <a class="reference external" href="https://github.com/saltstack/salt/blob/develop/pkg/salt.ufw">/etc/ufw/applications.d/salt.ufw</a>. Enable with:</p>
+<div class="highlight-bash"><div class="highlight"><pre>ufw allow salt
+</pre></div>
+</div>
+</div>
+<div class="section" id="pf-conf">
+<h2>pf.conf<a class="headerlink" href="#pf-conf" title="Permalink to this headline">¶</a></h2>
+<p>The BSD-family of operating systems uses <a class="reference external" href="http://openbsd.org/faq/pf/">packet filter (pf)</a>. The following
+example describes the additions to <tt class="docutils literal"><span class="pre">pf.conf</span></tt> needed to access the Salt
+master.</p>
+<div class="highlight-bash"><div class="highlight"><pre>pass in on <span class="nv">$int_if</span> proto tcp from any to <span class="nv">$int_if</span> port 4505
+pass in on <span class="nv">$int_if</span> proto tcp from any to <span class="nv">$int_if</span> port 4506
+</pre></div>
+</div>
+<p>Once these additions have been made to the <tt class="docutils literal"><span class="pre">pf.conf</span></tt> the rules will need to
+be reloaded. This can be done using the <tt class="docutils literal"><span class="pre">pfctl</span></tt> command.</p>
+<div class="highlight-bash"><div class="highlight"><pre>pfctl -vf /etc/pf.conf
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="whitelist-communication-to-master">
+<h1>Whitelist communication to Master<a class="headerlink" href="#whitelist-communication-to-master" title="Permalink to this headline">¶</a></h1>
+<p>There are situations where you want to selectively allow Minon traffic
+from specific hosts or networks into your Salt Master. The first
+scenario which comes to mind is to prevent unwanted traffic to your
+Master out of security concerns, but another scenario is to handle
+Minion upgrades when there are backwards incompatible changes between
+the installed Salt versions in your environment.</p>
+<p>Here is an example <a class="reference internal" href="#linux-iptables"><em>Linux iptables</em></a> ruleset to
+be set on the Master:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># Allow Minions from these networks</span>
+-I INPUT -s 10.1.2.0/24 -p tcp -m multiport --dports 4505,4506 -j ACCEPT
+-I INPUT -s 10.1.3.0/24 -p tcp -m multiport --dports 4505,4506 -j ACCEPT
+<span class="c"># Allow Salt to communicate with Master on the loopback interface</span>
+-A INPUT -i lo -p tcp -m multiport --dports 4505,4506 -j ACCEPT
+<span class="c"># Reject everything else</span>
+-A INPUT -p tcp -m multiport --dports 4505,4506 -j REJECT
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The important thing to note here is that the <tt class="docutils literal"><span class="pre">salt</span></tt> command
+needs to communicate with the listening network socket of
+<tt class="docutils literal"><span class="pre">salt-master</span></tt> on the <em>loopback</em> interface. Without this you will
+see no outgoing Salt traffic from the master, even for a simple
+<tt class="docutils literal"><span class="pre">salt</span> <span class="pre">'*'</span> <span class="pre">test.ping</span></tt>, because the <tt class="docutils literal"><span class="pre">salt</span></tt> client never reached
+the <tt class="docutils literal"><span class="pre">salt-master</span></tt> to tell it to carry out the execution.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Opening the Firewall up for Salt</a><ul>
+<li><a class="reference internal" href="#rhel-6-centos-6">RHEL 6 / CentOS 6</a></li>
+<li><a class="reference internal" href="#opensuse">openSUSE</a></li>
+<li><a class="reference internal" href="#iptables">iptables</a></li>
+<li><a class="reference internal" href="#pf-conf">pf.conf</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#whitelist-communication-to-master">Whitelist communication to Master</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="standalone_minion.html"
+                        title="previous chapter">Standalone Minion</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="cron.html"
+                        title="next chapter">Using cron with Salt</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="standalone_minion.html" title="Standalone Minion">previous</a>
+                
+            </li>
+            <li>
+                <a href="cron.html" title="Using cron with Salt">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

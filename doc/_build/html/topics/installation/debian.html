@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Debian Installation</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Installation" href="index.html">
+        <link rel="next" title="Fedora" href="fedora.html">
+        <link rel="prev" title="Arch Linux" href="arch.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="arch.html" title="Arch Linux">previous</a>
+                
+            </li>
+            <li>
+                <a href="fedora.html" title="Fedora">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="debian-installation">
+<h1>Debian Installation<a class="headerlink" href="#debian-installation" title="Permalink to this headline">¶</a></h1>
+<p>Currently the latest packages for Debian Old Stable, Stable and
+Unstable (Squeeze, Wheezy and Sid) are published in our
+(saltstack.com) debian repository.</p>
+<div class="section" id="configure-apt">
+<h2>Configure Apt<a class="headerlink" href="#configure-apt" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="squeeze-old-stable">
+<h3>Squeeze (Old Stable)<a class="headerlink" href="#squeeze-old-stable" title="Permalink to this headline">¶</a></h3>
+<p>For squeeze, you will need to enable the debian backports repository
+as well as the debian.saltstack.com repository. To do so, add the
+following to <tt class="docutils literal"><span class="pre">/etc/apt/sources.list</span></tt> or a file in
+<tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>deb http://debian.saltstack.com/debian squeeze-saltstack main
+deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+</pre></div>
+</div>
+</div>
+<div class="section" id="wheezy-stable">
+<h3>Wheezy (Stable)<a class="headerlink" href="#wheezy-stable" title="Permalink to this headline">¶</a></h3>
+<p>For wheezy, the following line is needed in either
+<tt class="docutils literal"><span class="pre">/etc/apt/sources.list</span></tt> or a file in <tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>deb http://debian.saltstack.com/debian wheezy-saltstack main
+</pre></div>
+</div>
+</div>
+<div class="section" id="sid-unstable">
+<h3>Sid (Unstable)<a class="headerlink" href="#sid-unstable" title="Permalink to this headline">¶</a></h3>
+<p>For sid, the following line is needed in either
+<tt class="docutils literal"><span class="pre">/etc/apt/sources.list</span></tt> or a file in <tt class="docutils literal"><span class="pre">/etc/apt/sources.list.d</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>deb http://debian.saltstack.com/debian unstable main
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="import-the-repository-key">
+<h2>Import the repository key.<a class="headerlink" href="#import-the-repository-key" title="Permalink to this headline">¶</a></h2>
+<p>You will need to import the key used for signing.</p>
+<div class="highlight-bash"><div class="highlight"><pre>wget -q -O- <span class="s2">&quot;http://debian.saltstack.com/debian-salt-team-joehealy.gpg.key&quot;</span> | apt-key add -
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>You can optionally verify the key integrity with <tt class="docutils literal"><span class="pre">sha512sum</span></tt> using the
+public key signature shown here. E.g:</p>
+<div class="last highlight-python"><div class="highlight"><pre>echo &quot;b702969447140d5553e31e9701be13ca11cc0a7ed5fe2b30acb8491567560ee62f834772b5095d735dfcecb2384a5c1a20045f52861c417f50b68dd5ff4660e6  debian-salt-team-joehealy.gpg.key&quot; | sha512sum -c
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="update-the-package-database">
+<h2>Update the package database<a class="headerlink" href="#update-the-package-database" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre>apt-get update
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-packages">
+<h2>Install packages<a class="headerlink" href="#install-packages" title="Permalink to this headline">¶</a></h2>
+<p>Install the Salt master, minion, or syndic from the repository with the apt-get
+command. These examples each install one daemon, but more than one package name
+may be given at a time:</p>
+<div class="highlight-bash"><div class="highlight"><pre>apt-get install salt-master
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre>apt-get install salt-minion
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre>apt-get install salt-syndic
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-installation-tasks">
+<span id="debian-config"></span><h2>Post-installation tasks<a class="headerlink" href="#post-installation-tasks" title="Permalink to this headline">¶</a></h2>
+<p>Now, go to the <a class="reference internal" href="../configuration.html"><em>Configuring Salt</em></a> page.</p>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<p>1. These packages will be backported from the packages intended to be
+uploaded into debian unstable. This means that the packages will be
+built for unstable first and then backported over the next day or so.</p>
+<p>2. These packages will be tracking the released versions of salt
+rather than maintaining a stable fixed feature set. If a fixed version
+is what you desire, then either pinning or manual installation may be
+more appropriate for you.</p>
+<p>3. The version numbering and backporting process should provide clean
+upgrade paths between debian versions.</p>
+<p>If you have any questions regarding these, please email the mailing
+list or look for joehh on irc.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Debian Installation</a><ul>
+<li><a class="reference internal" href="#configure-apt">Configure Apt</a><ul>
+<li><a class="reference internal" href="#squeeze-old-stable">Squeeze (Old Stable)</a></li>
+<li><a class="reference internal" href="#wheezy-stable">Wheezy (Stable)</a></li>
+<li><a class="reference internal" href="#sid-unstable">Sid (Unstable)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#import-the-repository-key">Import the repository key.</a></li>
+<li><a class="reference internal" href="#update-the-package-database">Update the package database</a></li>
+<li><a class="reference internal" href="#install-packages">Install packages</a></li>
+<li><a class="reference internal" href="#post-installation-tasks">Post-installation tasks</a></li>
+<li><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="arch.html"
+                        title="previous chapter">Arch Linux</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="fedora.html"
+                        title="next chapter">Fedora</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="arch.html" title="Arch Linux">previous</a>
+                
+            </li>
+            <li>
+                <a href="fedora.html" title="Fedora">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

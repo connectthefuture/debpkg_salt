@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt 0.8.9 Release Notes</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Release notes and upgrade instructions" href="index.html">
+        <link rel="next" title="Salt 0.9.0 Release Notes" href="0.9.0.html">
+        <link rel="prev" title="Salt 0.8.8 release notes" href="0.8.8.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.8.8.html" title="Salt 0.8.8 release notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.9.0.html" title="Salt 0.9.0 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-0-8-9-release-notes">
+<h1>Salt 0.8.9 Release Notes<a class="headerlink" href="#salt-0-8-9-release-notes" title="Permalink to this headline">¶</a></h1>
+<p>Salt 0.8.9 has finally arrived! Unfortunately this is much later than I had
+hoped to release 0.8.9, life has been very crazy over the last month. But
+despite challenges, Salt has moved forward!</p>
+<p>This release, as expected, adds few new features and many refinements. One
+of the most exciting aspect of this release is that the development community
+for salt has grown a great deal and much of the code is from contributors.</p>
+<p>Also, I have filled out the documentation a great deal. So information on
+States is properly documented, and much of the documentation that was out of
+date has been filled in.</p>
+<div class="section" id="download">
+<h2>Download!<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<p>The Salt source can be downloaded from the salt GitHub site:</p>
+<p><a class="reference external" href="https://github.com/downloads/saltstack/salt/salt-0.8.9.tar.gz">https://github.com/downloads/saltstack/salt/salt-0.8.9.tar.gz</a></p>
+<p>Or from PyPI:</p>
+<p><a class="reference external" href="http://pypi.python.org/packages/source/s/salt/salt-0.8.9.tar.gz">http://pypi.python.org/packages/source/s/salt/salt-0.8.9.tar.gz</a></p>
+<p>Here s the md5sum:</p>
+<p>7d5aca4633bc22f59045f59e82f43b56</p>
+<p>For instructions on how to set up Salt please see the <a class="reference internal" href="../installation/index.html#installation"><em>Installation</em></a>
+instructions.</p>
+</div>
+<div class="section" id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="salt-run">
+<h3>Salt Run<a class="headerlink" href="#salt-run" title="Permalink to this headline">¶</a></h3>
+<p>A big feature is the addition of Salt run, the <tt class="docutils literal"><span class="pre">salt-run</span></tt> command allows for
+master side execution modules to be made that gather specific information or
+execute custom routines from the master.</p>
+<p>Documentation for salt-run can be found here:</p>
+<p><a class="reference external" href="http://saltstack.org/ref/runners.html">http://saltstack.org/ref/runners.html</a></p>
+</div>
+<div class="section" id="refined-outputters">
+<h3>Refined Outputters<a class="headerlink" href="#refined-outputters" title="Permalink to this headline">¶</a></h3>
+<p>One problem often complained about in salt was the fact that the output was
+so messy. Thanks to help from Jeff Schroeder a cleaner interface for the
+command output for the Salt CLI has been made. This new interface makes
+adding new printout formats easy and additions to the capabilities of minion
+modules makes it possible to set the printout mode or <tt class="docutils literal"><span class="pre">outputter</span></tt> for
+functions in minion modules.</p>
+</div>
+<div class="section" id="cross-calling-salt-modules">
+<h3>Cross Calling Salt Modules<a class="headerlink" href="#cross-calling-salt-modules" title="Permalink to this headline">¶</a></h3>
+<p>Salt modules can now call each other, the <tt class="docutils literal"><span class="pre">__salt__</span></tt> dict has been added to
+the predefined references in minion modules. This new feature is documented in
+the modules documentation:</p>
+<p><a class="reference external" href="http://saltstack.org/ref/modules/index.html">http://saltstack.org/ref/modules/index.html</a></p>
+</div>
+<div class="section" id="watch-option-added-to-salt-state-system">
+<h3>Watch Option Added to Salt State System<a class="headerlink" href="#watch-option-added-to-salt-state-system" title="Permalink to this headline">¶</a></h3>
+<p>Now in Salt states you can set the watch option, this will allow watch enabled
+states to change based on a change in the other defined states. This is similar
+to subscribe and notify statements in puppet.</p>
+</div>
+<div class="section" id="root-dir-option">
+<h3>Root Dir Option<a class="headerlink" href="#root-dir-option" title="Permalink to this headline">¶</a></h3>
+<p>Travis Cline has added the ability to define the option <tt class="docutils literal"><span class="pre">root_dir</span></tt> which
+allows the salt minion to operate in a subdir. This is a strong move in
+supporting the minion running as an unprivileged user</p>
+</div>
+<div class="section" id="config-files-defined-in-variables">
+<h3>Config Files Defined in Variables<a class="headerlink" href="#config-files-defined-in-variables" title="Permalink to this headline">¶</a></h3>
+<p>Thanks again to Travis Cline, the master and minion configuration file locations
+can be defined in environment variables now.</p>
+</div>
+</div>
+<div class="section" id="new-modules">
+<h2>New Modules<a class="headerlink" href="#new-modules" title="Permalink to this headline">¶</a></h2>
+<p>Quite a few new modules, states, returners and runners have been made.</p>
+<div class="section" id="new-minion-modules">
+<h3>New Minion Modules<a class="headerlink" href="#new-minion-modules" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="apt">
+<h4>apt<a class="headerlink" href="#apt" title="Permalink to this headline">¶</a></h4>
+<p>Support for apt-get has been added, this adds greatly improved Debian and
+Ubuntu support to Salt!</p>
+</div>
+<div class="section" id="useradd-and-groupadd">
+<h4>useradd and groupadd<a class="headerlink" href="#useradd-and-groupadd" title="Permalink to this headline">¶</a></h4>
+<p>Support for manipulating users and groups on Unix-like systems.</p>
+</div>
+<div class="section" id="moosefs">
+<h4>moosefs<a class="headerlink" href="#moosefs" title="Permalink to this headline">¶</a></h4>
+<p>Initial support for reporting on aspects of the distributed file system,
+MooseFS. For more information on MooseFS please see: <a class="reference external" href="http://moosefs.org">http://moosefs.org</a></p>
+<p>Thanks to Joseph Hall for his work on MooseFS support.</p>
+</div>
+<div class="section" id="mount">
+<h4>mount<a class="headerlink" href="#mount" title="Permalink to this headline">¶</a></h4>
+<p>Manage mounts and the fstab.</p>
+</div>
+<div class="section" id="puppet">
+<h4>puppet<a class="headerlink" href="#puppet" title="Permalink to this headline">¶</a></h4>
+<p>Execute puppet on remote systems.</p>
+</div>
+<div class="section" id="shadow">
+<h4>shadow<a class="headerlink" href="#shadow" title="Permalink to this headline">¶</a></h4>
+<p>Manipulate and manage the user password file.</p>
+</div>
+<div class="section" id="ssh">
+<h4>ssh<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h4>
+<p>Interact with ssh keys.</p>
+</div>
+</div>
+<div class="section" id="new-states">
+<h3>New States<a class="headerlink" href="#new-states" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="user-and-group">
+<h4>user and group<a class="headerlink" href="#user-and-group" title="Permalink to this headline">¶</a></h4>
+<p>Support for managing users and groups in Salt States.</p>
+</div>
+<div class="section" id="id1">
+<h4>mount<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>Enforce mounts and the fstab.</p>
+</div>
+</div>
+<div class="section" id="new-returners">
+<h3>New Returners<a class="headerlink" href="#new-returners" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="mongo-return">
+<h4>mongo_return<a class="headerlink" href="#mongo-return" title="Permalink to this headline">¶</a></h4>
+<p>Send the return information to a MongoDB server.</p>
+</div>
+</div>
+<div class="section" id="new-runners">
+<h3>New Runners<a class="headerlink" href="#new-runners" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="manage">
+<h4>manage<a class="headerlink" href="#manage" title="Permalink to this headline">¶</a></h4>
+<p>Display minions that are up or down.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt 0.8.9 Release Notes</a><ul>
+<li><a class="reference internal" href="#download">Download!</a></li>
+<li><a class="reference internal" href="#new-features">New Features</a><ul>
+<li><a class="reference internal" href="#salt-run">Salt Run</a></li>
+<li><a class="reference internal" href="#refined-outputters">Refined Outputters</a></li>
+<li><a class="reference internal" href="#cross-calling-salt-modules">Cross Calling Salt Modules</a></li>
+<li><a class="reference internal" href="#watch-option-added-to-salt-state-system">Watch Option Added to Salt State System</a></li>
+<li><a class="reference internal" href="#root-dir-option">Root Dir Option</a></li>
+<li><a class="reference internal" href="#config-files-defined-in-variables">Config Files Defined in Variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#new-modules">New Modules</a><ul>
+<li><a class="reference internal" href="#new-minion-modules">New Minion Modules</a><ul>
+<li><a class="reference internal" href="#apt">apt</a></li>
+<li><a class="reference internal" href="#useradd-and-groupadd">useradd and groupadd</a></li>
+<li><a class="reference internal" href="#moosefs">moosefs</a></li>
+<li><a class="reference internal" href="#mount">mount</a></li>
+<li><a class="reference internal" href="#puppet">puppet</a></li>
+<li><a class="reference internal" href="#shadow">shadow</a></li>
+<li><a class="reference internal" href="#ssh">ssh</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#new-states">New States</a><ul>
+<li><a class="reference internal" href="#user-and-group">user and group</a></li>
+<li><a class="reference internal" href="#id1">mount</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#new-returners">New Returners</a><ul>
+<li><a class="reference internal" href="#mongo-return">mongo_return</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#new-runners">New Runners</a><ul>
+<li><a class="reference internal" href="#manage">manage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="0.8.8.html"
+                        title="previous chapter">Salt 0.8.8 release notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="0.9.0.html"
+                        title="next chapter">Salt 0.9.0 Release Notes</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.8.8.html" title="Salt 0.8.8 release notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.9.0.html" title="Salt 0.9.0 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Automatic Updates / Frozen Deployments</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt tutorials" href="index.html">
+        <link rel="next" title="Multi Master Tutorial" href="multimaster.html">
+        <link rel="prev" title="MinionFS Backend Walkthrough" href="minionfs.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="minionfs.html" title="MinionFS Backend Walkthrough">previous</a>
+                
+            </li>
+            <li>
+                <a href="multimaster.html" title="Multi Master Tutorial">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="automatic-updates-frozen-deployments">
+<h1>Automatic Updates / Frozen Deployments<a class="headerlink" href="#automatic-updates-frozen-deployments" title="Permalink to this headline">¶</a></h1>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.10.3.d.</span></p>
+</div>
+<p>Salt has support for the
+<a class="reference external" href="https://github.com/cloudmatrix/esky">Esky</a> application freezing and update
+tool. This tool allows one to build a complete zipfile out of the salt scripts
+and all their dependencies - including shared objects / DLLs.</p>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>To build frozen applications, you'll need a suitable build environment for each
+of your platforms. You should probably set up a virtualenv in order to limit
+the scope of Q/A.</p>
+<p>This process does work on Windows. Follow the directions at
+<a class="reference external" href="https://github.com/saltstack/salt-windows-install">https://github.com/saltstack/salt-windows-install</a> for details on
+installing Salt in Windows. Only the 32-bit Python and dependencies have been
+tested, but they have been tested on 64-bit Windows.</p>
+<p>You will need to install <tt class="docutils literal"><span class="pre">esky</span></tt> and <tt class="docutils literal"><span class="pre">bbfreeze</span></tt> from Pypi in order to enable
+the <tt class="docutils literal"><span class="pre">bdist_esky</span></tt> command in <tt class="docutils literal"><span class="pre">setup.py</span></tt>.</p>
+</div>
+<div class="section" id="building-and-freezing">
+<h2>Building and Freezing<a class="headerlink" href="#building-and-freezing" title="Permalink to this headline">¶</a></h2>
+<p>Once you have your tools installed and the environment configured, you can then
+<tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">bdist</span></tt> to get the eggs prepared. After that is done, run
+<tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">bdist_esky</span></tt> to have Esky traverse the module tree and pack
+all the scripts up into a redistributable. There will be an appropriately
+versioned <tt class="docutils literal"><span class="pre">salt-VERSION.zip</span></tt> in <tt class="docutils literal"><span class="pre">dist/</span></tt> if everything went smoothly.</p>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p>You will need to add <tt class="docutils literal"><span class="pre">C:\Python27\lib\site-packages\zmq</span></tt> to your PATH
+variable. This helps bbfreeze find the zmq dll so it can pack it up.</p>
+</div>
+</div>
+<div class="section" id="using-the-frozen-build">
+<h2>Using the Frozen Build<a class="headerlink" href="#using-the-frozen-build" title="Permalink to this headline">¶</a></h2>
+<p>Unpack the zip file in your desired install location. Scripts like
+<tt class="docutils literal"><span class="pre">salt-minion</span></tt> and <tt class="docutils literal"><span class="pre">salt-call</span></tt> will be in the root of the zip file. The
+associated libraries and bootstrapping will be in the directories at the same
+level. (Check the <a class="reference external" href="https://github.com/cloudmatrix/esky">Esky</a> documentation
+for more information)</p>
+<p>To support updating your minions in the wild, put your builds on a web server
+that your minions can reach. <a class="reference internal" href="../../ref/modules/all/salt.modules.saltutil.html#salt.modules.saltutil.update" title="salt.modules.saltutil.update"><tt class="xref py py-func docutils literal"><span class="pre">salt.modules.saltutil.update()</span></tt></a> will
+trigger an update and (optionally) a restart of the minion service under the
+new version.</p>
+</div>
+<div class="section" id="gotchas">
+<h2>Gotchas<a class="headerlink" href="#gotchas" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="my-windows-minion-isn-t-responding">
+<h3>My Windows minion isn't responding<a class="headerlink" href="#my-windows-minion-isn-t-responding" title="Permalink to this headline">¶</a></h3>
+<p>The process dispatch on Windows is slower than it is on *nix. You may need to
+add '-t 15' to your salt calls to give them plenty of time to return.</p>
+</div>
+<div class="section" id="windows-and-the-visual-studio-redist">
+<h3>Windows and the Visual Studio Redist<a class="headerlink" href="#windows-and-the-visual-studio-redist" title="Permalink to this headline">¶</a></h3>
+<p>You will need to install the Visual C++ 2008 32-bit redistributable on all
+Windows minions. Esky has an option to pack the library into the zipfile,
+but OpenSSL does not seem to acknowledge the new location. If you get a
+<tt class="docutils literal"><span class="pre">no</span> <span class="pre">OPENSSL_Applink</span></tt> error on the console when trying to start your
+frozen minion, you have forgotten to install the redistributable.</p>
+</div>
+<div class="section" id="mixed-linux-environments-and-yum">
+<h3>Mixed Linux environments and Yum<a class="headerlink" href="#mixed-linux-environments-and-yum" title="Permalink to this headline">¶</a></h3>
+<p>The Yum Python module doesn't appear to be available on any of the standard
+Python package mirrors. If you need to support RHEL/CentOS systems, you
+should build on that platform to support all your Linux nodes. Also remember
+to build your virtualenv with <tt class="docutils literal"><span class="pre">--system-site-packages</span></tt> so that the
+<tt class="docutils literal"><span class="pre">yum</span></tt> module is included.</p>
+</div>
+<div class="section" id="automatic-python-module-discovery">
+<h3>Automatic (Python) module discovery<a class="headerlink" href="#automatic-python-module-discovery" title="Permalink to this headline">¶</a></h3>
+<p>Automatic (Python) module discovery does not work with the late-loaded scheme that
+Salt uses for (Salt) modules. You will need to explicitly add any
+misbehaving modules to the <tt class="docutils literal"><span class="pre">freezer_includes</span></tt> in Salt's <tt class="docutils literal"><span class="pre">setup.py</span></tt>.
+Always check the zipped application to make sure that the necessary modules
+were included.</p>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Automatic Updates / Frozen Deployments</a><ul>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#building-and-freezing">Building and Freezing</a><ul>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-the-frozen-build">Using the Frozen Build</a></li>
+<li><a class="reference internal" href="#gotchas">Gotchas</a><ul>
+<li><a class="reference internal" href="#my-windows-minion-isn-t-responding">My Windows minion isn't responding</a></li>
+<li><a class="reference internal" href="#windows-and-the-visual-studio-redist">Windows and the Visual Studio Redist</a></li>
+<li><a class="reference internal" href="#mixed-linux-environments-and-yum">Mixed Linux environments and Yum</a></li>
+<li><a class="reference internal" href="#automatic-python-module-discovery">Automatic (Python) module discovery</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="minionfs.html"
+                        title="previous chapter">MinionFS Backend Walkthrough</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="multimaster.html"
+                        title="next chapter">Multi Master Tutorial</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="minionfs.html" title="MinionFS Backend Walkthrough">previous</a>
+                
+            </li>
+            <li>
+                <a href="multimaster.html" title="Multi Master Tutorial">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

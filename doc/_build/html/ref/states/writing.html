@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>State Modules</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="Full list of builtin state modules" href="all/index.html">
+        <link rel="prev" title="SLS Template Variable Reference" href="vars.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="vars.html" title="SLS Template Variable Reference">previous</a>
+                
+            </li>
+            <li>
+                <a href="all/index.html" title="Full list of builtin state modules">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="state-modules">
+<h1>State Modules<a class="headerlink" href="#state-modules" title="Permalink to this headline">¶</a></h1>
+<p>State Modules are the components that map to actual enforcement and management
+of Salt states.</p>
+<div class="section" id="states-are-easy-to-write">
+<h2>States are Easy to Write!<a class="headerlink" href="#states-are-easy-to-write" title="Permalink to this headline">¶</a></h2>
+<p>State Modules should be easy to write and straightforward. The information
+passed to the SLS data structures will map directly to the states modules.</p>
+<p>Mapping the information from the SLS data is simple, this example should
+illustrate:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/etc/salt/master</span><span class="p-Indicator">:</span> <span class="c1"># maps to &quot;name&quot;</span>
+  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="c1"># maps to State module filename e.g. https://github.com/saltstack/salt/blob/develop/salt/states/file.py</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">managed</span> <span class="c1"># maps to the managed function in the file State module</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span> <span class="c1"># one of many options passed to the manage function</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">644</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://salt/master</span>
+</pre></div>
+</div>
+<p>Therefore this SLS data can be directly linked to a module, function and
+arguments passed to that function.</p>
+<p>This does issue the burden, that function names, state names and function
+arguments should be very human readable inside state modules, since they
+directly define the user interface.</p>
+<div class="admonition-keyword-arguments admonition">
+<p class="first admonition-title">Keyword Arguments</p>
+<p class="last">Salt passes a number of keyword arguments to states when rendering them,
+including the environment, a unique identifier for the state, and more.
+Additionally, keep in mind that the requisites for a state are part of the
+keyword arguments. Therefore, if you need to iterate through the keyword
+arguments in a state, these must be considered and handled appropriately.
+One such example is in the <a class="reference internal" href="all/salt.states.pkgrepo.html#salt.states.pkgrepo.managed" title="salt.states.pkgrepo.managed"><tt class="xref py py-mod docutils literal"><span class="pre">pkgrepo.managed</span></tt></a> state, which needs to be able to handle
+arbitrary keyword arguments and pass them to module execution functions.
+An example of how these keyword arguments can be handled can be found
+<a class="reference external" href="https://github.com/saltstack/salt/blob/v0.16.2/salt/states/pkgrepo.py#L163-183">here</a>.</p>
+</div>
+</div>
+<div class="section" id="using-custom-state-modules">
+<h2>Using Custom State Modules<a class="headerlink" href="#using-custom-state-modules" title="Permalink to this headline">¶</a></h2>
+<p>Place your custom state modules inside a <tt class="docutils literal"><span class="pre">_states</span></tt> directory within the
+<a class="reference internal" href="../configuration/master.html#std:conf_master-file_roots"><tt class="xref std std-conf_master docutils literal"><span class="pre">file_roots</span></tt></a> specified by the master config file. These custom
+state modules can then be distributed in a number of ways. Custom state modules
+are distributed when <a class="reference internal" href="../modules/all/salt.modules.state.html#salt.modules.state.highstate" title="salt.modules.state.highstate"><tt class="xref py py-mod docutils literal"><span class="pre">state.highstate</span></tt></a> is
+run, or by executing the <a class="reference internal" href="../modules/all/salt.modules.saltutil.html#salt.modules.saltutil.sync_states" title="salt.modules.saltutil.sync_states"><tt class="xref py py-mod docutils literal"><span class="pre">saltutil.sync_states</span></tt></a> or <a class="reference internal" href="../modules/all/salt.modules.saltutil.html#salt.modules.saltutil.sync_all" title="salt.modules.saltutil.sync_all"><tt class="xref py py-mod docutils literal"><span class="pre">saltutil.sync_all</span></tt></a> functions.</p>
+<p>Any custom states which have been synced to a minion, that are named the
+same as one of Salt's default set of states, will take the place of the default
+state with the same name. Note that a state's default name is its filename
+(i.e. <tt class="docutils literal"><span class="pre">foo.py</span></tt> becomes state <tt class="docutils literal"><span class="pre">foo</span></tt>), but that its name can be overridden
+by using a <a class="reference internal" href="../modules/index.html#virtual-modules"><em>__virtual__ function</em></a>.</p>
+</div>
+<div class="section" id="cross-calling-modules">
+<h2>Cross Calling Modules<a class="headerlink" href="#cross-calling-modules" title="Permalink to this headline">¶</a></h2>
+<p>As with Execution Modules, State Modules can also make use of the <tt class="docutils literal"><span class="pre">__salt__</span></tt>
+and <tt class="docutils literal"><span class="pre">__grains__</span></tt> data.</p>
+<p>It is important to note that the real work of state management should not be
+done in the state module unless it is needed. A good example is the pkg state
+module. This module does not do any package management work, it just calls the
+pkg execution module. This makes the pkg state module completely generic, which
+is why there is only one pkg state module and many backend pkg execution
+modules.</p>
+<p>On the other hand some modules will require that the logic be placed in the
+state module, a good example of this is the file module. But in the vast
+majority of cases this is not the best approach, and writing specific
+execution modules to do the backend work will be the optimal solution.</p>
+</div>
+<div class="section" id="return-data">
+<h2>Return Data<a class="headerlink" href="#return-data" title="Permalink to this headline">¶</a></h2>
+<p>A State Module must return a dict containing the following keys/values:</p>
+<ul class="simple">
+<li><strong>name:</strong> The same value passed to the state as &quot;name&quot;.</li>
+<li><strong>changes:</strong> A dict describing the changes made. Each thing changed should
+be a key, with its value being another dict with keys called &quot;old&quot; and &quot;new&quot;
+containing the old/new values. For example, the pkg state's <strong>changes</strong> dict
+has one key for each package changed, with the &quot;old&quot; and &quot;new&quot; keys in its
+sub-dict containing the old and new versions of the package.</li>
+<li><strong>result:</strong> A boolean value. <em>True</em> if the action was successful, otherwise
+<em>False</em>.</li>
+<li><strong>comment:</strong> A string containing a summary of the result.</li>
+</ul>
+</div>
+<div class="section" id="test-state">
+<h2>Test State<a class="headerlink" href="#test-state" title="Permalink to this headline">¶</a></h2>
+<p>All states should check for and support <tt class="docutils literal"><span class="pre">test</span></tt> being passed in the options.
+This will return data about what changes would occur if the state were actually
+run. An example of such a check could look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Return comment of changes if test.</span>
+<span class="k">if</span> <span class="n">__opts__</span><span class="p">[</span><span class="s">&#39;test&#39;</span><span class="p">]:</span>
+    <span class="n">ret</span><span class="p">[</span><span class="s">&#39;result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">ret</span><span class="p">[</span><span class="s">&#39;comment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;State Foo will execute with param {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ret</span>
+</pre></div>
+</div>
+<p>Make sure to test and return before performing any real actions on the minion.</p>
+</div>
+<div class="section" id="watcher-function">
+<h2>Watcher Function<a class="headerlink" href="#watcher-function" title="Permalink to this headline">¶</a></h2>
+<p>If the state being written should support the watch requisite then a watcher
+function needs to be declared. The watcher function is called whenever the
+watch requisite is invoked and should be generic to the behavior of the state
+itself.</p>
+<p>The watcher function should accept all of the options that the normal state
+functions accept (as they will be passed into the watcher function).</p>
+<p>A watcher function typically is used to execute state specific reactive
+behavior, for instance, the watcher for the service module restarts the
+named service and makes it useful for the watcher to make the service
+react to changes in the environment.</p>
+<p>The watcher function also needs to return the same data that a normal state
+function returns.</p>
+</div>
+<div class="section" id="mod-init-interface">
+<h2>Mod_init Interface<a class="headerlink" href="#mod-init-interface" title="Permalink to this headline">¶</a></h2>
+<p>Some states need to execute something only once to ensure that an environment
+has been set up, or certain conditions global to the state behavior can be
+predefined. This is the realm of the mod_init interface.</p>
+<p>A state module can have a function called <strong>mod_init</strong> which executes when the
+first state of this type is called. This interface was created primarily to
+improve the pkg state. When packages are installed the package metadata needs
+to be refreshed, but refreshing the package metadata every time a package is
+installed is wasteful. The mod_init function for the pkg state sets a flag down
+so that the first, and only the first, package installation attempt will refresh
+the package database (the package database can of course be manually called to
+refresh via the <tt class="docutils literal"><span class="pre">refresh</span></tt> option in the pkg state).</p>
+<p>The mod_init function must accept the <strong>Low State Data</strong> for the given
+executing state as an argument. The low state data is a dict and can be seen by
+executing the state.show_lowstate function. Then the mod_init function must
+return a bool. If the return value is True, then the mod_init function will not
+be executed again, meaning that the needed behavior has been set up. Otherwise,
+if the mod_init function returns False, then the function will be called the
+next time.</p>
+<p>A good example of the mod_init function is found in the pkg state module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">mod_init</span><span class="p">(</span><span class="n">low</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Refresh the package database here so that it only needs to happen once</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">low</span><span class="p">[</span><span class="s">&#39;fun&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;installed&#39;</span> <span class="ow">or</span> <span class="n">low</span><span class="p">[</span><span class="s">&#39;fun&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;latest&#39;</span><span class="p">:</span>
+        <span class="n">rtag</span> <span class="o">=</span> <span class="n">__gen_rtag</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">rtag</span><span class="p">):</span>
+            <span class="nb">open</span><span class="p">(</span><span class="n">rtag</span><span class="p">,</span> <span class="s">&#39;w+&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<p>The mod_init function in the pkg state accepts the low state data as <tt class="docutils literal"><span class="pre">low</span></tt>
+and then checks to see if the function being called is going to install
+packages, if the function is not going to install packages then there is no
+need to refresh the package database. Therefore if the package database is
+prepared to refresh, then return True and the mod_init will not be called
+the next time a pkg state is evaluated, otherwise return False and the mod_init
+will be called next time a pkg state is evaluated.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">State Modules</a><ul>
+<li><a class="reference internal" href="#states-are-easy-to-write">States are Easy to Write!</a></li>
+<li><a class="reference internal" href="#using-custom-state-modules">Using Custom State Modules</a></li>
+<li><a class="reference internal" href="#cross-calling-modules">Cross Calling Modules</a></li>
+<li><a class="reference internal" href="#return-data">Return Data</a></li>
+<li><a class="reference internal" href="#test-state">Test State</a></li>
+<li><a class="reference internal" href="#watcher-function">Watcher Function</a></li>
+<li><a class="reference internal" href="#mod-init-interface">Mod_init Interface</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="vars.html"
+                        title="previous chapter">SLS Template Variable Reference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="all/index.html"
+                        title="next chapter">Full list of builtin state modules</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="vars.html" title="SLS Template Variable Reference">previous</a>
+                
+            </li>
+            <li>
+                <a href="all/index.html" title="Full list of builtin state modules">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

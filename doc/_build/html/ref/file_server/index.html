@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt File Server</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="Full list of builtin fileserver modules" href="all/index.html">
+        <link rel="prev" title="File Server Configuration" href="file_roots.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="file_roots.html" title="File Server Configuration">previous</a>
+                
+            </li>
+            <li>
+                <a href="all/index.html" title="Full list of builtin fileserver modules">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-file-server">
+<h1>Salt File Server<a class="headerlink" href="#salt-file-server" title="Permalink to this headline">¶</a></h1>
+<p>Salt comes with a simple file server suitable for distributing files to the
+Salt minions. The file server is a stateless ZeroMQ server that is built into
+the Salt master.</p>
+<p>The main intent of the Salt file server is to present files for use in the
+Salt state system. With this said, the Salt file server can be used for any
+general file transfer from the master to the minions.</p>
+<div class="section" id="the-cp-module">
+<h2>The cp Module<a class="headerlink" href="#the-cp-module" title="Permalink to this headline">¶</a></h2>
+<p>The cp module is the home of minion side file server operations. The cp module
+is used by the Salt state system, salt-cp and can be used to distribute files
+presented by the Salt file server.</p>
+<div class="section" id="environments">
+<h3>Environments<a class="headerlink" href="#environments" title="Permalink to this headline">¶</a></h3>
+<p>Since the file server is made to work with the Salt state system, it supports
+environments. The environments are defined in the master config file and
+when referencing an environment the file specified will be based on the root
+directory of the environment.</p>
+</div>
+<div class="section" id="get-file">
+<h3>get_file<a class="headerlink" href="#get-file" title="Permalink to this headline">¶</a></h3>
+<p>The cp.get_file function can be used on the minion to download a file from
+the master, the syntax looks like this:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># salt &#39;*&#39; cp.get_file salt://vimrc /etc/vimrc</span>
+</pre></div>
+</div>
+<p>This will instruct all Salt minions to download the vimrc file and copy it
+to /etc/vimrc</p>
+<p>Template rendering can be enabled on both the source and destination file names
+like so:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># salt &#39;*&#39; cp.get_file &quot;salt://{{grains.os}}/vimrc&quot; /etc/vimrc template=jinja</span>
+</pre></div>
+</div>
+<p>This example would instruct all Salt minions to download the vimrc from a
+directory with the same name as their OS grain and copy it to /etc/vimrc</p>
+<p>For larger files, the cp.get_file module also supports gzip compression.
+Because gzip is CPU-intensive, this should only be used in
+scenarios where the compression ratio is very high (e.g. pretty-printed JSON
+or YAML files).</p>
+<p>Use the <em>gzip</em> named argument to enable it.  Valid values are 1..9,
+where 1 is the lightest compression and 9 the heaviest.  1 uses the least CPU
+on the master (and minion), 9 uses the most.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># salt &#39;*&#39; cp.get_file salt://vimrc /etc/vimrc gzip=5</span>
+</pre></div>
+</div>
+<p>Finally, note that by default cp.get_file does <em>not</em> create new destination
+directories if they do not exist.  To change this, use the <em>makedirs</em> argument:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># salt &#39;*&#39; cp.get_file salt://vimrc /etc/vim/vimrc makedirs=True</span>
+</pre></div>
+</div>
+<p>In this example, /etc/vim/ would be created if it didn't already exist.</p>
+</div>
+<div class="section" id="get-dir">
+<h3>get_dir<a class="headerlink" href="#get-dir" title="Permalink to this headline">¶</a></h3>
+<p>The cp.get_dir function can be used on the minion to download an entire
+directory from the master.  The syntax is very similar to get_file:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># salt &#39;*&#39; cp.get_dir salt://etc/apache2 /etc</span>
+</pre></div>
+</div>
+<p>cp.get_dir supports <em>template</em> rendering and <em>gzip</em> compression arguments just
+like get_file:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># salt &#39;*&#39; cp.get_dir salt://etc/{{pillar.webserver}} /etc gzip=5 template=jinja</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="file-server-client-api">
+<h2>File Server Client API<a class="headerlink" href="#file-server-client-api" title="Permalink to this headline">¶</a></h2>
+<p>A client API is available which allows for modules and applications to be
+written which make use of the Salt file server.</p>
+<p>The file server uses the same authentication and encryption used by the rest
+of the Salt system for network communication.</p>
+<div class="section" id="fileclient-class">
+<h3>FileClient Class<a class="headerlink" href="#fileclient-class" title="Permalink to this headline">¶</a></h3>
+<p>The FileClient class is used to set up the communication from the minion to
+the master. When creating a FileClient object the minion configuration needs
+to be passed in. When using the FileClient from within a minion module the
+built in <tt class="docutils literal"><span class="pre">__opts__</span></tt> data can be passed:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">salt.minion</span>
+
+<span class="k">def</span> <span class="nf">get_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="s">&#39;base&#39;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Used to get a single file from the Salt master</span>
+
+<span class="sd">    CLI Example:</span>
+<span class="sd">    salt &#39;*&#39; cp.get_file salt://vimrc /etc/vimrc</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c"># Create the FileClient object</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">salt</span><span class="o">.</span><span class="n">minion</span><span class="o">.</span><span class="n">FileClient</span><span class="p">(</span><span class="n">__opts__</span><span class="p">)</span>
+    <span class="c"># Call get_file</span>
+    <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="n">get_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using the FileClient class outside of a minion module where the <tt class="docutils literal"><span class="pre">__opts__</span></tt>
+data is not available, it needs to be generated:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">salt.minion</span>
+<span class="kn">import</span> <span class="nn">salt.config</span>
+
+<span class="k">def</span> <span class="nf">get_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="s">&#39;base&#39;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Used to get a single file from the Salt master</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c"># Get the configuration data</span>
+    <span class="n">opts</span> <span class="o">=</span> <span class="n">salt</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">minion_config</span><span class="p">(</span><span class="s">&#39;/etc/salt/minion&#39;</span><span class="p">)</span>
+    <span class="c"># Create the FileClient object</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">salt</span><span class="o">.</span><span class="n">minion</span><span class="o">.</span><span class="n">FileClient</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+    <span class="c"># Call get_file</span>
+    <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="n">get_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt File Server</a><ul>
+<li><a class="reference internal" href="#the-cp-module">The cp Module</a><ul>
+<li><a class="reference internal" href="#environments">Environments</a></li>
+<li><a class="reference internal" href="#get-file">get_file</a></li>
+<li><a class="reference internal" href="#get-dir">get_dir</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#file-server-client-api">File Server Client API</a><ul>
+<li><a class="reference internal" href="#fileclient-class">FileClient Class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="file_roots.html"
+                        title="previous chapter">File Server Configuration</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="all/index.html"
+                        title="next chapter">Full list of builtin fileserver modules</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="file_roots.html" title="File Server Configuration">previous</a>
+                
+            </li>
+            <li>
+                <a href="all/index.html" title="Full list of builtin fileserver modules">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

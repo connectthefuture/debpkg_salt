@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Windows</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Installation" href="index.html">
+        <link rel="next" title="SUSE Installation" href="suse.html">
+        <link rel="prev" title="Ubuntu Installation" href="ubuntu.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="ubuntu.html" title="Ubuntu Installation">previous</a>
+                
+            </li>
+            <li>
+                <a href="suse.html" title="SUSE Installation">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="windows">
+<h1>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h1>
+<p>Salt has full support for running the Salt Minion on Windows.</p>
+<p>There are no plans for the foreseeable future to develop a Salt Master on
+Windows. For now you must run your Salt Master on a supported operating system
+to control your Salt Minions on Windows.</p>
+<p>Many of the standard Salt modules have been ported to work on Windows and many
+of the Salt States currently work on Windows, as well.</p>
+<div class="section" id="windows-installer">
+<h2>Windows Installer<a class="headerlink" href="#windows-installer" title="Permalink to this headline">¶</a></h2>
+<p>A Salt Minion Windows installer can be found here:</p>
+<div class="admonition-download-here admonition">
+<p class="first admonition-title">Download here</p>
+<ul class="last simple">
+<li>0.17.4</li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.17.4-win32-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.17.4-win32-Setup.exe</a></li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.17.4-AMD64-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.17.4-AMD64-Setup.exe</a></li>
+<li>0.17.2</li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.17.2-win32-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.17.2-win32-Setup.exe</a></li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.17.2-AMD64-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.17.2-AMD64-Setup.exe</a></li>
+<li>0.17.1.1 - Windows Installer bugfix release</li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.17.1.1-win32-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.17.1.1-win32-Setup.exe</a></li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.17.1.1-AMD64-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.17.1.1-AMD64-Setup.exe</a></li>
+<li>0.17.1</li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.17.1-win32-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.17.1-win32-Setup.exe</a></li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.17.1-AMD64-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.17.1-AMD64-Setup.exe</a></li>
+<li>0.17.0</li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.17.0-win32-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.17.0-win32-Setup.exe</a></li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.17.0-AMD64-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.17.0-AMD64-Setup.exe</a></li>
+<li>0.16.3</li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.16.3-win32-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.16.3-win32-Setup.exe</a></li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.16.3-AMD64-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.16.3-AMD64-Setup.exe</a></li>
+<li>0.16.2</li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.16.2-win32-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.16.2-win32-Setup.exe</a></li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.16.2-AMD64-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.16.2-AMD64-Setup.exe</a></li>
+<li>0.16.0</li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.16.0-win32-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.16.0-win32-Setup.exe</a></li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.16.0-AMD64-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.16.0-AMD64-Setup.exe</a></li>
+<li>0.15.3</li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.15.3-win32-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.15.3-win32-Setup.exe</a></li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.15.3-AMD64-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.15.3-AMD64-Setup.exe</a></li>
+<li>0.14.1</li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.14.1-win32-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.14.1-win32-Setup.exe</a></li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.14.1-AMD64-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.14.1-AMD64-Setup.exe</a></li>
+<li>0.14.0</li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.14.0-win32-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.14.0-win32-Setup.exe</a></li>
+<li><a class="reference external" href="http://docs.saltstack.com/downloads/Salt-Minion-0.14.0-AMD64-Setup.exe">http://docs.saltstack.com/downloads/Salt-Minion-0.14.0-AMD64-Setup.exe</a></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The executables above will install dependencies that the Salt minion
+requires.</p>
+</div>
+<p>The 64bit installer has been tested on Windows 7 64bit and Windows Server
+2008R2 64bit. The 32bit installer has been tested on Windows 2003 Server 32bit.
+Please file a bug report on our GitHub repo if issues for other platforms are
+found.</p>
+<p>The installer asks for 2 bits of information; the master hostname and the
+minion name. The installer will update the minion config with these options and
+then start the minion.</p>
+<p>The <cite>salt-minion</cite> service will appear in the Windows Service Manager and can be
+started and stopped there or with the command line program <cite>sc</cite> like any other
+Windows service.</p>
+<p>If the minion won't start, try installing the Microsoft Visual C++ 2008 x64 SP1
+redistributable. Allow all Windows updates to run salt-minion smoothly.</p>
+</div>
+<div class="section" id="silent-installer-option">
+<h2>Silent Installer option<a class="headerlink" href="#silent-installer-option" title="Permalink to this headline">¶</a></h2>
+<p>The installer can be run silently by providing the <cite>/S</cite> option at the command
+line. The options <cite>/master</cite> and <cite>/minion-name</cite> allow for configuring the master
+hostname and minion name, respectively. Here's an example of using the silent
+installer:</p>
+<div class="highlight-bash"><div class="highlight"><pre>Salt-Minion-0.17.0-Setup-amd64.exe /S /master<span class="o">=</span>yoursaltmaster /minion-name<span class="o">=</span>yourminionname
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-up-a-windows-build-environment">
+<h2>Setting up a Windows build environment<a class="headerlink" href="#setting-up-a-windows-build-environment" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Install the Microsoft Visual C++ 2008 SP1 Redistributable, <a class="reference external" href="http://www.microsoft.com/download/en/details.aspx?id=5582">vcredist_x86</a> or <a class="reference external" href="http://www.microsoft.com/download/en/details.aspx?id=2092">vcredist_x64</a>.</li>
+<li>Install <a class="reference external" href="http://code.google.com/p/msysgit/downloads/list?can=3">msysgit</a></li>
+<li>Clone the Salt git repository from GitHub</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>git clone git://github.com/saltstack/salt.git
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Install the latest point release of <a class="reference external" href="http://www.python.org/getit">Python 2.7</a> for the architecture you wish to target</li>
+<li>Add C:\Python27 and C:\Python27\Scripts to your system path</li>
+<li>Download and run the Setuptools bootstrap - <a class="reference external" href="https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py">ez_setup.py</a></li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>python ez_setup.py
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li>Install Pip</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>easy_install pip
+</pre></div>
+</div>
+<ol class="arabic simple" start="8">
+<li>Install the latest point release of <a class="reference external" href="http://www.slproweb.com/products/Win32OpenSSL.html">OpenSSL for Windows</a><ol class="arabic">
+<li>During setup, choose first option to install in Windows system directory</li>
+</ol>
+</li>
+<li>Install the latest point release of <a class="reference external" href="http://chandlerproject.org/Projects/MeTooCrypto">M2Crypto</a><ol class="arabic">
+<li>In general, be sure to download installers targeted at py2.7 for your chosen architecture</li>
+</ol>
+</li>
+<li>Install the latest point release of <a class="reference external" href="http://www.voidspace.org.uk/python/modules.shtml#pycrypto">pycrypto</a></li>
+<li>Install the latest point release of <a class="reference external" href="http://sourceforge.net/projects/pywin32/files/pywin32">pywin32</a></li>
+<li>Install the latest point release of <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#cython">Cython</a></li>
+<li>Install the latest point release of <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#jinja2">jinja2</a></li>
+<li>Install the latest point release of <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#msgpack">msgpack</a></li>
+<li>Install psutil</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>easy_install psutil
+</pre></div>
+</div>
+<ol class="arabic simple" start="16">
+<li>Install pyzmq</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>easy_install pyzmq
+</pre></div>
+</div>
+<ol class="arabic simple" start="17">
+<li>Install PyYAML</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>easy_install pyyaml
+</pre></div>
+</div>
+<ol class="arabic simple" start="18">
+<li>Install bbfreeze</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>easy_install bbfreeze
+</pre></div>
+</div>
+<ol class="arabic simple" start="19">
+<li>Install wmi</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>pip install wmi
+</pre></div>
+</div>
+<ol class="arabic simple" start="20">
+<li>Install esky</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>pip install esky
+</pre></div>
+</div>
+<ol class="arabic simple" start="21">
+<li>Install Salt</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd </span>salt
+python setup.py install
+</pre></div>
+</div>
+<ol class="arabic simple" start="22">
+<li>Build a frozen binary distribution of Salt</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>python setup.py bdist_esky
+</pre></div>
+</div>
+<p>A zip file has been created in the <tt class="docutils literal"><span class="pre">dist/</span></tt> folder, containing a frozen copy of Python and the
+dependency libraries, along with Windows executables for each of the Salt scripts.</p>
+</div>
+<div class="section" id="building-the-installer">
+<h2>Building the installer<a class="headerlink" href="#building-the-installer" title="Permalink to this headline">¶</a></h2>
+<p>The Salt Windows installer is built with the open-source NSIS compiler. The
+source for the installer is found in the pkg directory of the Salt repo here:
+<a class="reference external" href="https://github.com/saltstack/salt/blob/develop/pkg/windows/installer/Salt-Minion-Setup.nsi">https://github.com/saltstack/salt/blob/develop/pkg/windows/installer/Salt-Minion-Setup.nsi</a>.
+To create the installer, extract the frozen archive from <tt class="docutils literal"><span class="pre">dist/</span></tt> into <tt class="docutils literal"><span class="pre">pkg/windows/buildenv/</span></tt>
+and run NSIS.</p>
+<p>The NSIS installer can be found here: <a class="reference external" href="http://nsis.sourceforge.net/Main_Page">http://nsis.sourceforge.net/Main_Page</a></p>
+</div>
+<div class="section" id="testing-the-salt-minion">
+<h2>Testing the Salt minion<a class="headerlink" href="#testing-the-salt-minion" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Create the directory C:\salt (if it doesn't exist already)</li>
+<li>Copy the example <tt class="docutils literal"><span class="pre">conf</span></tt> and <tt class="docutils literal"><span class="pre">var</span></tt> directories from <tt class="docutils literal"><span class="pre">pkg/windows/buildenv/</span></tt> into C:\salt</li>
+<li>Edit C:\salt\conf\minion</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>master: ipaddress or hostname of your salt-master
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Start the salt-minion</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd </span>C:<span class="se">\P</span>ython27<span class="se">\S</span>cripts
+python salt-minion
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li>On the salt-master accept the new minion's key</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>sudo salt-key -A
+
+(This accepts all unaccepted keys. If you&#39;re concerned about security just accept the key for this specific minion)
+</pre></div>
+</div>
+<ol class="arabic" start="6">
+<li><p class="first">Test that your minion is responding</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>On the salt-master run:</li>
+</ol>
+</div></blockquote>
+</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre>sudo salt <span class="s1">&#39;*&#39;</span> test.ping
+</pre></div>
+</div>
+<p>You should get the following response: {'your minion hostname': True}</p>
+</div>
+<div class="section" id="single-command-bootstrap-script">
+<h2>Single command bootstrap script<a class="headerlink" href="#single-command-bootstrap-script" title="Permalink to this headline">¶</a></h2>
+<p>On a 64 bit Windows host the following script makes an unattended install of salt, including all dependencies:</p>
+<div class="admonition-not-up-to-date admonition">
+<p class="first admonition-title">Not up to date.</p>
+<p class="last">This script is not up to date. Please use the installer found above</p>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="s2">&quot;PowerShell (New-Object System.Net.WebClient).DownloadFile(&#39;http://csa-net.dk/salt/bootstrap64.bat&#39;,&#39;C:\bootstrap.bat&#39;);(New-Object -com Shell.Application).ShellExecute(&#39;C:\bootstrap.bat&#39;);&quot;</span>
+
+<span class="o">(</span>All in one line.<span class="o">)</span>
+</pre></div>
+</div>
+<p>You can execute the above command remotely from a Linux host using winexe:</p>
+<div class="highlight-bash"><div class="highlight"><pre>winexe -U <span class="s2">&quot;administrator&quot;</span> //fqdn <span class="s2">&quot;PowerShell (New-Object ......);&quot;</span>
+</pre></div>
+</div>
+<p>For more info check <a class="reference external" href="http://csa-net.dk/salt">http://csa-net.dk/salt</a></p>
+</div>
+<div class="section" id="packages-management-under-windows-2003">
+<h2>Packages management under Windows 2003<a class="headerlink" href="#packages-management-under-windows-2003" title="Permalink to this headline">¶</a></h2>
+<p>On windows Server 2003, you need to install optional component &quot;wmi windows installer provider&quot; to have full list of installed packages. If you don't have this, salt-minion can't report some installed softwares.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Windows</a><ul>
+<li><a class="reference internal" href="#windows-installer">Windows Installer</a></li>
+<li><a class="reference internal" href="#silent-installer-option">Silent Installer option</a></li>
+<li><a class="reference internal" href="#setting-up-a-windows-build-environment">Setting up a Windows build environment</a></li>
+<li><a class="reference internal" href="#building-the-installer">Building the installer</a></li>
+<li><a class="reference internal" href="#testing-the-salt-minion">Testing the Salt minion</a></li>
+<li><a class="reference internal" href="#single-command-bootstrap-script">Single command bootstrap script</a></li>
+<li><a class="reference internal" href="#packages-management-under-windows-2003">Packages management under Windows 2003</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ubuntu.html"
+                        title="previous chapter">Ubuntu Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="suse.html"
+                        title="next chapter">SUSE Installation</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="ubuntu.html" title="Ubuntu Installation">previous</a>
+                
+            </li>
+            <li>
+                <a href="suse.html" title="SUSE Installation">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

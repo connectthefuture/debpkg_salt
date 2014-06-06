@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.modules.solr</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin execution modules" href="index.html">
+        <link rel="next" title="salt.modules.sqlite3" href="salt.modules.sqlite3.html">
+        <link rel="prev" title="salt.modules.solarispkg" href="salt.modules.solarispkg.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.solarispkg.html" title="salt.modules.solarispkg">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.sqlite3.html" title="salt.modules.sqlite3">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.modules.solr">
+<span id="salt-modules-solr"></span><h1>salt.modules.solr<a class="headerlink" href="#module-salt.modules.solr" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="apache-solr-salt-module">
+<h2>Apache Solr Salt Module<a class="headerlink" href="#apache-solr-salt-module" title="Permalink to this headline">¶</a></h2>
+<p>Author: Jed Glazner
+Version: 0.2.1
+Modified: 12/09/2011</p>
+<p>This module uses HTTP requests to talk to the apache solr request handlers
+to gather information and report errors. Because of this the minion doesn't
+necessarily need to reside on the actual slave.  However if you want to
+use the signal function the minion must reside on the physical solr host.</p>
+<p>This module supports multi-core and standard setups.  Certain methods are
+master/slave specific.  Make sure you set the solr.type. If you have
+questions or want a feature request please ask.</p>
+<div class="section" id="coming-features-in-0-3">
+<h3>Coming Features in 0.3<a class="headerlink" href="#coming-features-in-0-3" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Add command for checking for replication failures on slaves</li>
+<li>Improve match_index_versions since it's pointless on busy solr masters</li>
+<li>Add additional local fs checks for backups to make sure they succeeded</li>
+</ol>
+</div>
+<div class="section" id="override-these-in-the-minion-config">
+<h3>Override these in the minion config<a class="headerlink" href="#override-these-in-the-minion-config" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>solr.cores</dt>
+<dd>A list of core names eg ['core1','core2'].
+An empty list indicates non-multicore setup.</dd>
+<dt>solr.baseurl</dt>
+<dd>The root level URL to access solr via HTTP</dd>
+<dt>solr.request_timeout</dt>
+<dd>The number of seconds before timing out an HTTP/HTTPS/FTP request. If
+nothing is specified then the python global timeout setting is used.</dd>
+<dt>solr.type</dt>
+<dd>Possible values are 'master' or 'slave'</dd>
+<dt>solr.backup_path</dt>
+<dd>The path to store your backups. If you are using cores and you can specify
+to append the core name to the path in the backup method.</dd>
+<dt>solr.num_backups</dt>
+<dd>For versions of solr &gt;= 3.5. Indicates the number of backups to keep. This
+option is ignored if your version is less.</dd>
+<dt>solr.init_script</dt>
+<dd>The full path to your init script with start/stop options</dd>
+<dt>solr.dih.options</dt>
+<dd>A list of options to pass to the DIH.</dd>
+</dl>
+</div>
+<div class="section" id="required-options-for-dih">
+<h3>Required Options for DIH<a class="headerlink" href="#required-options-for-dih" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>clean <span class="classifier-delimiter">:</span> <span class="classifier">False</span></dt>
+<dd>Clear the index before importing</dd>
+<dt>commit <span class="classifier-delimiter">:</span> <span class="classifier">True</span></dt>
+<dd>Commit the documents to the index upon completion</dd>
+<dt>optimize <span class="classifier-delimiter">:</span> <span class="classifier">True</span></dt>
+<dd>Optimize the index after commit is complete</dd>
+<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">True</span></dt>
+<dd>Get verbose output</dd>
+</dl>
+<dl class="function">
+<dt id="salt.modules.solr.abort_import">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">abort_import</tt><big>(</big><em>handler</em>, <em>host=None</em>, <em>core_name=None</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#salt.modules.solr.abort_import" title="Permalink to this definition">¶</a></dt>
+<dd><p>MASTER ONLY
+Aborts an existing import command to the specified handler.
+This command can only be run if the minion is configured with
+solr.type=master</p>
+<dl class="docutils">
+<dt>handler <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The name of the data import handler.</dd>
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The core the handler belongs to.</dd>
+<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">boolean (False)</span></dt>
+<dd>Run the command with verbose output.</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.abort_import dataimport None music <span class="o">{</span><span class="s1">&#39;clean&#39;</span>:True<span class="o">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.backup">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">backup</tt><big>(</big><em>host=None</em>, <em>core_name=None</em>, <em>append_core_to_path=False</em><big>)</big><a class="headerlink" href="#salt.modules.solr.backup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell solr make a backup.  This method can be mis-leading since it uses the
+backup API.  If an error happens during the backup you are not notified.
+The status: 'OK' in the response simply means that solr received the
+request successfully.</p>
+<dl class="docutils">
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The name of the solr core if using cores. Leave this blank if you are
+not using cores or if you want to check all cores.</dd>
+<dt>append_core_to_path <span class="classifier-delimiter">:</span> <span class="classifier">boolean (False)</span></dt>
+<dd>If True add the name of the core to the backup path. Assumes that
+minion backup path is not None.</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.backup music
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.core_status">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">core_status</tt><big>(</big><em>host=None</em>, <em>core_name=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.core_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>MULTI-CORE HOSTS ONLY
+Get the status for a given core or all cores if no core is specified</p>
+<dl class="docutils">
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The name of the core to reload</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.core_status None music
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.delta_import">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">delta_import</tt><big>(</big><em>handler</em>, <em>host=None</em>, <em>core_name=None</em>, <em>options=None</em>, <em>extra=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.delta_import" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submits an import command to the specified handler using specified options.
+This command can only be run if the minion is configured with
+solr.type=master</p>
+<dl class="docutils">
+<dt>handler <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The name of the data import handler.</dd>
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The core the handler belongs to.</dd>
+<dt>options <span class="classifier-delimiter">:</span> <span class="classifier">dict (__opts__)</span></dt>
+<dd>A list of options such as clean, optimize commit, verbose, and
+pause_replication. leave blank to use __opts__ defaults. options will
+be merged with __opts__</dd>
+<dt>extra <span class="classifier-delimiter">:</span> <span class="classifier">dict ([])</span></dt>
+<dd>Extra name value pairs to pass to the handler. eg [&quot;name=value&quot;]</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.delta_import dataimport None music <span class="o">{</span><span class="s1">&#39;clean&#39;</span>:True<span class="o">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.full_import">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">full_import</tt><big>(</big><em>handler</em>, <em>host=None</em>, <em>core_name=None</em>, <em>options=None</em>, <em>extra=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.full_import" title="Permalink to this definition">¶</a></dt>
+<dd><p>MASTER ONLY
+Submits an import command to the specified handler using specified options.
+This command can only be run if the minion is configured with
+solr.type=master</p>
+<dl class="docutils">
+<dt>handler <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The name of the data import handler.</dd>
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The core the handler belongs to.</dd>
+<dt>options <span class="classifier-delimiter">:</span> <span class="classifier">dict (__opts__)</span></dt>
+<dd>A list of options such as clean, optimize commit, verbose, and
+pause_replication. leave blank to use __opts__ defaults. options will
+be merged with __opts__</dd>
+<dt>extra <span class="classifier-delimiter">:</span> <span class="classifier">dict ([])</span></dt>
+<dd>Extra name value pairs to pass to the handler. e.g. [&quot;name=value&quot;]</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.full_import dataimport None music <span class="o">{</span><span class="s1">&#39;clean&#39;</span>:True<span class="o">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.import_status">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">import_status</tt><big>(</big><em>handler</em>, <em>host=None</em>, <em>core_name=None</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#salt.modules.solr.import_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submits an import command to the specified handler using specified options.
+This command can only be run if the minion is configured with
+solr.type: 'master'</p>
+<dl class="docutils">
+<dt>handler <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The name of the data import handler.</dd>
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The core the handler belongs to.</dd>
+<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">boolean (False)</span></dt>
+<dd>Specifies verbose output</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.import_status dataimport None music False
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.is_replication_enabled">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">is_replication_enabled</tt><big>(</big><em>host=None</em>, <em>core_name=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.is_replication_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>SLAVE CALL
+Check for errors, and determine if a slave is replicating or not.</p>
+<dl class="docutils">
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The name of the solr core if using cores. Leave this blank if you are
+not using cores or if you want to check all cores.</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.is_replication_enabled music
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.lucene_version">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">lucene_version</tt><big>(</big><em>core_name=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.lucene_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the lucene version that solr is using. If you are running a multi-core
+setup you should specify a core name since all the cores run under the same
+servlet container, they will all have the same version.</p>
+<dl class="docutils">
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The name of the solr core if using cores. Leave this blank if you are
+not using cores or if you want to check all cores.</dd>
+</dl>
+<p>Return: dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.lucene_version
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.match_index_versions">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">match_index_versions</tt><big>(</big><em>host=None</em>, <em>core_name=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.match_index_versions" title="Permalink to this definition">¶</a></dt>
+<dd><p>SLAVE CALL
+Verifies that the master and the slave versions are in sync by
+comparing the index version. If you are constantly pushing updates
+the index the master and slave versions will seldom match. A solution
+to this is pause indexing every so often to allow the slave to replicate
+and then call this method before allowing indexing to resume.</p>
+<dl class="docutils">
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The name of the solr core if using cores. Leave this blank if you are
+not using cores or if you want to check all cores.</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.match_index_versions music
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.optimize">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">optimize</tt><big>(</big><em>host=None</em>, <em>core_name=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search queries fast, but it is a very expensive operation. The ideal
+process is to run this with a master/slave configuration.  Then you
+can optimize the master, and push the optimized index to the slaves.
+If you are running a single solr instance, or if you are going to run
+this on a slave be aware than search performance will be horrible
+while this command is being run. Additionally it can take a LONG time
+to run and your HTTP request may timeout. If that happens adjust your
+timeout settings.</p>
+<dl class="docutils">
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The name of the solr core if using cores. Leave this blank if you are
+not using cores or if you want to check all cores.</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.optimize music
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.ping">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">ping</tt><big>(</big><em>host=None</em>, <em>core_name=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.ping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does a health check on solr, makes sure solr can talk to the indexes.</p>
+<dl class="docutils">
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The name of the solr core if using cores. Leave this blank if you are
+not using cores or if you want to check all cores.</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.ping music
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.reload_core">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">reload_core</tt><big>(</big><em>host=None</em>, <em>core_name=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.reload_core" title="Permalink to this definition">¶</a></dt>
+<dd><p>MULTI-CORE HOSTS ONLY
+Load a new core from the same configuration as an existing registered core.
+While the &quot;new&quot; core is initializing, the &quot;old&quot; one will continue to accept
+requests. Once it has finished, all new request will go to the &quot;new&quot; core,
+and the &quot;old&quot; core will be unloaded.</p>
+<dl class="docutils">
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The name of the core to reload</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.reload_core None music
+</pre></div>
+</div>
+<p>Return data is in the following format:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="nb">bool</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.reload_import_config">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">reload_import_config</tt><big>(</big><em>handler</em>, <em>host=None</em>, <em>core_name=None</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#salt.modules.solr.reload_import_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>MASTER ONLY
+re-loads the handler config XML file.
+This command can only be run if the minion is a 'master' type</p>
+<dl class="docutils">
+<dt>handler <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The name of the data import handler.</dd>
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The core the handler belongs to.</dd>
+<dt>verbose <span class="classifier-delimiter">:</span> <span class="classifier">boolean (False)</span></dt>
+<dd>Run the command with verbose output.</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.reload_import_config dataimport None music <span class="o">{</span><span class="s1">&#39;clean&#39;</span>:True<span class="o">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.replication_details">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">replication_details</tt><big>(</big><em>host=None</em>, <em>core_name=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.replication_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the full replication details.</p>
+<dl class="docutils">
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The name of the solr core if using cores. Leave this blank if you are
+not using cores or if you want to check all cores.</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.replication_details music
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.set_is_polling">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">set_is_polling</tt><big>(</big><em>polling</em>, <em>host=None</em>, <em>core_name=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.set_is_polling" title="Permalink to this definition">¶</a></dt>
+<dd><p>SLAVE CALL
+Prevent the slaves from polling the master for updates.</p>
+<dl class="docutils">
+<dt>polling <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span></dt>
+<dd>True will enable polling. False will disable it.</dd>
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The name of the solr core if using cores. Leave this blank if you are
+not using cores or if you want to check all cores.</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.set_is_polling False
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.set_replication_enabled">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">set_replication_enabled</tt><big>(</big><em>status</em>, <em>host=None</em>, <em>core_name=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.set_replication_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>MASTER ONLY
+Sets the master to ignore poll requests from the slaves. Useful when you
+don't want the slaves replicating during indexing or when clearing the
+index.</p>
+<dl class="docutils">
+<dt>status <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span></dt>
+<dd>Sets the replication status to the specified state.</dd>
+<dt>host <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The solr host to query. __opts__['host'] is default.</dd>
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The name of the solr core if using cores. Leave this blank if you are
+not using cores or if you want to set the status on all cores.</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.set_replication_enabled <span class="nb">false</span>, None, music
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.signal">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">signal</tt><big>(</big><em>signal=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.signal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signals Apache Solr to start, stop, or restart. Obviously this is only
+going to work if the minion resides on the solr host. Additionally Solr
+doesn't ship with an init script so one must be created.</p>
+<dl class="docutils">
+<dt>signal <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The command to pass to the apache solr init valid values are 'start',
+'stop', and 'restart'</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.signal restart
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.solr.version">
+<tt class="descclassname">salt.modules.solr.</tt><tt class="descname">version</tt><big>(</big><em>core_name=None</em><big>)</big><a class="headerlink" href="#salt.modules.solr.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the solr version for the core specified.  You should specify a core
+here as all the cores will run under the same servlet container and so will
+all have the same version.</p>
+<dl class="docutils">
+<dt>core_name <span class="classifier-delimiter">:</span> <span class="classifier">str (None)</span></dt>
+<dd>The name of the solr core if using cores. Leave this blank if you are
+not using cores or if you want to check all cores.</dd>
+</dl>
+<p>Return : dict&lt;str,obj&gt;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;success&#39;</span><span class="p">:</span><span class="n">boolean</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span> <span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">,</span> <span class="s">&#39;warnings&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> solr.version
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">salt.modules.solr</a><ul>
+<li><a class="reference internal" href="#apache-solr-salt-module">Apache Solr Salt Module</a><ul>
+<li><a class="reference internal" href="#coming-features-in-0-3">Coming Features in 0.3</a></li>
+<li><a class="reference internal" href="#override-these-in-the-minion-config">Override these in the minion config</a></li>
+<li><a class="reference internal" href="#required-options-for-dih">Required Options for DIH</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.modules.solarispkg.html"
+                        title="previous chapter">salt.modules.solarispkg</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.modules.sqlite3.html"
+                        title="next chapter">salt.modules.sqlite3</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.solarispkg.html" title="salt.modules.solarispkg">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.sqlite3.html" title="salt.modules.sqlite3">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

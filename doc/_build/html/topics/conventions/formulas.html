@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt Formulas</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt Conventions" href="index.html">
+        <link rel="next" title="SaltStack Packaging Guide" href="packaging.html">
+        <link rel="prev" title="Salt Conventions" href="index.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="index.html" title="Salt Conventions">previous</a>
+                
+            </li>
+            <li>
+                <a href="packaging.html" title="SaltStack Packaging Guide">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-formulas">
+<span id="conventions-formula"></span><h1>Salt Formulas<a class="headerlink" href="#salt-formulas" title="Permalink to this headline">¶</a></h1>
+<p>Formulas are pre-written Salt States. They are as open-ended as Salt States
+themselves and can be used for tasks such as installing a package, configuring
+and starting a service, setting up users or permissions, and many other common
+tasks.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Formulas require Salt 0.17 or later.</p>
+<p>More accurately, Formulas are not tested on earlier versions of Salt so
+your mileage may vary.</p>
+<p>All Formulas require the grains execution module that shipped with Salt
+0.16.4. Earlier Salt versions may copy <a class="reference external" href="https://github.com/saltstack/salt/blob/develop/salt/modules/grains.py">https://github.com/saltstack/salt/blob/develop/salt/modules/grains.py</a>
+into the <tt class="file docutils literal"><span class="pre">/srv/salt/_modules</span></tt> directory and it will be automatically
+distributed to all minions.</p>
+<p class="last">Some Formula utilize features added in Salt 0.17 and will not work on
+earlier Salt versions.</p>
+</div>
+<p>All official Salt Formulas are found as separate Git repositories in the
+&quot;saltstack-formulas&quot; organization on GitHub:</p>
+<p><a class="reference external" href="https://github.com/saltstack-formulas">https://github.com/saltstack-formulas</a></p>
+<p>As an example, quickly install and configure the popular memcached server using
+sane defaults simply by including the <tt class="xref py py-formula docutils literal"><span class="pre">memcached-formula</span></tt> repository
+into an existing Salt States tree.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Each Salt Formula is an individual Git repository designed as a drop-in
+addition to an existing Salt State tree. Formulas can be installed in the
+following ways.</p>
+<div class="section" id="adding-a-formula-as-a-gitfs-remote">
+<h3>Adding a Formula as a GitFS remote<a class="headerlink" href="#adding-a-formula-as-a-gitfs-remote" title="Permalink to this headline">¶</a></h3>
+<p>One design goal of Salt's GitFS fileserver backend was to facilitate reusable
+States so this is a quick and natural way to use Formulas.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="../tutorials/gitfs.html#tutorial-gitfs"><em>Setting up GitFS</em></a></p>
+</div>
+<ol class="arabic simple">
+<li>Add one or more Formula repository URLs as remotes in the
+<a class="reference internal" href="../../ref/configuration/master.html#std:conf_master-gitfs_remotes"><tt class="xref std std-conf_master docutils literal"><span class="pre">gitfs_remotes</span></tt></a> list in the Salt Master configuration file.</li>
+<li>Restart the Salt master.</li>
+</ol>
+</div>
+<div class="section" id="adding-a-formula-directory-manually">
+<h3>Adding a Formula directory manually<a class="headerlink" href="#adding-a-formula-directory-manually" title="Permalink to this headline">¶</a></h3>
+<p>Since Formulas are simply directories they can be copied onto the local file
+system by using Git to clone the repository or by downloading and expanding a
+tarball or zip file of the directory.</p>
+<ul class="simple">
+<li>Clone the repository manually and add a new entry to
+<a class="reference internal" href="../../ref/configuration/master.html#std:conf_master-file_roots"><tt class="xref std std-conf_master docutils literal"><span class="pre">file_roots</span></tt></a> pointing to the clone's directory.</li>
+<li>Clone the repository manually and then copy or link the Formula directory
+into <tt class="docutils literal"><span class="pre">file_roots</span></tt>.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Each Formula is intended to be immediately usable with sane defaults without
+any additional configuration. Many formulas are also configurable by including
+data in Pillar; see the <tt class="file docutils literal"><span class="pre">pillar.example</span></tt> file in each Formula repository
+for available options.</p>
+<div class="section" id="including-a-formula-in-an-existing-state-tree">
+<h3>Including a Formula in an existing State tree<a class="headerlink" href="#including-a-formula-in-an-existing-state-tree" title="Permalink to this headline">¶</a></h3>
+<p>Formula may be included in an existing <tt class="docutils literal"><span class="pre">sls</span></tt> file. This is often useful when
+a state you are writing needs to <tt class="docutils literal"><span class="pre">require</span></tt> or <tt class="docutils literal"><span class="pre">extend</span></tt> a state defined in
+the formula.</p>
+<p>Here is an example of a state that uses the <tt class="xref py py-formula docutils literal"><span class="pre">epel-formula</span></tt> in a
+<tt class="docutils literal"><span class="pre">require</span></tt> declaration which directs Salt to not install the <tt class="docutils literal"><span class="pre">python26</span></tt>
+package until after the EPEL repository has also been installed:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">epel</span>
+
+<span class="l-Scalar-Plain">python26</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">epel</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="including-a-formula-from-a-top-file">
+<h3>Including a Formula from a Top File<a class="headerlink" href="#including-a-formula-from-a-top-file" title="Permalink to this headline">¶</a></h3>
+<p>Some Formula perform completely standalone installations that are not
+referenced from other state files. It is usually cleanest to include these
+Formula directly from a Top File.</p>
+<p>For example the easiest way to set up an OpenStack deployment on a single
+machine is to include the <tt class="xref py py-formula docutils literal"><span class="pre">openstack-standalone-formula</span></tt> directly from
+a <tt class="file docutils literal"><span class="pre">top.sls</span></tt> file:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+  <span class="s">&#39;myopenstackmaster&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack</span>
+</pre></div>
+</div>
+<p>Quickly deploying OpenStack across several dedicated machines could also be
+done directly from a Top File and may look something like this:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">base</span><span class="p-Indicator">:</span>
+  <span class="s">&#39;controller&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack.horizon</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack.keystone</span>
+  <span class="s">&#39;hyper-*&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack.nova</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack.glance</span>
+  <span class="s">&#39;storage-*&#39;</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">openstack.swift</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-formula-using-pillar">
+<h3>Configuring Formula using Pillar<a class="headerlink" href="#configuring-formula-using-pillar" title="Permalink to this headline">¶</a></h3>
+<p>Salt Formulas are designed to work out of the box with no additional
+configuration. However, many Formula support additional configuration and
+customization through <a class="reference internal" href="../pillar/index.html#pillar"><em>Pillar</em></a>. Examples of available options can
+be found in a file named <tt class="file docutils literal"><span class="pre">pillar.example</span></tt> in the root directory of each
+Formula repository.</p>
+</div>
+<div class="section" id="modifying-default-formula-behavior">
+<h3>Modifying default Formula behavior<a class="headerlink" href="#modifying-default-formula-behavior" title="Permalink to this headline">¶</a></h3>
+<p>Remember that Formula are regular Salt States and can be used with all Salt's
+normal mechanisms for determining execution order. Formula can be required from
+other States with <tt class="docutils literal"><span class="pre">require</span></tt> declarations, they can be modified using
+<tt class="docutils literal"><span class="pre">extend</span></tt>, they can made to watch other states with <tt class="docutils literal"><span class="pre">watch_in</span></tt>, they can be
+used as templates for other States with <tt class="docutils literal"><span class="pre">use</span></tt>. Don't be shy to read through
+the source for each Formula!</p>
+</div>
+<div class="section" id="reporting-problems-making-additions">
+<h3>Reporting problems &amp; making additions<a class="headerlink" href="#reporting-problems-making-additions" title="Permalink to this headline">¶</a></h3>
+<p>Each Formula is a separate repository on GitHub. If you encounter a bug with a
+Formula please file an issue in the respective repository! Send fixes and
+additions as a pull request. Add tips and tricks to the repository wiki.</p>
+</div>
+</div>
+<div class="section" id="writing-formulas">
+<h2>Writing Formulas<a class="headerlink" href="#writing-formulas" title="Permalink to this headline">¶</a></h2>
+<p>Each Formula is a separate repository in the <a class="reference external" href="https://github.com/saltstack-formulas">saltstack-formulas</a> organization
+on GitHub.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Get involved creating new Formulas</p>
+<p class="last">The best way to create new Formula repositories for now is to create a
+repository in your own account on GitHub and notify a SaltStack employee
+when it is ready. We will add you as a collaborator on the
+<a class="reference external" href="https://github.com/saltstack-formulas">saltstack-formulas</a> organization and help you transfer the repository
+over. Ping a SaltStack employee on IRC (<tt class="docutils literal"><span class="pre">#salt</span></tt> on Freenode) or send an
+email to the Salt mailing list.</p>
+</div>
+<div class="section" id="repository-structure">
+<h3>Repository structure<a class="headerlink" href="#repository-structure" title="Permalink to this headline">¶</a></h3>
+<p>A basic Formula repository should have the following layout:</p>
+<div class="highlight-python"><div class="highlight"><pre>foo-formula
+|-- foo/
+|   |-- map.jinja
+|   |-- init.sls
+|   `-- bar.sls
+|-- CHANGELOG.rst
+|-- LICENSE
+|-- pillar.example
+|-- README.rst
+`-- VERSION
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><tt class="xref py py-formula docutils literal"><span class="pre">template-formula</span></tt></p>
+<p class="last">The <tt class="xref py py-formula docutils literal"><span class="pre">template-formula</span></tt> repository has a pre-built layout that
+serves as the basic structure for a new formula repository. Just copy the
+files from there and edit them.</p>
+</div>
+</div>
+<div class="section" id="readme-rst">
+<h3><tt class="docutils literal"><span class="pre">README.rst</span></tt><a class="headerlink" href="#readme-rst" title="Permalink to this headline">¶</a></h3>
+<p>The README should detail each available <tt class="docutils literal"><span class="pre">.sls</span></tt> file by explaining what it
+does, whether it has any dependencies on other formulas, whether it has a
+target platform, and any other installation or usage instructions or tips.</p>
+<p>A sample skeleton for the <tt class="docutils literal"><span class="pre">README.rst</span></tt> file:</p>
+<div class="highlight-rest"><div class="highlight"><pre><span class="gh">foo</span>
+<span class="gh">===</span>
+
+Install and configure the FOO service.
+
+<span class="p">..</span> <span class="ow">note</span><span class="p">::</span>
+
+    See the full `Salt Formulas installation and usage instructions
+    &lt;http://docs.saltstack.com/topics/conventions/formulas.html&gt;`_.
+
+<span class="gh">Available states</span>
+<span class="gh">----------------</span>
+
+<span class="s">``foo``</span>
+    Install the <span class="s">``foo``</span> package and enable the service.
+<span class="s">``foo.bar``</span>
+    Install the <span class="s">``bar``</span> package.
+</pre></div>
+</div>
+</div>
+<div class="section" id="changelog-rst">
+<h3><tt class="docutils literal"><span class="pre">CHANGELOG.rst</span></tt><a class="headerlink" href="#changelog-rst" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">CHANGELOG.rst</span></tt> file should detail the individual versions, their
+release date and a set of bullet points for each version highlighting the
+overall changes in a given version of the formula.</p>
+<p>A sample skeleton for the <cite>CHANGELOG.rst</cite> file:</p>
+<p><tt class="file docutils literal"><span class="pre">CHANGELOG.rst</span></tt>:</p>
+<div class="highlight-rest"><div class="highlight"><pre><span class="gh">foo formula</span>
+<span class="gh">===========</span>
+
+0.0.2 (2013-01-01)
+
+<span class="m">-</span> Re-organized formula file layout
+<span class="m">-</span> Fixed filename used for upstart logger template
+<span class="m">-</span> Allow for pillar message to have default if none specified
+</pre></div>
+</div>
+</div>
+<div class="section" id="map-jinja">
+<h3><tt class="docutils literal"><span class="pre">map.jinja</span></tt><a class="headerlink" href="#map-jinja" title="Permalink to this headline">¶</a></h3>
+<p>It is useful to have a single source for platform-specific or other
+parameterized information that can be reused throughout a Formula. See
+&quot;<a class="reference internal" href="#conventions-formula-parameterization"><em>Configuration and parameterization</em></a>&quot; below for more information. Such
+a file should be named <tt class="file docutils literal"><span class="pre">map.jinja</span></tt> and live alongside the state
+files.</p>
+<p>The following is an example from the MySQL Formula that has been slightly
+modified to be more readable and less terse.</p>
+<p>In essence, it is a simple dictionary that serves as a lookup table. The
+<a class="reference internal" href="../../ref/modules/all/salt.modules.grains.html#salt.modules.grains.filter_by" title="salt.modules.grains.filter_by"><tt class="xref py py-func docutils literal"><span class="pre">grains.filter_by</span></tt></a> function then does
+a lookup on that table using the <tt class="docutils literal"><span class="pre">os_family</span></tt> grain (by default) and sets the
+result to a variable that can be used throughout the formula.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="../../ref/modules/all/salt.modules.grains.html#salt.modules.grains.filter_by" title="salt.modules.grains.filter_by"><tt class="xref py py-func docutils literal"><span class="pre">grains.filter_by</span></tt></a></p>
+</div>
+<p><tt class="file docutils literal"><span class="pre">map.jinja</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">set</span> <span class="nv">mysql_lookup_table</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="s1">&#39;Debian&#39;</span><span class="o">:</span> <span class="o">{</span>
+        <span class="s1">&#39;server&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql-server&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;client&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql-client&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;service&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;config&#39;</span><span class="o">:</span> <span class="s1">&#39;/etc/mysql/my.cnf&#39;</span><span class="o">,</span>
+    <span class="o">},</span>
+    <span class="s1">&#39;RedHat&#39;</span><span class="o">:</span> <span class="o">{</span>
+        <span class="s1">&#39;server&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql-server&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;client&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;service&#39;</span><span class="o">:</span> <span class="s1">&#39;mysqld&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;config&#39;</span><span class="o">:</span> <span class="s1">&#39;/etc/my.cnf&#39;</span><span class="o">,</span>
+    <span class="o">},</span>
+    <span class="s1">&#39;Gentoo&#39;</span><span class="o">:</span> <span class="o">{</span>
+        <span class="s1">&#39;server&#39;</span><span class="o">:</span> <span class="s1">&#39;dev-db/mysql&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;mysql-client&#39;</span><span class="o">:</span> <span class="s1">&#39;dev-db/mysql&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;service&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;config&#39;</span><span class="o">:</span> <span class="s1">&#39;/etc/mysql/my.cnf&#39;</span><span class="o">,</span>
+    <span class="o">},</span>
+<span class="o">}</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">mysql</span> <span class="o">=</span> <span class="nv">salt</span><span class="o">[</span><span class="s1">&#39;grains.filter_by&#39;</span><span class="o">](</span><span class="nv">mysql_lookup_table</span><span class="o">,</span>
+    <span class="nv">merge</span><span class="o">=</span><span class="nv">salt</span><span class="o">[</span><span class="s1">&#39;pillar.get&#39;</span><span class="o">](</span><span class="s1">&#39;mysql:lookup&#39;</span><span class="o">))</span>
+</pre></div>
+</div>
+<p>The above example is used to help explain how the mapping works. In most
+map files you will see the following structure:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">set</span> <span class="nv">mysql</span> <span class="o">=</span> <span class="nv">salt</span><span class="o">[</span><span class="s1">&#39;grains.filter_by&#39;</span><span class="o">]({</span>
+    <span class="s1">&#39;Debian&#39;</span><span class="o">:</span> <span class="o">{</span>
+        <span class="s1">&#39;server&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql-server&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;client&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql-client&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;service&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;config&#39;</span><span class="o">:</span> <span class="s1">&#39;/etc/mysql/my.cnf&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;python&#39;</span><span class="o">:</span> <span class="s1">&#39;python-mysqldb&#39;</span><span class="o">,</span>
+    <span class="o">},</span>
+    <span class="s1">&#39;RedHat&#39;</span><span class="o">:</span> <span class="o">{</span>
+        <span class="s1">&#39;server&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql-server&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;client&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;service&#39;</span><span class="o">:</span> <span class="s1">&#39;mysqld&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;config&#39;</span><span class="o">:</span> <span class="s1">&#39;/etc/my.cnf&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;python&#39;</span><span class="o">:</span> <span class="s1">&#39;MySQL-python&#39;</span><span class="o">,</span>
+    <span class="o">},</span>
+    <span class="s1">&#39;Gentoo&#39;</span><span class="o">:</span> <span class="o">{</span>
+        <span class="s1">&#39;server&#39;</span><span class="o">:</span> <span class="s1">&#39;dev-db/mysql&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;mysql-client&#39;</span><span class="o">:</span> <span class="s1">&#39;dev-db/mysql&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;service&#39;</span><span class="o">:</span> <span class="s1">&#39;mysql&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;config&#39;</span><span class="o">:</span> <span class="s1">&#39;/etc/mysql/my.cnf&#39;</span><span class="o">,</span>
+        <span class="s1">&#39;python&#39;</span><span class="o">:</span> <span class="s1">&#39;dev-python/mysql-python&#39;</span><span class="o">,</span>
+    <span class="o">},</span>
+<span class="o">},</span> <span class="nv">merge</span><span class="o">=</span><span class="nv">salt</span><span class="o">[</span><span class="s1">&#39;pillar.get&#39;</span><span class="o">](</span><span class="s1">&#39;mysql:lookup&#39;</span><span class="o">))</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">merge</span></tt> keyword specifies the location of a dictionary in Pillar that can
+be used to override values returned from the lookup table. If the value exists
+in Pillar it will take precedence, otherwise <tt class="docutils literal"><span class="pre">merge</span></tt> will be ignored. This is
+useful when software or configuration files is installed to non-standard
+locations. For example, the following Pillar would replace the <tt class="docutils literal"><span class="pre">config</span></tt> value
+from the call above.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">mysql</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">lookup</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">config</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/usr/local/etc/mysql/my.cnf</span>
+</pre></div>
+</div>
+<p>Any of the values defined above can be fetched for the current platform in any
+state file using the following syntax:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>{% from &quot;mysql/map.jinja&quot; import mysql with context %}
+
+mysql-server:
+  pkg:
+    - installed
+    - name: {{ mysql.server }}
+  service:
+    - running
+    - name: {{ mysql.service }}
+    - require:
+      - pkg: mysql-server
+
+mysql-config:
+  file:
+    - managed
+    - name: {{ mysql.config }}
+    - source: salt://mysql/conf/my.cnf
+    - watch:
+      - service: mysql-server
+</pre></div>
+</div>
+</div>
+<div class="section" id="sls-files">
+<h3>SLS files<a class="headerlink" href="#sls-files" title="Permalink to this headline">¶</a></h3>
+<p>Each state in a Formula should use sane defaults (as much as is possible) and
+use Pillar to allow for customization.</p>
+<p>The root state, in particular, and most states in general, should strive to do
+no more than the basic expected thing and advanced configuration should be put
+in child states build on top of the basic states.</p>
+<p>For example, the root Apache should only install the Apache httpd server and
+make sure the httpd service is running. It can then be used by more advanced
+states:</p>
+<div class="highlight-python"><div class="highlight"><pre># apache/init.sls
+httpd:
+  pkg:
+    - installed
+  service:
+    - running
+
+# apache/mod_wsgi.sls
+include:
+  - apache
+
+mod_wsgi:
+  pkg:
+    - installed
+    - require:
+      - pkg: apache
+
+# apache/debian/vhost_setup.sls
+{% if grains[&#39;os_family&#39;] == &#39;Debian&#39; %}
+a2dissite 000-default:
+  cmd.run:
+    - onlyif: test -L /etc/apache2/sites-enabled/000-default
+    - require:
+      - pkg: apache
+{% endif %}
+</pre></div>
+</div>
+<div class="section" id="platform-agnostic">
+<h4>Platform agnostic<a class="headerlink" href="#platform-agnostic" title="Permalink to this headline">¶</a></h4>
+<p>Each Salt Formula must be able to be run without error on any platform. If the
+formula is not applicable to a platform it should do nothing. See the
+<tt class="xref py py-formula docutils literal"><span class="pre">epel-formula</span></tt> for an example.</p>
+<p>Any platform-specific states must be wrapped in conditional statements:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">grains</span><span class="o">[</span><span class="s1">&#39;os_family&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;Debian&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">...</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>A handy method for using platform-specific values is to create a lookup table
+using the <a class="reference internal" href="../../ref/modules/all/salt.modules.grains.html#salt.modules.grains.filter_by" title="salt.modules.grains.filter_by"><tt class="xref py py-func docutils literal"><span class="pre">filter_by()</span></tt></a> function:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">set</span> <span class="nv">apache</span> <span class="o">=</span> <span class="nv">salt</span><span class="o">[</span><span class="s1">&#39;grains.filter_by&#39;</span><span class="o">]({</span>
+    <span class="s1">&#39;Debian&#39;</span><span class="o">:</span> <span class="o">{</span><span class="s1">&#39;conf&#39;</span><span class="o">:</span> <span class="s1">&#39;/etc/apache2/conf.d&#39;</span><span class="o">},</span>
+    <span class="s1">&#39;RedHat&#39;</span><span class="o">:</span> <span class="o">{</span><span class="s1">&#39;conf&#39;</span><span class="o">:</span> <span class="s1">&#39;/etc/httpd/conf.d&#39;</span><span class="o">},</span>
+<span class="o">})</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="x">myconf:</span>
+<span class="x">  file:</span>
+<span class="x">    - managed</span>
+<span class="x">    - name: </span><span class="cp">{{</span> <span class="nv">apache.conf</span> <span class="cp">}}</span><span class="x">/myconf.conf</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configuration-and-parameterization">
+<span id="conventions-formula-parameterization"></span><h3>Configuration and parameterization<a class="headerlink" href="#configuration-and-parameterization" title="Permalink to this headline">¶</a></h3>
+<p>Each Formula should strive for sane defaults that can then be customized using
+Pillar. Pillar lookups must use the safe <a class="reference internal" href="../../ref/modules/all/salt.modules.pillar.html#salt.modules.pillar.get" title="salt.modules.pillar.get"><tt class="xref py py-func docutils literal"><span class="pre">get()</span></tt></a>
+and must provide a default value:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">salt</span><span class="o">[</span><span class="s1">&#39;pillar.get&#39;</span><span class="o">](</span><span class="s1">&#39;horizon:use_ssl&#39;</span><span class="o">,</span> <span class="kp">False</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">ssl_crt: </span><span class="cp">{{</span> <span class="nv">salt</span><span class="o">[</span><span class="s1">&#39;pillar.get&#39;</span><span class="o">](</span><span class="s1">&#39;horizon:ssl_crt&#39;</span><span class="o">,</span> <span class="s1">&#39;/etc/ssl/certs/horizon.crt&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">ssl_key: </span><span class="cp">{{</span> <span class="nv">salt</span><span class="o">[</span><span class="s1">&#39;pillar.get&#39;</span><span class="o">](</span><span class="s1">&#39;horizon:ssl_key&#39;</span><span class="o">,</span> <span class="s1">&#39;/etc/ssl/certs/horizon.key&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Any default values used in the Formula must also be documented in the
+<tt class="file docutils literal"><span class="pre">pillar.example</span></tt> file in the root of the repository. Comments should be
+used liberally to explain the intent of each configuration value. In addition,
+users should be able copy-and-paste the contents of this file into their own
+Pillar to make any desired changes.</p>
+</div>
+<div class="section" id="scripting">
+<h3>Scripting<a class="headerlink" href="#scripting" title="Permalink to this headline">¶</a></h3>
+<p>Remember that both State files and Pillar files can easily call out to Salt
+<a class="reference internal" href="../../ref/modules/all/index.html#all-salt-modules"><em>execution modules</em></a> and have access to all the system
+grains as well.</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="s1">&#39;/storage&#39;</span> <span class="k">in</span> <span class="nv">salt</span><span class="o">[</span><span class="s1">&#39;mount.active&#39;</span><span class="o">]()</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">/usr/local/etc/myfile.conf:</span>
+<span class="x">  file:</span>
+<span class="x">    - symlink</span>
+<span class="x">    - target: /storage/myfile.conf</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Jinja macros are generally discouraged in favor of adding functions to existing
+Salt modules or adding new modules. An example of this is the
+<a class="reference internal" href="../../ref/modules/all/salt.modules.grains.html#salt.modules.grains.filter_by" title="salt.modules.grains.filter_by"><tt class="xref py py-func docutils literal"><span class="pre">filter_by()</span></tt></a> function.</p>
+</div>
+<div class="section" id="versioning">
+<h3>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h3>
+<p>Formula are versioned according to Semantic Versioning, <a class="reference external" href="http://semver.org/">http://semver.org/</a>.</p>
+<blockquote>
+<div><p>Given a version number MAJOR.MINOR.PATCH, increment the:</p>
+<ol class="arabic simple">
+<li>MAJOR version when you make incompatible API changes,</li>
+<li>MINOR version when you add functionality in a backwards-compatible manner, and</li>
+<li>PATCH version when you make backwards-compatible bug fixes.</li>
+</ol>
+<p>Additional labels for pre-release and build metadata are available as extensions
+to the MAJOR.MINOR.PATCH format.</p>
+</div></blockquote>
+<p>Formula versions are tracked using Git tags as well as the <tt class="docutils literal"><span class="pre">VERSION</span></tt> file
+in the formula repository. The <tt class="docutils literal"><span class="pre">VERSION</span></tt> file should contain the currently
+released version of the particular formula.</p>
+</div>
+<div class="section" id="testing-formulas">
+<h3>Testing Formulas<a class="headerlink" href="#testing-formulas" title="Permalink to this headline">¶</a></h3>
+<p>Salt Formulas are tested by running each <tt class="docutils literal"><span class="pre">.sls</span></tt> file via <a class="reference internal" href="../../ref/modules/all/salt.modules.state.html#salt.modules.state.sls" title="salt.modules.state.sls"><tt class="xref py py-func docutils literal"><span class="pre">state.sls</span></tt></a> and checking the output for success or failure. This
+is done for each supported platform.</p>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt Formulas</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#adding-a-formula-as-a-gitfs-remote">Adding a Formula as a GitFS remote</a></li>
+<li><a class="reference internal" href="#adding-a-formula-directory-manually">Adding a Formula directory manually</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#including-a-formula-in-an-existing-state-tree">Including a Formula in an existing State tree</a></li>
+<li><a class="reference internal" href="#including-a-formula-from-a-top-file">Including a Formula from a Top File</a></li>
+<li><a class="reference internal" href="#configuring-formula-using-pillar">Configuring Formula using Pillar</a></li>
+<li><a class="reference internal" href="#modifying-default-formula-behavior">Modifying default Formula behavior</a></li>
+<li><a class="reference internal" href="#reporting-problems-making-additions">Reporting problems &amp; making additions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing-formulas">Writing Formulas</a><ul>
+<li><a class="reference internal" href="#repository-structure">Repository structure</a></li>
+<li><a class="reference internal" href="#readme-rst"><tt class="docutils literal"><span class="pre">README.rst</span></tt></a></li>
+<li><a class="reference internal" href="#changelog-rst"><tt class="docutils literal"><span class="pre">CHANGELOG.rst</span></tt></a></li>
+<li><a class="reference internal" href="#map-jinja"><tt class="docutils literal"><span class="pre">map.jinja</span></tt></a></li>
+<li><a class="reference internal" href="#sls-files">SLS files</a><ul>
+<li><a class="reference internal" href="#platform-agnostic">Platform agnostic</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration-and-parameterization">Configuration and parameterization</a></li>
+<li><a class="reference internal" href="#scripting">Scripting</a></li>
+<li><a class="reference internal" href="#versioning">Versioning</a></li>
+<li><a class="reference internal" href="#testing-formulas">Testing Formulas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Salt Conventions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="packaging.html"
+                        title="next chapter">SaltStack Packaging Guide</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="index.html" title="Salt Conventions">previous</a>
+                
+            </li>
+            <li>
+                <a href="packaging.html" title="SaltStack Packaging Guide">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

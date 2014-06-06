@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Multi Master Tutorial</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt tutorials" href="index.html">
+        <link rel="next" title="Preseed Minion with Accepted Key" href="preseed_key.html">
+        <link rel="prev" title="Automatic Updates / Frozen Deployments" href="esky.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="esky.html" title="Automatic Updates / Frozen Deployments">previous</a>
+                
+            </li>
+            <li>
+                <a href="preseed_key.html" title="Preseed Minion with Accepted Key">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="multi-master-tutorial">
+<h1>Multi Master Tutorial<a class="headerlink" href="#multi-master-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>As of Salt 0.16.0, the ability to connect minions to multiple masters has been
+made available. The multi-master system allows for redundancy of Salt
+masters and facilitates multiple points of communication out to minions. When
+using a multi-master setup, all masters are running hot, and any active master
+can be used to send commands out to the minions.</p>
+<p>In 0.16.0, the masters do not share any information, keys need to be accepted
+on both masters, and shared files need to be shared manually or use tools like
+the git fileserver backend to ensure that the <a class="reference internal" href="../../ref/configuration/master.html#std:conf_master-file_roots"><tt class="xref std std-conf_master docutils literal"><span class="pre">file_roots</span></tt></a> are
+kept consistent.</p>
+<div class="section" id="summary-of-steps">
+<h2>Summary of Steps<a class="headerlink" href="#summary-of-steps" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Create a redundant master server</li>
+<li>Copy primary master key to redundant master</li>
+<li>Start redundant master</li>
+<li>Configure minions to connect to redundant master</li>
+<li>Restart minions</li>
+<li>Accept keys on redundant master</li>
+</ol>
+</div>
+<div class="section" id="prepping-a-redundant-master">
+<h2>Prepping a Redundant Master<a class="headerlink" href="#prepping-a-redundant-master" title="Permalink to this headline">¶</a></h2>
+<p>The first task is to prepare the redundant master. There is only one
+requirement when preparing a redundant master, which is that masters share the
+same private key. When the first master was created, the master's identifying
+key was generated and placed in the master's <tt class="docutils literal"><span class="pre">pki_dir</span></tt>. The default location
+of the key is <tt class="docutils literal"><span class="pre">/etc/salt/pki/master/master.pem</span></tt>. Take this key and copy it to
+the same location on the redundant master. Assuming that no minions have yet
+been connected to the new redundant master, it is safe to delete any existing
+key in this location and replace it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is no logical limit to the number of redundant masters that can be
+used.</p>
+</div>
+<p>Once the new key is in place, the redundant master can be safely started.</p>
+</div>
+<div class="section" id="configure-minions">
+<h2>Configure Minions<a class="headerlink" href="#configure-minions" title="Permalink to this headline">¶</a></h2>
+<p>Since minions need to be master-aware, the new master needs to be added to the
+minion configurations. Simply update the minion configurations to list all
+connected masters:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">master</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">saltmaster1.example.com</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">saltmaster2.example.com</span>
+</pre></div>
+</div>
+<p>Now the minion can be safely restarted.</p>
+<p>Now the minions will check into the original master and also check into the new
+redundant master. Both masters are first-class and have rights to the minions.</p>
+</div>
+<div class="section" id="sharing-files-between-masters">
+<h2>Sharing Files Between Masters<a class="headerlink" href="#sharing-files-between-masters" title="Permalink to this headline">¶</a></h2>
+<p>Salt does not automatically share files between multiple masters. A number of
+files should be shared or sharing of these files should be strongly considered.</p>
+<div class="section" id="minion-keys">
+<h3>Minion Keys<a class="headerlink" href="#minion-keys" title="Permalink to this headline">¶</a></h3>
+<p>Minion keys can be accepted the normal way using <strong>salt-key</strong> on both
+masters.  Keys accepted, deleted, or rejected on one master will NOT be
+automatically managed on redundant masters; this needs to be taken care of by
+running salt-key on both masters or sharing the
+<tt class="docutils literal"><span class="pre">/etc/salt/pki/master/{minions,minions_pre,minions_rejected}</span></tt> directories
+between masters.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">While sharing the <strong>/etc/salt/pki/master</strong> directory will work, it is
+strongly discouraged, since allowing access to the <strong>master.pem</strong> key
+outside of Salt creates a <em>SERIOUS</em> security risk.</p>
+</div>
+</div>
+<div class="section" id="file-roots">
+<h3>File_Roots<a class="headerlink" href="#file-roots" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="../../ref/configuration/master.html#std:conf_master-file_roots"><tt class="xref std std-conf_master docutils literal"><span class="pre">file_roots</span></tt></a> contents should be kept consistent between
+masters. Otherwise state runs will not always be consistent on minions since
+instructions managed by one master will not agree with other masters.</p>
+<p>The recommended way to sync these is to use a fileserver backend like gitfs or
+to keep these files on shared storage.</p>
+</div>
+<div class="section" id="pillar-roots">
+<h3>Pillar_Roots<a class="headerlink" href="#pillar-roots" title="Permalink to this headline">¶</a></h3>
+<p>Pillar roots should be given the same considerations as
+<a class="reference internal" href="../../ref/configuration/master.html#std:conf_master-file_roots"><tt class="xref std std-conf_master docutils literal"><span class="pre">file_roots</span></tt></a>.</p>
+</div>
+<div class="section" id="master-configurations">
+<h3>Master Configurations<a class="headerlink" href="#master-configurations" title="Permalink to this headline">¶</a></h3>
+<p>While reasons may exist to maintain separate master configurations, it is wise
+to remember that each master maintains independent control over minions.
+Therefore, access controls should be in sync between masters unless a valid
+reason otherwise exists to keep them inconsistent.</p>
+<p>These access control options include but are not limited to:</p>
+<ul class="simple">
+<li>external_auth</li>
+<li>client_acl</li>
+<li>peer</li>
+<li>peer_run</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Multi Master Tutorial</a><ul>
+<li><a class="reference internal" href="#summary-of-steps">Summary of Steps</a></li>
+<li><a class="reference internal" href="#prepping-a-redundant-master">Prepping a Redundant Master</a></li>
+<li><a class="reference internal" href="#configure-minions">Configure Minions</a></li>
+<li><a class="reference internal" href="#sharing-files-between-masters">Sharing Files Between Masters</a><ul>
+<li><a class="reference internal" href="#minion-keys">Minion Keys</a></li>
+<li><a class="reference internal" href="#file-roots">File_Roots</a></li>
+<li><a class="reference internal" href="#pillar-roots">Pillar_Roots</a></li>
+<li><a class="reference internal" href="#master-configurations">Master Configurations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="esky.html"
+                        title="previous chapter">Automatic Updates / Frozen Deployments</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="preseed_key.html"
+                        title="next chapter">Preseed Minion with Accepted Key</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="esky.html" title="Automatic Updates / Frozen Deployments">previous</a>
+                
+            </li>
+            <li>
+                <a href="preseed_key.html" title="Preseed Minion with Accepted Key">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

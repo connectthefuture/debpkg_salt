@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Bootstrapping Salt on Linux EC2 with Cloud-Init</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt tutorials" href="index.html">
+        <link rel="next" title="Salt Bootstrap" href="salt_bootstrap.html">
+        <link rel="prev" title="Preseed Minion with Accepted Key" href="preseed_key.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="preseed_key.html" title="Preseed Minion with Accepted Key">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt_bootstrap.html" title="Salt Bootstrap">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="bootstrapping-salt-on-linux-ec2-with-cloud-init">
+<h1>Bootstrapping Salt on Linux EC2 with Cloud-Init<a class="headerlink" href="#bootstrapping-salt-on-linux-ec2-with-cloud-init" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://saltstack.org">Salt</a> is a great tool for remote execution and
+configuration management, however you will still need to bootstrap the
+daemon when spinning up a new node. One option is to create and save a
+custom <a class="reference external" href="https://en.wikipedia.org/wiki/Amazon_Machine_Image">AMI</a>, but this creates another resource to maintain and document.</p>
+<p>A better method for Linux machines uses Canonical's <a class="reference external" href="https://help.ubuntu.com/community/CloudInit">CloudInit</a> to run a bootstrap script
+during an <a class="reference external" href="http://aws.amazon.com/ec2/instance-types/">EC2 Instance</a> initialization. Cloud-init takes the <tt class="docutils literal"><span class="pre">user_data</span></tt>
+string passed into a new AWS instance and runs it in a manner similar to
+rc.local. The bootstrap script needs to:</p>
+<ol class="arabic simple">
+<li>Install <a class="reference external" href="http://saltstack.org">Salt</a> with dependencies</li>
+<li>Point the minion to the master</li>
+</ol>
+<p>Here is a sample script:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+
+<span class="c"># Install saltstack</span>
+add-apt-repository ppa:saltstack/salt -y
+apt-get update -y
+apt-get install salt-minion -y
+apt-get install salt-master -y
+apt-get upgrade -y
+
+<span class="c"># Set salt master location and start minion</span>
+sed -i <span class="s1">&#39;s/#master: salt/master: [salt_master_fqdn]/&#39;</span> /etc/salt/minion
+salt-minion -d
+</pre></div>
+</div>
+<p>First the script adds the saltstack ppa and installs the package. Then
+we copy over the minion config template and tell it where to find the
+master. You will have to replace <tt class="docutils literal"><span class="pre">[salt_master_fqdn]</span></tt> with something
+that resolves to your Salt master.</p>
+<div class="section" id="used-with-boto">
+<h2>Used With Boto<a class="headerlink" href="#used-with-boto" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/boto/boto">Boto</a> will accept a string for user data
+which can be used to pass our bootstrap script. If the script is saved to
+a file, you can read it into a string:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">boto</span>
+
+<span class="n">user_data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;salt_bootstrap.sh&#39;</span><span class="p">)</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">boto</span><span class="o">.</span><span class="n">connect_ec2</span><span class="p">(</span><span class="o">&lt;</span><span class="n">AWS_ACCESS_ID</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">AWS_SECRET_KEY</span><span class="o">&gt;</span><span class="p">)</span>
+
+<span class="n">reservation</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">run_instances</span><span class="p">(</span><span class="n">image_id</span><span class="o">=&lt;</span><span class="n">ami_id</span><span class="o">&gt;</span><span class="p">,</span>
+                                 <span class="n">key_name</span><span class="o">=&lt;</span><span class="n">key_name</span><span class="o">&gt;</span><span class="p">,</span>
+                                 <span class="n">user_data</span><span class="o">=</span><span class="n">user_data</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="additional-notes">
+<h2>Additional Notes<a class="headerlink" href="#additional-notes" title="Permalink to this headline">¶</a></h2>
+<p>Sometime in the future the ppa will include and install an upstart file. In the
+meantime, you can use the bootstrap to <a class="reference external" href="https://gist.github.com/1617054">build one</a>.</p>
+<p>It may also be useful to set the node's role during this phase. One option
+would be saving the node's role to a file and then using a custom Grain to
+select it.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bootstrapping Salt on Linux EC2 with Cloud-Init</a><ul>
+<li><a class="reference internal" href="#used-with-boto">Used With Boto</a></li>
+<li><a class="reference internal" href="#additional-notes">Additional Notes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="preseed_key.html"
+                        title="previous chapter">Preseed Minion with Accepted Key</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt_bootstrap.html"
+                        title="next chapter">Salt Bootstrap</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="preseed_key.html" title="Preseed Minion with Accepted Key">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt_bootstrap.html" title="Salt Bootstrap">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

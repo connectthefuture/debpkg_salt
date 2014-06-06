@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>What is SaltStack?</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="_static/css/main.css">
+    
+    <link rel="stylesheet" href="_static/basic.css">
+    <link rel="stylesheet" href="_static/pygments.css">
+
+    <link rel="stylesheet" href="_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    './',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="_static/underscore.js"></script>
+    
+    
+    <script src="_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="_static/favicon.ico">
+        <link rel="top" title="None" href="#"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#"><img src="_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="what-is-saltstack">
+<span id="contents"></span><h1>What is SaltStack?<a class="headerlink" href="#what-is-saltstack" title="Permalink to this headline">¶</a></h1>
+<p>Salt is a new approach to infrastructure management. Easy enough to get
+running in minutes, scalable enough to manage tens of thousands of servers,
+and fast enough to communicate with them in <em>seconds</em>.</p>
+<p>Salt delivers a dynamic communication bus for infrastructures that can be used
+for orchestration, remote execution, configuration management and much more.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p>Other Documentation</p>
+<p>Download an offline copy of the latest Salt documentation:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://media.readthedocs.org/pdf/salt/latest/salt.pdf">PDF</a></li>
+<li><a class="reference external" href="https://media.readthedocs.org/epub/salt/latest/salt.epub">ePub</a></li>
+<li><a class="reference external" href="dash-feed://https%3A//media.readthedocs.org/dash/salt/latest/salt.xml">Dash Docset</a></li>
+</ul>
+<p>See documentation for past Salt releases at <a class="reference external" href="http://salt.readthedocs.org">http://salt.readthedocs.org</a>.
+Download offline copies on the <a class="reference external" href="https://readthedocs.org/projects/salt/downloads/">ReadTheDocs download page</a>.</p>
+<p class="last">Watch announcements, demonstrations, and video tutorials on the <a class="reference external" href="http://youtube.com/saltstack">SaltStack
+YouTube channel</a>.</p>
+</div>
+</div>
+<div class="section" id="download">
+<h1>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h1>
+<p>Salt source releases are available for download via PyPI:</p>
+<blockquote>
+<div><a class="reference external" href="https://pypi.python.org/pypi/salt">https://pypi.python.org/pypi/salt</a></div></blockquote>
+<p>The installation documents outline where to obtain packages and installation
+specifics for platforms:</p>
+<blockquote>
+<div><a class="reference internal" href="topics/installation/index.html"><em>Installation</em></a></div></blockquote>
+<p>The Salt Bootstrap project is a single shell script which aims to automate
+the install correctly on platforms:</p>
+<blockquote>
+<div><a class="reference external" href="https://github.com/saltstack/salt-bootstrap">https://github.com/saltstack/salt-bootstrap</a></div></blockquote>
+</div>
+<div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>This walkthrough is made to help individuals get started quickly and gain a
+foundational knowledge of Salt:</p>
+<p><a class="reference internal" href="topics/tutorials/walkthrough.html"><em>Official Salt Walkthrough</em></a></p>
+<p>Additional tutorials are available when getting started with Salt</p>
+<dl class="docutils">
+<dt>States - Configuration Management with Salt:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference internal" href="topics/tutorials/starting_states.html"><em>Getting Started with States</em></a></li>
+<li><a class="reference internal" href="topics/tutorials/states_pt1.html"><em>Basic config management</em></a></li>
+<li><a class="reference internal" href="topics/tutorials/states_pt2.html"><em>Less basic config management</em></a></li>
+<li><a class="reference internal" href="topics/tutorials/states_pt3.html"><em>Advanced techniques</em></a></li>
+<li><a class="reference internal" href="topics/tutorials/states_pt4.html"><em>Salt Fileserver Path Inheritance</em></a></li>
+</ul>
+</dd>
+<dt>Masterless Quickstart:</dt>
+<dd><a class="reference internal" href="topics/tutorials/quickstart.html"><em>Salt Quickstart</em></a></dd>
+<dt>A list of all tutorials can be found here:</dt>
+<dd><a class="reference internal" href="topics/tutorials/index.html"><em>All Salt tutorials</em></a></dd>
+</dl>
+</div>
+<div class="section" id="salt-in-depth">
+<h1>Salt in depth<a class="headerlink" href="#salt-in-depth" title="Permalink to this headline">¶</a></h1>
+<p>Setting up and using Salt is a simple task but its capabilities run much, much
+deeper. These documents will lead to a greater understating of how Salt will
+empower infrastructure management.</p>
+<div class="section" id="remote-execution">
+<h2>Remote execution<a class="headerlink" href="#remote-execution" title="Permalink to this headline">¶</a></h2>
+<p>Remote execution is the core function of Salt. Running pre-defined or
+arbitrary commands on remote hosts.</p>
+<dl class="docutils">
+<dt><strong>Modules</strong></dt>
+<dd><p class="first">Salt modules are the core of remote execution. They provide
+functionality such as installing packages, restarting a service,
+running a remote command, transferring files, and infinitely more.</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="ref/modules/all/index.html"><em>Full list of modules</em></a></dt>
+<dd>The giant list of core modules that ship with Salt</dd>
+<dt><a class="reference internal" href="ref/modules/index.html"><em>Writing modules</em></a></dt>
+<dd>A guide on how to write Salt modules.</dd>
+</dl>
+</dd>
+<dt><strong>Returners</strong></dt>
+<dd><p class="first">Salt returners allow saving minion responses in various datastores or
+to various locations in addition to display at the CLI.</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="ref/returners/all/index.html"><em>Full list of returners</em></a></dt>
+<dd>Store minion responses in Redis, Mongo, Cassandra, SQL or more.</dd>
+<dt><a class="reference internal" href="ref/returners/index.html"><em>Writing returners</em></a></dt>
+<dd>Extending Salt to communicate with more interfaces is easy, new
+databases can be supported or custom interfaces can be easily
+communicated with.</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="targeting">
+<h2>Targeting<a class="headerlink" href="#targeting" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="topics/targeting/index.html"><em>Targeting</em></a> is specifying which minions
+should execute commands or manage server configuration.</p>
+<dl class="docutils">
+<dt><a class="reference internal" href="topics/targeting/globbing.html"><em>Globbing and regex</em></a></dt>
+<dd>Match minions using globbing and regular expressions.</dd>
+<dt><a class="reference internal" href="topics/targeting/grains.html"><em>Grains</em></a></dt>
+<dd>Match minions using bits of static information about the minion such as
+OS, software versions, virtualization, CPU, memory, and much more.</dd>
+<dt><a class="reference internal" href="topics/targeting/nodegroups.html"><em>Node groups</em></a></dt>
+<dd>Statically define groups of minions.</dd>
+<dt><a class="reference internal" href="topics/targeting/compound.html"><em>Compound matchers</em></a></dt>
+<dd>Combine the above matchers as a single target.</dd>
+<dt><a class="reference internal" href="topics/targeting/batch.html"><em>Batching execution</em></a></dt>
+<dd>Loop through all matching minions so that only a subset are executing a
+command at one time.</dd>
+</dl>
+</div>
+<div class="section" id="configuration-management">
+<h2>Configuration management<a class="headerlink" href="#configuration-management" title="Permalink to this headline">¶</a></h2>
+<p>Building on the remote execution core is a robust and flexible configuration
+management framework. Execution happens on the minions allowing effortless,
+simultaneous configuration of tens of thousands of hosts.</p>
+<dl class="docutils">
+<dt><strong>States</strong></dt>
+<dd><p class="first">Express the state of a host using small, easy to read, easy to
+understand configuration files. <em>No programming required</em>.</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="ref/states/all/index.html"><em>Full list of states</em></a></dt>
+<dd>Install packages, create users, transfer files, start services, and
+much more.</dd>
+<dt><a class="reference internal" href="topics/pillar/index.html"><em>Pillar System</em></a></dt>
+<dd>Salt's Pillar system</dd>
+<dt><a class="reference internal" href="ref/states/index.html"><em>States Overview</em></a></dt>
+<dd>An overview of States and some of the core components.</dd>
+<dt><a class="reference internal" href="ref/states/highstate.html"><em>Highstate data structure</em></a></dt>
+<dd>A dry vocabulary and technical representation of the configuration
+format that states represent.</dd>
+<dt><a class="reference internal" href="ref/states/writing.html"><em>Writing states</em></a></dt>
+<dd>A guide on how to write Salt state modules. Extending Salt to directly
+manage in more software is easy.</dd>
+</dl>
+</dd>
+<dt><strong>Renderers</strong></dt>
+<dd><p class="first">Write state configuration files in the language, templating engine, or
+file type of choice. Salt's configuration management system is, under the
+hood, language agnostic.</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="ref/renderers/all/index.html"><em>Full list of renderers</em></a></dt>
+<dd>YAML is not the only choice, many systems are available, from
+alternative templating engines to the PyDSL language for rendering
+sls formulas.</dd>
+<dt><a class="reference internal" href="ref/renderers/index.html"><em>Renderers</em></a></dt>
+<dd>Salt states are only concerned with the ultimate highstate data
+structure. How that data structure is created is not important.</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="miscellaneous-topics">
+<h2>Miscellaneous topics<a class="headerlink" href="#miscellaneous-topics" title="Permalink to this headline">¶</a></h2>
+<p>Salt is many splendid things.</p>
+<dl class="docutils">
+<dt><a class="reference internal" href="topics/cloud/index.html"><em>Salt Cloud</em></a></dt>
+<dd>Salt Cloud is a public cloud provisioning tool that integrates Salt with
+many cloud providers.</dd>
+<dt><a class="reference internal" href="ref/file_server/index.html"><em>File Server</em></a></dt>
+<dd>Salt can easily and quickly transfer files (in fact, that's how Salt
+States work). Even under heavy load, files are chunked and served.</dd>
+<dt><a class="reference internal" href="ref/syndic.html"><em>Syndic</em></a></dt>
+<dd>A seamless master of masters. Scale Salt to tens of thousands of hosts or
+across many different networks.</dd>
+<dt><a class="reference internal" href="ref/peer.html"><em>Peer Communication</em></a></dt>
+<dd>Allow minions to communicate amongst themselves. For example, configure
+one minion by querying live data from all the others. With great power
+comes great responsibility.</dd>
+<dt><a class="reference internal" href="topics/reactor/index.html"><em>Reactor System</em></a></dt>
+<dd>The reactor system allows for Salt to create a self aware environment
+by hooking infrastructure events into actions.</dd>
+<dt><a class="reference internal" href="topics/tutorials/firewall.html"><em>Firewall Settings and Salt</em></a></dt>
+<dd>A tutorial covering how to properly firewall a Salt Master server.</dd>
+<dt><a class="reference internal" href="topics/jobs/schedule.html"><em>Scheduling Executions (like states)</em></a></dt>
+<dd>The schedule system in Salt allows for executions to be run of all sorts
+from the master or minion at automatic intervals.</dd>
+<dt><a class="reference internal" href="ref/topology.html"><em>Network topology</em></a></dt>
+<dd>At it's core, Salt is a highly scalable communication layer built on
+top of ZeroMQ that enables remote execution and configuration
+management. The possibilities are endless and Salt's future looks
+bright.</dd>
+<dt><a class="reference internal" href="topics/tests/index.html"><em>Testing Salt</em></a></dt>
+<dd>A howto for writing unit tests and integration tests.</dd>
+<dt><a class="reference internal" href="topics/proxyminion/index.html"><em>Salt Proxy Minions</em></a></dt>
+<dd>Controlling devices and machines unable to run a salt-minion.</dd>
+<dt><a class="reference internal" href="ref/clients/index.html#python-api"><em>Python API interface</em></a></dt>
+<dd>Use Salt programmatically from scripts and programs easily and
+simply via <tt class="docutils literal"><span class="pre">import</span> <span class="pre">salt</span></tt>.</dd>
+<dt><a class="reference internal" href="topics/tutorials/esky.html"><em>Automatic Updates and Frozen Binary Deployments</em></a></dt>
+<dd>Use a frozen install to make deployments easier (Even on Windows!). Or
+take advantage of automatic updates to keep minions running the latest
+builds.</dd>
+<dt><a class="reference internal" href="ref/windows-package-manager.html"><em>Windows Software Manager / Package Repository</em></a></dt>
+<dd>Looking for an easy way to manage software on Windows machines?
+Search no more! Salt has an integrated software package manager for
+Windows machines! Install software hosted on the master, somewhere on the
+network, or any HTTP, HTTPS, or ftp server.</dd>
+</dl>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference internal" href="ref/cli/index.html"><em>Command-line interface</em></a></dt>
+<dd>Read the Salt manpages.</dd>
+<dt><a class="reference internal" href="ref/configuration/master.html"><em>Full list of master settings</em></a></dt>
+<dd>Read through the heavily-commented master configuration file.</dd>
+<dt><a class="reference internal" href="ref/configuration/minion.html"><em>Full list of minion settings</em></a></dt>
+<dd>Read through the heavily-commented minion configuration file.</dd>
+<dt><a class="reference internal" href="contents.html"><em>Full table of contents</em></a></dt>
+<dd>Dense but complete.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="faq">
+<h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
+<p>See <a class="reference internal" href="faq.html"><em>here</em></a> for a list of Frequently Asked Questions.</p>
+</div>
+<div class="section" id="more-information-about-the-project">
+<h1>More information about the project<a class="headerlink" href="#more-information-about-the-project" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt><a class="reference internal" href="topics/releases/index.html"><em>Release notes</em></a></dt>
+<dd>Living history of SaltStack.</dd>
+<dt><a class="reference internal" href="topics/community.html"><em>Community</em></a></dt>
+<dd>How to get involved.</dd>
+<dt><a class="reference internal" href="topics/development/index.html"><em>Salt Development</em></a></dt>
+<dd>Information for Hacking on Salt</dd>
+<dt><a class="reference internal" href="topics/translating.html"><em>Translate Documentation</em></a></dt>
+<dd>How to help out translating Salt to your language.</dd>
+</dl>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What is SaltStack?</a></li>
+<li><a class="reference internal" href="#download">Download</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#salt-in-depth">Salt in depth</a><ul>
+<li><a class="reference internal" href="#remote-execution">Remote execution</a></li>
+<li><a class="reference internal" href="#targeting">Targeting</a></li>
+<li><a class="reference internal" href="#configuration-management">Configuration management</a></li>
+<li><a class="reference internal" href="#miscellaneous-topics">Miscellaneous topics</a></li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#faq">FAQ</a></li>
+<li><a class="reference internal" href="#more-information-about-the-project">More information about the project</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

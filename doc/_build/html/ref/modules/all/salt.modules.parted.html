@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.modules.parted</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin execution modules" href="index.html">
+        <link rel="next" title="salt.modules.pecl" href="salt.modules.pecl.html">
+        <link rel="prev" title="salt.modules.pam" href="salt.modules.pam.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.pam.html" title="salt.modules.pam">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.pecl.html" title="salt.modules.pecl">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.modules.parted">
+<span id="salt-modules-parted"></span><h1>salt.modules.parted<a class="headerlink" href="#module-salt.modules.parted" title="Permalink to this headline">¶</a></h1>
+<p>Module for managing partitions on POSIX-like systems.</p>
+<p>Some functions may not be available, depending on your version of parted.</p>
+<p>Check the manpage for <tt class="docutils literal"><span class="pre">parted(8)</span></tt> for more information, or the online docs
+at:</p>
+<p><a class="reference external" href="http://www.gnu.org/software/parted/manual/html_chapter/parted_2.html">http://www.gnu.org/software/parted/manual/html_chapter/parted_2.html</a></p>
+<p>In light of parted not directly supporting partition IDs, some of this module
+has been written to utilize sfdisk instead. For further information, please
+reference the man page for <tt class="docutils literal"><span class="pre">sfdisk(8)</span></tt>.</p>
+<dl class="function">
+<dt id="salt.modules.parted.align_check">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">align_check</tt><big>(</big><em>device</em>, <em>part_type</em>, <em>partition</em><big>)</big><a class="headerlink" href="#salt.modules.parted.align_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.align_check device part_type partition</p>
+<p>Check if partition satisfies the alignment constraint of part_type.
+Type must be &quot;minimal&quot; or &quot;optimal&quot;.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.align_check /dev/sda minimal 1
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.check">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">check</tt><big>(</big><em>device</em>, <em>minor</em><big>)</big><a class="headerlink" href="#salt.modules.parted.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.check device minor</p>
+<p>Checks if the file system on partition &lt;minor&gt; has any errors.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.check 1
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.cp">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">cp</tt><big>(</big><em>device</em>, <em>from_minor</em>, <em>to_minor</em><big>)</big><a class="headerlink" href="#salt.modules.parted.cp" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.check device from_minor to_minor</p>
+<dl class="docutils">
+<dt>Copies the file system on the partition &lt;from-minor&gt; to partition</dt>
+<dd>&lt;to-minor&gt;, deleting the original contents of the destination
+partition.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.cp /dev/sda 2 3
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.get_id">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">get_id</tt><big>(</big><em>device</em>, <em>minor</em><big>)</big><a class="headerlink" href="#salt.modules.parted.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the system ID for the partition. Some typical values are:</p>
+<div class="highlight-python"><div class="highlight"><pre> b: FAT32 (vfat)
+ 7: HPFS/NTFS
+82: Linux Swap
+83: Linux
+8e: Linux LVM
+fd: Linux RAID Auto
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.get_id /dev/sda 1
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.list_">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">list_</tt><big>(</big><em>device</em>, <em>unit=None</em><big>)</big><a class="headerlink" href="#salt.modules.parted.list_" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.list device unit</p>
+<p>Prints partition information of given &lt;device&gt;</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.list /dev/sda
+salt <span class="s1">&#39;*&#39;</span> partition.list /dev/sda <span class="nv">unit</span><span class="o">=</span>s
+salt <span class="s1">&#39;*&#39;</span> partition.list /dev/sda <span class="nv">unit</span><span class="o">=</span>kB
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.mkfs">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">mkfs</tt><big>(</big><em>device</em>, <em>fs_type</em><big>)</big><a class="headerlink" href="#salt.modules.parted.mkfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.mkfs device fs_type</p>
+<dl class="docutils">
+<dt>Makes a file system &lt;fs_type&gt; on partition &lt;device&gt;, destroying all data</dt>
+<dd>that resides on that partition. &lt;fs_type&gt; must be one of &quot;ext2&quot;,
+&quot;fat32&quot;, &quot;fat16&quot;, &quot;linux-swap&quot; or &quot;reiserfs&quot; (if libreiserfs is
+installed)</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.mkfs /dev/sda2 fat32
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.mklabel">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">mklabel</tt><big>(</big><em>device</em>, <em>label_type</em><big>)</big><a class="headerlink" href="#salt.modules.parted.mklabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.mklabel device label_type</p>
+<p>Create a new disklabel (partition table) of label_type.
+Type should be one of &quot;aix&quot;, &quot;amiga&quot;, &quot;bsd&quot;, &quot;dvh&quot;, &quot;gpt&quot;, &quot;loop&quot;, &quot;mac&quot;,
+&quot;msdos&quot;, &quot;pc98&quot;, or &quot;sun&quot;.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.mklabel /dev/sda msdos
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.mkpart">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">mkpart</tt><big>(</big><em>device</em>, <em>part_type</em>, <em>fs_type</em>, <em>start</em>, <em>end</em><big>)</big><a class="headerlink" href="#salt.modules.parted.mkpart" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.mkpart device part_type fs_type start end</p>
+<dl class="docutils">
+<dt>Make a part_type partition for filesystem fs_type, beginning at start and</dt>
+<dd>ending at end (by default in megabytes).  part_type should be one of
+&quot;primary&quot;, &quot;logical&quot;, or &quot;extended&quot;.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.mkpart /dev/sda primary fat32 0 639
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.mkpartfs">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">mkpartfs</tt><big>(</big><em>device</em>, <em>part_type</em>, <em>fs_type</em>, <em>start</em>, <em>end</em><big>)</big><a class="headerlink" href="#salt.modules.parted.mkpartfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.mkpartfs device part_type fs_type start end</p>
+<dl class="docutils">
+<dt>Make a &lt;part_type&gt; partition with a new filesystem of &lt;fs_type&gt;, beginning</dt>
+<dd>at &lt;start&gt; and ending at &lt;end&gt; (by default in megabytes).  &lt;part_type&gt;
+should be one of &quot;primary&quot;, &quot;logical&quot;, or &quot;extended&quot;. &lt;fs_type&gt; must be
+one of &quot;ext2&quot;, &quot;fat32&quot;, &quot;fat16&quot;, &quot;linux-swap&quot; or &quot;reiserfs&quot; (if
+libreiserfs is installed)</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.mkpartfs /dev/sda logical ext2 440 670
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.name">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">name</tt><big>(</big><em>device</em>, <em>partition</em>, <em>name</em><big>)</big><a class="headerlink" href="#salt.modules.parted.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.name device partition name</p>
+<dl class="docutils">
+<dt>Set the name of partition to name. This option works only on Mac, PC98,</dt>
+<dd>and GPT disklabels. The name can be placed in quotes, if necessary.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.name /dev/sda 1 <span class="s1">&#39;My Documents&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.part_list">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">part_list</tt><big>(</big><em>device</em>, <em>unit=None</em><big>)</big><a class="headerlink" href="#salt.modules.parted.part_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated. Calls partition.list.</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.part_list /dev/sda
+salt <span class="s1">&#39;*&#39;</span> partition.part_list /dev/sda <span class="nv">unit</span><span class="o">=</span>s
+salt <span class="s1">&#39;*&#39;</span> partition.part_list /dev/sda <span class="nv">unit</span><span class="o">=</span>kB
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.probe">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">probe</tt><big>(</big><em>device=''</em><big>)</big><a class="headerlink" href="#salt.modules.parted.probe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ask the kernel to update its local partition data</p>
+<p>CLI Examples:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.probe
+salt <span class="s1">&#39;*&#39;</span> partition.probe /dev/sda
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.rescue">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">rescue</tt><big>(</big><em>device</em>, <em>start</em>, <em>end</em><big>)</big><a class="headerlink" href="#salt.modules.parted.rescue" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.rescue device start end</p>
+<dl class="docutils">
+<dt>Rescue a lost partition that was located somewhere between start and end.</dt>
+<dd>If a partition is found, parted will ask if you want to create an
+entry for it in the partition table.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.rescue /dev/sda 0 8056
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.resize">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">resize</tt><big>(</big><em>device</em>, <em>minor</em>, <em>start</em>, <em>end</em><big>)</big><a class="headerlink" href="#salt.modules.parted.resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.resize device minor, start, end</p>
+<dl class="docutils">
+<dt>Resizes the partition with number &lt;minor&gt;. The partition will start &lt;start&gt;</dt>
+<dd>from the beginning of the disk, and end &lt;end&gt; from the beginning of the
+disk. resize never changes the minor number. Extended partitions can be
+resized, so long as the new extended partition completely contains all
+logical partitions.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.resize /dev/sda 3 200 850
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.rm">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">rm</tt><big>(</big><em>device</em>, <em>minor</em><big>)</big><a class="headerlink" href="#salt.modules.parted.rm" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.rm device minor</p>
+<p>Removes the partition with number &lt;minor&gt;.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.rm /dev/sda 5
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.set_">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">set_</tt><big>(</big><em>device</em>, <em>minor</em>, <em>flag</em>, <em>state</em><big>)</big><a class="headerlink" href="#salt.modules.parted.set_" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.set device  minor flag state</p>
+<dl class="docutils">
+<dt>Changes a flag on the partition with number &lt;minor&gt;. A flag can be either</dt>
+<dd>&quot;on&quot; or &quot;off&quot;. Some or all of these flags will be available, depending
+on what disk label you are using.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.set /dev/sda 1 boot on
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.set_id">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">set_id</tt><big>(</big><em>device</em>, <em>minor</em>, <em>system_id</em><big>)</big><a class="headerlink" href="#salt.modules.parted.set_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the system ID for the partition. Some typical values are:</p>
+<div class="highlight-python"><div class="highlight"><pre> b: FAT32 (vfat)
+ 7: HPFS/NTFS
+82: Linux Swap
+83: Linux
+8e: Linux LVM
+fd: Linux RAID Auto
+</pre></div>
+</div>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.set_id /dev/sda 1 83
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.system_types">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">system_types</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.parted.system_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the system types that are supported by the installed version of sfdisk</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.system_types
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.parted.toggle">
+<tt class="descclassname">salt.modules.parted.</tt><tt class="descname">toggle</tt><big>(</big><em>device</em>, <em>partition</em>, <em>flag</em><big>)</big><a class="headerlink" href="#salt.modules.parted.toggle" title="Permalink to this definition">¶</a></dt>
+<dd><p>partition.toggle device partition flag</p>
+<p>Toggle the state of &lt;flag&gt; on &lt;partition&gt;</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> partition.name /dev/sda 1 boot
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.modules.pam.html"
+                        title="previous chapter">salt.modules.pam</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.modules.pecl.html"
+                        title="next chapter">salt.modules.pecl</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.pam.html" title="salt.modules.pam">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.pecl.html" title="salt.modules.pecl">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

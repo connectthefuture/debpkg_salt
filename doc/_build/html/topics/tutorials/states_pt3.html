@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>States tutorial, part 3 - Templating, Includes, Extends</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt tutorials" href="index.html">
+        <link rel="next" title="States tutorial, part 4" href="states_pt4.html">
+        <link rel="prev" title="States tutorial, part 2 - More Complex States, Requisites" href="states_pt2.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="states_pt2.html" title="States tutorial, part 2 - More Complex States, Requisites">previous</a>
+                
+            </li>
+            <li>
+                <a href="states_pt4.html" title="States tutorial, part 4">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="states-tutorial-part-3-templating-includes-extends">
+<h1>States tutorial, part 3 - Templating, Includes, Extends<a class="headerlink" href="#states-tutorial-part-3-templating-includes-extends" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This tutorial builds on topics covered in <a class="reference internal" href="states_pt1.html"><em>part 1</em></a> and
+<a class="reference internal" href="states_pt2.html"><em>part 2</em></a>. It is recommended that you begin there.</p>
+</div>
+<p>This part of the tutorial will cover more advanced templating and
+configuration techniques for <tt class="docutils literal"><span class="pre">sls</span></tt> files.</p>
+<div class="section" id="templating-sls-modules">
+<h2>Templating SLS modules<a class="headerlink" href="#templating-sls-modules" title="Permalink to this headline">¶</a></h2>
+<p>SLS modules may require programming logic or inline execution. This is
+accomplished with module templating. The default module templating system used
+is <a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a>  and may be configured by changing the <a class="reference internal" href="../../ref/configuration/master.html#std:conf_master-renderer"><tt class="xref std std-conf_master docutils literal"><span class="pre">renderer</span></tt></a>
+value in the master config.</p>
+<p>All states are passed through a templating system when they are initially read.
+To make use of the templating system, simply add some templating markup.
+An example of an sls module with templating markup may look like this:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">usr</span> <span class="k">in</span> <span class="o">[</span><span class="s1">&#39;moe&#39;</span><span class="o">,</span><span class="s1">&#39;larry&#39;</span><span class="o">,</span><span class="s1">&#39;curly&#39;</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">usr</span> <span class="cp">}}</span><span class="x">:</span>
+<span class="x">  user.present</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>This templated sls file once generated will look like this:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">moe</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">user.present</span>
+<span class="l-Scalar-Plain">larry</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">user.present</span>
+<span class="l-Scalar-Plain">curly</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">user.present</span>
+</pre></div>
+</div>
+<p>Here's a more complex example:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">usr</span> <span class="k">in</span> <span class="s1">&#39;moe&#39;</span><span class="o">,</span><span class="s1">&#39;larry&#39;</span><span class="o">,</span><span class="s1">&#39;curly&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">usr</span> <span class="cp">}}</span><span class="x">:</span>
+<span class="x">  group:</span>
+<span class="x">    - present</span>
+<span class="x">  user:</span>
+<span class="x">    - present</span>
+<span class="x">    - gid_from_name: True</span>
+<span class="x">    - require:</span>
+<span class="x">      - group: </span><span class="cp">{{</span> <span class="nv">usr</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-grains-in-sls-modules">
+<h2>Using Grains in SLS modules<a class="headerlink" href="#using-grains-in-sls-modules" title="Permalink to this headline">¶</a></h2>
+<p>Often times a state will need to behave differently on different systems.
+<a class="reference internal" href="../targeting/grains.html"><em>Salt grains</em></a> objects are made available
+in the template context. The <cite>grains</cite> can be used from within sls modules:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">apache:</span>
+<span class="x">  pkg.installed:</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">grains</span><span class="o">[</span><span class="s1">&#39;os&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;RedHat&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    - name: httpd</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">elif</span> <span class="nv">grains</span><span class="o">[</span><span class="s1">&#39;os&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;Ubuntu&#39;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    - name: apache2</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calling-salt-modules-from-templates">
+<h2>Calling Salt modules from templates<a class="headerlink" href="#calling-salt-modules-from-templates" title="Permalink to this headline">¶</a></h2>
+<p>All of the Salt modules loaded by the minion are available within the
+templating system. This allows data to be gathered in real time on the target
+system. It also allows for shell commands to be run easily from within the sls
+modules.</p>
+<p>The Salt module functions are also made available in the template context as
+<tt class="docutils literal"><span class="pre">salt:</span></tt></p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="x">moe:</span>
+<span class="x">  user:</span>
+<span class="x">    - present</span>
+<span class="x">    - gid: </span><span class="cp">{{</span> <span class="nv">salt</span><span class="o">[</span><span class="s1">&#39;file.group_to_gid&#39;</span><span class="o">](</span><span class="s1">&#39;some_group_that_exists&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Note that for the above example to work, <tt class="docutils literal"><span class="pre">some_group_that_exists</span></tt> must exist
+before the state file is processed by the templating engine.</p>
+<p>Below is an example that uses the <tt class="docutils literal"><span class="pre">network.hw_addr</span></tt> function to retrieve the
+MAC address for eth0:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">salt</span><span class="p">[</span><span class="s">&#39;network.hw_addr&#39;</span><span class="p">](</span><span class="s">&#39;eth0&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="advanced-sls-module-syntax">
+<h2>Advanced SLS module syntax<a class="headerlink" href="#advanced-sls-module-syntax" title="Permalink to this headline">¶</a></h2>
+<p>Lastly, we will cover some incredibly useful techniques for more complex State
+trees.</p>
+<div class="section" id="include-declaration">
+<h3><a class="reference internal" href="../../ref/states/highstate.html#term-include-declaration"><em class="xref std std-term">Include declaration</em></a><a class="headerlink" href="#include-declaration" title="Permalink to this headline">¶</a></h3>
+<p>A previous example showed how to spread a Salt tree across several files.
+Similarly, <a class="reference internal" href="../../ref/states/requisites.html"><em>requisites</em></a> span multiple files by
+using an <a class="reference internal" href="../../ref/states/highstate.html#term-include-declaration"><em class="xref std std-term">include declaration</em></a>. For example:</p>
+<p><tt class="docutils literal"><span class="pre">python/python-libs.sls:</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">python-dateutil</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg.installed</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">python/django.sls:</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">python.python-libs</span>
+
+<span class="l-Scalar-Plain">django</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg.installed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">python-dateutil</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extend-declaration">
+<h3><a class="reference internal" href="../../ref/states/highstate.html#term-extend-declaration"><em class="xref std std-term">Extend declaration</em></a><a class="headerlink" href="#extend-declaration" title="Permalink to this headline">¶</a></h3>
+<p>You can modify previous declarations by using an <a class="reference internal" href="../../ref/states/highstate.html#term-extend-declaration"><em class="xref std std-term">extend declaration</em></a>. For
+example the following modifies the Apache tree to also restart Apache when the
+vhosts file is changed:</p>
+<p><tt class="docutils literal"><span class="pre">apache/apache.sls:</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">apache</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg.installed</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">apache/mywebsite.sls:</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">apache.apache</span>
+
+<span class="l-Scalar-Plain">extend</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">apache</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">running</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">watch</span><span class="p-Indicator">:</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/httpd/extra/httpd-vhosts.conf</span>
+
+<span class="l-Scalar-Plain">/etc/httpd/extra/httpd-vhosts.conf</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://apache/httpd-vhosts.conf</span>
+</pre></div>
+</div>
+<div class="admonition-using-extend-with-require-or-watch admonition">
+<p class="first admonition-title">Using extend with require or watch</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">extend</span></tt> statement works differently for <tt class="docutils literal"><span class="pre">require</span></tt> or <tt class="docutils literal"><span class="pre">watch</span></tt>.
+It appends to, rather than replacing the requisite component.</p>
+</div>
+</div>
+<div class="section" id="name-declaration">
+<h3><a class="reference internal" href="../../ref/states/highstate.html#term-name-declaration"><em class="xref std std-term">Name declaration</em></a><a class="headerlink" href="#name-declaration" title="Permalink to this headline">¶</a></h3>
+<p>You can override the <a class="reference internal" href="../../ref/states/highstate.html#term-id-declaration"><em class="xref std std-term">ID declaration</em></a> by using a <a class="reference internal" href="../../ref/states/highstate.html#term-name-declaration"><em class="xref std std-term">name
+declaration</em></a>. For example, the previous example is a bit more maintainable if
+rewritten as follows:</p>
+<p><tt class="docutils literal"><span class="pre">apache/mywebsite.sls:</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">apache.apache</span>
+
+<span class="l-Scalar-Plain">extend</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">apache</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">running</span>
+<span class="hll">      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">watch</span><span class="p-Indicator">:</span>
+</span>        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mywebsite</span>
+<span class="hll">
+</span><span class="l-Scalar-Plain">mywebsite</span><span class="p-Indicator">:</span>
+<span class="hll">  <span class="l-Scalar-Plain">file.managed</span><span class="p-Indicator">:</span>
+</span>    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/httpd/extra/httpd-vhosts.conf</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://apache/httpd-vhosts.conf</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="names-declaration">
+<h3><a class="reference internal" href="../../ref/states/highstate.html#term-names-declaration"><em class="xref std std-term">Names declaration</em></a><a class="headerlink" href="#names-declaration" title="Permalink to this headline">¶</a></h3>
+<p>Even more powerful is using a <a class="reference internal" href="../../ref/states/highstate.html#term-names-declaration"><em class="xref std std-term">names declaration</em></a> to override the
+<a class="reference internal" href="../../ref/states/highstate.html#term-id-declaration"><em class="xref std std-term">ID declaration</em></a> for multiple states at once. This often can remove the
+need for looping in a template. For example, the first example in this tutorial
+can be rewritten without the loop:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">stooges</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">user.present</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">names</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">moe</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">larry</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">curly</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>In <a class="reference internal" href="states_pt4.html"><em>part 4</em></a> we will discuss how to use salt's
+<a class="reference internal" href="../../ref/configuration/master.html#std:conf_master-file_roots"><tt class="xref std std-conf_master docutils literal"><span class="pre">file_roots</span></tt></a> to set up a workflow in which states can be
+&quot;promoted&quot; from dev, to QA, to production.</p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">States tutorial, part 3 - Templating, Includes, Extends</a><ul>
+<li><a class="reference internal" href="#templating-sls-modules">Templating SLS modules</a></li>
+<li><a class="reference internal" href="#using-grains-in-sls-modules">Using Grains in SLS modules</a></li>
+<li><a class="reference internal" href="#calling-salt-modules-from-templates">Calling Salt modules from templates</a></li>
+<li><a class="reference internal" href="#advanced-sls-module-syntax">Advanced SLS module syntax</a><ul>
+<li><a class="reference internal" href="#include-declaration"><tt class="docutils literal"><span class="pre">Include</span> <span class="pre">declaration</span></tt></a></li>
+<li><a class="reference internal" href="#extend-declaration"><tt class="docutils literal"><span class="pre">Extend</span> <span class="pre">declaration</span></tt></a></li>
+<li><a class="reference internal" href="#name-declaration"><tt class="docutils literal"><span class="pre">Name</span> <span class="pre">declaration</span></tt></a></li>
+<li><a class="reference internal" href="#names-declaration"><tt class="docutils literal"><span class="pre">Names</span> <span class="pre">declaration</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#next-steps">Next steps</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="states_pt2.html"
+                        title="previous chapter">States tutorial, part 2 - More Complex States, Requisites</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="states_pt4.html"
+                        title="next chapter">States tutorial, part 4</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="states_pt2.html" title="States tutorial, part 2 - More Complex States, Requisites">previous</a>
+                
+            </li>
+            <li>
+                <a href="states_pt4.html" title="States tutorial, part 4">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

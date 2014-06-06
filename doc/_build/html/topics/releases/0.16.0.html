@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt 0.16.0 Release Notes</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Release notes and upgrade instructions" href="index.html">
+        <link rel="next" title="Salt 0.16.1 Release Notes" href="0.16.1.html">
+        <link rel="prev" title="Salt 0.15.3 Release Notes" href="0.15.3.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.15.3.html" title="Salt 0.15.3 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.16.1.html" title="Salt 0.16.1 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-0-16-0-release-notes">
+<h1>Salt 0.16.0 Release Notes<a class="headerlink" href="#salt-0-16-0-release-notes" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">release:</th><td class="field-body">2013-07-01</td>
+</tr>
+</tbody>
+</table>
+<p>The 0.16.0 release is an exciting one, with new features in master redundancy,
+and a new, powerful requisite.</p>
+<div class="section" id="major-features">
+<h2>Major Features<a class="headerlink" href="#major-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="multi-master">
+<h3>Multi-Master<a class="headerlink" href="#multi-master" title="Permalink to this headline">¶</a></h3>
+<p>This new capability allows for a minion to be actively connected to multiple
+salt masters at the same time. This allows for multiple masters to send out commands
+to minions and for minions to automatically reconnect to masters that have gone
+down. A tutorial is available to help get started here:</p>
+<p><a class="reference internal" href="../tutorials/multimaster.html"><em>Multi Master Tutorial</em></a></p>
+</div>
+<div class="section" id="prereq-the-new-requisite">
+<h3>Prereq, the New Requisite<a class="headerlink" href="#prereq-the-new-requisite" title="Permalink to this headline">¶</a></h3>
+<p>The new <cite>prereq</cite> requisite is very powerful! It allows for states to execute
+based on a state that is expected to make changes in the future. This allows
+for a change on the system to be preempted by another execution. A good example
+is needing to shut down a service before modifying files associated with it,
+allowing, for instance, a webserver to be shut down allowing a load balancer to
+stop sending requests while server side code is updated. In this case, the
+prereq will only run if changes are expected to happen in the prerequired
+state, and the prerequired state will always run after the prereq state and
+only if the prereq state succeeds.</p>
+</div>
+<div class="section" id="peer-system-improvements">
+<h3>Peer System Improvements<a class="headerlink" href="#peer-system-improvements" title="Permalink to this headline">¶</a></h3>
+<p>The peer system has been revamped to make it more reliable, faster, and like
+the rest of Salt, async. The peer calls when an updated minion and master are
+used together will be much faster!</p>
+</div>
+<div class="section" id="relative-includes">
+<h3>Relative Includes<a class="headerlink" href="#relative-includes" title="Permalink to this headline">¶</a></h3>
+<p>The ability to include an sls relative to the defined sls has been added, the
+new syntax id documented here:</p>
+<p><a class="reference internal" href="../../ref/states/include.html"><em>Includes</em></a></p>
+</div>
+<div class="section" id="more-state-output-options">
+<h3>More State Output Options<a class="headerlink" href="#more-state-output-options" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">state_output</span></tt> option in the past only supported <cite>full</cite> and <cite>terse</cite>,
+0.16.0 add the <cite>mixed</cite> and <cite>changes</cite> modes further refining how states are sent
+to users' eyes.</p>
+</div>
+<div class="section" id="improved-windows-support">
+<h3>Improved Windows Support<a class="headerlink" href="#improved-windows-support" title="Permalink to this headline">¶</a></h3>
+<p>Support for Salt on Windows continues to improve. Software management on
+Windows has become more seamless with Linux/UNIX/BSD software management.
+Installed software is now recognized by the short names defined in the
+<a class="reference internal" href="../../ref/windows-package-manager.html"><em>repository SLS</em></a>. This makes it possible to
+run <tt class="docutils literal"><span class="pre">salt</span> <span class="pre">'*'</span> <span class="pre">pkg.version</span> <span class="pre">firefox</span></tt> and get back results from Windows and
+non-Windows minions alike.</p>
+<p>When templating files on Windows, Salt will now correctly use Windows
+appropriate line endings. This makes it much easier to edit and consume files
+on Windows.</p>
+<p>When using the cmd state the <tt class="docutils literal"><span class="pre">shell</span></tt> option now allows for specifying
+Windows Powershell as an alternate shell to execute cmd.run and cmd.script.
+This opens up Salt to all the power of Windows Powershell and its advanced
+Windows management capabilities.</p>
+<p>Several fixes and optimizations were added for the Windows networking modules,
+especially when working with IPv6.</p>
+<p>A system module was added that makes it easy to restart and shutdown Windows
+minions.</p>
+<p>The Salt Minion will now look for its config file in <tt class="docutils literal"><span class="pre">c:\salt\conf</span></tt> by
+default. This means that it's no longer necessary to specify the <tt class="docutils literal"><span class="pre">-c</span></tt> option
+to specify the location of the config file when starting the Salt Minion on
+Windows in a terminal.</p>
+</div>
+<div class="section" id="muliple-targets-for-pkg-removed-pkg-purged-states">
+<h3>Muliple Targets for pkg.removed, pkg.purged States<a class="headerlink" href="#muliple-targets-for-pkg-removed-pkg-purged-states" title="Permalink to this headline">¶</a></h3>
+<p>Both <a class="reference internal" href="../../ref/states/all/salt.states.pkg.html#salt.states.pkg.removed" title="salt.states.pkg.removed"><tt class="xref py py-mod docutils literal"><span class="pre">pkg.removed</span></tt></a> and <a class="reference internal" href="../../ref/states/all/salt.states.pkg.html#salt.states.pkg.purged" title="salt.states.pkg.purged"><tt class="xref py py-mod docutils literal"><span class="pre">pkg.purged</span></tt></a> now support the <tt class="docutils literal"><span class="pre">pkgs</span></tt> argument, which allow for
+multiple packages to be targeted in a single state. This, as in
+<a class="reference internal" href="../../ref/states/all/salt.states.pkg.html#salt.states.pkg.installed" title="salt.states.pkg.installed"><tt class="xref py py-mod docutils literal"><span class="pre">pkg.installed</span></tt></a>, helps speed up these
+states by reducing the number of times that the package management tools (apt,
+yum, etc.) need to be run.</p>
+</div>
+<div class="section" id="random-times-in-cron-states">
+<h3>Random Times in Cron States<a class="headerlink" href="#random-times-in-cron-states" title="Permalink to this headline">¶</a></h3>
+<p>The temporal parameters in <a class="reference internal" href="../../ref/states/all/salt.states.cron.html#salt.states.cron.present" title="salt.states.cron.present"><tt class="xref py py-mod docutils literal"><span class="pre">cron.present</span></tt></a>
+states (minute, hour, etc.) can now be randomized by using <tt class="docutils literal"><span class="pre">random</span></tt> instead
+of a specific value. For example, by using the <tt class="docutils literal"><span class="pre">random</span></tt> keyword in the
+<tt class="docutils literal"><span class="pre">minute</span></tt> parameter of a cron state, the same cron job can be pushed to
+hundreds or thousands of hosts, and they would each use a randomly-generated
+minute. This can be helpful when the cron job accesses a network resource, and
+it is not desirable for all hosts to run the job concurrently.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/path/to/cron/script</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cron.present</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">minute</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">random</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hour</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+<p>Since Salt assumes a value of <tt class="docutils literal"><span class="pre">*</span></tt> for unspecified temporal parameters, adding
+a parameter to the state and setting it to <tt class="docutils literal"><span class="pre">random</span></tt> will change that value
+from <tt class="docutils literal"><span class="pre">*</span></tt> to a randomized numeric value. However, if that field in the cron
+entry on the minion already contains a numeric value, then using the <tt class="docutils literal"><span class="pre">random</span></tt>
+keyword will not modify it.</p>
+</div>
+<div class="section" id="confirmation-prompt-on-key-acceptance">
+<h3>Confirmation Prompt on Key Acceptance<a class="headerlink" href="#confirmation-prompt-on-key-acceptance" title="Permalink to this headline">¶</a></h3>
+<p>When accepting new keys with <tt class="docutils literal"><span class="pre">salt-key</span> <span class="pre">-a</span> <span class="pre">minion-id</span></tt> or <tt class="docutils literal"><span class="pre">salt-key</span> <span class="pre">-A</span></tt>,
+there is now a prompt that will show the affected keys and ask for confirmation
+before proceeding. This prompt can be bypassed using the <tt class="docutils literal"><span class="pre">-y</span></tt> or <tt class="docutils literal"><span class="pre">--yes</span></tt>
+command line argument, as with other <tt class="docutils literal"><span class="pre">salt-key</span></tt> commands.</p>
+</div>
+<div class="section" id="support-for-setting-password-hashes-on-bsd-minions">
+<h3>Support for Setting Password Hashes on BSD Minions<a class="headerlink" href="#support-for-setting-password-hashes-on-bsd-minions" title="Permalink to this headline">¶</a></h3>
+<p>FreeBSD, NetBSD, and OpenBSD all now support setting passwords in
+<a class="reference internal" href="../../ref/states/all/salt.states.user.html#salt.states.user.present" title="salt.states.user.present"><tt class="xref py py-mod docutils literal"><span class="pre">user.present</span></tt></a> states.</p>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt 0.16.0 Release Notes</a><ul>
+<li><a class="reference internal" href="#major-features">Major Features</a><ul>
+<li><a class="reference internal" href="#multi-master">Multi-Master</a></li>
+<li><a class="reference internal" href="#prereq-the-new-requisite">Prereq, the New Requisite</a></li>
+<li><a class="reference internal" href="#peer-system-improvements">Peer System Improvements</a></li>
+<li><a class="reference internal" href="#relative-includes">Relative Includes</a></li>
+<li><a class="reference internal" href="#more-state-output-options">More State Output Options</a></li>
+<li><a class="reference internal" href="#improved-windows-support">Improved Windows Support</a></li>
+<li><a class="reference internal" href="#muliple-targets-for-pkg-removed-pkg-purged-states">Muliple Targets for pkg.removed, pkg.purged States</a></li>
+<li><a class="reference internal" href="#random-times-in-cron-states">Random Times in Cron States</a></li>
+<li><a class="reference internal" href="#confirmation-prompt-on-key-acceptance">Confirmation Prompt on Key Acceptance</a></li>
+<li><a class="reference internal" href="#support-for-setting-password-hashes-on-bsd-minions">Support for Setting Password Hashes on BSD Minions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="0.15.3.html"
+                        title="previous chapter">Salt 0.15.3 Release Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="0.16.1.html"
+                        title="next chapter">Salt 0.16.1 Release Notes</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="0.15.3.html" title="Salt 0.15.3 Release Notes">previous</a>
+                
+            </li>
+            <li>
+                <a href="0.16.1.html" title="Salt 0.16.1 Release Notes">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

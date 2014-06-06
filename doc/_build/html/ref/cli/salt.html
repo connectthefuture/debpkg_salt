@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="salt-master" href="salt-master.html">
+        <link rel="prev" title="Command Line Reference" href="index.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="index.html" title="Command Line Reference">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt-master.html" title="salt-master">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt">
+<h1><tt class="docutils literal"><span class="pre">salt</span></tt><a class="headerlink" href="#salt" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>salt '*' [ options ] sys.doc</p>
+<p>salt -E '.*' [ options ] sys.doc cmd</p>
+<p>salt -G 'os:Arch.*' [ options ] test.ping</p>
+<p>salt -C <a class="reference external" href="mailto:'G&#37;&#52;&#48;os">'G<span>&#64;</span>os</a>:Arch.* and webserv* or <a class="reference external" href="mailto:G&#37;&#52;&#48;kernel">G<span>&#64;</span>kernel</a>:FreeBSD' [ options ] test.ping</p>
+</div></blockquote>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Salt allows for commands to be executed across a swath of remote systems in
+parallel. This means that remote systems can be both controlled and queried
+with ease.</p>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<dl class="option">
+<dt id="cmdoption-salt--version">
+<tt class="descname">--version</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt--version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the version of Salt that is running.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--versions-report">
+<tt class="descname">--versions-report</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt--versions-report" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show program's dependencies and version number, and then exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-h">
+<span id="cmdoption-salt--help"></span><tt class="descname">-h</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-c">
+<span id="cmdoption-salt--config-dir"></span><tt class="descname">-c</tt><tt class="descclassname"> CONFIG_DIR</tt><tt class="descclassname">, </tt><tt class="descname">--config-dir</tt><tt class="descclassname">=CONFIG_dir</tt><a class="headerlink" href="#cmdoption-salt-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>The location of the Salt configuration directory. This directory contains
+the configuration files for Salt master and minions. The default location
+on most systems is <tt class="docutils literal"><span class="pre">/etc/salt</span></tt>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-t">
+<span id="cmdoption-salt--timeout"></span><tt class="descname">-t</tt><tt class="descclassname"> TIMEOUT</tt><tt class="descclassname">, </tt><tt class="descname">--timeout</tt><tt class="descclassname">=TIMEOUT</tt><a class="headerlink" href="#cmdoption-salt-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>The timeout in seconds to wait for replies from the Salt minions. The
+timeout number specifies how long the command line client will wait to
+query the minions and check on running jobs. Default: 5</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-s">
+<span id="cmdoption-salt--static"></span><tt class="descname">-s</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--static</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>By default as of version 0.9.8 the salt command returns data to the
+console as it is received from minions, but previous releases would return
+data only after all data was received. To only return the data with a hard
+timeout and after all minions have returned then use the static option.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--async">
+<tt class="descname">--async</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt--async" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instead of waiting for the job to run on minions only print the jod id of
+the started execution and complete.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--state-output">
+<tt class="descname">--state-output</tt><tt class="descclassname">=STATE_OUTPUT</tt><a class="headerlink" href="#cmdoption-salt--state-output" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.</span></p>
+</div>
+<p>Override the configured state_output value for minion output.  Default:
+full</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--subset">
+<tt class="descname">--subset</tt><tt class="descclassname">=SUBSET</tt><a class="headerlink" href="#cmdoption-salt--subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute the routine on a random subset of the targeted minions.  The
+minions will be verified that they have the named function before
+executing.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-v">
+<span id="cmdoption-salt--verbose"></span><tt class="descname">-v</tt><tt class="descclassname"> VERBOSE</tt><tt class="descclassname">, </tt><tt class="descname">--verbose</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn on verbosity for the salt call, this will cause the salt command to
+print out extra data like the job id.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-b">
+<span id="cmdoption-salt--batch-size"></span><tt class="descname">-b</tt><tt class="descclassname"> BATCH</tt><tt class="descclassname">, </tt><tt class="descname">--batch-size</tt><tt class="descclassname">=BATCH</tt><a class="headerlink" href="#cmdoption-salt-b" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instead of executing on all targeted minions at once, execute on a
+progressive set of minions. This option takes an argument in the form of
+an explicit number of minions to execute at once, or a percentage of
+minions to execute on.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-a">
+<span id="cmdoption-salt--auth"></span><tt class="descname">-a</tt><tt class="descclassname"> EAUTH</tt><tt class="descclassname">, </tt><tt class="descname">--auth</tt><tt class="descclassname">=EAUTH</tt><a class="headerlink" href="#cmdoption-salt-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pass in an external authentication medium to validate against. The
+credentials will be prompted for. Can be used with the -T option.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-T">
+<span id="cmdoption-salt--make-token"></span><tt class="descname">-T</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--make-token</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-T" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used in conjunction with the -a option. This creates a token that allows
+for the authenticated user to send commands without needing to
+re-authenticate.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--return">
+<tt class="descname">--return</tt><tt class="descclassname">=RETURNER</tt><a class="headerlink" href="#cmdoption-salt--return" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chose an alternative returner to call on the minion, if an alternative
+returner is used then the return will not come back to the command line
+but will be sent to the specified return system.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-d">
+<span id="cmdoption-salt--doc"></span><span id="cmdoption-salt--documentation"></span><tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--doc</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--documentation</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the documentation for the module functions available on the minions</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--args-separator">
+<tt class="descname">--args-separator</tt><tt class="descclassname">=ARGS_SEPARATOR</tt><a class="headerlink" href="#cmdoption-salt--args-separator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the special argument used as a delimiter between command arguments of
+compound commands. This is useful when one wants to pass commas as
+arguments to some of the commands in a compound command.</p>
+</dd></dl>
+
+<div class="section" id="logging-options">
+<h3>Logging Options<a class="headerlink" href="#logging-options" title="Permalink to this headline">¶</a></h3>
+<p>Logging options which override any settings defined on the configuration files.</p>
+<dl class="option">
+<dt id="cmdoption-salt-l">
+<span id="cmdoption-salt--log-level"></span><tt class="descname">-l</tt><tt class="descclassname"> LOG_LEVEL</tt><tt class="descclassname">, </tt><tt class="descname">--log-level</tt><tt class="descclassname">=LOG_LEVEL</tt><a class="headerlink" href="#cmdoption-salt-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Console logging log level. One of <tt class="docutils literal"><span class="pre">all</span></tt>, <tt class="docutils literal"><span class="pre">garbage</span></tt>, <tt class="docutils literal"><span class="pre">trace</span></tt>,
+<tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">quiet</span></tt>. Default:
+<tt class="docutils literal"><span class="pre">warning</span></tt>.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--log-file">
+<tt class="descname">--log-file</tt><tt class="descclassname">=LOG_FILE</tt><a class="headerlink" href="#cmdoption-salt--log-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log file path. Default: /var/log/salt/master.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--log-file-level">
+<tt class="descname">--log-file-level</tt><tt class="descclassname">=LOG_LEVEL_LOGFILE</tt><a class="headerlink" href="#cmdoption-salt--log-file-level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logfile logging log level. One of <tt class="docutils literal"><span class="pre">all</span></tt>, <tt class="docutils literal"><span class="pre">garbage</span></tt>, <tt class="docutils literal"><span class="pre">trace</span></tt>,
+<tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">quiet</span></tt>. Default:
+<tt class="docutils literal"><span class="pre">warning</span></tt>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="target-selection">
+<h3>Target Selection<a class="headerlink" href="#target-selection" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-salt-E">
+<span id="cmdoption-salt--pcre"></span><tt class="descname">-E</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--pcre</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-E" title="Permalink to this definition">¶</a></dt>
+<dd><p>The target expression will be interpreted as a PCRE regular expression
+rather than a shell glob.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-L">
+<span id="cmdoption-salt--list"></span><tt class="descname">-L</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--list</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-L" title="Permalink to this definition">¶</a></dt>
+<dd><p>The target expression will be interpreted as a comma-delimited list;
+example: server1.foo.bar,server2.foo.bar,example7.quo.qux</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-G">
+<span id="cmdoption-salt--grain"></span><tt class="descname">-G</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--grain</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-G" title="Permalink to this definition">¶</a></dt>
+<dd><p>The target expression matches values returned by the Salt grains system on
+the minions. The target expression is in the format of '&lt;grain value&gt;:&lt;glob
+expression&gt;'; example: 'os:Arch*'</p>
+<p>This was changed in version 0.9.8 to accept glob expressions instead of
+regular expression. To use regular expression matching with grains, use
+the --grain-pcre option.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--grain-pcre">
+<tt class="descname">--grain-pcre</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt--grain-pcre" title="Permalink to this definition">¶</a></dt>
+<dd><p>The target expression matches values returned by the Salt grains system on
+the minions. The target expression is in the format of '&lt;grain value&gt;:&lt;
+regular expression&gt;'; example: 'os:Arch.*'</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-N">
+<span id="cmdoption-salt--nodegroup"></span><tt class="descname">-N</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--nodegroup</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-N" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a predefined compound target defined in the Salt master configuration
+file.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-R">
+<span id="cmdoption-salt--range"></span><tt class="descname">-R</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--range</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-R" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instead of using shell globs to evaluate the target, use a range expression
+to identify targets. Range expressions look like %cluster.</p>
+<p>Using the Range option requires that a range server is set up and the
+location of the range server is referenced in the master configuration
+file.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-C">
+<span id="cmdoption-salt--compound"></span><tt class="descname">-C</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--compound</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-C" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utilize many target definitions to make the call very granular. This option
+takes a group of targets separated by <tt class="docutils literal"><span class="pre">and</span></tt> or <tt class="docutils literal"><span class="pre">or</span></tt>. The default matcher is a
+glob as usual. If something other than a glob is used, preface it with the
+letter denoting the type; example: 'webserv* and <a class="reference external" href="mailto:G&#37;&#52;&#48;os">G<span>&#64;</span>os</a>:Debian or <a class="reference external" href="mailto:E&#37;&#52;&#48;db*">E<span>&#64;</span>db*</a>'
+Make sure that the compound target is encapsulated in quotes.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-X">
+<span id="cmdoption-salt--exsel"></span><tt class="descname">-X</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--exsel</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-X" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instead of using shell globs, use the return code of a function.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-I">
+<span id="cmdoption-salt--pillar"></span><tt class="descname">-I</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--pillar</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-I" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instead of using shell globs to evaluate the target, use a pillar value to
+identify targets. The syntax for the target is the pillar key followed by
+a glob expression: &quot;role:production*&quot;</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt-S">
+<span id="cmdoption-salt--ipcidr"></span><tt class="descname">-S</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--ipcidr</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-S" title="Permalink to this definition">¶</a></dt>
+<dd><p>Match based on Subnet (CIDR notation) or IPv4 address.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="output-options">
+<h3>Output Options<a class="headerlink" href="#output-options" title="Permalink to this headline">¶</a></h3>
+<dl class="option">
+<dt id="cmdoption-salt--out">
+<tt class="descname">--out</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt--out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pass in an alternative outputter to display the return of data. This
+outputter can be any of the available outputters:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">grains</span></tt>, <tt class="docutils literal"><span class="pre">highstate</span></tt>, <tt class="docutils literal"><span class="pre">json</span></tt>, <tt class="docutils literal"><span class="pre">key</span></tt>, <tt class="docutils literal"><span class="pre">overstatestage</span></tt>, <tt class="docutils literal"><span class="pre">pprint</span></tt>, <tt class="docutils literal"><span class="pre">raw</span></tt>, <tt class="docutils literal"><span class="pre">txt</span></tt>, <tt class="docutils literal"><span class="pre">yaml</span></tt></div></blockquote>
+<p>Some outputters are formatted only for data returned from specific
+functions; for instance, the <tt class="docutils literal"><span class="pre">grains</span></tt> outputter will not work for non-grains
+data.</p>
+<p>If an outputter is used that does not support the data passed into it, then
+Salt will fall back on the <tt class="docutils literal"><span class="pre">pprint</span></tt> outputter and display the return data
+using the Python <tt class="docutils literal"><span class="pre">pprint</span></tt> standard library module.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If using <tt class="docutils literal"><span class="pre">--out=json</span></tt>, you will probably want <tt class="docutils literal"><span class="pre">--static</span></tt> as well.
+Without the static option, you will get a JSON string for each minion.
+This is due to using an iterative outputter. So if you want to feed it
+to a JSON parser, use <tt class="docutils literal"><span class="pre">--static</span></tt> as well.</p>
+</div>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--out-indent">
+<span id="cmdoption-salt--output-indent"></span><tt class="descname">--out-indent</tt><tt class="descclassname"> OUTPUT_INDENT</tt><tt class="descclassname">, </tt><tt class="descname">--output-indent</tt><tt class="descclassname"> OUTPUT_INDENT</tt><a class="headerlink" href="#cmdoption-salt--out-indent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the output indented by the provided value in spaces. Negative values
+disable indentation. Only applicable in outputters that support
+indentation.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--out-file">
+<span id="cmdoption-salt--output-file"></span><tt class="descname">--out-file</tt><tt class="descclassname">=OUTPUT_FILE</tt><tt class="descclassname">, </tt><tt class="descname">--output-file</tt><tt class="descclassname">=OUTPUT_FILE</tt><a class="headerlink" href="#cmdoption-salt--out-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the output to the specified file.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--no-color">
+<tt class="descname">--no-color</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt--no-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable all colored output</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-salt--force-color">
+<tt class="descname">--force-color</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt--force-color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Force colored output</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p><em class="manpage">salt(7)</em>
+<em class="manpage">salt-master(1)</em>
+<em class="manpage">salt-minion(1)</em></p>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">salt</span></tt></a><ul>
+<li><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#options">Options</a><ul>
+<li><a class="reference internal" href="#logging-options">Logging Options</a></li>
+<li><a class="reference internal" href="#target-selection">Target Selection</a></li>
+<li><a class="reference internal" href="#output-options">Output Options</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Command Line Reference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt-master.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">salt-master</span></tt></a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="index.html" title="Command Line Reference">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt-master.html" title="salt-master">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.cloud.clouds.ec2</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of Salt Cloud modules" href="index.html">
+        <link rel="next" title="salt.cloud.clouds.gce" href="salt.cloud.clouds.gce.html">
+        <link rel="prev" title="salt.cloud.clouds.digital_ocean" href="salt.cloud.clouds.digital_ocean.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.cloud.clouds.digital_ocean.html" title="salt.cloud.clouds.digital_ocean">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.cloud.clouds.gce.html" title="salt.cloud.clouds.gce">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.cloud.clouds.ec2">
+<span id="salt-cloud-clouds-ec2"></span><h1>salt.cloud.clouds.ec2<a class="headerlink" href="#module-salt.cloud.clouds.ec2" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-ec2-cloud-module">
+<h2>The EC2 Cloud Module<a class="headerlink" href="#the-ec2-cloud-module" title="Permalink to this headline">¶</a></h2>
+<p>The EC2 cloud module is used to interact with the Amazon Elastic Cloud
+Computing. This driver is highly experimental! Use at your own risk!</p>
+<dl class="docutils">
+<dt>To use the EC2 cloud module, set up the cloud configuration at</dt>
+<dd><tt class="docutils literal"><span class="pre">/etc/salt/cloud.providers</span></tt> or <tt class="docutils literal"><span class="pre">/etc/salt/cloud.providers.d/ec2.conf</span></tt>:</dd>
+</dl>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my-ec2-config</span><span class="p-Indicator">:</span>
+  <span class="c1"># The EC2 API authentication id</span>
+  <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">GKTADJGHEIQSXMKKRBJ08H</span>
+  <span class="c1"># The EC2 API authentication key</span>
+  <span class="l-Scalar-Plain">key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">askdjghsdfjkghWupUjasdflkdfklgjsdfjajkghs</span>
+  <span class="c1"># The ssh keyname to use</span>
+  <span class="l-Scalar-Plain">keyname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="c1"># The amazon security group</span>
+  <span class="l-Scalar-Plain">securitygroup</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ssh_open</span>
+  <span class="c1"># The location of the private key which corresponds to the keyname</span>
+  <span class="l-Scalar-Plain">private_key</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/root/default.pem</span>
+
+  <span class="c1"># Be default, service_url is set to amazonaws.com. If you are using this</span>
+  <span class="c1"># driver for something other than Amazon EC2, change it here:</span>
+  <span class="l-Scalar-Plain">service_url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">amazonaws.com</span>
+
+  <span class="c1"># The endpoint that is ultimately used is usually formed using the region</span>
+  <span class="c1"># and the service_url. If you would like to override that entirely, you</span>
+  <span class="c1"># can explicitly define the endpoint:</span>
+  <span class="l-Scalar-Plain">endpoint</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">myendpoint.example.com:1138/services/Cloud</span>
+
+  <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ec2</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.attach_volume">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">attach_volume</tt><big>(</big><em>name=None</em>, <em>kwargs=None</em>, <em>instance_id=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.attach_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a volume to an instance</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.avail_images">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">avail_images</tt><big>(</big><em>kwargs=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.avail_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict of all available VM images on the cloud provider.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.avail_locations">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">avail_locations</tt><big>(</big><em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.avail_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all available locations</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.avail_sizes">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">avail_sizes</tt><big>(</big><em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.avail_sizes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict of all available VM sizes on the cloud provider with
+relevant data. Latest version can be found at:</p>
+<p><a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.block_device_mappings">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">block_device_mappings</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.block_device_mappings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the block device mapping:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[{</span><span class="s">&#39;DeviceName&#39;</span><span class="p">:</span> <span class="s">&#39;/dev/sdb&#39;</span><span class="p">,</span> <span class="s">&#39;VirtualName&#39;</span><span class="p">:</span> <span class="s">&#39;ephemeral0&#39;</span><span class="p">},</span>
+  <span class="p">{</span><span class="s">&#39;DeviceName&#39;</span><span class="p">:</span> <span class="s">&#39;/dev/sdc&#39;</span><span class="p">,</span> <span class="s">&#39;VirtualName&#39;</span><span class="p">:</span> <span class="s">&#39;ephemeral1&#39;</span><span class="p">}]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.create">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">create</tt><big>(</big><em>vm_=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a single VM from a data dict</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.create_attach_volumes">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">create_attach_volumes</tt><big>(</big><em>name</em>, <em>kwargs</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.create_attach_volumes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and attach volumes to created node</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.create_keypair">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">create_keypair</tt><big>(</big><em>kwargs=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.create_keypair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an SSH keypair</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.create_volume">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">create_volume</tt><big>(</big><em>kwargs=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.create_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a volume</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.del_tags">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">del_tags</tt><big>(</big><em>name</em>, <em>kwargs</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.del_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete tags for a node</p>
+<p>CLI Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a del_tags mymachine tag1,tag2,tag3
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.delete_keypair">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">delete_keypair</tt><big>(</big><em>kwargs=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.delete_keypair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete an SSH keypair</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.delete_volume">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">delete_volume</tt><big>(</big><em>name=None</em>, <em>kwargs=None</em>, <em>instance_id=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.delete_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a volume</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.delvol_on_destroy">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">delvol_on_destroy</tt><big>(</big><em>name</em>, <em>kwargs=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.delvol_on_destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all/specified EBS volumes upon instance termination</p>
+<p>CLI Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a delvol_on_destroy mymachine
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.destroy">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">destroy</tt><big>(</big><em>name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy a node. Will check termination protection and warn if enabled.</p>
+<p>CLI Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud --destroy mymachine
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.detach_volume">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">detach_volume</tt><big>(</big><em>name=None</em>, <em>kwargs=None</em>, <em>instance_id=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.detach_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detach a volume from an instance</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.disable_term_protect">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">disable_term_protect</tt><big>(</big><em>name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.disable_term_protect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable termination protection on a node</p>
+<p>CLI Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a disable_term_protect mymachine
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.enable_term_protect">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">enable_term_protect</tt><big>(</big><em>name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.enable_term_protect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable termination protection on a node</p>
+<p>CLI Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a enable_term_protect mymachine
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.get_availability_zone">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">get_availability_zone</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.get_availability_zone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the availability zone to use</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.get_configured_provider">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">get_configured_provider</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.get_configured_provider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the first configured instance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.get_location">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">get_location</tt><big>(</big><em>vm_=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.get_location" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Return the EC2 region to use, in this order:</dt>
+<dd><ul class="first last simple">
+<li>CLI parameter</li>
+<li>VM parameter</li>
+<li>Cloud profile setting</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.get_spot_config">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">get_spot_config</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.get_spot_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the spot instance configuration for the provided vm</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.get_subnetid">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">get_subnetid</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.get_subnetid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the SubnetId to use</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.get_tags">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">get_tags</tt><big>(</big><em>name=None</em>, <em>instance_id=None</em>, <em>call=None</em>, <em>location=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.get_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve tags for a node</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.get_tenancy">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">get_tenancy</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.get_tenancy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Tenancy to use.</p>
+<p>Can be &quot;dedicated&quot; or &quot;default&quot;. Cannot be present for spot instances.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.iam_profile">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">iam_profile</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.iam_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the IAM profile.</p>
+<p>The IAM instance profile to associate with the instances.
+This is either the Amazon Resource Name (ARN) of the instance profile
+or the name of the role.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: No</p>
+<p>Example: arn:aws:iam::111111111111:instance-profile/s3access</p>
+<p>Example: s3access</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.keepvol_on_destroy">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">keepvol_on_destroy</tt><big>(</big><em>name</em>, <em>kwargs=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.keepvol_on_destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not delete all/specified EBS volumes upon instance termination</p>
+<p>CLI Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a keepvol_on_destroy mymachine
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.keyname">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">keyname</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.keyname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the keyname</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.list_availability_zones">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">list_availability_zones</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.list_availability_zones" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all availability zones in the current region</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.list_nodes">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">list_nodes</tt><big>(</big><em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.list_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the VMs that are on the provider</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.list_nodes_full">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">list_nodes_full</tt><big>(</big><em>location=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.list_nodes_full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the VMs that are on the provider</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.list_nodes_select">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">list_nodes_select</tt><big>(</big><em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.list_nodes_select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the VMs that are on the provider, with select fields</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.query">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">query</tt><big>(</big><em>params=None</em>, <em>setname=None</em>, <em>requesturl=None</em>, <em>location=None</em>, <em>return_url=False</em>, <em>return_root=False</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.reboot">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">reboot</tt><big>(</big><em>name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.reboot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reboot a node.</p>
+<p>CLI Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a reboot mymachine
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.rename">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">rename</tt><big>(</big><em>name</em>, <em>kwargs</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Properly rename a node. Pass in the new name as &quot;new name&quot;.</p>
+<p>CLI Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a rename mymachine newname=yourmachine
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.script">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">script</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the script deployment object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.securitygroup">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">securitygroup</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.securitygroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the security group</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.securitygroupid">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">securitygroupid</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.securitygroupid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the SecurityGroupId</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.set_tags">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">set_tags</tt><big>(</big><em>name</em>, <em>tags</em>, <em>call=None</em>, <em>location=None</em>, <em>instance_id=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.set_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set tags for a node</p>
+<p>CLI Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a set_tags mymachine tag1=somestuff tag2=&#39;Other stuff&#39;
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.show_delvol_on_destroy">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">show_delvol_on_destroy</tt><big>(</big><em>name</em>, <em>kwargs=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.show_delvol_on_destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not delete all/specified EBS volumes upon instance termination</p>
+<p>CLI Example:</p>
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud -a show_delvol_on_destroy mymachine
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.show_image">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">show_image</tt><big>(</big><em>kwargs</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.show_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the details from EC2 concerning an AMI</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.show_instance">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">show_instance</tt><big>(</big><em>name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.show_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the details from EC2 concerning an AMI</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.show_keypair">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">show_keypair</tt><big>(</big><em>kwargs=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.show_keypair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the details of an SSH keypair</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.show_term_protect">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">show_term_protect</tt><big>(</big><em>name=None</em>, <em>instance_id=None</em>, <em>call=None</em>, <em>quiet=False</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.show_term_protect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the details from EC2 concerning an AMI</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.show_volume">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">show_volume</tt><big>(</big><em>name=None</em>, <em>kwargs=None</em>, <em>instance_id=None</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.show_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show volume details</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.ssh_interface">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">ssh_interface</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.ssh_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ssh_interface type to connect to. Either 'public_ips' (default)
+or 'private_ips'.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.ssh_username">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">ssh_username</tt><big>(</big><em>vm_</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.ssh_username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ssh_username. Defaults to a built-in list of users for trying.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.start">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">start</tt><big>(</big><em>name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a node</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.cloud.clouds.ec2.stop">
+<tt class="descclassname">salt.cloud.clouds.ec2.</tt><tt class="descname">stop</tt><big>(</big><em>name</em>, <em>call=None</em><big>)</big><a class="headerlink" href="#salt.cloud.clouds.ec2.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop a node</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">salt.cloud.clouds.ec2</a><ul>
+<li><a class="reference internal" href="#the-ec2-cloud-module">The EC2 Cloud Module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.cloud.clouds.digital_ocean.html"
+                        title="previous chapter">salt.cloud.clouds.digital_ocean</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.cloud.clouds.gce.html"
+                        title="next chapter">salt.cloud.clouds.gce</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.cloud.clouds.digital_ocean.html" title="salt.cloud.clouds.digital_ocean">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.cloud.clouds.gce.html" title="salt.cloud.clouds.gce">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

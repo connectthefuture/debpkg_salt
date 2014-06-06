@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.pillar.mongo</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin pillar modules" href="index.html">
+        <link rel="next" title="salt.pillar.pillar_ldap" href="salt.pillar.pillar_ldap.html">
+        <link rel="prev" title="salt.pillar.libvirt" href="salt.pillar.libvirt.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.pillar.libvirt.html" title="salt.pillar.libvirt">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.pillar.pillar_ldap.html" title="salt.pillar.pillar_ldap">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.pillar.mongo">
+<span id="salt-pillar-mongo"></span><h1>salt.pillar.mongo<a class="headerlink" href="#module-salt.pillar.mongo" title="Permalink to this headline">¶</a></h1>
+<p>Read Pillar data from a mongodb collection</p>
+<p>This module will load a node-specific pillar dictionary from a mongo
+collection. It uses the node's id for lookups and can load either the whole
+document, or just a specific field from that
+document as the pillar dictionary.</p>
+<div class="section" id="salt-master-mongo-configuration">
+<h2>Salt Master Mongo Configuration<a class="headerlink" href="#salt-master-mongo-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The module shares the same base mongo connection variables as
+<a class="reference internal" href="../../returners/all/salt.returners.mongo_return.html#module-salt.returners.mongo_return" title="salt.returners.mongo_return"><tt class="xref py py-mod docutils literal"><span class="pre">salt.returners.mongo_return</span></tt></a>. These variables go in your master
+config file.</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">mongo.db</span></tt> - The mongo database to connect to. Defaults to <tt class="docutils literal"><span class="pre">'salt'</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">mongo.host</span></tt> - The mongo host to connect to. Supports replica sets by
+specifying all hosts in the set, comma-delimited. Defaults to <tt class="docutils literal"><span class="pre">'salt'</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">mongo.port</span></tt> - The port that the mongo database is running on. Defaults
+to <tt class="docutils literal"><span class="pre">27017</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">mongo.user</span></tt> - The username for connecting to mongo. Only required if
+you are using mongo authentication. Defaults to <tt class="docutils literal"><span class="pre">''</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">mongo.password</span></tt> - The password for connecting to mongo. Only required
+if you are using mongo authentication. Defaults to <tt class="docutils literal"><span class="pre">''</span></tt>.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="configuring-the-mongo-ext-pillar">
+<h2>Configuring the Mongo ext_pillar<a class="headerlink" href="#configuring-the-mongo-ext-pillar" title="Permalink to this headline">¶</a></h2>
+<p>The Mongo ext_pillar takes advantage of the fact that the Salt Master
+configuration file is yaml. It uses a sub-dictionary of values to adjust
+specific features of the pillar. This is the explicit single-line dictionary
+notation for yaml. One may be able to get the easier-to-read multine dict to
+work correctly with some experimentation.</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">ext_pillar</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mongo</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span><span class="nv">collection</span><span class="p-Indicator">:</span> <span class="nv">vm</span><span class="p-Indicator">,</span> <span class="nv">id_field</span><span class="p-Indicator">:</span> <span class="nv">name</span><span class="p-Indicator">,</span> <span class="nv">re_pattern</span><span class="p-Indicator">:</span> <span class="nv">\.example\.com</span><span class="p-Indicator">,</span> <span class="nv">fields</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">customer_id</span><span class="p-Indicator">,</span> <span class="nv">software</span><span class="p-Indicator">,</span> <span class="nv">apache_vhosts</span><span class="p-Indicator">]}</span>
+</pre></div>
+</div>
+<p>In the example above, we've decided to use the <tt class="docutils literal"><span class="pre">vm</span></tt> collection in the
+database to store the data. Minion ids are stored in the <tt class="docutils literal"><span class="pre">name</span></tt> field on
+documents in that collection. And, since minion ids are FQDNs in most cases,
+we'll need to trim the domain name in order to find the minion by hostname in
+the collection. When we find a minion, return only the <tt class="docutils literal"><span class="pre">customer_id</span></tt>,
+<tt class="docutils literal"><span class="pre">software</span></tt>, and <tt class="docutils literal"><span class="pre">apache_vhosts</span></tt> fields, as that will contain the data we
+want for a given node. They will be available directly inside the <tt class="docutils literal"><span class="pre">pillar</span></tt>
+dict in your SLS templates.</p>
+</div>
+<div class="section" id="module-documentation">
+<h2>Module Documentation<a class="headerlink" href="#module-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="salt.pillar.mongo.ext_pillar">
+<tt class="descclassname">salt.pillar.mongo.</tt><tt class="descname">ext_pillar</tt><big>(</big><em>minion_id</em>, <em>pillar</em>, <em>collection='pillar'</em>, <em>id_field='_id'</em>, <em>re_pattern=None</em>, <em>re_replace=''</em>, <em>fields=None</em><big>)</big><a class="headerlink" href="#salt.pillar.mongo.ext_pillar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to a mongo database and read per-node pillar information.</p>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><cite>collection</cite>: The mongodb collection to read data from. Defaults to
+<tt class="docutils literal"><span class="pre">'pillar'</span></tt>.</li>
+<li><cite>id_field</cite>: The field in the collection that represents an individual
+minion id. Defaults to <tt class="docutils literal"><span class="pre">'_id'</span></tt>.</li>
+<li><cite>re_pattern</cite>: If your naming convention in the collection is shorter
+than the minion id, you can use this to trim the name.
+<cite>re_pattern</cite> will be used to match the name, and <cite>re_replace</cite> will
+be used to replace it. Backrefs are supported as they are in the
+Python standard library. If <tt class="docutils literal"><span class="pre">None</span></tt>, no mangling of the name will
+be performed - the collection will be searched with the entire
+minion id. Defaults to <tt class="docutils literal"><span class="pre">None</span></tt>.</li>
+<li><cite>re_replace</cite>: Use as the replacement value in node ids matched with
+<cite>re_pattern</cite>. Defaults to ''. Feel free to use backreferences here.</li>
+<li><cite>fields</cite>: The specific fields in the document to use for the pillar
+data. If <tt class="docutils literal"><span class="pre">None</span></tt>, will use the entire document. If using the
+entire document, the <tt class="docutils literal"><span class="pre">_id</span></tt> field will be converted to string. Be
+careful with other fields in the document as they must be string
+serializable. Defaults to <tt class="docutils literal"><span class="pre">None</span></tt>.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">salt.pillar.mongo</a><ul>
+<li><a class="reference internal" href="#salt-master-mongo-configuration">Salt Master Mongo Configuration</a></li>
+<li><a class="reference internal" href="#configuring-the-mongo-ext-pillar">Configuring the Mongo ext_pillar</a></li>
+<li><a class="reference internal" href="#module-documentation">Module Documentation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.pillar.libvirt.html"
+                        title="previous chapter">salt.pillar.libvirt</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.pillar.pillar_ldap.html"
+                        title="next chapter">salt.pillar.pillar_ldap</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.pillar.libvirt.html" title="salt.pillar.libvirt">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.pillar.pillar_ldap.html" title="salt.pillar.pillar_ldap">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.runners.manage</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of runner modules" href="index.html">
+        <link rel="next" title="salt.runners.network" href="salt.runners.network.html">
+        <link rel="prev" title="salt.runners.lxc" href="salt.runners.lxc.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.runners.lxc.html" title="salt.runners.lxc">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.runners.network.html" title="salt.runners.network">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.runners.manage">
+<span id="salt-runners-manage"></span><h1>salt.runners.manage<a class="headerlink" href="#module-salt.runners.manage" title="Permalink to this headline">¶</a></h1>
+<p>General management functions for salt, tools like seeing what hosts are up
+and what hosts are down</p>
+<dl class="function">
+<dt id="salt.runners.manage.bootstrap">
+<tt class="descclassname">salt.runners.manage.</tt><tt class="descname">bootstrap</tt><big>(</big><em>version='develop'</em>, <em>script=None</em>, <em>hosts=''</em><big>)</big><a class="headerlink" href="#salt.runners.manage.bootstrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bootstrap minions with salt-bootstrap</p>
+<dl class="docutils">
+<dt>Options:</dt>
+<dd>version: git tag of version to install [default: develop]
+script: Script to execute [default: <a class="reference external" href="http://bootstrap.saltstack.org">http://bootstrap.saltstack.org</a>]
+hosts: Comma separated hosts [example: hosts=&quot;host1.local,host2.local&quot;]</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run manage.bootstrap <span class="nv">hosts</span><span class="o">=</span><span class="s2">&quot;host1,host2&quot;</span>
+salt-run manage.bootstrap <span class="nv">hosts</span><span class="o">=</span><span class="s2">&quot;host1,host2&quot;</span> <span class="nv">version</span><span class="o">=</span><span class="s2">&quot;v0.17&quot;</span>
+salt-run manage.bootstrap <span class="nv">hosts</span><span class="o">=</span><span class="s2">&quot;host1,host2&quot;</span> <span class="nv">version</span><span class="o">=</span><span class="s2">&quot;v0.17&quot;</span> <span class="nv">script</span><span class="o">=</span><span class="s2">&quot;https://raw.githubusercontent.com/saltstack/salt-bootstrap/develop/bootstrap-salt.sh&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.runners.manage.bootstrap_psexec">
+<tt class="descclassname">salt.runners.manage.</tt><tt class="descname">bootstrap_psexec</tt><big>(</big><em>hosts=''</em>, <em>master=None</em>, <em>version=None</em>, <em>arch='win32'</em>, <em>installer_url=None</em>, <em>username=None</em>, <em>password=None</em><big>)</big><a class="headerlink" href="#salt.runners.manage.bootstrap_psexec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bootstrap Windows minions via PsExec.</p>
+<dl class="docutils">
+<dt>hosts</dt>
+<dd>Comma separated list of hosts to deploy the Windows Salt minion.</dd>
+<dt>master</dt>
+<dd>Address of the Salt master passed as an argument to the installer.</dd>
+<dt>version</dt>
+<dd>Point release of installer to download. Defaults to the most recent.</dd>
+<dt>arch</dt>
+<dd>Architecture of installer to download. Defaults to win32.</dd>
+<dt>installer_url</dt>
+<dd>URL of minion installer executable. Defaults to the latest version from
+<a class="reference external" href="http://docs.saltstack.com/downloads">http://docs.saltstack.com/downloads</a></dd>
+<dt>username</dt>
+<dd>Optional user name for login on remote computer.</dd>
+<dt>password</dt>
+<dd>Password for optional username. If omitted, PsExec will prompt for one
+to be entered for each host.</dd>
+</dl>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run manage.bootstrap_psexec <span class="nv">hosts</span><span class="o">=</span><span class="s1">&#39;host1,host2&#39;</span>
+salt-run manage.bootstrap_psexec <span class="nv">hosts</span><span class="o">=</span><span class="s1">&#39;host1,host2&#39;</span> <span class="nv">version</span><span class="o">=</span><span class="s1">&#39;0.17&#39;</span> <span class="nv">username</span><span class="o">=</span><span class="s1">&#39;DOMAIN\Administrator&#39;</span>
+salt-run manage.bootstrap_psexec <span class="nv">hosts</span><span class="o">=</span><span class="s1">&#39;host1,host2&#39;</span> <span class="nv">installer_url</span><span class="o">=</span><span class="s1">&#39;http://exampledomain/salt-installer.exe&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.runners.manage.down">
+<tt class="descclassname">salt.runners.manage.</tt><tt class="descname">down</tt><big>(</big><em>removekeys=False</em><big>)</big><a class="headerlink" href="#salt.runners.manage.down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a list of all the down or unresponsive salt minions
+Optionally remove keys of down minions</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run manage.down
+salt-run manage.down <span class="nv">removekeys</span><span class="o">=</span>True
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.runners.manage.key_regen">
+<tt class="descclassname">salt.runners.manage.</tt><tt class="descname">key_regen</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.runners.manage.key_regen" title="Permalink to this definition">¶</a></dt>
+<dd><p>This routine is used to regenerate all keys in an environment. This is
+invasive! ALL KEYS IN THE SALT ENVIRONMENT WILL BE REGENERATED!!</p>
+<p>The key_regen routine sends a command out to minions to revoke the master
+key and remove all minion keys, it then removes all keys from the master
+and prompts the user to restart the master. The minions will all reconnect
+and keys will be placed in pending.</p>
+<p>After the master is restarted and minion keys are in the pending directory
+execute a salt-key -A command to accept the regenerated minion keys.</p>
+<p>The master <em>must</em> be restarted within 60 seconds of running this command or
+the minions will think there is something wrong with the keys and abort.</p>
+<p>Only Execute this runner after upgrading minions and master to 0.15.1 or
+higher!</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run manage.key_regen
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.runners.manage.present">
+<tt class="descclassname">salt.runners.manage.</tt><tt class="descname">present</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.runners.manage.present" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a list of all minions that are up according to Salt's presence
+detection, no commands will be sent</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run manage.present
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.runners.manage.safe_accept">
+<tt class="descclassname">salt.runners.manage.</tt><tt class="descname">safe_accept</tt><big>(</big><em>target</em>, <em>expr_form='glob'</em><big>)</big><a class="headerlink" href="#salt.runners.manage.safe_accept" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accept a minion's public key after checking the fingerprint over salt-ssh</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run manage.safe_accept my_minion
+salt-run manage.safe_accept minion1,minion2 <span class="nv">expr_form</span><span class="o">=</span>list
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.runners.manage.status">
+<tt class="descclassname">salt.runners.manage.</tt><tt class="descname">status</tt><big>(</big><em>output=True</em><big>)</big><a class="headerlink" href="#salt.runners.manage.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the status of all known salt minions</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run manage.status
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.runners.manage.up">
+<tt class="descclassname">salt.runners.manage.</tt><tt class="descname">up</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.runners.manage.up" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a list of all of the minions that are up</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run manage.up
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.runners.manage.versions">
+<tt class="descclassname">salt.runners.manage.</tt><tt class="descname">versions</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.runners.manage.versions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the version of active minions</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt-run manage.versions
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.runners.lxc.html"
+                        title="previous chapter">salt.runners.lxc</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.runners.network.html"
+                        title="next chapter">salt.runners.network</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.runners.lxc.html" title="salt.runners.lxc">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.runners.network.html" title="salt.runners.network">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

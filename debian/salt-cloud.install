@@ -1,0 +1,4 @@
+usr/bin/salt-cloud
+conf/cloud /etc/salt
+conf/* /usr/share/doc/salt-cloud/examples
+salt/cloud/deploy/* /etc/salt/cloud.deploy.d

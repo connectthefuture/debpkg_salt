@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Salt Cloud Documentation</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="Cloud Actions" href="action.html">
+        <link rel="prev" title="The Salt Mine" href="../mine/index.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../mine/index.html" title="The Salt Mine">previous</a>
+                
+            </li>
+            <li>
+                <a href="action.html" title="Cloud Actions">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="salt-cloud-documentation">
+<h1>Salt Cloud Documentation<a class="headerlink" href="#salt-cloud-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>Salt cloud is a public cloud provisioning tool. Salt cloud is made to integrate
+Salt into cloud providers in a clean way so that minions on public cloud
+systems can be quickly and easily modeled and provisioned.</p>
+<p>Salt cloud allows for cloud based minions to be managed via virtual machine
+maps and profiles. This means that individual cloud VMs can be created, or
+large groups of cloud VMs can be created at once or managed.</p>
+<p>Virtual machines created with Salt cloud install salt on the target virtual
+machine and assign it to the specified master. This means that virtual
+machines can be provisioned and then potentially never logged into.</p>
+<p>While Salt Cloud has been made to work with Salt, it is also a generic
+cloud management platform and can be used to manage non Salt centric clouds.</p>
+</div>
+<div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="install/index.html"><em>Installing salt cloud</em></a></li>
+</ul>
+<p>Some quick guides covering getting started with each of the various cloud
+providers.</p>
+<ul class="simple">
+<li><a class="reference internal" href="azure.html"><em>Getting Started With Azure</em></a></li>
+<li><a class="reference internal" href="digitalocean.html"><em>Getting Started With Digital Ocean</em></a></li>
+<li><a class="reference internal" href="aws.html"><em>Getting Started With EC2</em></a></li>
+<li><a class="reference internal" href="gogrid.html"><em>Getting Started With GoGrid</em></a></li>
+<li><a class="reference internal" href="gce.html"><em>Getting Started With Google Compute Engine</em></a></li>
+<li><a class="reference internal" href="joyent.html"><em>Getting Started With Joyent</em></a></li>
+<li><a class="reference internal" href="linode.html"><em>Getting Started With Linode</em></a></li>
+<li><a class="reference internal" href="openstack.html"><em>Getting Started With OpenStack</em></a></li>
+<li><a class="reference internal" href="parallels.html"><em>Getting Started With Parallels</em></a></li>
+<li><a class="reference internal" href="rackspace.html"><em>Getting Started With Rackspace</em></a></li>
+<li><a class="reference internal" href="softlayer.html"><em>Getting Started With SoftLayer</em></a></li>
+</ul>
+</div>
+<div class="section" id="core-configuration">
+<h1>Core Configuration<a class="headerlink" href="#core-configuration" title="Permalink to this headline">¶</a></h1>
+<p>The core configuration of Salt cloud is handled in the cloud configuration
+file. This file is comprised of global configurations for interfacing with
+cloud providers.</p>
+<ul class="simple">
+<li><a class="reference internal" href="config.html"><em>Core Configuration</em></a></li>
+</ul>
+</div>
+<div class="section" id="windows-configuration">
+<h1>Windows Configuration<a class="headerlink" href="#windows-configuration" title="Permalink to this headline">¶</a></h1>
+<p>Salt Cloud may be used to spin up a Windows minion, and then install the Salt
+Minion client on that instance. At this time, Salt Cloud itself still needs to
+be run from a Linux or Unix machine.</p>
+<ul class="simple">
+<li><a class="reference internal" href="windows.html"><em>Windows Configuration</em></a></li>
+</ul>
+</div>
+<div class="section" id="using-salt-cloud">
+<h1>Using Salt Cloud<a class="headerlink" href="#using-salt-cloud" title="Permalink to this headline">¶</a></h1>
+<p>Salt cloud works via profiles and maps. Simple profiles for cloud VMs are
+defined and can be used directly, or a map can be defined specifying
+a large group of virtual machines to create.</p>
+<ul class="simple">
+<li><a class="reference internal" href="profiles.html"><em>Profiles</em></a></li>
+<li><a class="reference internal" href="map.html"><em>Maps</em></a></li>
+</ul>
+<p>Once a VM has been deployed, a number of actions may be available to perform
+on it, depending on the specific cloud provider.</p>
+<ul class="simple">
+<li><a class="reference internal" href="action.html"><em>Actions</em></a></li>
+</ul>
+<p>Depending on your cloud provider, a number of functions may also be available
+which do not require a VM to be specified.</p>
+<ul class="simple">
+<li><a class="reference internal" href="function.html"><em>Functions</em></a></li>
+</ul>
+</div>
+<div class="section" id="miscellaneous-options">
+<h1>Miscellaneous Options<a class="headerlink" href="#miscellaneous-options" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="misc.html"><em>Miscellaneous</em></a></li>
+</ul>
+</div>
+<div class="section" id="troubleshooting-steps">
+<h1>Troubleshooting Steps<a class="headerlink" href="#troubleshooting-steps" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="troubleshooting.html"><em>Troubleshooting</em></a></li>
+</ul>
+</div>
+<div class="section" id="extending-salt-cloud">
+<h1>Extending Salt Cloud<a class="headerlink" href="#extending-salt-cloud" title="Permalink to this headline">¶</a></h1>
+<p>Salt Cloud extensions work in a way similar to Salt modules. Therefore
+extending Salt cloud to manage more public cloud providers and operating
+systems is easy.</p>
+<ul class="simple">
+<li><a class="reference internal" href="cloud.html"><em>Adding Cloud Providers</em></a></li>
+<li><a class="reference internal" href="deploy.html"><em>Adding OS Support</em></a></li>
+</ul>
+</div>
+<div class="section" id="using-salt-cloud-from-salt">
+<h1>Using Salt Cloud from Salt<a class="headerlink" href="#using-salt-cloud-from-salt" title="Permalink to this headline">¶</a></h1>
+<p>Several Salt Cloud modules exist within Salt itself in order to manage cloud
+instances using Salt's own powerful feature set.</p>
+<ul class="simple">
+<li><a class="reference internal" href="salt.html"><em>Using Salt Cloud from Salt</em></a></li>
+</ul>
+</div>
+<div class="section" id="feature-comparison">
+<h1>Feature Comparison<a class="headerlink" href="#feature-comparison" title="Permalink to this headline">¶</a></h1>
+<p>A table is available which compares various features available across all
+supported cloud providers.</p>
+<ul class="simple">
+<li><a class="reference internal" href="features.html"><em>Features</em></a></li>
+</ul>
+</div>
+<div class="section" id="legacy-releases">
+<h1>Legacy Releases<a class="headerlink" href="#legacy-releases" title="Permalink to this headline">¶</a></h1>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2014.1.0: </span>(Hydrogen)
+Release notes will be part of Salt's main release notes starting with
+Salt's 2014.1.0 (Hydrogen) release.</p>
+</div>
+<ul class="simple">
+<li><a class="reference internal" href="releases/index.html"><em>Legacy Release Notes</em></a></li>
+</ul>
+</div>
+<div class="section" id="reference">
+<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="../../ref/cli/salt-cloud.html"><em>Command-line interface</em></a></li>
+<li><a class="reference internal" href="../../contents.html"><em>Full table of contents</em></a></li>
+</ul>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt Cloud Documentation</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#core-configuration">Core Configuration</a></li>
+<li><a class="reference internal" href="#windows-configuration">Windows Configuration</a></li>
+<li><a class="reference internal" href="#using-salt-cloud">Using Salt Cloud</a></li>
+<li><a class="reference internal" href="#miscellaneous-options">Miscellaneous Options</a></li>
+<li><a class="reference internal" href="#troubleshooting-steps">Troubleshooting Steps</a></li>
+<li><a class="reference internal" href="#extending-salt-cloud">Extending Salt Cloud</a></li>
+<li><a class="reference internal" href="#using-salt-cloud-from-salt">Using Salt Cloud from Salt</a></li>
+<li><a class="reference internal" href="#feature-comparison">Feature Comparison</a></li>
+<li><a class="reference internal" href="#legacy-releases">Legacy Releases</a></li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../mine/index.html"
+                        title="previous chapter">The Salt Mine</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="action.html"
+                        title="next chapter">Cloud Actions</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="../mine/index.html" title="The Salt Mine">previous</a>
+                
+            </li>
+            <li>
+                <a href="action.html" title="Cloud Actions">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

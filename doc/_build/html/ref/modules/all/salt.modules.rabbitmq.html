@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.modules.rabbitmq</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin execution modules" href="index.html">
+        <link rel="next" title="salt.modules.rbenv" href="salt.modules.rbenv.html">
+        <link rel="prev" title="salt.modules.quota" href="salt.modules.quota.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.quota.html" title="salt.modules.quota">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.rbenv.html" title="salt.modules.rbenv">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.modules.rabbitmq">
+<span id="salt-modules-rabbitmq"></span><h1>salt.modules.rabbitmq<a class="headerlink" href="#module-salt.modules.rabbitmq" title="Permalink to this headline">¶</a></h1>
+<p>Module to provide RabbitMQ compatibility to Salt.
+Todo: A lot, need to add cluster support, logging, and minion configuration
+data.</p>
+<dl class="function">
+<dt id="salt.modules.rabbitmq.add_user">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">add_user</tt><big>(</big><em>name</em>, <em>password=None</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.add_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a rabbitMQ user via rabbitmqctl user_add &lt;user&gt; &lt;password&gt;</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.add_user rabbit_user password
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.add_vhost">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">add_vhost</tt><big>(</big><em>vhost</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.add_vhost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a vhost via rabbitmqctl add_vhost.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq add_vhost <span class="s1">&#39;&lt;vhost_name&gt;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.change_password">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">change_password</tt><big>(</big><em>name</em>, <em>password</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.change_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes a user's password.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.change_password rabbit_user password
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.clear_password">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">clear_password</tt><big>(</big><em>name</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.clear_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a user's password.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.clear_password rabbit_user
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.cluster_status">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">cluster_status</tt><big>(</big><em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.cluster_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>return rabbitmq cluster_status</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.cluster_status
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.delete_policy">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">delete_policy</tt><big>(</big><em>vhost</em>, <em>name</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.delete_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a policy based on rabbitmqctl clear_policy.</p>
+<p>Reference: <a class="reference external" href="http://www.rabbitmq.com/ha.html">http://www.rabbitmq.com/ha.html</a></p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt &#39;*&#39; rabbitmq.delete_policy / HA&#39;
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.delete_user">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">delete_user</tt><big>(</big><em>name</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.delete_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a user via rabbitmqctl delete_user.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.delete_user rabbit_user
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.delete_vhost">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">delete_vhost</tt><big>(</big><em>vhost</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.delete_vhost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a vhost rabbitmqctl delete_vhost.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.delete_vhost <span class="s1">&#39;&lt;vhost_name&gt;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.disable_plugin">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">disable_plugin</tt><big>(</big><em>name</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.disable_plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable a RabbitMQ plugin via the rabbitmq-plugins command.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.disable_plugin foo
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.enable_plugin">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">enable_plugin</tt><big>(</big><em>name</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.enable_plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable a RabbitMQ plugin via the rabbitmq-plugins command.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.enable_plugin foo
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.force_reset">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">force_reset</tt><big>(</big><em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.force_reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forcefully Return a RabbitMQ node to its virgin state</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.force_reset
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.join_cluster">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">join_cluster</tt><big>(</big><em>host</em>, <em>user='rabbit'</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.join_cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join a rabbit cluster</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.join_cluster <span class="s1">&#39;rabbit&#39;</span> <span class="s1">&#39;rabbit.example.com&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.list_permissions">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">list_permissions</tt><big>(</big><em>vhost</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.list_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists permissions for vhost via rabbitmqctl list_permissions</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.list_permissions <span class="s1">&#39;/myvhost&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.list_policies">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">list_policies</tt><big>(</big><em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.list_policies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary of policies nested by vhost and name
+based on the data returned from rabbitmqctl list_policies.</p>
+<p>Reference: <a class="reference external" href="http://www.rabbitmq.com/ha.html">http://www.rabbitmq.com/ha.html</a></p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt &#39;*&#39; rabbitmq.list_policies&#39;
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.list_queues">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">list_queues</tt><big>(</big><em>*kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.list_queues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns queue details of the / virtual host</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.list_queues messages consumers
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.list_queues_vhost">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">list_queues_vhost</tt><big>(</big><em>vhost</em>, <em>*kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.list_queues_vhost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns queue details of specified virtual host. This command will consider
+first parameter as the vhost name and rest will be treated as
+queueinfoitem. For getting details on vhost <tt class="docutils literal"><span class="pre">/</span></tt>, use <a class="reference internal" href="#salt.modules.rabbitmq.list_queues" title="salt.modules.rabbitmq.list_queues"><tt class="xref py py-mod docutils literal"><span class="pre">list_queues</span></tt></a> instead).</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.list_queues messages consumers
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.list_user_permissions">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">list_user_permissions</tt><big>(</big><em>name</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.list_user_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>List permissions for a user via rabbitmqctl list_user_permissions</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.list_user_permissions <span class="s1">&#39;user&#39;</span>.
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.list_users">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">list_users</tt><big>(</big><em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.list_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of users based off of rabbitmqctl user_list.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.list_users
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.list_vhosts">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">list_vhosts</tt><big>(</big><em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.list_vhosts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of vhost based on rabbitmqctl list_vhosts.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.list_vhosts
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.plugin_is_enabled">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">plugin_is_enabled</tt><big>(</big><em>name</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.plugin_is_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the plugin is enabled.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.plugin_is_enabled foo
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.policy_exists">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">policy_exists</tt><big>(</big><em>vhost</em>, <em>name</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.policy_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the policy exists based on rabbitmqctl list_policies.</p>
+<p>Reference: <a class="reference external" href="http://www.rabbitmq.com/ha.html">http://www.rabbitmq.com/ha.html</a></p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.policy_exists / HA
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.reset">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">reset</tt><big>(</big><em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a RabbitMQ node to its virgin state</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.reset
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.set_permissions">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">set_permissions</tt><big>(</big><em>vhost</em>, <em>user</em>, <em>conf='.*'</em>, <em>write='.*'</em>, <em>read='.*'</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.set_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets permissions for vhost via rabbitmqctl set_permissions</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.set_permissions <span class="s1">&#39;myvhost&#39;</span> <span class="s1">&#39;myuser&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.set_policy">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">set_policy</tt><big>(</big><em>vhost</em>, <em>name</em>, <em>pattern</em>, <em>definition</em>, <em>priority=None</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.set_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a policy based on rabbitmqctl set_policy.</p>
+<p>Reference: <a class="reference external" href="http://www.rabbitmq.com/ha.html">http://www.rabbitmq.com/ha.html</a></p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.set_policy / HA <span class="s1">&#39;.*&#39;</span> <span class="s1">&#39;{&quot;ha-mode&quot;: &quot;all&quot;}&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.set_user_tags">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">set_user_tags</tt><big>(</big><em>name</em>, <em>tags</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.set_user_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add user tags via rabbitctl set_user_tags</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.set_user_tags <span class="s1">&#39;myadmin&#39;</span> <span class="s1">&#39;administrator&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.start_app">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">start_app</tt><big>(</big><em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.start_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the RabbitMQ application.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.start_app
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.status">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">status</tt><big>(</big><em>user=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>return rabbitmq status</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.status
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.stop_app">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">stop_app</tt><big>(</big><em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.stop_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the RabbitMQ application, leaving the Erlang node running.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.stop_app
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.user_exists">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">user_exists</tt><big>(</big><em>name</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.user_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the user exists based on rabbitmqctl list_users.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.user_exists rabbit_user
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.rabbitmq.vhost_exists">
+<tt class="descclassname">salt.modules.rabbitmq.</tt><tt class="descname">vhost_exists</tt><big>(</big><em>name</em>, <em>runas=None</em><big>)</big><a class="headerlink" href="#salt.modules.rabbitmq.vhost_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the vhost exists based on rabbitmqctl list_vhosts.</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> rabbitmq.vhost_exists rabbit_host
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.modules.quota.html"
+                        title="previous chapter">salt.modules.quota</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.modules.rbenv.html"
+                        title="next chapter">salt.modules.rbenv</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.modules.quota.html" title="salt.modules.quota">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.modules.rbenv.html" title="salt.modules.rbenv">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

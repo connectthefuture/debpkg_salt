@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Understanding State Ordering</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="up" title="Salt tutorials" href="index.html">
+        <link rel="next" title="SaltStack Walkthrough" href="walkthrough.html">
+        <link rel="prev" title="States Tutorial, Part 5 - Orchestration with Salt" href="states_pt5.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="states_pt5.html" title="States Tutorial, Part 5 - Orchestration with Salt">previous</a>
+                
+            </li>
+            <li>
+                <a href="walkthrough.html" title="SaltStack Walkthrough">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="understanding-state-ordering">
+<h1>Understanding State Ordering<a class="headerlink" href="#understanding-state-ordering" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This tutorial is an intermediate level tutorial. Some basic understanding
+of the state system and writing Salt Formulas is assumed.</p>
+</div>
+<p>Salt's state system is built to deliver all of the power of configuration
+management systems without sacrificing simplicity. This tutorial is made to
+help users understand in detail just how the order is defined for state
+executions in Salt.</p>
+<p>This tutorial is written to represent the behavior of Salt as of version
+0.17.0.</p>
+<div class="section" id="compiler-basics">
+<h2>Compiler Basics<a class="headerlink" href="#compiler-basics" title="Permalink to this headline">¶</a></h2>
+<p>To understand ordering in depth some very basic knowledge about the state
+compiler is very helpful. No need to worry though, this is very high level!</p>
+<div class="section" id="high-data-and-low-data">
+<h3>High Data and Low Data<a class="headerlink" href="#high-data-and-low-data" title="Permalink to this headline">¶</a></h3>
+<p>When defining Salt Formulas in YAML the data that is being represented is
+referred to by the compiler as High Data. When the data is initially
+loaded into the compiler it is a single large python dictionary, this
+dictionary can be viewed raw by running:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> state.show_highstate
+</pre></div>
+</div>
+<p>This &quot;High Data&quot; structure is then compiled down to &quot;Low Data&quot;. The Low
+Data is what is matched up to create individual executions in Salt's
+configuration management system. The
+low data is an ordered list of single state calls to execute. Once the
+low data is compiled the evaluation order can be seen.</p>
+<p>The low data can be viewed by running:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> state.show_lowstate
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The state execution module contains MANY functions for evaluating the
+state system and is well worth a read! These routines can be very useful
+when debugging states or to help deepen one's understanding of Salt's
+state system.</p>
+</div>
+<p>As an example, a state written thusly:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">apache</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+  <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">running</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">watch</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/httpd/conf.d/httpd.conf</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">apache</span>
+<span class="l-Scalar-Plain">/etc/httpd/conf.d/httpd.conf</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">managed</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://apache/httpd.conf</span>
+</pre></div>
+</div>
+<p>Will have High Data which looks like this represented in json:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">&quot;apache&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;pkg&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;installed&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;order&quot;</span><span class="p">:</span> <span class="mi">10000</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;service&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;running&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;watch&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;/etc/httpd/conf.d/httpd.conf&quot;</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="nt">&quot;pkg&quot;</span><span class="p">:</span> <span class="s2">&quot;apache&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;order&quot;</span><span class="p">:</span> <span class="mi">10001</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;__sls__&quot;</span><span class="p">:</span> <span class="s2">&quot;apache&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;__env__&quot;</span><span class="p">:</span> <span class="s2">&quot;base&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;/etc/httpd/conf.d/httpd.conf&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;managed&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;salt://apache/httpd.conf&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;order&quot;</span><span class="p">:</span> <span class="mi">10002</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;__sls__&quot;</span><span class="p">:</span> <span class="s2">&quot;apache&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;__env__&quot;</span><span class="p">:</span> <span class="s2">&quot;base&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The subsequent Low Data will look like this:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;apache&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;pkg&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;__id__&quot;</span><span class="p">:</span> <span class="s2">&quot;apache&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;fun&quot;</span><span class="p">:</span> <span class="s2">&quot;installed&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;__env__&quot;</span><span class="p">:</span> <span class="s2">&quot;base&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;__sls__&quot;</span><span class="p">:</span> <span class="s2">&quot;apache&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;order&quot;</span><span class="p">:</span> <span class="mi">10000</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;apache&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;watch&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;/etc/httpd/conf.d/httpd.conf&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;pkg&quot;</span><span class="p">:</span> <span class="s2">&quot;apache&quot;</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;service&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;__id__&quot;</span><span class="p">:</span> <span class="s2">&quot;apache&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;fun&quot;</span><span class="p">:</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;__env__&quot;</span><span class="p">:</span> <span class="s2">&quot;base&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;__sls__&quot;</span><span class="p">:</span> <span class="s2">&quot;apache&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;order&quot;</span><span class="p">:</span> <span class="mi">10001</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;/etc/httpd/conf.d/httpd.conf&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;salt://apache/httpd.conf&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;__id__&quot;</span><span class="p">:</span> <span class="s2">&quot;/etc/httpd/conf.d/httpd.conf&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;fun&quot;</span><span class="p">:</span> <span class="s2">&quot;managed&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;__env__&quot;</span><span class="p">:</span> <span class="s2">&quot;base&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;__sls__&quot;</span><span class="p">:</span> <span class="s2">&quot;apache&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;order&quot;</span><span class="p">:</span> <span class="mi">10002</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>This tutorial discusses the Low Data evaluation and the state runtime.</p>
+</div>
+</div>
+<div class="section" id="ordering-layers">
+<h2>Ordering Layers<a class="headerlink" href="#ordering-layers" title="Permalink to this headline">¶</a></h2>
+<p>Salt defines 2 order interfaces which are evaluated in the state runtime and
+defines these orders in a number of passes.</p>
+<div class="section" id="definition-order">
+<h3>Definition Order<a class="headerlink" href="#definition-order" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Definition Order system can be disabled by turning the option
+<cite>state_auto_order</cite> to <cite>False</cite> in the master configuration file.</p>
+</div>
+<p>The top level of ordering is the <cite>Definition Order</cite>. The <cite>Definition Order</cite>
+is the order in which states are defined in salt formulas. This is very
+straightforward on basic states which do not contain <tt class="docutils literal"><span class="pre">include</span></tt> statements
+or a <tt class="docutils literal"><span class="pre">top</span></tt> file, as the states are just ordered from the top of the file,
+but the include system starts to bring in some simple rules for how the
+<cite>Definitiion Order</cite> is defined.</p>
+<p>Looking back at the &quot;Low Data&quot; and &quot;High Data&quot; shown above, the order key has
+been transparently added to the data to enable the <cite>Definition Order</cite>.</p>
+<div class="section" id="the-include-statement">
+<h4>The Include Statement<a class="headerlink" href="#the-include-statement" title="Permalink to this headline">¶</a></h4>
+<p>Basically, if there is an include statement in a formula, then the formulas
+which are included will be run BEFORE the contents of the formula which
+is including them. Also, the include statement is a list, so they will be
+loaded in the order in which they are included.</p>
+<p>In the following case:</p>
+<p><tt class="docutils literal"><span class="pre">foo.sls</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">bar</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">baz</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">bar.sls</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">quo</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">baz.sls</span></tt></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">qux</span>
+</pre></div>
+</div>
+<p>In the above case if <cite>state.sls foo</cite> were called then the formulas will be
+loaded in the following order:</p>
+<ol class="arabic simple">
+<li>quo</li>
+<li>bar</li>
+<li>qux</li>
+<li>baz</li>
+<li>foo</li>
+</ol>
+</div>
+</div>
+<div class="section" id="the-order-flag">
+<h3>The <cite>order</cite> Flag<a class="headerlink" href="#the-order-flag" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>Definition Order</cite> happens transparently in the background, but the
+ordering can be explicitly overridden using the <cite>order</cite> flag in states:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">apache</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">order</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>This order flag will over ride the definition order, this makes it very
+simple to create states that are always executed first, last or in specific
+stages, a great example is defining a number of package repositories that
+need to be set up before anything else, or final checks that need to be
+run at the end of a state run by using <cite>order: last</cite> or <cite>order: -1</cite>.</p>
+<p>When the order flag is explicitly set the <cite>Definition Order</cite> system will omit
+setting an order for that state and directly use the order flag defined.</p>
+</div>
+<div class="section" id="lexicographical-fall-back">
+<h3>Lexicographical Fall-back<a class="headerlink" href="#lexicographical-fall-back" title="Permalink to this headline">¶</a></h3>
+<p>Salt states were written to ALWAYS execute in the same order. Before the
+introduction of <cite>Definition Order</cite> in version 0.17.0 everything was ordered
+lexicographically according to the name of the state, then function then id.</p>
+<p>This is the way Salt has always ensured that states always run in the same
+order regardless of where they are deployed, the addition of the
+<cite>Definition Order</cite> method mealy makes this finite ordering easier to follow.</p>
+<p>The lexicographical ordering is still applied but it only has any effect when
+two order statements collide. This means that if multiple states are assigned
+the same order number that they will fall back to lexicographical ordering
+to ensure that every execution still happens in a finite order.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If running with <cite>state_auto_order: False</cite> the <cite>order</cite> key is not
+set automatically, since the Lexicographical order can be derived
+from other keys.</p>
+</div>
+</div>
+<div class="section" id="requisite-ordering">
+<h3>Requisite Ordering<a class="headerlink" href="#requisite-ordering" title="Permalink to this headline">¶</a></h3>
+<p>Salt states are fully declarative, in that they are written to declare the
+state in which a system should be. This means that components can require that
+other components have been set up successfully. Unlike the other ordering
+systems, the <cite>Requisite</cite> system in Salt is evaluated at runtime.</p>
+<p>The requisite system is also built to ensure that the ordering of execution
+never changes, but is always the same for a given set of states. This is
+accomplished by using a runtime that processes states in a completely
+predictable order instead of using an event loop based system like other
+declarative configuration management systems.</p>
+</div>
+<div class="section" id="runtime-requisite-evaluation">
+<h3>Runtime Requisite Evaluation<a class="headerlink" href="#runtime-requisite-evaluation" title="Permalink to this headline">¶</a></h3>
+<p>The requisite system is evaluated as the components are found, and the
+requisites are always evaluated in the same order. This explanation will
+be followed by an example, as the raw explanation may be a little dizzying
+at first as it creates a linear dependency evaluation sequence.</p>
+<p>The &quot;Low Data&quot; is an ordered list or dictionaries, the state runtime evaluates
+each dictionary in the order in which they are arranged in the list. When
+evaluating a single dictionary it is checked for requisites, requisites are
+evaluated in order, <cite>require</cite> then <cite>watch</cite> then <cite>prereq</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If using requisite in statements like require_in and watch_in these will
+be compiled down to require and watch statements before runtime evaluation.</p>
+</div>
+<p>Each requisite contains an ordered list of requisites, these requisites are
+looked up in the list of dictionaries and then executed. Once all requisites
+have been evaluated and executed then the requiring state can safely be run
+(or not run if requisites have not been met).</p>
+<p>This means that the requisites are always evaluated in the same order, again
+ensuring one of the core design principals of Salt's State system to ensure
+that execution is always finite is intact.</p>
+</div>
+<div class="section" id="simple-runtime-evaluation-example">
+<h3>Simple Runtime Evaluation Example<a class="headerlink" href="#simple-runtime-evaluation-example" title="Permalink to this headline">¶</a></h3>
+<p>Given the above &quot;Low Data&quot; the states will be evaluated in the following order:</p>
+<ol class="arabic simple">
+<li>The pkg.installed is executed ensuring that the apache package is
+installed, it contains no requisites and is therefore the first defined
+state to execute.</li>
+<li>The service.running state is evaluated but NOT executed, a watch requisite
+is found, therefore they are read in order, the runtime first checks for
+the file, sees that it has not been executed and calls for the file state
+to be evaluated.</li>
+<li>The file state is evaluated AND executed, since it, like the pkg state does
+not contain any requisites.</li>
+<li>The evaluation of the service state continues, it next checks the pkg
+requisite and sees that it is met, with all requisites met the service
+state is now executed.</li>
+</ol>
+</div>
+<div class="section" id="best-practice">
+<h3>Best Practice<a class="headerlink" href="#best-practice" title="Permalink to this headline">¶</a></h3>
+<p>The best practice in Salt is to choose a method and stick with it, official
+states are written using requisites for all associations since requisites
+create clean, traceable dependency trails and make for the most portable
+formulas. To accomplish something similar to how classical imperative
+systems function all requisites can be omitted and the <tt class="docutils literal"><span class="pre">failhard</span></tt> option
+then set to <cite>True</cite> in the master configuration, this will stop all state runs at
+the first instance of a failure.</p>
+<p>In the end, using requisites creates very tight and fine grained states,
+not using requisites makes full sequence runs and while slightly easier
+to write, and gives much less control over the executions.</p>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Understanding State Ordering</a><ul>
+<li><a class="reference internal" href="#compiler-basics">Compiler Basics</a><ul>
+<li><a class="reference internal" href="#high-data-and-low-data">High Data and Low Data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ordering-layers">Ordering Layers</a><ul>
+<li><a class="reference internal" href="#definition-order">Definition Order</a><ul>
+<li><a class="reference internal" href="#the-include-statement">The Include Statement</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-order-flag">The <cite>order</cite> Flag</a></li>
+<li><a class="reference internal" href="#lexicographical-fall-back">Lexicographical Fall-back</a></li>
+<li><a class="reference internal" href="#requisite-ordering">Requisite Ordering</a></li>
+<li><a class="reference internal" href="#runtime-requisite-evaluation">Runtime Requisite Evaluation</a></li>
+<li><a class="reference internal" href="#simple-runtime-evaluation-example">Simple Runtime Evaluation Example</a></li>
+<li><a class="reference internal" href="#best-practice">Best Practice</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="states_pt5.html"
+                        title="previous chapter">States Tutorial, Part 5 - Orchestration with Salt</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="walkthrough.html"
+                        title="next chapter">SaltStack Walkthrough</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="states_pt5.html" title="States Tutorial, Part 5 - Orchestration with Salt">previous</a>
+                
+            </li>
+            <li>
+                <a href="walkthrough.html" title="SaltStack Walkthrough">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

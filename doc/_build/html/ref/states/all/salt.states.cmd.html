@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>salt.states.cmd</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../../_static/basic.css">
+    <link rel="stylesheet" href="../../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../../_static/underscore.js"></script>
+    
+    
+    <script src="../../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../../index.html">
+        <link rel="up" title="Full list of builtin state modules" href="index.html">
+        <link rel="next" title="salt.states.composer" href="salt.states.composer.html">
+        <link rel="prev" title="salt.states.cloud" href="salt.states.cloud.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../../index.html"><img src="../../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.states.cloud.html" title="salt.states.cloud">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.states.composer.html" title="salt.states.composer">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="module-salt.states.cmd">
+<span id="salt-states-cmd"></span><h1>salt.states.cmd<a class="headerlink" href="#module-salt.states.cmd" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="execution-of-arbitrary-commands">
+<h2>Execution of arbitrary commands<a class="headerlink" href="#execution-of-arbitrary-commands" title="Permalink to this headline">¶</a></h2>
+<p>The cmd state module manages the enforcement of executed commands, this
+state can tell a command to run under certain circumstances.</p>
+<p>A simple example to execute a command:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">date &gt; /tmp/salt-run</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd.run</span>
+</pre></div>
+</div>
+<p>Only run if another execution failed, in this case truncate syslog if there is
+no disk space:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>&gt; /var/log/messages:
+  cmd.run:
+    - unless: echo &#39;foo&#39; &gt; /tmp/.test
+</pre></div>
+</div>
+<p>Note that when executing a command or script, the state (i.e., changed or not)
+of the command is unknown to Salt's state system. Therefore, by default, the
+<tt class="docutils literal"><span class="pre">cmd</span></tt> state assumes that any command execution results in a changed state.</p>
+<p>This means that if a <tt class="docutils literal"><span class="pre">cmd</span></tt> state is watched by another state then the
+state that's watching will always be executed due to the <cite>changed</cite> state in
+the <tt class="docutils literal"><span class="pre">cmd</span></tt> state.</p>
+<p>Many state functions in this module now also accept a <tt class="docutils literal"><span class="pre">stateful</span></tt> argument.
+If <tt class="docutils literal"><span class="pre">stateful</span></tt> is specified to be true then it is assumed that the command
+or script will determine its own state and communicate it back by following
+a simple protocol described below:</p>
+<ol class="arabic">
+<li><p class="first"><strong>If there's nothing in the stdout of the command, then assume no
+changes.</strong> Otherwise, the stdout must be either in JSON or its <cite>last</cite>
+non-empty line must be a string of key=value pairs delimited by spaces (no
+spaces on either side of <tt class="docutils literal"><span class="pre">=</span></tt>).</p>
+</li>
+<li><p class="first"><strong>If it's JSON then it must be a JSON object (e.g., {}).</strong> If it's
+key=value pairs then quoting may be used to include spaces.  (Python's shlex
+module is used to parse the key=value string)</p>
+<p>Two special keys or attributes are recognized in the output:</p>
+<div class="highlight-python"><div class="highlight"><pre>changed: bool (i.e., &#39;yes&#39;, &#39;no&#39;, &#39;true&#39;, &#39;false&#39;, case-insensitive)
+comment: str  (i.e., any string)
+</pre></div>
+</div>
+<p>So, only if <tt class="docutils literal"><span class="pre">changed</span></tt> is <tt class="docutils literal"><span class="pre">True</span></tt> then assume the command execution has
+changed the state, and any other key values or attributes in the output will
+be set as part of the changes.</p>
+</li>
+<li><p class="first"><strong>If there's a comment then it will be used as the comment of the
+state.</strong></p>
+<p>Here's an example of how one might write a shell script for use with a
+stateful command:</p>
+<div class="highlight-python"><div class="highlight"><pre>#!/bin/bash
+#
+echo &quot;Working hard...&quot;
+
+# writing the state line
+echo  # an empty line here so the next line will be the last.
+echo &quot;changed=yes comment=&#39;something has changed&#39; whatever=123&quot;
+</pre></div>
+</div>
+<p>And an example SLS file using this module:</p>
+<div class="highlight-python"><div class="highlight"><pre>Run myscript:
+  cmd.run:
+    - name: /path/to/myscript
+    - cwd: /
+    - stateful: True
+
+Run only if myscript changed something:
+  cmd.wait:
+    - name: echo hello
+    - cwd: /
+    - watch:
+        - cmd: Run myscript
+</pre></div>
+</div>
+<p>Note that if the <tt class="docutils literal"><span class="pre">cmd.wait</span></tt> state also specifies <tt class="docutils literal"><span class="pre">stateful:</span> <span class="pre">True</span></tt> it can
+then be watched by some other states as well.</p>
+</li>
+</ol>
+<p><tt class="docutils literal"><span class="pre">cmd.wait</span></tt> is not restricted to watching only cmd states. For example
+it can also watch a git state for changes</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># Watch for changes to a git repo and rebuild the project on updates</span>
+<span class="l-Scalar-Plain">my-project</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">git.latest</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">git@github.com/repo/foo</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">target</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/opt/foo</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">rev</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">master</span>
+  <span class="l-Scalar-Plain">cmd.wait</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">make install</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cwd</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/opt/foo</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">watch</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">git</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my-project</span>
+</pre></div>
+</div>
+<div class="section" id="should-i-use-cmd-run-or-cmd-wait">
+<h3>Should I use <a class="reference internal" href="#salt.states.cmd.run" title="salt.states.cmd.run"><tt class="xref py py-mod docutils literal"><span class="pre">cmd.run</span></tt></a> or <a class="reference internal" href="#salt.states.cmd.wait" title="salt.states.cmd.wait"><tt class="xref py py-mod docutils literal"><span class="pre">cmd.wait</span></tt></a>?<a class="headerlink" href="#should-i-use-cmd-run-or-cmd-wait" title="Permalink to this headline">¶</a></h3>
+<p>These two states are often confused. The important thing to remember about them
+is that <a class="reference internal" href="#salt.states.cmd.run" title="salt.states.cmd.run"><tt class="xref py py-mod docutils literal"><span class="pre">cmd.run</span></tt></a> states are run each time the SLS
+file that contains them is applied. If it is more desirable to have a command
+that only runs after some other state changes, then <a class="reference internal" href="#salt.states.cmd.wait" title="salt.states.cmd.wait"><tt class="xref py py-mod docutils literal"><span class="pre">cmd.wait</span></tt></a> does just that. <a class="reference internal" href="#salt.states.cmd.wait" title="salt.states.cmd.wait"><tt class="xref py py-mod docutils literal"><span class="pre">cmd.wait</span></tt></a>
+is designed to <a class="reference internal" href="../requisites.html"><em>watch</em></a> other states, and is
+executed when the state it is watching changes. Example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/usr/local/bin/postinstall.sh</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">wait</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">watch</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mycustompkg</span>
+  <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">managed</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">source</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">salt://utils/scripts/postinstall.sh</span>
+
+<span class="l-Scalar-Plain">mycustompkg</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/usr/local/bin/postinstall.sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-do-i-create-a-environment-from-a-pillar-map">
+<h3>How do I create a environment from a pillar map?<a class="headerlink" href="#how-do-i-create-a-environment-from-a-pillar-map" title="Permalink to this headline">¶</a></h3>
+<p>The map that comes from a pillar cannot be directly consumed by the env option. To use it
+one must convert it to a list. Example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre>printenv:
+  cmd.run:
+    - env:
+      {% for key, value in pillar[&#39;keys&#39;].iteritems() %}
+      - &#39;{{ key }}&#39;: &#39;{{ value }}&#39;
+      {% endfor %}
+</pre></div>
+</div>
+<dl class="function">
+<dt id="salt.states.cmd.call">
+<tt class="descclassname">salt.states.cmd.</tt><tt class="descname">call</tt><big>(</big><em>name</em>, <em>func</em>, <em>args=()</em>, <em>kws=None</em>, <em>onlyif=None</em>, <em>unless=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.cmd.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoke a pre-defined Python function with arguments specified in the state
+declaration. This function is mainly used by the
+<a class="reference internal" href="../../renderers/all/salt.renderers.pydsl.html#module-salt.renderers.pydsl" title="salt.renderers.pydsl"><tt class="xref py py-mod docutils literal"><span class="pre">salt.renderers.pydsl</span></tt></a> renderer.</p>
+<p>The interpretation of <tt class="docutils literal"><span class="pre">onlyif</span></tt> and <tt class="docutils literal"><span class="pre">unless</span></tt> arguments are identical to
+those of <a class="reference internal" href="#salt.states.cmd.run" title="salt.states.cmd.run"><tt class="xref py py-mod docutils literal"><span class="pre">cmd.run</span></tt></a>, and all other
+arguments(<tt class="docutils literal"><span class="pre">cwd</span></tt>, <tt class="docutils literal"><span class="pre">runas</span></tt>, ...) allowed by <a class="reference internal" href="#salt.states.cmd.run" title="salt.states.cmd.run"><tt class="xref py py-mod docutils literal"><span class="pre">cmd.run</span></tt></a> are allowed here, except that their effects apply
+only to the commands specified in <cite>onlyif</cite> and <cite>unless</cite> rather than to the
+function to be invoked.</p>
+<p>In addition, the <tt class="docutils literal"><span class="pre">stateful</span></tt> argument has no effects here.</p>
+<p>The return value of the invoked function will be interpreted as follows.</p>
+<p>If it's a dictionary then it will be passed through to the state system,
+which expects it to have the usual structure returned by any salt state
+function.</p>
+<p>Otherwise, the return value (denoted as <tt class="docutils literal"><span class="pre">result</span></tt> in the code below) is
+expected to be a JSON serializable object, and this dictionary is returned:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span>
+    <span class="s">&#39;changes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;retval&#39;</span><span class="p">:</span> <span class="n">result</span><span class="p">},</span>
+    <span class="s">&#39;result&#39;</span><span class="p">:</span> <span class="bp">True</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="nb">bool</span><span class="p">(</span><span class="n">result</span><span class="p">),</span>
+    <span class="s">&#39;comment&#39;</span><span class="p">:</span> <span class="n">result</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.cmd.mod_watch">
+<tt class="descclassname">salt.states.cmd.</tt><tt class="descname">mod_watch</tt><big>(</big><em>name</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.cmd.mod_watch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a cmd function based on a watch call</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.cmd.run">
+<tt class="descclassname">salt.states.cmd.</tt><tt class="descname">run</tt><big>(</big><em>name</em>, <em>onlyif=None</em>, <em>unless=None</em>, <em>cwd=None</em>, <em>user=None</em>, <em>group=None</em>, <em>shell=None</em>, <em>env=None</em>, <em>stateful=False</em>, <em>umask=None</em>, <em>output_loglevel='info'</em>, <em>quiet=False</em>, <em>timeout=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.cmd.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a command if certain circumstances are met.  Use <tt class="docutils literal"><span class="pre">cmd.wait</span></tt> if you
+want to use the <tt class="docutils literal"><span class="pre">watch</span></tt> requisite.</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The command to execute, remember that the command will execute with the
+path and permissions of the salt-minion.</dd>
+<dt>onlyif</dt>
+<dd>A command to run as a check, run the named command only if the command
+passed to the <tt class="docutils literal"><span class="pre">onlyif</span></tt> option returns true</dd>
+<dt>unless</dt>
+<dd>A command to run as a check, only run the named command if the command
+passed to the <tt class="docutils literal"><span class="pre">unless</span></tt> option returns false</dd>
+<dt>cwd</dt>
+<dd>The current working directory to execute the command in, defaults to
+/root</dd>
+<dt>user</dt>
+<dd>The user name to run the command as</dd>
+<dt>group</dt>
+<dd>The group context to run the command as</dd>
+<dt>shell</dt>
+<dd>The shell to use for execution, defaults to the shell grain</dd>
+<dt>env</dt>
+<dd><p class="first">A list of environment variables to be set prior to execution.
+Example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">salt://scripts/foo.sh</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd.script</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">BATCH</span><span class="p-Indicator">:</span> <span class="s">&#39;yes&#39;</span>
+</pre></div>
+</div>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The above illustrates a common PyYAML pitfall, that <strong>yes</strong>,
+<strong>no</strong>, <strong>on</strong>, <strong>off</strong>, <strong>true</strong>, and <strong>false</strong> are all loaded as
+boolean <tt class="docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">False</span></tt> values, and must be enclosed in
+quotes to be used as strings. More info on this (and other) PyYAML
+idiosyncrasies can be found <a class="reference internal" href="../../../topics/troubleshooting/yaml_idiosyncrasies.html"><em>here</em></a>.</p>
+</div>
+</dd>
+<dt>stateful</dt>
+<dd>The command being executed is expected to return data about executing
+a state</dd>
+<dt>umask</dt>
+<dd>The umask (in octal) to use when running the command.</dd>
+<dt>output_loglevel</dt>
+<dd>Control the loglevel at which the output from the command is logged.
+Note that the command being run will still be logged at loglevel INFO
+regardless, unless <tt class="docutils literal"><span class="pre">quiet</span></tt> is used for this value.</dd>
+<dt>quiet</dt>
+<dd>The command will be executed quietly, meaning no log entries of the
+actual command or its return data. This is deprecated as of the
+<strong>2014.1.0 (Hydrogen)</strong> release, and is being replaced with
+<tt class="docutils literal"><span class="pre">output_loglevel:</span> <span class="pre">quiet</span></tt>.</dd>
+<dt>timeout</dt>
+<dd>If the command has not terminated after timeout seconds, send the
+subprocess sigterm, and if sigterm is ignored, follow up with sigkill</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>cmd.run supports the usage of <tt class="docutils literal"><span class="pre">reload_modules</span></tt>. This functionality
+allows you to force Salt to reload all modules. You should only use
+<tt class="docutils literal"><span class="pre">reload_modules</span></tt> if your cmd.run does some sort of installation
+(such as <tt class="docutils literal"><span class="pre">pip</span></tt>), if you do not reload the modules future items in
+your state which rely on the software being installed will fail.</p>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">getpip</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd.run</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/usr/bin/python /usr/local/sbin/get-pip.py</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">unless</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">which pip</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">python</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/usr/local/sbin/get-pip.py</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">reload_modules</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.cmd.script">
+<tt class="descclassname">salt.states.cmd.</tt><tt class="descname">script</tt><big>(</big><em>name</em>, <em>source=None</em>, <em>template=None</em>, <em>onlyif=None</em>, <em>unless=None</em>, <em>cwd=None</em>, <em>user=None</em>, <em>group=None</em>, <em>shell=None</em>, <em>env=None</em>, <em>stateful=False</em>, <em>umask=None</em>, <em>timeout=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.cmd.script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a script from a remote source and execute it. The name can be the
+source or the source value can be defined.</p>
+<dl class="docutils">
+<dt>source</dt>
+<dd>The source script being downloaded to the minion, this source script is
+hosted on the salt master server.  If the file is located on the master
+in the directory named spam, and is called eggs, the source string is
+salt://spam/eggs</dd>
+<dt>template</dt>
+<dd>If this setting is applied then the named templating engine will be
+used to render the downloaded file, currently jinja, mako, and wempy
+are supported</dd>
+<dt>name</dt>
+<dd>The command to execute, remember that the command will execute with the
+path and permissions of the salt-minion.</dd>
+<dt>onlyif</dt>
+<dd>A command to run as a check, run the named command only if the command
+passed to the <tt class="docutils literal"><span class="pre">onlyif</span></tt> option returns true</dd>
+<dt>unless</dt>
+<dd>A command to run as a check, only run the named command if the command
+passed to the <tt class="docutils literal"><span class="pre">unless</span></tt> option returns false</dd>
+<dt>cwd</dt>
+<dd>The current working directory to execute the command in, defaults to
+/root</dd>
+<dt>user</dt>
+<dd>The user name to run the command as</dd>
+<dt>group</dt>
+<dd>The group context to run the command as</dd>
+<dt>shell</dt>
+<dd>The shell to use for execution, defaults to the shell grain</dd>
+<dt>env</dt>
+<dd><p class="first">A list of environment variables to be set prior to execution.
+Example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">salt://scripts/foo.sh</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd.script</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">BATCH</span><span class="p-Indicator">:</span> <span class="s">&#39;yes&#39;</span>
+</pre></div>
+</div>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The above illustrates a common PyYAML pitfall, that <strong>yes</strong>,
+<strong>no</strong>, <strong>on</strong>, <strong>off</strong>, <strong>true</strong>, and <strong>false</strong> are all loaded as
+boolean <tt class="docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">False</span></tt> values, and must be enclosed in
+quotes to be used as strings. More info on this (and other) PyYAML
+idiosyncrasies can be found <a class="reference internal" href="../../../topics/troubleshooting/yaml_idiosyncrasies.html"><em>here</em></a>.</p>
+</div>
+</dd>
+<dt>umask</dt>
+<dd>The umask (in octal) to use when running the command.</dd>
+<dt>stateful</dt>
+<dd>The command being executed is expected to return data about executing
+a state</dd>
+<dt>timeout</dt>
+<dd>If the command has not terminated after timeout seconds, send the
+subprocess sigterm, and if sigterm is ignored, follow up with sigkill</dd>
+<dt>args</dt>
+<dd>String of command line args to pass to the script.  Only used if no
+args are specified as part of the <cite>name</cite> argument.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.cmd.wait">
+<tt class="descclassname">salt.states.cmd.</tt><tt class="descname">wait</tt><big>(</big><em>name</em>, <em>onlyif=None</em>, <em>unless=None</em>, <em>cwd=None</em>, <em>user=None</em>, <em>group=None</em>, <em>shell=None</em>, <em>env=()</em>, <em>stateful=False</em>, <em>umask=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.cmd.wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the given command only if the watch statement calls it</p>
+<dl class="docutils">
+<dt>name</dt>
+<dd>The command to execute, remember that the command will execute with the
+path and permissions of the salt-minion.</dd>
+<dt>onlyif</dt>
+<dd>A command to run as a check, run the named command only if the command
+passed to the <tt class="docutils literal"><span class="pre">onlyif</span></tt> option returns true</dd>
+<dt>unless</dt>
+<dd>A command to run as a check, only run the named command if the command
+passed to the <tt class="docutils literal"><span class="pre">unless</span></tt> option returns false</dd>
+<dt>cwd</dt>
+<dd>The current working directory to execute the command in, defaults to
+/root</dd>
+<dt>user</dt>
+<dd>The user name to run the command as</dd>
+<dt>group</dt>
+<dd>The group context to run the command as</dd>
+<dt>shell</dt>
+<dd>The shell to use for execution, defaults to /bin/sh</dd>
+<dt>env</dt>
+<dd><p class="first">A list of environment variables to be set prior to execution.
+Example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">salt://scripts/foo.sh</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd.script</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">BATCH</span><span class="p-Indicator">:</span> <span class="s">&#39;yes&#39;</span>
+</pre></div>
+</div>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The above illustrates a common PyYAML pitfall, that <strong>yes</strong>,
+<strong>no</strong>, <strong>on</strong>, <strong>off</strong>, <strong>true</strong>, and <strong>false</strong> are all loaded as
+boolean <tt class="docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">False</span></tt> values, and must be enclosed in
+quotes to be used as strings. More info on this (and other) PyYAML
+idiosyncrasies can be found <a class="reference internal" href="../../../topics/troubleshooting/yaml_idiosyncrasies.html"><em>here</em></a>.</p>
+</div>
+</dd>
+<dt>umask</dt>
+<dd>The umask (in octal) to use when running the command.</dd>
+<dt>stateful</dt>
+<dd>The command being executed is expected to return data about executing
+a state</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.states.cmd.wait_call">
+<tt class="descclassname">salt.states.cmd.</tt><tt class="descname">wait_call</tt><big>(</big><em>name</em>, <em>func</em>, <em>args=()</em>, <em>kws=None</em>, <em>onlyif=None</em>, <em>unless=None</em>, <em>stateful=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.cmd.wait_call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="salt.states.cmd.wait_script">
+<tt class="descclassname">salt.states.cmd.</tt><tt class="descname">wait_script</tt><big>(</big><em>name</em>, <em>source=None</em>, <em>template=None</em>, <em>onlyif=None</em>, <em>unless=None</em>, <em>cwd=None</em>, <em>user=None</em>, <em>group=None</em>, <em>shell=None</em>, <em>env=None</em>, <em>stateful=False</em>, <em>umask=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.cmd.wait_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a script from a remote source and execute it only if a watch
+statement calls it.</p>
+<dl class="docutils">
+<dt>source</dt>
+<dd>The source script being downloaded to the minion, this source script is
+hosted on the salt master server.  If the file is located on the master
+in the directory named spam, and is called eggs, the source string is
+salt://spam/eggs</dd>
+<dt>template</dt>
+<dd>If this setting is applied then the named templating engine will be
+used to render the downloaded file, currently jinja, mako, and wempy
+are supported</dd>
+<dt>name</dt>
+<dd>The command to execute, remember that the command will execute with the
+path and permissions of the salt-minion.</dd>
+<dt>onlyif</dt>
+<dd>A command to run as a check, run the named command only if the command
+passed to the <tt class="docutils literal"><span class="pre">onlyif</span></tt> option returns true</dd>
+<dt>unless</dt>
+<dd>A command to run as a check, only run the named command if the command
+passed to the <tt class="docutils literal"><span class="pre">unless</span></tt> option returns false</dd>
+<dt>cwd</dt>
+<dd>The current working directory to execute the command in, defaults to
+/root</dd>
+<dt>user</dt>
+<dd>The user name to run the command as</dd>
+<dt>group</dt>
+<dd>The group context to run the command as</dd>
+<dt>shell</dt>
+<dd>The shell to use for execution, defaults to the shell grain</dd>
+<dt>env</dt>
+<dd><p class="first">A list of environment variables to be set prior to execution.
+Example:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">salt://scripts/foo.sh</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">cmd.script</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">BATCH</span><span class="p-Indicator">:</span> <span class="s">&#39;yes&#39;</span>
+</pre></div>
+</div>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The above illustrates a common PyYAML pitfall, that <strong>yes</strong>,
+<strong>no</strong>, <strong>on</strong>, <strong>off</strong>, <strong>true</strong>, and <strong>false</strong> are all loaded as
+boolean <tt class="docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">False</span></tt> values, and must be enclosed in
+quotes to be used as strings. More info on this (and other) PyYAML
+idiosyncrasies can be found <a class="reference internal" href="../../../topics/troubleshooting/yaml_idiosyncrasies.html"><em>here</em></a>.</p>
+</div>
+</dd>
+<dt>umask</dt>
+<dd>The umask (in octal) to use when running the command.</dd>
+<dt>stateful</dt>
+<dd>The command being executed is expected to return data about executing
+a state</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
+
+<script>
+    jQuery.fn.local_toc = function(tgt_sel) {
+        var tgt = jQuery(tgt_sel);
+
+        tgt.append('<h4>Table of Contents</h4>');
+
+        jQuery('dt .headerlink').each(function(idx, elem) {
+
+            var i = [
+                '<li><a href="', elem.href, '">',
+                last(elem.href.split('.')),
+                '</a></li>']
+            .join('');
+
+            tgt.append(i);
+        });
+
+        function last(list) {
+            return list[list.length - 1];
+        }
+    };
+</script>
+
+<script>
+;(function($) {
+    $.fn.local_toc('#module-funcs');
+})(jQuery);
+</script>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">salt.states.cmd</a><ul>
+<li><a class="reference internal" href="#execution-of-arbitrary-commands">Execution of arbitrary commands</a><ul>
+<li><a class="reference internal" href="#should-i-use-cmd-run-or-cmd-wait">Should I use <tt class="docutils literal"><span class="pre">cmd.run</span></tt> or <tt class="docutils literal"><span class="pre">cmd.wait</span></tt>?</a></li>
+<li><a class="reference internal" href="#how-do-i-create-a-environment-from-a-pillar-map">How do I create a environment from a pillar map?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="salt.states.cloud.html"
+                        title="previous chapter">salt.states.cloud</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="salt.states.composer.html"
+                        title="next chapter">salt.states.composer</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="salt.states.cloud.html" title="salt.states.cloud">previous</a>
+                
+            </li>
+            <li>
+                <a href="salt.states.composer.html" title="salt.states.composer">next</a>
+                
+            </li>
+            <li>
+                <a href="../../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Writing Unit Tests</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-site-verification" content="1Y-ojT3ndjxA9coB77iUDyXPWxeuQ3T4_r0j-QG6QHg" />
+
+        
+    
+    <link rel="stylesheet" href="../../_static/css/main.css">
+    
+    <link rel="stylesheet" href="../../_static/basic.css">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+
+    <link rel="stylesheet" href="../../_static/css/bootstrap.css">
+    <style>
+        body { padding-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="../../_static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../../_static/css/main.css">
+        
+    <script>
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:    '../../',
+            VERSION:     '2014.1.4',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+    
+    <script src="../../_static/js/vendor/jquery-1.9.1.js"></script>
+    
+    
+    <script src="../../_static/js/vendor/bootstrap.min.js"></script>
+    
+    
+    
+    <script src="../../_static/underscore.js"></script>
+    
+    
+    <script src="../../_static/doctools.js"></script>
+    
+        <link rel="shortcut icon" href="../../_static/favicon.ico">
+        <link rel="top" title="None" href="../../index.html">
+        <link rel="next" title="Reactor System" href="../reactor/index.html">
+        <link rel="prev" title="Integration Tests" href="integration.html"> 
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,800italic,300,800' rel='stylesheet' type='text/css'>
+        <script src="../../_static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        
+    </head>
+
+    <body class="index">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="../../index.html"><img src="../../_static/images/SaltStack-Logo.png" /></a>
+                    <div class="nav-collapse collapse">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="integration.html" title="Integration Tests">previous</a>
+                
+            </li>
+            <li>
+                <a href="../reactor/index.html" title="Reactor System">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="content row-fluid">
+            <div class="container">
+                <div class="span12">
+                    <div class="span9">
+                        
+  <div class="section" id="writing-unit-tests">
+<h1>Writing Unit Tests<a class="headerlink" href="#writing-unit-tests" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Like many software projects, Salt has two broad-based testing approaches -- integration testing and unit testing.
+While integration testing focuses on the interaction between components in a sandboxed environment, unit testing focuses
+on the singular implementation of individual functions.</p>
+</div>
+<div class="section" id="preparing-to-write-a-unit-test">
+<h2>Preparing to Write a Unit Test<a class="headerlink" href="#preparing-to-write-a-unit-test" title="Permalink to this headline">¶</a></h2>
+<p>Unit tests live in: <a class="reference external" href="https://github.com/saltstack/salt/tree/develop/tests/unit">tests/unit/</a>.</p>
+<p>Most commonly, the following imports are necessary to create a unit test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Import Salt Testing libs</span>
+<span class="kn">from</span> <span class="nn">salttesting</span> <span class="kn">import</span> <span class="n">skipIf</span><span class="p">,</span> <span class="n">TestCase</span>
+<span class="kn">from</span> <span class="nn">salttesting.helpers</span> <span class="kn">import</span> <span class="n">ensure_in_syspath</span>
+</pre></div>
+</div>
+<p>If you need mock support to your tests, please also import:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">salttesting.mock</span> <span class="kn">import</span> <span class="n">NO_MOCK</span><span class="p">,</span> <span class="n">NO_MOCK_REASON</span><span class="p">,</span> <span class="n">MagicMock</span><span class="p">,</span> <span class="n">patch</span><span class="p">,</span> <span class="n">call</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-simple-example">
+<h2>A Simple Example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">¶</a></h2>
+<p>Let's assume that we're testing a very basic function in an imaginary Salt execution module. Given a module called
+<tt class="docutils literal"><span class="pre">fib.py</span></tt> that has a function called 'calculate(num_of_results)', which given a 'num_of_results', produces a list of
+sequential Fibonacci numbers of that length.</p>
+<p>A unit test to test this function might be commonly placed in a file called <tt class="docutils literal"><span class="pre">tests/unit/modules/fib_test.py</span></tt>. The
+convention is to place unit tests for Salt execution modules in <tt class="docutils literal"><span class="pre">test/unit/modules/</span></tt> and to name the tests module
+suffixed with <tt class="docutils literal"><span class="pre">_test.py</span></tt>.</p>
+<p>Tests are grouped around test cases, which are logically grouped sets of tests against a piece of functionality in the
+tested software. Test cases are created as Python classes in the unit test module. To return to our example, here's
+how we might write the skeleton for testing <tt class="docutils literal"><span class="pre">fib.py</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Import Salt Testing libs</span>
+<span class="kn">from</span> <span class="nn">salttesting</span> <span class="kn">import</span> <span class="n">TestCase</span>
+
+<span class="c"># Import Salt execution module to test</span>
+<span class="kn">from</span> <span class="nn">salt.modules</span> <span class="kn">import</span> <span class="n">fib</span>
+
+<span class="c"># Create test case class and inherit from Salt&#39;s customized TestCase</span>
+<span class="k">class</span> <span class="nc">FibTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    If we want to set up variables common to all unit tests, we can do so</span>
+<span class="sd">    by defining a setUp method, which will be run automatically before</span>
+<span class="sd">    tests begin.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># Declare a simple set of five Fibonacci numbers starting at zero that we know are correct.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fib_five</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">test_fib</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        To create a unit test, we should prefix the name with `test_&#39; so that it&#39;s recognized by the test runner.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">fib</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">fib_five</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>At this point, the test can now be run, either individually or as a part of a full run of the test runner. To ease
+development, a single test can be executed:</p>
+<div class="highlight-bash"><div class="highlight"><pre>tests/runtests.py -n unit.modules.fib_test
+</pre></div>
+</div>
+<p>This will produce output indicating the success or failure of the tests in given test case. For more detailed results,
+one can also include a flag to increase verbosity:</p>
+<div class="highlight-bash"><div class="highlight"><pre>tests/runtests.py -n unit.modules.fib_test -v
+</pre></div>
+</div>
+<p>To review the results of a particular run, take a note of the log location given in the output for each test:</p>
+<blockquote>
+<div><strong>Logging tests on /var/folders/nl/d809xbq577l3qrbj3ymtpbq80000gn/T/salt-runtests.log</strong></div></blockquote>
+</div>
+<div class="section" id="evaluating-truth">
+<h2>Evaluating Truth<a class="headerlink" href="#evaluating-truth" title="Permalink to this headline">¶</a></h2>
+<p>A longer discussion on the types of assertions one can make can be found by reading <a class="reference external" href="http://docs.python.org/2/library/unittest.html#unittest.TestCase">Python's documentation on unit
+testing</a>.</p>
+</div>
+<div class="section" id="tests-using-mock-objects">
+<h2>Tests Using Mock Objects<a class="headerlink" href="#tests-using-mock-objects" title="Permalink to this headline">¶</a></h2>
+<p>In many cases, the very purpose of a Salt module is to interact with some external system, whether it be to control a
+database, manipulate files on a filesystem or many other examples. In these varied cases, it's necessary to design a
+unit test which can test the function whilst replacing functions which might actually call out to external systems. One
+might think of this as &quot;blocking the exits&quot; for code under tests and redirecting the calls to external systems with our
+own code which produces known results during the duration of the test.</p>
+<p>To achieve this behavior, Salt makes heavy use of the <a class="reference external" href="http://www.voidspace.org.uk/python/mock/index.html">MagicMock package</a>.</p>
+<p>To understand how one might integrate Mock into writing a unit test for Salt, let's imagine a scenario in which we're
+testing an execution module that's designed to operate on a database. Furthermore, let's imagine two separate methods,
+here presented in pseduo-code in an imaginary execution module called 'db.py.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="n">qry</span> <span class="o">=</span> <span class="s">&#39;CREATE USER {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="n">execute_query</span><span class="p">(</span><span class="n">qry</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">execute_query</span><span class="p">(</span><span class="n">qry</span><span class="p">):</span>
+    <span class="c"># Connect to a database and actually do the query...</span>
+</pre></div>
+</div>
+<p>Here, let's imagine that we want to create a unit test for the <cite>create_user</cite> function. In doing so, we want to avoid any
+calls out to an external system and so while we are running our unit tests, we want to replace the actual interaction
+with a database with a function that can capture the parameters sent to it and return pre-defined values. Therefore, our
+task is clear -- to write a unit test which tests the functionality of <cite>create_user</cite> while also replacing
+'execute_query' with a mocked function.</p>
+<p>To begin, we set up the skeleton of our class much like we did before, but with additional imports for MagicMock:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Import Salt Testing libs</span>
+<span class="kn">from</span> <span class="nn">salttesting</span> <span class="kn">import</span> <span class="n">TestCase</span>
+
+<span class="c"># Import Salt execution module to test</span>
+<span class="kn">from</span> <span class="nn">salt.modules</span> <span class="kn">import</span> <span class="n">db</span>
+
+<span class="c"># NEW! -- Import Mock libraries</span>
+<span class="kn">from</span> <span class="nn">salttesting.mock</span> <span class="kn">import</span> <span class="n">NO_MOCK</span><span class="p">,</span> <span class="n">NO_MOCK_REASON</span><span class="p">,</span> <span class="n">MagicMock</span><span class="p">,</span> <span class="n">patch</span><span class="p">,</span> <span class="n">call</span>
+
+<span class="c"># Create test case class and inherit from Salt&#39;s customized TestCase</span>
+
+<span class="nd">@skipIf</span><span class="p">(</span><span class="n">NO_MOCK</span><span class="p">,</span> <span class="n">NO_MOCK_REASON</span><span class="p">)</span> <span class="c">#  Skip this test case if we don&#39;t have access to mock!</span>
+<span class="k">class</span> <span class="nc">DbTestCase</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_create_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># First, we replace &#39;execute_query&#39; with our own mock function</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">execute_query</span> <span class="o">=</span> <span class="n">MagicMock</span><span class="p">()</span>
+
+        <span class="c"># Now that the exits are blocked, we can run the function under test.</span>
+
+        <span class="n">db</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="s">&#39;testuser&#39;</span><span class="p">)</span>
+
+        <span class="c"># We could now query our mock object to see which calls were made to it.</span>
+        <span class="c">## print db.execute_query.mock_calls</span>
+
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        We want to test to ensure that the correct query was formed.</span>
+<span class="sd">        This is a contrived example, just designed to illustrate the concepts at hand.</span>
+
+<span class="sd">        We&#39;re going to first contruct a call() object that represents the way we expect</span>
+<span class="sd">        our mocked execute_query() function to have been called.</span>
+<span class="sd">        Then, we&#39;ll examine the list of calls that were actually made to to execute_function().</span>
+
+<span class="sd">        By comparing our expected call to execute_query() with create_user()&#39;s call to</span>
+<span class="sd">        execute_query(), we can determine the success or failure of our unit test.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">expected_call</span> <span class="o">=</span> <span class="n">call</span><span class="p">(</span><span class="s">&#39;CREATE USER testuser&#39;</span><span class="p">)</span>
+
+        <span class="c"># Do the comparison! Will assert False if execute_query() was not called with the given call</span>
+
+        <span class="n">db</span><span class="o">.</span><span class="n">execute_query</span><span class="o">.</span><span class="n">assert_has_calls</span><span class="p">(</span><span class="n">expected_call</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modifying-salt-in-place">
+<h2>Modifying <tt class="docutils literal"><span class="pre">__salt__</span></tt> In Place<a class="headerlink" href="#modifying-salt-in-place" title="Permalink to this headline">¶</a></h2>
+<p>At times, it becomes necessary to make modifications to a module's view of functions in its own <tt class="docutils literal"><span class="pre">__salt__</span></tt> dictionary.
+Luckily, this process is quite easy.</p>
+<p>Below is an example that uses MagicMock's <tt class="docutils literal"><span class="pre">patch</span></tt> functionality to insert a function into <tt class="docutils literal"><span class="pre">__salt__</span></tt> that's actually
+a MagicMock instance.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">show_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">patch</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">my_module</span><span class="o">.</span><span class="n">__salt__</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;function.to_replace&#39;</span><span class="p">:</span> <span class="n">MagicMock</span><span class="p">()}:</span>
+        <span class="c"># From this scope, carry on with testing, with a modified __salt__!</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+                    </div>
+    <div class="span3">
+    <div>
+
+        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+
+        <p class="muted">Docs for previous releases on
+            <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Writing Unit Tests</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#preparing-to-write-a-unit-test">Preparing to Write a Unit Test</a></li>
+<li><a class="reference internal" href="#a-simple-example">A Simple Example</a></li>
+<li><a class="reference internal" href="#evaluating-truth">Evaluating Truth</a></li>
+<li><a class="reference internal" href="#tests-using-mock-objects">Tests Using Mock Objects</a></li>
+<li><a class="reference internal" href="#modifying-salt-in-place">Modifying <tt class="docutils literal"><span class="pre">__salt__</span></tt> In Place</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="integration.html"
+                        title="previous chapter">Integration Tests</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../reactor/index.html"
+                        title="next chapter">Reactor System</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <h3>Upcoming SaltStack Events</h3>
+        <script src="http://cdn.lanyrd.net/badges/person-v1.min.js"></script>
+        <div class="lanyrd-target-splat"><a href="http://lanyrd.com/profile/saltstackinc/" class="lanyrd-splat lanyrd-number-3 lanyrd-context-future" rel="me">My conferences on Lanyrd</a></div>
+    </div>
+    </div>
+                </div>
+            </div>
+        </div>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+    <div class="related">
+        
+
+        <ul class="nav rel-extra">
+            <li>
+                <a href="integration.html" title="Integration Tests">previous</a>
+                
+            </li>
+            <li>
+                <a href="../reactor/index.html" title="Reactor System">next</a>
+                
+            </li>
+            <li>
+                <a href="../../salt-modindex.html" title="Salt Module Index">all salt modules</a>
+                
+            </li>
+            <li>
+                <a href="../../genindex.html" title="General Index">index</a>
+                
+            </li> 
+        </ul>
+    </div></div>
+            </div>
+        
+            <footer>
+                <div class="container">
+                        <div class="row-fluid">
+                                <div class="footerCol">
+                                        <h4>About Us</h4>
+                                        <a href="http://saltstack.com/">SaltStack</a>
+                                        <a href="http://saltstack.com/about/">Leadership</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Products</h4>
+                                        <a href="http://saltstack.com/enterprise/">Enterprise</a>
+                                        <a href="http://saltstack.com/services/">Integration</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Services</h4>
+                                        <a href="http://saltstack.com/training/">Onsite Training</a>
+                                        <a href="http://saltstack.com/services/">Custom Professional Services</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Contact Us</h4>
+                                        <a href="http://saltstack.com/contact/">Support</a>
+                                        <a href="http://saltstack.com/contact/">Contact us</a>
+                                </div>
+                                <div class="footerCol">
+                                        <h4>Community</h4>
+                                        <a href="http://saltstack.org">saltstack.org</a>
+                                        <a href="http://docs.saltstack.org/en/latest/">Documentation</a>
+<!--                                    <a href="#">Blogs</a> -->
+                                </div>
+                        </div>
+                            <div class="row-fluid social">
+<!--                                <a href="http://www.facebook.com/SaltStack"><img src="images/socialFB.png" alt="SaltStack on Facebook" /></a> -->
+                                    <a href="http://twitter.com/SaltStackInc"><img src="../../_static/images/socialTW.png" alt="SaltStack on Twitter" /></a>
+                                    <a href="http://www.linkedin.com/company/salt-stack-inc"><img src="../../_static/images/socialLI.png" alt="SaltStack on LinkedIn" /></a>
+<!--                                <a href="http://plus.google.com/114449193225626631691"><img src="images/socialG+.png" alt="SaltStack on Google+" /></a> -->
+                                    <a href="https://github.com/saltstack"><img src="../../_static/images/socialGitHub.png" alt="SaltStack on Github" />
+                            </div>
+                </div>
+            </footer>
+
+        <script src="../../_static/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-26984928-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script>llactid=23943</script>
+        <script src="http://t4.trackalyzer.com/trackalyze.js"></script>
+    </body>
+</html>
