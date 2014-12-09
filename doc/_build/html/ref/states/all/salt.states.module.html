@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -128,7 +127,7 @@ call a single module function use a <a class="reference internal" href="#salt.st
 state:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">mine.send</span><span class="p-Indicator">:</span>
   <span class="l-Scalar-Plain">module.run</span><span class="p-Indicator">:</span>
-    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">func</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">network.interfaces</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">network.interfaces</span>
 </pre></div>
 </div>
 <p>Note that this example is probably unnecessary to use in practice, since the
@@ -139,7 +138,7 @@ info).</p>
 for this the <a class="reference internal" href="#salt.states.module.wait" title="salt.states.module.wait"><tt class="xref py py-mod docutils literal"><span class="pre">module.wait</span></tt></a> state can be used:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">mine.send</span><span class="p-Indicator">:</span>
   <span class="l-Scalar-Plain">module.wait</span><span class="p-Indicator">:</span>
-    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">func</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">network.interfaces</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">network.interfaces</span>
     <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">watch</span><span class="p-Indicator">:</span>
       <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/etc/network/interfaces</span>
 </pre></div>
@@ -214,7 +213,7 @@ wth the <tt class="docutils literal"><span class="pre">watch_in</span></tt> chan
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

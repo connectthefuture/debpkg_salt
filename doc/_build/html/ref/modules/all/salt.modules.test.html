@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -130,7 +129,7 @@ is used to both test the publication data and cli argument passing, but
 also to display the information available within the publication data.
 Returns {&quot;args&quot;: args, &quot;kwargs&quot;: kwargs}.</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> test.arg 1 <span class="s2">&quot;two&quot;</span> 3.1 <span class="nv">txt</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span> <span class="nv">wow</span><span class="o">=</span><span class="s1">&#39;{a: 1, b: &quot;hello&quot;}&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> test.arg <span class="m">1</span> <span class="s2">&quot;two&quot;</span> 3.1 <span class="nv">txt</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span> <span class="nv">wow</span><span class="o">=</span><span class="s1">&#39;{a: 1, b: &quot;hello&quot;}&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -143,7 +142,7 @@ is used to both test the publication data and cli argument passing, but
 also to display the information available within the publication data.
 Returns {&quot;args&quot;: repr(args), &quot;kwargs&quot;: repr(kwargs)}.</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> test.arg_repr 1 <span class="s2">&quot;two&quot;</span> 3.1 <span class="nv">txt</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span> <span class="nv">wow</span><span class="o">=</span><span class="s1">&#39;{a: 1, b: &quot;hello&quot;}&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> test.arg_repr <span class="m">1</span> <span class="s2">&quot;two&quot;</span> 3.1 <span class="nv">txt</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span> <span class="nv">wow</span><span class="o">=</span><span class="s1">&#39;{a: 1, b: &quot;hello&quot;}&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -154,7 +153,7 @@ Returns {&quot;args&quot;: repr(args), &quot;kwargs&quot;: repr(kwargs)}.</p>
 <dd><p>Print out the types of the args and kwargs. This is used to test the types
 of the args and kwargs passed down to the minion</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> test.arg_type 1 <span class="s1">&#39;int&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> test.arg_type <span class="m">1</span> <span class="s1">&#39;int&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -232,7 +231,7 @@ timeit took to compute in seconds. Used for performance tests</p>
 both test the publication data and cli kwarg passing, but also to display
 the information available within the publication data.</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> test.kwarg <span class="nv">num</span><span class="o">=</span>1 <span class="nv">txt</span><span class="o">=</span><span class="s2">&quot;two&quot;</span> <span class="nv">env</span><span class="o">=</span><span class="s1">&#39;{a: 1, b: &quot;hello&quot;}&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> test.kwarg <span class="nv">num</span><span class="o">=</span><span class="m">1</span> <span class="nv">txt</span><span class="o">=</span><span class="s2">&quot;two&quot;</span> <span class="nv">env</span><span class="o">=</span><span class="s1">&#39;{a: 1, b: &quot;hello&quot;}&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -380,7 +379,7 @@ salt <span class="s1">&#39;*&#39;</span> test.tty pts3 <span class="s1">&#39;Thi
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

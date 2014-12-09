@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -123,8 +122,9 @@
 <span id="salt-modules-dockerio"></span><h1>salt.modules.dockerio<a class="headerlink" href="#module-salt.modules.dockerio" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="management-of-dockers">
 <h2>Management of dockers<a class="headerlink" href="#management-of-dockers" title="Permalink to this headline">¶</a></h2>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0.</span></p>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The DockerIO integration is still in beta; the API is subject to change</p>
@@ -132,23 +132,22 @@
 <div class="section" id="general-notes">
 <h3>General notes<a class="headerlink" href="#general-notes" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>As we use states, we don't want to pop continuously dockers, we will map each
-container id  (or image) with a grain whenever it is relevant.</li>
-<li>As a corollary, we will resolve for a container id either directly this
-container id or try to find a container id matching something stocked in
-grain</li>
+<li>As we use states, we don't want to be continuously popping dockers, so we
+will map each container id (or image) with a grain whenever it is relevant.</li>
+<li>As a corollary, we will resolve a container id either directly by the id
+or try to find a container id matching something stocked in grain.</li>
 </ul>
 </div>
 <div class="section" id="installation-prerequisites">
 <h3>Installation prerequisites<a class="headerlink" href="#installation-prerequisites" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p class="first">You will need the 'docker-py' python package in your python installation
-running salt. The version of docker-py should support <a class="reference external" href="https://docs.docker.io/en/latest/api/docker_remote_api_v1.6/">version 1.6 of docker
+running salt. The version of docker-py should support <a class="reference external" href="http://docs.docker.io/en/latest/reference/api/docker_remote_api_v1.12">version 1.12 of docker
 remote API.</a>.</p>
 </li>
-<li><p class="first">For now, you need docker-py from sources:</p>
+<li><p class="first">For now, you need docker-py 0.3.2</p>
 <blockquote>
-<div><p><a class="reference external" href="https://github.com/dotcloud/docker-py">https://github.com/dotcloud/docker-py</a></p>
+<div><p>pip install docker-py==0.3.2</p>
 </div></blockquote>
 </li>
 </ul>
@@ -161,25 +160,27 @@ require it</p>
 </li>
 <li><p class="first">For this to happen, you will need to configure a mapping in the pillar
 representing your per URL authentication bits:</p>
-<div class="highlight-python"><pre>docker-registries:
+<div class="highlight-python"><div class="highlight"><pre>docker-registries:
     registry_url:
         email: foo@foo.com
         password: s3cr3t
-        username: foo</pre>
+        username: foo
+</pre></div>
 </div>
 </li>
 <li><p class="first">You need at least an entry to the default docker index:</p>
-<div class="highlight-python"><pre>docker-registries:
+<div class="highlight-python"><div class="highlight"><pre>docker-registries:
     https://index.docker.io/v1:
         email: foo@foo.com
         password: s3cr3t
-        username: foo</pre>
+        username: foo
+</pre></div>
 </div>
 </li>
 </ul>
 <p>you can define multiple registries blocks for them to be aggregated, their id
 just must finish with -docker-registries:</p>
-<div class="highlight-python"><pre>ac-docker-registries:
+<div class="highlight-python"><div class="highlight"><pre>ac-docker-registries:
      https://index.bar.io/v1:
          email: foo@foo.com
          password: s3cr3t
@@ -189,10 +190,11 @@ ab-docker-registries:
      https://index.foo.io/v1:
          email: foo@foo.com
          password: s3cr3t
-         username: foo</pre>
+         username: foo
+</pre></div>
 </div>
 <p>Would be the equivalent to:</p>
-<div class="highlight-python"><pre>docker-registries:
+<div class="highlight-python"><div class="highlight"><pre>docker-registries:
      https://index.bar.io/v1:
          email: foo@foo.com
          password: s3cr3t
@@ -200,7 +202,8 @@ ab-docker-registries:
      https://index.foo.io/v1:
          email: foo@foo.com
          password: s3cr3t
-         username: foo</pre>
+         username: foo
+</pre></div>
 </div>
 </div>
 <div class="section" id="registry-dialog-methods">
@@ -273,7 +276,7 @@ running container.</li>
 </ul>
 <dl class="function">
 <dt id="salt.modules.dockerio.build">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">build</tt><big>(</big><em>path=None</em>, <em>tag=None</em>, <em>quiet=False</em>, <em>fileobj=None</em>, <em>nocache=False</em>, <em>rm=True</em>, <em>timeout=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.build" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">build</tt><big>(</big><em>path=None</em>, <em>tag=None</em>, <em>quiet=False</em>, <em>fileobj=None</em>, <em>nocache=False</em>, <em>rm=True</em>, <em>timeout=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a docker image from a dockerfile or an URL</p>
 <p>You can either:</p>
 <blockquote>
@@ -304,7 +307,7 @@ running container.</li>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.commit">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">commit</tt><big>(</big><em>container</em>, <em>repository=None</em>, <em>tag=None</em>, <em>message=None</em>, <em>author=None</em>, <em>conf=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.commit" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">commit</tt><big>(</big><em>container</em>, <em>repository=None</em>, <em>tag=None</em>, <em>message=None</em>, <em>author=None</em>, <em>conf=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.commit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Commit a container (promotes it to an image)</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -328,7 +331,7 @@ running container.</li>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.create_container">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">create_container</tt><big>(</big><em>image</em>, <em>command=None</em>, <em>hostname=None</em>, <em>user=None</em>, <em>detach=True</em>, <em>stdin_open=False</em>, <em>tty=False</em>, <em>mem_limit=0</em>, <em>ports=None</em>, <em>environment=None</em>, <em>dns=None</em>, <em>volumes=None</em>, <em>volumes_from=None</em>, <em>name=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.create_container" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">create_container</tt><big>(</big><em>image</em>, <em>command=None</em>, <em>hostname=None</em>, <em>user=None</em>, <em>detach=True</em>, <em>stdin_open=False</em>, <em>tty=False</em>, <em>mem_limit=0</em>, <em>ports=None</em>, <em>environment=None</em>, <em>dns=None</em>, <em>volumes=None</em>, <em>volumes_from=None</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.create_container" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new container</p>
 <dl class="docutils">
 <dt>image</dt>
@@ -343,8 +346,6 @@ running container.</li>
 <dd>daemon mode</dd>
 <dt>environment</dt>
 <dd>environment variable mapping ({'foo':'BAR'})</dd>
-<dt>dns</dt>
-<dd>list of DNS servers</dd>
 <dt>ports</dt>
 <dd>ports redirections ({'222': {}})</dd>
 <dt>volumes</dt>
@@ -358,8 +359,6 @@ running container.</li>
 <dd>attach ttys</dd>
 <dt>stdin_open</dt>
 <dd>let stdin open</dd>
-<dt>volumes_from</dt>
-<dd>container to get volumes definition from</dd>
 <dt>name</dt>
 <dd>name given to container</dd>
 </dl>
@@ -374,7 +373,7 @@ running container.</li>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.diff">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">diff</tt><big>(</big><em>container</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.diff" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">diff</tt><big>(</big><em>container</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.diff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get container diffs</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -388,7 +387,7 @@ running container.</li>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.exists">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">exists</tt><big>(</big><em>container</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.exists" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">exists</tt><big>(</big><em>container</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.exists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if a given container exists</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -408,7 +407,7 @@ running container.</li>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.export">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">export</tt><big>(</big><em>container</em>, <em>path</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.export" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">export</tt><big>(</big><em>container</em>, <em>path</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export a container to a file</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -438,25 +437,28 @@ running container.</li>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.get_containers">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">get_containers</tt><big>(</big><em>all=True</em>, <em>trunc=False</em>, <em>since=None</em>, <em>before=None</em>, <em>limit=-1</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.get_containers" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">get_containers</tt><big>(</big><em>all=True</em>, <em>trunc=False</em>, <em>since=None</em>, <em>before=None</em>, <em>limit=-1</em>, <em>host=False</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.get_containers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a list of mappings representing all containers</p>
 <dl class="docutils">
 <dt>all</dt>
 <dd>Return all containers</dd>
 <dt>trunc</dt>
 <dd>Set it to True to have the short ID</dd>
+<dt>host</dt>
+<dd>Include the Docker host's ipv4 and ipv6 address in return</dd>
 </dl>
 <p>Returns a mapping of something which looks like
 container</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.get_containers
+salt <span class="s1">&#39;*&#39;</span> docker.get_containers <span class="nv">host</span><span class="o">=</span>True
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.get_images">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">get_images</tt><big>(</big><em>name=None</em>, <em>quiet=False</em>, <em>all=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.get_images" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">get_images</tt><big>(</big><em>name=None</em>, <em>quiet=False</em>, <em>all=True</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.get_images" title="Permalink to this definition">¶</a></dt>
 <dd><p>List docker images</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -478,14 +480,14 @@ container</p>
 </tbody>
 </table>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.get_images <span class="o">[</span>name<span class="o">]</span> <span class="o">[</span><span class="nv">quiet</span><span class="o">=</span>True|False<span class="o">]</span> <span class="o">[</span><span class="nv">all</span><span class="o">=</span>True|False<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.get_images <span class="o">[</span>name<span class="o">]</span> <span class="o">[</span><span class="nv">quiet</span><span class="o">=</span>True<span class="p">|</span>False<span class="o">]</span> <span class="o">[</span><span class="nv">all</span><span class="o">=</span>True<span class="p">|</span>False<span class="o">]</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.import_image">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">import_image</tt><big>(</big><em>src</em>, <em>repo</em>, <em>tag=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.import_image" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">import_image</tt><big>(</big><em>src</em>, <em>repo</em>, <em>tag=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.import_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Import content from a local tarball or a URL to a docker image</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -508,7 +510,7 @@ container</p>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.info">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">info</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.info" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">info</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.dockerio.info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the version information about docker</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -528,7 +530,7 @@ container</p>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.inspect_container">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">inspect_container</tt><big>(</big><em>container</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.inspect_container" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">inspect_container</tt><big>(</big><em>container</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.inspect_container" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get container information. This is similar to the docker inspect command.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -550,7 +552,7 @@ container</p>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.inspect_image">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">inspect_image</tt><big>(</big><em>image</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.inspect_image" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">inspect_image</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.inspect_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inspect the status of an image and return relative data</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.inspect_image &lt;image&gt;
@@ -559,14 +561,8 @@ container</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="salt.modules.dockerio.invalid">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">invalid</tt><big>(</big><em>m</em>, <em>id=&lt;object object at 0x3213b30&gt;</em>, <em>comment='We did not get any expectable answer from docker'</em>, <em>out=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.invalid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return invalid status</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="salt.modules.dockerio.is_running">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">is_running</tt><big>(</big><em>container</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.is_running" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">is_running</tt><big>(</big><em>container</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.is_running" title="Permalink to this definition">¶</a></dt>
 <dd><p>Is this container running</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -574,14 +570,14 @@ container</p>
 </dl>
 <p>Return boolean</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.is_running &lt;container id&gt;
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.is_running &lt;container_id&gt;
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.kill">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">kill</tt><big>(</big><em>container</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.kill" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">kill</tt><big>(</big><em>container</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.kill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Kill a running container</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -592,8 +588,9 @@ container</p>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A status message with the command output
-ex:<div class="highlight-python"><pre> {'id': 'abcdef123456789',
-'status': True}</pre>
+ex:<div class="highlight-python"><div class="highlight"><pre> {&#39;id&#39;: &#39;abcdef123456789&#39;,
+&#39;status&#39;: True}
+</pre></div>
 </div>
 </td>
 </tr>
@@ -607,17 +604,17 @@ ex:<div class="highlight-python"><pre> {'id': 'abcdef123456789',
 
 <dl class="function">
 <dt id="salt.modules.dockerio.login">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">login</tt><big>(</big><em>url=None</em>, <em>username=None</em>, <em>password=None</em>, <em>email=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.login" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">login</tt><big>(</big><em>url=None</em>, <em>username=None</em>, <em>password=None</em>, <em>email=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.login" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper to the docker.py login method, does not do much yet</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.login &lt;container id&gt;
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.login &lt;container_id&gt;
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.logs">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">logs</tt><big>(</big><em>container</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.logs" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">logs</tt><big>(</big><em>container</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.logs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return logs for a specified container</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -631,7 +628,7 @@ ex:<div class="highlight-python"><pre> {'id': 'abcdef123456789',
 
 <dl class="function">
 <dt id="salt.modules.dockerio.port">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">port</tt><big>(</big><em>container</em>, <em>private_port</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.port" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">port</tt><big>(</big><em>container</em>, <em>private_port</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.port" title="Permalink to this definition">¶</a></dt>
 <dd><p>Private/Public for a specific port mapping allocation information
 This method is broken on docker-py side
 Just use the result of inspect to mangle port
@@ -650,7 +647,7 @@ allocation</p>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.pull">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">pull</tt><big>(</big><em>repo</em>, <em>tag=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.pull" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">pull</tt><big>(</big><em>repo</em>, <em>tag=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.pull" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pulls an image from any registry. See above documentation for
 how to configure authenticated access.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -660,9 +657,10 @@ how to configure authenticated access.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>repo</strong> (<a class="reference external" href="http://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) -- <p>The repository to pull.         [registryurl://]REPOSITORY_NAME_image
 eg:</p>
-<div class="highlight-python"><pre>index.docker.io:MyRepo/image
+<div class="highlight-python"><div class="highlight"><pre>index.docker.io:MyRepo/image
 superaddress.cdn:MyRepo/image
-MyRepo/image</pre>
+MyRepo/image
+</pre></div>
 </div>
 </li>
 <li><strong>tag</strong> (<a class="reference external" href="http://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) -- The specific tag  to pull</li>
@@ -717,7 +715,7 @@ Example:</p>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.push">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">push</tt><big>(</big><em>repo</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.push" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">push</tt><big>(</big><em>repo</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.push" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pushes an image from any registry
 See this top level documentation to know
 how to configure authenticated access</p>
@@ -725,9 +723,10 @@ how to configure authenticated access</p>
 <dt>repo</dt>
 <dd><p class="first">[registryurl://]REPOSITORY_NAME_image
 eg:</p>
-<div class="last highlight-python"><pre>index.docker.io:MyRepo/image
+<div class="last highlight-python"><div class="highlight"><pre>index.docker.io:MyRepo/image
 superaddress.cdn:MyRepo/image
-MyRepo/image</pre>
+MyRepo/image
+</pre></div>
 </div>
 </dd>
 </dl>
@@ -739,7 +738,7 @@ MyRepo/image</pre>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.remove_container">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">remove_container</tt><big>(</big><em>container=None</em>, <em>force=False</em>, <em>v=False</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.remove_container" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">remove_container</tt><big>(</big><em>container</em>, <em>force=False</em>, <em>v=False</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.remove_container" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes a container from a docker installation</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -753,14 +752,14 @@ to remove it unconditionally</dd>
 <p>Return True or False in the status mapping and also
 any information about docker in status['out']</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.remove_container &lt;container id&gt;
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.remove_container &lt;container_id&gt;
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.remove_image">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">remove_image</tt><big>(</big><em>image</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.remove_image" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">remove_image</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.remove_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove an image from a system.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -782,7 +781,7 @@ any information about docker in status['out']</p>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.restart">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">restart</tt><big>(</big><em>container</em>, <em>timeout=10</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.restart" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">restart</tt><big>(</big><em>container</em>, <em>timeout=10</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.restart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restart a running container</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -800,8 +799,9 @@ before killing it</li>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>A status message with the command output
 ex:</p>
-<div class="highlight-python"><pre> {'id': 'abcdef123456789',
-'status': True}</pre>
+<div class="highlight-python"><div class="highlight"><pre> {&#39;id&#39;: &#39;abcdef123456789&#39;,
+&#39;status&#39;: True}
+</pre></div>
 </div>
 </p>
 </td>
@@ -816,7 +816,7 @@ ex:</p>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.retcode">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">retcode</tt><big>(</big><em>container</em>, <em>cmd</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.retcode" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">retcode</tt><big>(</big><em>container</em>, <em>cmd</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.retcode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for cmdmod.retcode inside a container context</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -841,7 +841,7 @@ rights than intended!</dd>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.run">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">run</tt><big>(</big><em>container</em>, <em>cmd</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">run</tt><big>(</big><em>container</em>, <em>cmd</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for cmdmod.run inside a container context</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -866,7 +866,7 @@ rights than intended!</dd>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.run_all">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">run_all</tt><big>(</big><em>container</em>, <em>cmd</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.run_all" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">run_all</tt><big>(</big><em>container</em>, <em>cmd</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.run_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for cmdmod.run_all inside a container context</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -891,7 +891,7 @@ rights than intended!</dd>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.run_stderr">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">run_stderr</tt><big>(</big><em>container</em>, <em>cmd</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.run_stderr" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">run_stderr</tt><big>(</big><em>container</em>, <em>cmd</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.run_stderr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for cmdmod.run_stderr inside a container context</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -916,7 +916,7 @@ rights than intended!</dd>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.run_stdout">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">run_stdout</tt><big>(</big><em>container</em>, <em>cmd</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.run_stdout" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">run_stdout</tt><big>(</big><em>container</em>, <em>cmd</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.run_stdout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for cmdmod.run_stdout inside a container context</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -941,7 +941,7 @@ rights than intended!</dd>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.script">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">script</tt><big>(</big><em>container</em>, <em>source</em>, <em>args=None</em>, <em>cwd=None</em>, <em>stdin=None</em>, <em>runas=None</em>, <em>shell='/bin/sh'</em>, <em>env=None</em>, <em>template='jinja'</em>, <em>umask=None</em>, <em>timeout=None</em>, <em>reset_system_locale=True</em>, <em>no_clean=False</em>, <em>saltenv='base'</em>, <em>*nargs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.script" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">script</tt><big>(</big><em>container</em>, <em>source</em>, <em>args=None</em>, <em>cwd=None</em>, <em>stdin=None</em>, <em>runas=None</em>, <em>shell='/bin/sh'</em>, <em>env=None</em>, <em>template='jinja'</em>, <em>umask=None</em>, <em>timeout=None</em>, <em>reset_system_locale=True</em>, <em>no_clean=False</em>, <em>saltenv='base'</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.script" title="Permalink to this definition">¶</a></dt>
 <dd><p>Same usage as cmd.script but running inside a container context</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -961,7 +961,7 @@ rights than intended!</dd>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.script_retcode">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">script_retcode</tt><big>(</big><em>container</em>, <em>source</em>, <em>cwd=None</em>, <em>stdin=None</em>, <em>runas=None</em>, <em>shell='/bin/sh'</em>, <em>env=None</em>, <em>template='jinja'</em>, <em>umask=None</em>, <em>timeout=None</em>, <em>reset_system_locale=True</em>, <em>no_clean=False</em>, <em>saltenv='base'</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.script_retcode" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">script_retcode</tt><big>(</big><em>container</em>, <em>source</em>, <em>cwd=None</em>, <em>stdin=None</em>, <em>runas=None</em>, <em>shell='/bin/sh'</em>, <em>env=None</em>, <em>template='jinja'</em>, <em>umask=None</em>, <em>timeout=None</em>, <em>reset_system_locale=True</em>, <em>no_clean=False</em>, <em>saltenv='base'</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.script_retcode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Same usage as cmd.script_retcode but running inside a container context</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -981,7 +981,7 @@ rights than intended!</dd>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.search">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">search</tt><big>(</big><em>term</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.search" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">search</tt><big>(</big><em>term</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for an image on the registry</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -999,8 +999,8 @@ rights than intended!</dd>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.start">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">start</tt><big>(</big><em>container</em>, <em>binds=None</em>, <em>ports=None</em>, <em>port_bindings=None</em>, <em>lxc_conf=None</em>, <em>publish_all_ports=None</em>, <em>links=None</em>, <em>privileged=False</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>restart the specified container</p>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">start</tt><big>(</big><em>container</em>, <em>binds=None</em>, <em>port_bindings=None</em>, <em>lxc_conf=None</em>, <em>publish_all_ports=None</em>, <em>links=None</em>, <em>privileged=False</em>, <em>dns=None</em>, <em>volumes_from=None</em>, <em>network_mode=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restart the specified container</p>
 <dl class="docutils">
 <dt>container</dt>
 <dd>Container id</dd>
@@ -1012,14 +1012,14 @@ rights than intended!</dd>
 </dd>
 </dl>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.start &lt;container id&gt;
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.start &lt;container_id&gt;
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.stop">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">stop</tt><big>(</big><em>container</em>, <em>timeout=10</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.stop" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">stop</tt><big>(</big><em>container</em>, <em>timeout=10</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stop a running container</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1054,7 +1054,7 @@ ex:</p>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.tag">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">tag</tt><big>(</big><em>image</em>, <em>repository</em>, <em>tag=None</em>, <em>force=False</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.tag" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">tag</tt><big>(</big><em>image</em>, <em>repository</em>, <em>tag=None</em>, <em>force=False</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.tag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tag an image into a repository</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1071,14 +1071,14 @@ ex:</p>
 </tbody>
 </table>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.tag &lt;image&gt; &lt;repository&gt; <span class="o">[</span>tag<span class="o">]</span> <span class="o">[</span><span class="nv">force</span><span class="o">=(</span>True|False<span class="o">)]</span>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.tag &lt;image&gt; &lt;repository&gt; <span class="o">[</span>tag<span class="o">]</span> <span class="o">[</span><span class="nv">force</span><span class="o">=(</span>True<span class="p">|</span>False<span class="o">)]</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.top">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">top</tt><big>(</big><em>container</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.top" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">top</tt><big>(</big><em>container</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.top" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the docker top command on a specific container</p>
 <dl class="docutils">
 <dt>container</dt>
@@ -1086,29 +1086,24 @@ ex:</p>
 </dl>
 <p>Returns in the 'out' status mapping a mapping for
 those running processes:</p>
-<div class="highlight-python"><pre>{
-     'Titles': top titles list,
-     'processes': list of ordered by
+<div class="highlight-python"><div class="highlight"><pre>{
+     &#39;Titles&#39;: top titles list,
+     &#39;processes&#39;: list of ordered by
                   titles processes information,
-     'mprocesses': list of mappings processes information
+     &#39;mprocesses&#39;: list of mappings processes information
      constructed above the upon information
-}</pre>
+}
+</pre></div>
 </div>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.top &lt;container id&gt;
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.top &lt;container_id&gt;
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
-<dt id="salt.modules.dockerio.valid">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">valid</tt><big>(</big><em>m</em>, <em>id=&lt;object object at 0x3213b30&gt;</em>, <em>comment=''</em>, <em>out=None</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.valid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return valid status</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="salt.modules.dockerio.version">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">version</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.version" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">version</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.dockerio.version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get docker version</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> docker.version
@@ -1118,7 +1113,7 @@ those running processes:</p>
 
 <dl class="function">
 <dt id="salt.modules.dockerio.wait">
-<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">wait</tt><big>(</big><em>container</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.wait" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.modules.dockerio.</tt><tt class="descname">wait</tt><big>(</big><em>container</em><big>)</big><a class="headerlink" href="#salt.modules.dockerio.wait" title="Permalink to this definition">¶</a></dt>
 <dd><p>Blocking wait for a container exit gracefully without
 timeout killing it</p>
 <dl class="docutils">
@@ -1146,7 +1141,7 @@ timeout killing it</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

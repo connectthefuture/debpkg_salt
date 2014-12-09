@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -165,11 +164,12 @@ by default yaml + Jinja templates and are passed familar context variables.</p>
 <li>The <tt class="docutils literal"><span class="pre">data</span></tt> variable is the event's data dict.</li>
 </ul>
 <p>Here is a simple reactor sls:</p>
-<div class="highlight-yaml"><pre>{% if data['id'] == 'mysql1' %}
+<div class="highlight-yaml"><div class="highlight"><pre>{% if data[&#39;id&#39;] == &#39;mysql1&#39; %}
 highstate_run:
   cmd.state.highstate:
     - tgt: mysql1
-{% endif %}</pre>
+{% endif %}
+</pre></div>
 </div>
 <p>This simple reactor file uses Jinja to further refine the reaction to be made.
 If the <tt class="docutils literal"><span class="pre">id</span></tt> in the event data is <tt class="docutils literal"><span class="pre">mysql1</span></tt> (in other words, if the name of
@@ -179,10 +179,11 @@ system. The only difference is that the data is matched up to the salt command
 API and the runner system.  In this example, a command is published to the
 <tt class="docutils literal"><span class="pre">mysql1</span></tt> minion with a function of <tt class="docutils literal"><span class="pre">state.highstate</span></tt>. Similarly, a runner
 can be called:</p>
-<div class="highlight-yaml"><pre>{% if data['data']['overstate'] == 'refresh' %}
+<div class="highlight-yaml"><div class="highlight"><pre>{% if data[&#39;data&#39;][&#39;overstate&#39;] == &#39;refresh&#39; %}
 overstate_run:
   runner.state.over
-{% endif %}</pre>
+{% endif %}
+</pre></div>
 </div>
 <p>This example will execute the state.overstate runner and initiate an overstate
 execution.</p>
@@ -206,7 +207,7 @@ but is part of the source.</p>
 <p>If the master process is using the default socket, no additional options will be
 required. Otherwise, you will need to specify the socket location.</p>
 <p>Example usage:</p>
-<div class="highlight-bash"><div class="highlight"><pre>wget https://raw.github.com/saltstack/salt/develop/tests/eventlisten.py
+<div class="highlight-bash"><div class="highlight"><pre>wget https://raw.githubusercontent.com/saltstack/salt/develop/tests/eventlisten.py
 python eventlisten.py
 
 <span class="c"># OR</span>
@@ -315,14 +316,15 @@ Pillar.</p>
 is passed at the CLI. That string will be parsed as YAML on the minion (same as
 how it works at the CLI).</p>
 <p><tt class="file docutils literal"><span class="pre">/srv/salt/haproxy/react_new_minion.sls</span></tt>:</p>
-<div class="highlight-yaml"><pre>{% if data['act'] == 'accept' and data['id'].startswith('web') %}
+<div class="highlight-yaml"><div class="highlight"><pre>{% if data[&#39;act&#39;] == &#39;accept&#39; and data[&#39;id&#39;].startswith(&#39;web&#39;) %}
 add_new_minion_to_pool:
   cmd.state.sls:
-    - tgt: 'haproxy*'
+    - tgt: &#39;haproxy*&#39;
     - arg:
       - haproxy.refresh_pool
-      - 'pillar={new_minion: {{ data['id'] }}}'
-{% endif %}</pre>
+      - &#39;pillar={new_minion: {{ data[&#39;id&#39;] }}}&#39;
+{% endif %}
+</pre></div>
 </div>
 <p>The above command is equivalent to the following command at the CLI:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;haproxy*&#39;</span> state.sls haproxy.refresh_pool <span class="s1">&#39;pillar={new_minion: minionid}&#39;</span>
@@ -335,17 +337,18 @@ Reactor then the custom Pillar value from above will be available and the new
 minion will be added to the pool but with the <tt class="docutils literal"><span class="pre">disabled</span></tt> flag so that HAProxy
 won't yet direct traffic to it.</p>
 <p><tt class="file docutils literal"><span class="pre">/srv/salt/haproxy/refresh_pool.sls</span></tt>:</p>
-<div class="highlight-yaml"><pre>{% set new_minion = salt['pillar.get']('new_minion') %}
+<div class="highlight-yaml"><div class="highlight"><pre>{% set new_minion = salt[&#39;pillar.get&#39;](&#39;new_minion&#39;) %}
 
 listen web *:80
     balance source
-    {% for server,ip in salt['mine.get']('web*', 'network.interfaces', ['eth0']).items() %}
+    {% for server,ip in salt[&#39;mine.get&#39;](&#39;web*&#39;, &#39;network.interfaces&#39;, [&#39;eth0&#39;]).items() %}
     {% if server == new_minion %}
     server {{ server }} {{ ip }}:80 disabled
     {% else %}
     server {{ server }} {{ ip }}:80 check
     {% endif %}
-    {% endfor %}</pre>
+    {% endfor %}
+</pre></div>
 </div>
 </div>
 <div class="section" id="a-complete-example">
@@ -376,24 +379,25 @@ restart the minion, since a minion process will die if the key is rejected.</p>
 the key. A minion that is waiting on a pending key will retry authentication
 authentication every ten second by default.</p>
 <p><tt class="file docutils literal"><span class="pre">/srv/reactor/auth-pending.sls</span></tt>:</p>
-<div class="highlight-yaml"><pre>{# Ink server faild to authenticate -- remove accepted key #}
-{% if not data['result'] and data['id'].startswith('ink') %}
+<div class="highlight-yaml"><div class="highlight"><pre>{# Ink server faild to authenticate -- remove accepted key #}
+{% if not data[&#39;result&#39;] and data[&#39;id&#39;].startswith(&#39;ink&#39;) %}
 minion_remove:
   wheel.key.delete:
-    - match: {{ data['id'] }}
+    - match: {{ data[&#39;id&#39;] }}
 minion_rejoin:
   cmd.cmd.run:
     - tgt: salt-master.domain.tld
     - arg:
-      - ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "{{ data['id'] }}" 'sleep 10 &amp;&amp; /etc/init.d/salt-minion restart'
+      - ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no &quot;{{ data[&#39;id&#39;] }}&quot; &#39;sleep 10 &amp;&amp; /etc/init.d/salt-minion restart&#39;
 {% endif %}
 
 {# Ink server is sending new key -- accept this key #}
-{% if 'act' in data and data['act'] == 'pend' and data['id'].startswith('ink') %}
+{% if &#39;act&#39; in data and data[&#39;act&#39;] == &#39;pend&#39; and data[&#39;id&#39;].startswith(&#39;ink&#39;) %}
 minion_add:
   wheel.key.accept:
-    - match: {{ data['id'] }}
-{% endif %}</pre>
+    - match: {{ data[&#39;id&#39;] }}
+{% endif %}
+</pre></div>
 </div>
 <p>No if statements are needed here because we already limited this action to just
 Ink servers in the master configuration.</p>
@@ -412,7 +416,7 @@ Ink servers in the master configuration.</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>

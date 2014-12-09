@@ -151,6 +151,7 @@ def _linux_gpu_data():
 
     # dominant gpu vendors to search for (MUST be lowercase for matching below)
     known_vendors = ['nvidia', 'amd', 'ati', 'intel']
+    gpu_classes = ('vga compatible controller', '3d controller')
 
     devs = []
     try:
@@ -165,9 +166,8 @@ def _linux_gpu_data():
         for line in lspci_list:
             # check for record-separating empty lines
             if line == '':
-                if cur_dev.get('Class', '') == 'VGA compatible controller':
+                if cur_dev.get('Class', '').lower() in gpu_classes:
                     devs.append(cur_dev)
-                # XXX; may also need to search for "3D controller"
                 cur_dev = {}
                 continue
             if re.match(r'^\w+:\s+.*', line):
@@ -520,7 +520,17 @@ def _virtual(osdata):
                 grains['virtual'] = 'openvzhn'
             elif os.path.isfile('/proc/vz/veinfo'):
                 grains['virtual'] = 'openvzve'
-        elif isdir('/proc/sys/xen') or isdir('/sys/bus/xen') or isdir('/proc/xen'):
+        # Provide additional detection for OpenVZ
+        if os.path.isfile('/proc/self/status'):
+            with salt.utils.fopen('/proc/self/status') as status_file:
+                vz_re = re.compile(r'^envID:\s+(\d+)$')
+                for line in status_file:
+                    vz_match = vz_re.match(line.rstrip('\n'))
+                    if vz_match and int(vz_match.groups()[0]) != 0:
+                        grains['virtual'] = 'openvzve'
+                    elif vz_match and int(vz_match.groups()[0]) == 0:
+                        grains['virtual'] = 'openvzhn'
+        if isdir('/proc/sys/xen') or isdir('/sys/bus/xen') or isdir('/proc/xen'):
             if os.path.isfile('/proc/xen/xsd_kva'):
                 # Tested on CentOS 5.3 / 2.6.18-194.26.1.el5xen
                 # Tested on CentOS 5.4 / 2.6.18-164.15.1.el5xen
@@ -587,7 +597,7 @@ def _virtual(osdata):
             if 'QEMU Virtual CPU' in __salt__['cmd.run'](
                     '{0} -n machdep.cpu_brand'.format(sysctl)):
                 grains['virtual'] = 'kvm'
-            elif not 'invalid' in __salt__['cmd.run'](
+            elif 'invalid' not in __salt__['cmd.run'](
                     '{0} -n machdep.xen.suspend'.format(sysctl)):
                 grains['virtual'] = 'Xen PV DomU'
             elif 'VMware' in __salt__['cmd.run'](
@@ -774,8 +784,10 @@ def os_data():
     # ('Windows', 'MINIONNAME', '2008ServerR2', '6.1.7601', 'AMD64', 'Intel64 Fam ily 6 Model 23 Stepping 6, GenuineIntel')
     # Ubuntu 10.04
     # ('Linux', 'MINIONNAME', '2.6.32-38-server', '#83-Ubuntu SMP Wed Jan 4 11:26:59 UTC 2012', 'x86_64', '')
+    # pylint: disable=unpacking-non-sequence
     (grains['kernel'], grains['nodename'],
      grains['kernelrelease'], version, grains['cpuarch'], _) = platform.uname()
+    # pylint: enable=unpacking-non-sequence
 
     if salt.utils.is_windows():
         grains['osrelease'] = grains['kernelrelease']
@@ -971,7 +983,7 @@ def os_data():
 
     # Load additional OS family grains
     if grains['os_family'] == "RedHat":
-        grains['osmajorrelease'] = grains['osrelease'].split('.', 1)
+        grains['osmajorrelease'] = grains['osrelease'].split('.', 1)[0]
 
         grains['osfinger'] = '{os}-{ver}'.format(
             os=grains['osfullname'],

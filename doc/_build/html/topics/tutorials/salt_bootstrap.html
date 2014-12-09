@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -164,50 +163,50 @@ not present in the stable release:
 <p>The Salt Bootstrap script has a wide variety of options that can be passed as
 well as several ways of obtaining the bootstrap script itself.</p>
 <p>For example, using <tt class="docutils literal"><span class="pre">curl</span></tt> to install latest git:</p>
-<div class="highlight-bash"><div class="highlight"><pre>curl -L http://bootstrap.saltstack.org | sudo sh -s -- git develop
+<div class="highlight-bash"><div class="highlight"><pre>curl -L http://bootstrap.saltstack.org <span class="p">|</span> sudo sh -s -- git develop
 </pre></div>
 </div>
 <p>If you have certificate issues using <tt class="docutils literal"><span class="pre">curl</span></tt>, try the following:</p>
-<div class="highlight-bash"><div class="highlight"><pre>curl --insecure -L http://bootstrap.saltstack.org | sudo sh -s -- git develop
+<div class="highlight-bash"><div class="highlight"><pre>curl --insecure -L http://bootstrap.saltstack.org <span class="p">|</span> sudo sh -s -- git develop
 </pre></div>
 </div>
 <p>Using <tt class="docutils literal"><span class="pre">wget</span></tt> to install your distribution's stable packages:</p>
-<div class="highlight-bash"><div class="highlight"><pre>wget -O - http://bootstrap.saltstack.org | sudo sh
+<div class="highlight-bash"><div class="highlight"><pre>wget -O - http://bootstrap.saltstack.org <span class="p">|</span> sudo sh
 </pre></div>
 </div>
 <p>If you have certificate issues using <tt class="docutils literal"><span class="pre">wget</span></tt> try the following:</p>
-<div class="highlight-bash"><div class="highlight"><pre>wget --no-check-certificate -O - http://bootstrap.saltstack.org | sudo sh
+<div class="highlight-bash"><div class="highlight"><pre>wget --no-check-certificate -O - http://bootstrap.saltstack.org <span class="p">|</span> sudo sh
 </pre></div>
 </div>
 <p>Install a specific version from git using <tt class="docutils literal"><span class="pre">wget</span></tt>:</p>
-<div class="highlight-bash"><div class="highlight"><pre>wget -O - http://bootstrap.saltstack.org | sh -s -- -P git v0.16.4
+<div class="highlight-bash"><div class="highlight"><pre>wget -O - http://bootstrap.saltstack.org <span class="p">|</span> sh -s -- -P git v0.16.4
 </pre></div>
 </div>
 <p>If you already have python installed, <tt class="docutils literal"><span class="pre">python</span> <span class="pre">2.6</span></tt>, then it's as easy as:</p>
-<div class="highlight-bash"><div class="highlight"><pre>python -m urllib <span class="s2">&quot;http://bootstrap.saltstack.org&quot;</span> | sudo sh -s -- git develop
+<div class="highlight-bash"><div class="highlight"><pre>python -m urllib <span class="s2">&quot;http://bootstrap.saltstack.org&quot;</span> <span class="p">|</span> sudo sh -s -- git develop
 </pre></div>
 </div>
 <p>All python versions should support the following one liner:</p>
-<div class="highlight-bash"><div class="highlight"><pre>python -c <span class="s1">&#39;import urllib; print urllib.urlopen(&quot;http://bootstrap.saltstack.org&quot;).read()&#39;</span> | <span class="se">\</span>
+<div class="highlight-bash"><div class="highlight"><pre>python -c <span class="s1">&#39;import urllib; print urllib.urlopen(&quot;http://bootstrap.saltstack.org&quot;).read()&#39;</span> <span class="p">|</span> <span class="se">\</span>
 sudo  sh -s -- git develop
 </pre></div>
 </div>
 <p>On a FreeBSD base system you usually don't have either of the above binaries available. You <strong>do</strong>
 have <tt class="docutils literal"><span class="pre">fetch</span></tt> available though:</p>
-<div class="highlight-bash"><div class="highlight"><pre>fetch -o - http://bootstrap.saltstack.org | sudo sh
+<div class="highlight-bash"><div class="highlight"><pre>fetch -o - http://bootstrap.saltstack.org <span class="p">|</span> sudo sh
 </pre></div>
 </div>
 <p>If all you want is to install a <tt class="docutils literal"><span class="pre">salt-master</span></tt> using latest git:</p>
-<div class="highlight-bash"><div class="highlight"><pre>curl -L http://bootstrap.saltstack.org | sudo sh -s -- -M -N git develop
+<div class="highlight-bash"><div class="highlight"><pre>curl -L http://bootstrap.saltstack.org <span class="p">|</span> sudo sh -s -- -M -N git develop
 </pre></div>
 </div>
 <p>If you want to install a specific release version (based on the git tags):</p>
-<div class="highlight-bash"><div class="highlight"><pre>curl -L http://bootstrap.saltstack.org | sudo sh -s -- git v0.16.4
+<div class="highlight-bash"><div class="highlight"><pre>curl -L http://bootstrap.saltstack.org <span class="p">|</span> sudo sh -s -- git v0.16.4
 </pre></div>
 </div>
 <p>Downloading the develop branch (from here standard command line options may be
 passed):</p>
-<div class="highlight-bash"><div class="highlight"><pre>wget https://raw.github.com/saltstack/salt-bootstrap/develop/bootstrap-salt.sh
+<div class="highlight-bash"><div class="highlight"><pre>wget https://raw.githubusercontent.com/saltstack/salt-bootstrap/develop/bootstrap-salt.sh
 </pre></div>
 </div>
 </div>
@@ -246,7 +245,7 @@ with -c and -k.</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>

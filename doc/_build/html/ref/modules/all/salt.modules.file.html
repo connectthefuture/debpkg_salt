@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -134,8 +133,9 @@ the following modes must be specified:</p>
 r: Test the readability of the path
 w: Test the writability of the path
 x: Test whether the path can be executed</div></blockquote>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.access /path/to/file f
 salt <span class="s1">&#39;*&#39;</span> file.access /path/to/file x
@@ -146,8 +146,9 @@ salt <span class="s1">&#39;*&#39;</span> file.access /path/to/file x
 <dl class="function">
 <dt id="salt.modules.file.append">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">append</tt><big>(</big><em>path</em>, <em>*args</em><big>)</big><a class="headerlink" href="#salt.modules.file.append" title="Permalink to this definition">¶</a></dt>
-<dd><p class="versionadded">
-<span class="versionmodified">New in version 0.9.5.</span></p>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.5.</span></p>
+</div>
 <p>Append text to the end of a file</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.append /etc/motd <span class="se">\</span>
@@ -161,8 +162,9 @@ salt <span class="s1">&#39;*&#39;</span> file.access /path/to/file x
 <dt id="salt.modules.file.blockreplace">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">blockreplace</tt><big>(</big><em>path</em>, <em>marker_start='#-- start managed zone --'</em>, <em>marker_end='#-- end managed zone --'</em>, <em>content=''</em>, <em>append_if_not_found=False</em>, <em>prepend_if_not_found=False</em>, <em>backup='.bak'</em>, <em>dry_run=False</em>, <em>show_changes=True</em><big>)</big><a class="headerlink" href="#salt.modules.file.blockreplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace content of a text block in a file, delimited by line markers</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>A block of content delimited by comments can help you manage several lines
 entries without worrying about old entries removal.</p>
 <div class="admonition note">
@@ -256,8 +258,9 @@ the hash was not formatted correctly.</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.check_perms /etc/sudoers <span class="s1">&#39;{}&#39;</span> root root 400
 </pre></div>
 </div>
-<p class="versionchanged">
-<span class="versionmodified">Changed in version 2014.1.3: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2014.1.3: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -283,8 +286,9 @@ the hash was not formatted correctly.</p>
 <dl class="function">
 <dt id="salt.modules.file.comment">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">comment</tt><big>(</big><em>path</em>, <em>regex</em>, <em>char='#'</em>, <em>backup='.bak'</em><big>)</big><a class="headerlink" href="#salt.modules.file.comment" title="Permalink to this definition">¶</a></dt>
-<dd><p class="deprecated">
-<span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a> instead.</p>
+<dd><div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a> instead.</p>
+</div>
 <p>Comment out specified lines in a file</p>
 <dl class="docutils">
 <dt>path</dt>
@@ -316,8 +320,9 @@ after the first invocation.</p>
 <dl class="function">
 <dt id="salt.modules.file.contains">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">contains</tt><big>(</big><em>path</em>, <em>text</em><big>)</big><a class="headerlink" href="#salt.modules.file.contains" title="Permalink to this definition">¶</a></dt>
-<dd><p class="deprecated">
-<span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.search" title="salt.modules.file.search"><tt class="xref py py-func docutils literal"><span class="pre">search()</span></tt></a> instead.</p>
+<dd><div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.search" title="salt.modules.file.search"><tt class="xref py py-func docutils literal"><span class="pre">search()</span></tt></a> instead.</p>
+</div>
 <p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if the file at <tt class="docutils literal"><span class="pre">path</span></tt> contains <tt class="docutils literal"><span class="pre">text</span></tt></p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.contains /etc/crontab <span class="s1">&#39;mymaintenance.sh&#39;</span>
@@ -328,8 +333,9 @@ after the first invocation.</p>
 <dl class="function">
 <dt id="salt.modules.file.contains_glob">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">contains_glob</tt><big>(</big><em>path</em>, <em>glob_expr</em><big>)</big><a class="headerlink" href="#salt.modules.file.contains_glob" title="Permalink to this definition">¶</a></dt>
-<dd><p class="deprecated">
-<span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.search" title="salt.modules.file.search"><tt class="xref py py-func docutils literal"><span class="pre">search()</span></tt></a> instead.</p>
+<dd><div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.search" title="salt.modules.file.search"><tt class="xref py py-func docutils literal"><span class="pre">search()</span></tt></a> instead.</p>
+</div>
 <p>Return <tt class="docutils literal"><span class="pre">True</span></tt> if the given glob matches a string in the named file</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.contains_glob /etc/foobar <span class="s1">&#39;*cheese*&#39;</span>
@@ -340,8 +346,9 @@ after the first invocation.</p>
 <dl class="function">
 <dt id="salt.modules.file.contains_regex">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">contains_regex</tt><big>(</big><em>path</em>, <em>regex</em>, <em>lchar=''</em><big>)</big><a class="headerlink" href="#salt.modules.file.contains_regex" title="Permalink to this definition">¶</a></dt>
-<dd><p class="deprecated">
-<span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.search" title="salt.modules.file.search"><tt class="xref py py-func docutils literal"><span class="pre">search()</span></tt></a> instead.</p>
+<dd><div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.search" title="salt.modules.file.search"><tt class="xref py py-func docutils literal"><span class="pre">search()</span></tt></a> instead.</p>
+</div>
 <p>Return True if the given regular expression matches on any line in the text
 of a given file.</p>
 <p>If the lchar argument (leading char) is specified, it
@@ -355,8 +362,9 @@ will strip <cite>lchar</cite> from the left side of each line before trying to m
 <dl class="function">
 <dt id="salt.modules.file.contains_regex_multiline">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">contains_regex_multiline</tt><big>(</big><em>path</em>, <em>regex</em><big>)</big><a class="headerlink" href="#salt.modules.file.contains_regex_multiline" title="Permalink to this definition">¶</a></dt>
-<dd><p class="deprecated">
-<span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.search" title="salt.modules.file.search"><tt class="xref py py-func docutils literal"><span class="pre">search()</span></tt></a> instead.</p>
+<dd><div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.search" title="salt.modules.file.search"><tt class="xref py py-func docutils literal"><span class="pre">search()</span></tt></a> instead.</p>
+</div>
 <p>Return True if the given regular expression matches anything in the text
 of a given file</p>
 <p>Traverses multiple lines at a time, via the salt BufferedReader (reads in
@@ -382,8 +390,9 @@ chunks)</p>
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">delete_backup</tt><big>(</big><em>path</em>, <em>backup_id</em><big>)</big><a class="headerlink" href="#salt.modules.file.delete_backup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restore a previous version of a file that was backed up using Salt's
 <a class="reference internal" href="../../states/backup_mode.html"><em>file state backup</em></a> system.</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 0.17.0.</span></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
 <dl class="docutils">
 <dt>path</dt>
 <dd>The path on the minion to check for backups</dd>
@@ -445,7 +454,7 @@ hash codes from debian <tt class="docutils literal"><span class="pre">*.dsc</spa
 <dd><p>Approximate the Unix <tt class="docutils literal"><span class="pre">find(1)</span></tt> command and return a list of paths that
 meet the specified criteria.</p>
 <p>The options include match criteria:</p>
-<div class="highlight-python"><pre>name    = path-glob                 # case sensitive
+<div class="highlight-python"><div class="highlight"><pre>name    = path-glob                 # case sensitive
 iname   = path-glob                 # case insensitive
 regex   = path-regex                # case sensitive
 iregex  = path-regex                # case insensitive
@@ -454,56 +463,62 @@ user    = users                     # match any listed user
 group   = groups                    # match any listed group
 size    = [+-]number[size-unit]     # default unit = byte
 mtime   = interval                  # modified since date
-grep    = regex                     # search file contents</pre>
+grep    = regex                     # search file contents
+</pre></div>
 </div>
 <p>and/or actions:</p>
-<div class="highlight-python"><pre>delete [= file-types]               # default type = 'f'
+<div class="highlight-python"><div class="highlight"><pre>delete [= file-types]               # default type = &#39;f&#39;
 exec    = command [arg ...]         # where {} is replaced by pathname
-print  [= print-opts]</pre>
+print  [= print-opts]
+</pre></div>
 </div>
 <p>The default action is 'print=path'.</p>
 <p>file-glob:</p>
-<div class="highlight-python"><pre>*                = match zero or more chars
+<div class="highlight-python"><div class="highlight"><pre>*                = match zero or more chars
 ?                = match any char
 [abc]            = match a, b, or c
 [!abc] or [^abc] = match anything except a, b, and c
 [x-y]            = match chars x through y
 [!x-y] or [^x-y] = match anything except chars x through y
-{a,b,c}          = match a or b or c</pre>
+{a,b,c}          = match a or b or c
+</pre></div>
 </div>
 <p>path-regex: a Python re (regular expression) pattern to match pathnames</p>
 <p>file-types: a string of one or more of the following:</p>
-<div class="highlight-python"><pre>a: all file types
+<div class="highlight-python"><div class="highlight"><pre>a: all file types
 b: block device
 c: character device
 d: directory
 p: FIFO (named pipe)
 f: plain file
 l: symlink
-s: socket</pre>
+s: socket
+</pre></div>
 </div>
 <p>users: a space and/or comma separated list of user names and/or uids</p>
 <p>groups: a space and/or comma separated list of group names and/or gids</p>
 <p>size-unit:</p>
-<div class="highlight-python"><pre>b: bytes
+<div class="highlight-python"><div class="highlight"><pre>b: bytes
 k: kilobytes
 m: megabytes
 g: gigabytes
-t: terabytes</pre>
+t: terabytes
+</pre></div>
 </div>
 <p>interval:</p>
-<div class="highlight-python"><pre>[&lt;num&gt;w] [&lt;num&gt;d] [&lt;num&gt;h] [&lt;num&gt;m] [&lt;num&gt;s]
+<div class="highlight-python"><div class="highlight"><pre>[&lt;num&gt;w] [&lt;num&gt;d] [&lt;num&gt;h] [&lt;num&gt;m] [&lt;num&gt;s]
 
 where:
     w: week
     d: day
     h: hour
     m: minute
-    s: second</pre>
+    s: second
+</pre></div>
 </div>
 <p>print-opts: a comma and/or space separated list of one or more of the
 following:</p>
-<div class="highlight-python"><pre>group: group name
+<div class="highlight-python"><div class="highlight"><pre>group: group name
 md5:   MD5 digest of file contents
 mode:  file permissions (as integer)
 mtime: last modification time (as time_t)
@@ -511,7 +526,8 @@ name:  file basename
 path:  file absolute path
 size:  file size in bytes
 type:  file type
-user:  user name</pre>
+user:  user name
+</pre></div>
 </div>
 <p>CLI Examples:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.find / <span class="nb">type</span><span class="o">=</span>f <span class="nv">name</span><span class="o">=</span><span class="se">\*</span>.bak <span class="nv">size</span><span class="o">=</span>+10m
@@ -549,8 +565,9 @@ salt <span class="s1">&#39;*&#39;</span> file.find /var/log <span class="nv">nam
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.get_gid /etc/passwd
 </pre></div>
 </div>
-<p class="versionchanged">
-<span class="versionmodified">Changed in version 0.16.4: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.16.4: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -561,8 +578,9 @@ salt <span class="s1">&#39;*&#39;</span> file.find /var/log <span class="nv">nam
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.get_group /etc/passwd
 </pre></div>
 </div>
-<p class="versionchanged">
-<span class="versionmodified">Changed in version 0.16.4: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.16.4: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -608,8 +626,9 @@ collisions: <tt class="docutils literal"><span class="pre">get_sum(...,</span> <
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.get_mode /etc/passwd
 </pre></div>
 </div>
-<p class="versionchanged">
-<span class="versionmodified">Changed in version 2014.1.0: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2014.1.0: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -641,8 +660,9 @@ sha384, sha512 are supported</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.get_uid /etc/passwd
 </pre></div>
 </div>
-<p class="versionchanged">
-<span class="versionmodified">Changed in version 0.16.4: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.16.4: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -653,8 +673,9 @@ sha384, sha512 are supported</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.get_user /etc/passwd
 </pre></div>
 </div>
-<p class="versionchanged">
-<span class="versionmodified">Changed in version 0.16.4: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.16.4: </span><tt class="docutils literal"><span class="pre">follow_symlinks</span></tt> option added</p>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -752,8 +773,9 @@ symlinks.</p>
 <dt id="salt.modules.file.link">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">link</tt><big>(</big><em>src</em>, <em>path</em><big>)</big><a class="headerlink" href="#salt.modules.file.link" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a hard link to a file</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.link /path/to/file /path/to/link
 </pre></div>
@@ -765,8 +787,9 @@ symlinks.</p>
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">list_backups</tt><big>(</big><em>path</em>, <em>limit=None</em><big>)</big><a class="headerlink" href="#salt.modules.file.list_backups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists the previous versions of a file backed up using Salt's <a class="reference internal" href="../../states/backup_mode.html"><em>file
 state backup</em></a> system.</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 0.17.0.</span></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
 <dl class="docutils">
 <dt>path</dt>
 <dd>The path on the minion to check for backups</dd>
@@ -785,16 +808,17 @@ state backup</em></a> system.</p>
 <dd><p>Returns the lstat attributes for the given file or dir. Does not support
 symbolic links.</p>
 <p>CLI Example:</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.lstat /path/to/file
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
-<dt id="salt.modules.file.makedirs">
-<tt class="descclassname">salt.modules.file.</tt><tt class="descname">makedirs</tt><big>(</big><em>path</em>, <em>user=None</em>, <em>group=None</em>, <em>mode=None</em><big>)</big><a class="headerlink" href="#salt.modules.file.makedirs" title="Permalink to this definition">¶</a></dt>
+<dt id="salt.modules.file.makedirs_">
+<tt class="descclassname">salt.modules.file.</tt><tt class="descname">makedirs_</tt><big>(</big><em>path</em>, <em>user=None</em>, <em>group=None</em>, <em>mode=None</em><big>)</big><a class="headerlink" href="#salt.modules.file.makedirs_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ensure that the directory containing this path is available.</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.makedirs /opt/code
@@ -837,14 +861,13 @@ makes the appropriate modifications (if necessary).</p>
 <dl class="function">
 <dt id="salt.modules.file.mknod">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">mknod</tt><big>(</big><em>name</em>, <em>ntype</em>, <em>major=0</em>, <em>minor=0</em>, <em>user=None</em>, <em>group=None</em>, <em>mode='0600'</em><big>)</big><a class="headerlink" href="#salt.modules.file.mknod" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Create a block device, character device, or fifo pipe.</dt>
-<dd><p class="first">Identical to the gnu mknod.</p>
-<p class="last">CLI Examples:</p>
-</dd>
-</dl>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.mknod /dev/chr c 180 31
-salt <span class="s1">&#39;*&#39;</span> file.mknod /dev/blk b 8 999
+<dd><blockquote>
+<div><p>Create a block device, character device, or fifo pipe.
+Identical to the gnu mknod.</p>
+<p>CLI Examples:</p>
+</div></blockquote>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.mknod /dev/chr c <span class="m">180</span> 31
+salt <span class="s1">&#39;*&#39;</span> file.mknod /dev/blk b <span class="m">8</span> 999
 salt <span class="s1">&#39;*&#39;</span> file.nknod /dev/fifo p
 </pre></div>
 </div>
@@ -855,7 +878,7 @@ salt <span class="s1">&#39;*&#39;</span> file.nknod /dev/fifo p
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">mknod_blkdev</tt><big>(</big><em>name</em>, <em>major</em>, <em>minor</em>, <em>user=None</em>, <em>group=None</em>, <em>mode='0660'</em><big>)</big><a class="headerlink" href="#salt.modules.file.mknod_blkdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a block device.</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.mknod_blkdev /dev/blk 8 999
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.mknod_blkdev /dev/blk <span class="m">8</span> 999
 </pre></div>
 </div>
 </dd></dl>
@@ -865,7 +888,7 @@ salt <span class="s1">&#39;*&#39;</span> file.nknod /dev/fifo p
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">mknod_chrdev</tt><big>(</big><em>name</em>, <em>major</em>, <em>minor</em>, <em>user=None</em>, <em>group=None</em>, <em>mode='0660'</em><big>)</big><a class="headerlink" href="#salt.modules.file.mknod_chrdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a character device.</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.mknod_chrdev /dev/chr 180 31
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.mknod_chrdev /dev/chr <span class="m">180</span> 31
 </pre></div>
 </div>
 </dd></dl>
@@ -883,11 +906,13 @@ salt <span class="s1">&#39;*&#39;</span> file.nknod /dev/fifo p
 <dl class="function">
 <dt id="salt.modules.file.patch">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">patch</tt><big>(</big><em>originalfile</em>, <em>patchfile</em>, <em>options=''</em>, <em>dry_run=False</em><big>)</big><a class="headerlink" href="#salt.modules.file.patch" title="Permalink to this definition">¶</a></dt>
-<dd><p class="versionadded">
-<span class="versionmodified">New in version 0.10.4.</span></p>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 0.10.4.</span></p>
+</div>
 <p>Apply a patch to a file</p>
 <p>Equivalent to:</p>
-<div class="highlight-python"><pre>patch &lt;options&gt; &lt;originalfile&gt; &lt;patchfile&gt;</pre>
+<div class="highlight-python"><div class="highlight"><pre>patch &lt;options&gt; &lt;originalfile&gt; &lt;patchfile&gt;
+</pre></div>
 </div>
 <dl class="docutils">
 <dt>originalfile</dt>
@@ -906,11 +931,13 @@ salt <span class="s1">&#39;*&#39;</span> file.nknod /dev/fifo p
 <dl class="function">
 <dt id="salt.modules.file.psed">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">psed</tt><big>(</big><em>path</em>, <em>before</em>, <em>after</em>, <em>limit=''</em>, <em>backup='.bak'</em>, <em>flags='gMS'</em>, <em>escape_all=False</em>, <em>multi=False</em><big>)</big><a class="headerlink" href="#salt.modules.file.psed" title="Permalink to this definition">¶</a></dt>
-<dd><p class="deprecated">
-<span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a> instead.</p>
+<dd><div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a> instead.</p>
+</div>
 <p>Make a simple edit to a file (pure Python version)</p>
 <p>Equivalent to:</p>
-<div class="highlight-python"><pre>sed &lt;backup&gt; &lt;options&gt; "/&lt;limit&gt;/ s/&lt;before&gt;/&lt;after&gt;/&lt;flags&gt; &lt;file&gt;"</pre>
+<div class="highlight-python"><div class="highlight"><pre>sed &lt;backup&gt; &lt;options&gt; &quot;/&lt;limit&gt;/ s/&lt;before&gt;/&lt;after&gt;/&lt;flags&gt; &lt;file&gt;&quot;
+</pre></div>
 </div>
 <dl class="docutils">
 <dt>path</dt>
@@ -957,8 +984,9 @@ dependent on the locale.</li>
 <dt id="salt.modules.file.readdir">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">readdir</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.file.readdir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list containing the contents of a directory</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.readdir /path/to/dir/
 </pre></div>
@@ -969,8 +997,9 @@ dependent on the locale.</li>
 <dt id="salt.modules.file.readlink">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">readlink</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.file.readlink" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the path that a symlink points to</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.readlink /path/to/link
 </pre></div>
@@ -1001,8 +1030,9 @@ dependent on the locale.</li>
 <dt id="salt.modules.file.replace">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">replace</tt><big>(</big><em>path</em>, <em>pattern</em>, <em>repl</em>, <em>count=0</em>, <em>flags=0</em>, <em>bufsize=1</em>, <em>backup='.bak'</em>, <em>dry_run=False</em>, <em>search_only=False</em>, <em>show_changes=True</em><big>)</big><a class="headerlink" href="#salt.modules.file.replace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace occurances of a pattern in a file</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 0.17.0.</span></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
 <p>This is a pure Python implementation that wraps Python's <a class="reference external" href="http://docs.python.org/3/library/re.html#re.sub" title="(in Python v3.4)"><tt class="xref py py-func docutils literal"><span class="pre">sub()</span></tt></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1052,8 +1082,9 @@ salt <span class="s1">&#39;*&#39;</span> file.replace /some/file <span class="s1
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">restore_backup</tt><big>(</big><em>path</em>, <em>backup_id</em><big>)</big><a class="headerlink" href="#salt.modules.file.restore_backup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restore a previous version of a file that was backed up using Salt's
 <a class="reference internal" href="../../states/backup_mode.html"><em>file state backup</em></a> system.</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 0.17.0.</span></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
 <dl class="docutils">
 <dt>path</dt>
 <dd>The path on the minion to check for backups</dd>
@@ -1081,8 +1112,9 @@ salt <span class="s1">&#39;*&#39;</span> file.replace /some/file <span class="s1
 <dt id="salt.modules.file.rmdir">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">rmdir</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.file.rmdir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the specified directory. Fails if a directory is not empty.</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.rmdir /tmp/foo/
 </pre></div>
@@ -1093,8 +1125,9 @@ salt <span class="s1">&#39;*&#39;</span> file.replace /some/file <span class="s1
 <dt id="salt.modules.file.search">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">search</tt><big>(</big><em>path</em>, <em>pattern</em>, <em>flags=0</em>, <em>bufsize=1</em><big>)</big><a class="headerlink" href="#salt.modules.file.search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for occurances of a pattern in a file</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 0.17.0.</span></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
 <p>Params are identical to <a class="reference internal" href="#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a>.</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.search /etc/crontab <span class="s1">&#39;mymaintenance.sh&#39;</span>
@@ -1105,11 +1138,13 @@ salt <span class="s1">&#39;*&#39;</span> file.replace /some/file <span class="s1
 <dl class="function">
 <dt id="salt.modules.file.sed">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">sed</tt><big>(</big><em>path</em>, <em>before</em>, <em>after</em>, <em>limit=''</em>, <em>backup='.bak'</em>, <em>options='-r -e'</em>, <em>flags='g'</em>, <em>escape_all=False</em>, <em>negate_match=False</em><big>)</big><a class="headerlink" href="#salt.modules.file.sed" title="Permalink to this definition">¶</a></dt>
-<dd><p class="deprecated">
-<span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a> instead.</p>
+<dd><div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a> instead.</p>
+</div>
 <p>Make a simple edit to a file</p>
 <p>Equivalent to:</p>
-<div class="highlight-python"><pre>sed &lt;backup&gt; &lt;options&gt; "/&lt;limit&gt;/ s/&lt;before&gt;/&lt;after&gt;/&lt;flags&gt; &lt;file&gt;"</pre>
+<div class="highlight-python"><div class="highlight"><pre>sed &lt;backup&gt; &lt;options&gt; &quot;/&lt;limit&gt;/ s/&lt;before&gt;/&lt;after&gt;/&lt;flags&gt; &lt;file&gt;&quot;
+</pre></div>
 </div>
 <dl class="docutils">
 <dt>path</dt>
@@ -1131,8 +1166,9 @@ overwrite this backup</dd>
 matching</dd>
 <dt>negate_match <span class="classifier-delimiter">:</span> <span class="classifier">False</span></dt>
 <dd><p class="first">Negate the search command (<tt class="docutils literal"><span class="pre">!</span></tt>)</p>
-<p class="last versionadded">
-<span class="versionmodified">New in version 0.17.0.</span></p>
+<div class="last versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
 </dd>
 </dl>
 <p>Forward slashes and single quotes will be escaped automatically in the
@@ -1146,8 +1182,9 @@ matching</dd>
 <dl class="function">
 <dt id="salt.modules.file.sed_contains">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">sed_contains</tt><big>(</big><em>path</em>, <em>text</em>, <em>limit=''</em>, <em>flags='g'</em><big>)</big><a class="headerlink" href="#salt.modules.file.sed_contains" title="Permalink to this definition">¶</a></dt>
-<dd><p class="deprecated">
-<span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.search" title="salt.modules.file.search"><tt class="xref py py-func docutils literal"><span class="pre">search()</span></tt></a> instead.</p>
+<dd><div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.search" title="salt.modules.file.search"><tt class="xref py py-func docutils literal"><span class="pre">search()</span></tt></a> instead.</p>
+</div>
 <p>Return True if the file at <tt class="docutils literal"><span class="pre">path</span></tt> contains <tt class="docutils literal"><span class="pre">text</span></tt>. Utilizes sed to
 perform the search (line-wise search).</p>
 <p>Note: the <tt class="docutils literal"><span class="pre">p</span></tt> flag will be added to any flags you pass in.</p>
@@ -1161,10 +1198,11 @@ perform the search (line-wise search).</p>
 <dt id="salt.modules.file.seek_read">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">seek_read</tt><big>(</big><em>path</em>, <em>size</em>, <em>offset</em><big>)</big><a class="headerlink" href="#salt.modules.file.seek_read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Seek to a position on a file and write to it</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.seek_read /path/to/file 4096 0
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.seek_read /path/to/file <span class="m">4096</span> 0
 </pre></div>
 </div>
 </dd></dl>
@@ -1173,8 +1211,9 @@ perform the search (line-wise search).</p>
 <dt id="salt.modules.file.seek_write">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">seek_write</tt><big>(</big><em>path</em>, <em>data</em>, <em>offset</em><big>)</big><a class="headerlink" href="#salt.modules.file.seek_write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Seek to a position on a file and write to it</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.seek_write /path/to/file <span class="s1">&#39;some data&#39;</span> 4096
 </pre></div>
@@ -1225,8 +1264,9 @@ perform the search (line-wise search).</p>
 <dt id="salt.modules.file.statvfs">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">statvfs</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#salt.modules.file.statvfs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a statvfs call against the filesystem that the file resides on</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.statvfs /path/to/file
 </pre></div>
@@ -1246,8 +1286,9 @@ perform the search (line-wise search).</p>
 <dl class="function">
 <dt id="salt.modules.file.touch">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">touch</tt><big>(</big><em>name</em>, <em>atime=None</em>, <em>mtime=None</em><big>)</big><a class="headerlink" href="#salt.modules.file.touch" title="Permalink to this definition">¶</a></dt>
-<dd><p class="versionadded">
-<span class="versionmodified">New in version 0.9.5.</span></p>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.5.</span></p>
+</div>
 <p>Just like the <tt class="docutils literal"><span class="pre">touch</span></tt> command, create a file if it doesn't exist or
 simply update the atime and mtime if it already does.</p>
 <dl class="docutils">
@@ -1266,8 +1307,9 @@ simply update the atime and mtime if it already does.</p>
 <dt id="salt.modules.file.truncate">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">truncate</tt><big>(</big><em>path</em>, <em>length</em><big>)</big><a class="headerlink" href="#salt.modules.file.truncate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Seek to a position on a file and write to it</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> file.truncate /path/to/file 512
 </pre></div>
@@ -1287,8 +1329,9 @@ simply update the atime and mtime if it already does.</p>
 <dl class="function">
 <dt id="salt.modules.file.uncomment">
 <tt class="descclassname">salt.modules.file.</tt><tt class="descname">uncomment</tt><big>(</big><em>path</em>, <em>regex</em>, <em>char='#'</em>, <em>backup='.bak'</em><big>)</big><a class="headerlink" href="#salt.modules.file.uncomment" title="Permalink to this definition">¶</a></dt>
-<dd><p class="deprecated">
-<span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a> instead.</p>
+<dd><div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.17.0: </span>Use <a class="reference internal" href="#salt.modules.file.replace" title="salt.modules.file.replace"><tt class="xref py py-func docutils literal"><span class="pre">replace()</span></tt></a> instead.</p>
+</div>
 <p>Uncomment specified commented lines in a file</p>
 <dl class="docutils">
 <dt>path</dt>
@@ -1328,7 +1371,7 @@ overwrite this backup</dd>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

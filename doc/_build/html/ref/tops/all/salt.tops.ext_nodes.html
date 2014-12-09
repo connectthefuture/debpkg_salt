@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -123,10 +122,10 @@
 <span id="salt-tops-ext-nodes"></span><h1>salt.tops.ext_nodes<a class="headerlink" href="#module-salt.tops.ext_nodes" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="external-nodes-classifier">
 <h2>External Nodes Classifier<a class="headerlink" href="#external-nodes-classifier" title="Permalink to this headline">¶</a></h2>
-<p>The External Nodes Classifier is a master tops subsystem used to hook into
-systems used to provide mapping information used by major configuration
-management systems. One of the most common external nodes classification
-system is provided by Cobbler and is called <tt class="docutils literal"><span class="pre">cobbler-ext-nodes</span></tt>.</p>
+<p>The External Nodes Classifier is a master tops subsystem that retrieves mapping
+information from major configuration management systems. One of the most common
+external nodes classifiers system is provided by Cobbler and is called
+<tt class="docutils literal"><span class="pre">cobbler-ext-nodes</span></tt>.</p>
 <p>The cobbler-ext-nodes command can be used with this configuration:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">master_tops</span><span class="p-Indicator">:</span>
   <span class="l-Scalar-Plain">ext_nodes</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">cobbler-ext-nodes</span>
@@ -135,6 +134,32 @@ system is provided by Cobbler and is called <tt class="docutils literal"><span c
 <p>It is noteworthy that the Salt system does not directly ingest the data
 sent from the <tt class="docutils literal"><span class="pre">cobbler-ext-nodes</span></tt> command, but converts the data into
 information that is used by a Salt top file.</p>
+<p>Any command can replace the call to 'cobbler-ext-nodes' above, but currently the
+data must be formatted in the same way that the standard 'cobbler-ext-nodes'
+does.</p>
+<p>See (admittedly degenerate and probably not complete) example:</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>`
+classes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>basepackages</li>
+<li>database</li>
+</ul>
+</div></blockquote>
+<p><a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">`</span></a></p>
+<p>The above essentially is the same as a top.sls containing</p>
+<p><a href="#id7"><span class="problematic" id="id8">``</span></a>`
+base:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>'*':</dt>
+<dd><ul class="first last simple">
+<li>basepackages</li>
+<li>database</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
 <dl class="function">
 <dt id="salt.tops.ext_nodes.top">
 <tt class="descclassname">salt.tops.ext_nodes.</tt><tt class="descname">top</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.tops.ext_nodes.top" title="Permalink to this definition">¶</a></dt>
@@ -149,7 +174,7 @@ information that is used by a Salt top file.</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

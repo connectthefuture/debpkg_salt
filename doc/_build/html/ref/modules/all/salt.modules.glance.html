@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -133,34 +132,37 @@
 </tr>
 <tr class="field-even field"><th class="field-name">configuration:</th><td class="field-body"><p class="first">This module is not usable until the following are specified
 either in a pillar or in the minion's config file:</p>
-<div class="highlight-python"><pre>keystone.user: admin
+<div class="highlight-python"><div class="highlight"><pre>keystone.user: admin
 keystone.password: verybadpass
 keystone.tenant: admin
 keystone.tenant_id: f80919baedab48ec8931f200c65a50df
 keystone.insecure: False   #(optional)
-keystone.auth_url: 'http://127.0.0.1:5000/v2.0/'</pre>
+keystone.auth_url: &#39;http://127.0.0.1:5000/v2.0/&#39;
+</pre></div>
 </div>
 <p>If configuration for multiple openstack accounts is required, they can be
 set up as different configuration profiles:
 For example:</p>
-<div class="highlight-python"><pre>openstack1:
+<div class="highlight-python"><div class="highlight"><pre>openstack1:
   keystone.user: admin
   keystone.password: verybadpass
   keystone.tenant: admin
   keystone.tenant_id: f80919baedab48ec8931f200c65a50df
-  keystone.auth_url: 'http://127.0.0.1:5000/v2.0/'
+  keystone.auth_url: &#39;http://127.0.0.1:5000/v2.0/&#39;
 
 openstack2:
   keystone.user: admin
   keystone.password: verybadpass
   keystone.tenant: admin
   keystone.tenant_id: f80919baedab48ec8931f200c65a50df
-  keystone.auth_url: 'http://127.0.0.2:5000/v2.0/'</pre>
+  keystone.auth_url: &#39;http://127.0.0.2:5000/v2.0/&#39;
+</pre></div>
 </div>
 <p>With this configuration in place, any of the keystone functions can make use
 of a configuration profile by declaring it explicitly.
 For example:</p>
-<div class="last highlight-python"><pre>salt '*' glance.image_list profile=openstack1</pre>
+<div class="last highlight-python"><div class="highlight"><pre>salt &#39;*&#39; glance.image_list profile=openstack1
+</pre></div>
 </div>
 </td>
 </tr>
@@ -218,7 +220,7 @@ salt <span class="s1">&#39;*&#39;</span> glance.image_delete <span class="nv">na
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

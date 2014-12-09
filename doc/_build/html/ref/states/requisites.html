@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -205,13 +204,14 @@ function is in the state module, then the watched state is checked to see if
 it made any changes to the system, if it has, then <tt class="docutils literal"><span class="pre">mod_watch</span></tt> is called.</p>
 <p>Perhaps the best example of using watch is with a <a class="reference internal" href="all/salt.states.service.html#salt.states.service.running" title="salt.states.service.running"><tt class="xref py py-mod docutils literal"><span class="pre">service.running</span></tt></a> state. When a service watches a state, then
 the service is reloaded/restarted when the watched state changes:</p>
-<div class="highlight-python"><pre>ntpd:
+<div class="highlight-python"><div class="highlight"><pre>ntpd:
   service.running:
     - watch:
       - file: /etc/ntp.conf
   file.managed:
     - name: /etc/ntp.conf
-    - source: salt://ntp/files/ntp.conf</pre>
+    - source: salt://ntp/files/ntp.conf
+</pre></div>
 </div>
 </div>
 <div class="section" id="prereq">
@@ -368,7 +368,7 @@ be modified to function in the same way using <tt class="docutils literal"><span
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>

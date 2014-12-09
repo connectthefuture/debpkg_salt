@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -153,8 +152,8 @@ salt <span class="s1">&#39;*&#39;</span> acl.getfacl /tmp/house/kitchen /tmp/hou
 <p>CLI Examples:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> acl.addfacl user myuser rwx /tmp/house/kitchen
 salt <span class="s1">&#39;*&#39;</span> acl.addfacl default:group mygroup rx /tmp/house/kitchen
-salt <span class="s1">&#39;*&#39;</span> acl.addfacl d:u myuser 7 /tmp/house/kitchen
-salt <span class="s1">&#39;*&#39;</span> acl.addfacl g mygroup 0 /tmp/house/kitchen /tmp/house/livingroom
+salt <span class="s1">&#39;*&#39;</span> acl.addfacl d:u myuser <span class="m">7</span> /tmp/house/kitchen
+salt <span class="s1">&#39;*&#39;</span> acl.addfacl g mygroup <span class="m">0</span> /tmp/house/kitchen /tmp/house/livingroom
 </pre></div>
 </div>
 </dd></dl>
@@ -187,7 +186,7 @@ salt <span class="s1">&#39;*&#39;</span> acl.wipefacls /tmp/house/kitchen /tmp/h
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

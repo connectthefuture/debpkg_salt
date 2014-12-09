@@ -76,6 +76,18 @@ def _active_mounts_freebsd(ret):
     return ret
 
 
+def _active_mounts_solaris(ret):
+    '''
+    List active mounts on Solaris systems
+    '''
+    for line in __salt__['cmd.run_stdout']('mount -v').split('\n'):
+        comps = re.sub(r"\s+", " ", line).split()
+        ret[comps[2]] = {'device': comps[0],
+                         'fstype': comps[4],
+                         'opts': comps[5].split(',')}
+    return ret
+
+
 def active():
     '''
     List the active mounts.
@@ -89,6 +101,8 @@ def active():
     ret = {}
     if __grains__['os'] == 'FreeBSD':
         _active_mounts_freebsd(ret)
+    elif __grains__['os'] == 'Solaris':
+        _active_mounts_solaris(ret)
     else:
         try:
             _active_mountinfo(ret)
@@ -224,7 +238,7 @@ def set_fstab(
                     # Invalid entry
                     lines.append(line)
                     continue
-                if comps[0] == device:
+                if comps[1] == name or comps[0] == device:
                     # check to see if there are changes
                     # and fix them if there are any
                     present = True

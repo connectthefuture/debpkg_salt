@@ -1019,7 +1019,7 @@ def replace(path,
             result = re.sub(cpattern, repl, line, count)
 
             # Identity check each potential change until one change is made
-            if has_changes is False and not result is line:
+            if has_changes is False and result != line:
                 has_changes = True
 
             if show_changes:
@@ -1147,6 +1147,11 @@ def blockreplace(path,
                 if marker_end in line:
                     # end of block detected
                     in_block = False
+
+                    # Check for multi-line '\n' terminated content as split will
+                    # introduce an unwanted additional new line.
+                    if content[-1] == '\n':
+                        content = content[:-1]
 
                     # push new block content in file
                     for cline in content.split("\n"):
@@ -1289,7 +1294,7 @@ def patch(originalfile, patchfile, options='', dry_run=False):
             dry_run_opt = ' --dry-run'
     else:
         dry_run_opt = ''
-    cmd = 'patch {0}{1} {2} {3}'.format(
+    cmd = 'patch {0}{1} "{2}" "{3}"'.format(
         options, dry_run_opt, originalfile, patchfile)
     return __salt__['cmd.run_all'](cmd)
 
@@ -2810,7 +2815,7 @@ def makedirs_(path,
     '''
     # walk up the directory structure until we find the first existing
     # directory
-    dirname = os.path.normpath(os.path.dirname(path))
+    dirname = os.path.normpath(os.path.join(os.path.dirname(path), ''))
 
     if os.path.isdir(dirname):
         # There's nothing for us to do

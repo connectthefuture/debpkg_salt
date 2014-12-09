@@ -1,9 +1,0 @@
-# export the http_proxy environment variables
-# see https://github.com/saltstack/salt/pull/11523 for details
-
-. /etc/environment
-export http_proxy=$http_proxy
-export https_proxy=$https_proxy
-export no_proxy=$no_proxy
-
-

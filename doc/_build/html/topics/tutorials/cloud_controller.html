@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -302,7 +301,7 @@ for all configured hypervisors. This command will also validate that the
 hypervisors are properly configured.</p>
 <p>Now that hypervisors are available a virtual machine can be provisioned. The
 <tt class="docutils literal"><span class="pre">virt.init</span></tt> routine will create a new virtual machine:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt-run virt.init centos1 2 512 salt://centos.img
+<div class="highlight-bash"><div class="highlight"><pre>salt-run virt.init centos1 <span class="m">2</span> <span class="m">512</span> salt://centos.img
 </pre></div>
 </div>
 <p>This command assumes that the CentOS virtual machine image is sitting in the
@@ -337,7 +336,7 @@ turn on firewalls when originally set up, the firewall needs to be opened up
 to allow for libvirt and kvm to cross communicate and execution migration
 routines. On Red Hat based hypervisors in particular port 16514 needs to be
 opened on hypervisors:</p>
-<div class="highlight-bash"><div class="highlight"><pre>iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 16514 -j ACCEPT
+<div class="highlight-bash"><div class="highlight"><pre>iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport <span class="m">16514</span> -j ACCEPT
 </pre></div>
 </div>
 <div class="admonition note">
@@ -409,7 +408,7 @@ instantly available to Salt Virt.</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>

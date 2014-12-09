@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -121,7 +120,38 @@
                         
   <div class="section" id="module-salt.output.json_out">
 <span id="salt-output-json-out"></span><h1>salt.output.json_out<a class="headerlink" href="#module-salt.output.json_out" title="Permalink to this headline">¶</a></h1>
-<p>The JSON output module converts the return data into JSON.</p>
+<div class="section" id="display-return-data-in-json-format">
+<h2>Display return data in JSON format<a class="headerlink" href="#display-return-data-in-json-format" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">configuration:</th><td class="field-body"><p class="first">The output format can be configured with the <tt class="docutils literal"><span class="pre">output_indent</span></tt>
+setting in the Master or Minion configuration file with the following
+values:</p>
+<ul class="last simple">
+<li><tt class="docutils literal"><span class="pre">Null</span></tt>: put each minion return on a single line.</li>
+<li><tt class="docutils literal"><span class="pre">pretty</span></tt>: use four-space indents and sort the keys.</li>
+<li>An integer: specify the indentation level.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Salt's outputters operate on a per-minion basis. Each minion return will be
+output as a single JSON object once it comes in to the master.</p>
+<p>Some JSON parsers can guess when an object ends and a new one begins but many
+can not. A good way to differentiate between each minion return is to use the
+single-line output format and to parse each line individually. Example output
+(truncated):</p>
+<div class="highlight-python"><div class="highlight"><pre>{&quot;dave&quot;: {&quot;en0&quot;: {&quot;hwaddr&quot;: &quot;02:b0:26:32:4c:69&quot;, ...}}}
+{&quot;jerry&quot;: {&quot;en0&quot;: {&quot;hwaddr&quot;: &quot;02:26:ab:0d:b9:0d&quot;, ...}}}
+{&quot;kevin&quot;: {&quot;en0&quot;: {&quot;hwaddr&quot;: &quot;02:6d:7f:ce:9f:ee&quot;, ...}}}
+{&quot;mike&quot;: {&quot;en0&quot;: {&quot;hwaddr&quot;: &quot;02:48:a2:4b:70:a0&quot;, ...}}}
+{&quot;phill&quot;: {&quot;en0&quot;: {&quot;hwaddr&quot;: &quot;02:1d:cc:a2:33:55&quot;, ...}}}
+{&quot;stuart&quot;: {&quot;en0&quot;: {&quot;hwaddr&quot;: &quot;02:9a:e0:ea:9e:3c&quot;, ...}}}
+</pre></div>
+</div>
 <dl class="function">
 <dt id="salt.output.json_out.output">
 <tt class="descclassname">salt.output.json_out.</tt><tt class="descname">output</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#salt.output.json_out.output" title="Permalink to this definition">¶</a></dt>
@@ -129,13 +159,14 @@
 </dd></dl>
 
 </div>
+</div>
 
 
                     </div>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>
@@ -168,6 +199,14 @@
     $.fn.local_toc('#module-funcs');
 })(jQuery);
 </script>
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">salt.output.json_out</a><ul>
+<li><a class="reference internal" href="#display-return-data-in-json-format">Display return data in JSON format</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="salt.output.highstate.html"
                         title="previous chapter">salt.output.highstate</a></p>

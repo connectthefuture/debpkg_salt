@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -175,17 +174,18 @@ input and then parse the final rendered output as YAML.</dd>
 </dl>
 </div></blockquote>
 <p>And here's a contrived example sls file using the <tt class="docutils literal"><span class="pre">jinja</span> <span class="pre">|</span> <span class="pre">mako</span> <span class="pre">|</span> <span class="pre">yaml</span></tt> renderer:</p>
-<div class="highlight-python"><pre>#!jinja|mako|yaml
+<div class="highlight-python"><div class="highlight"><pre>#!jinja|mako|yaml
 
 An_Example:
   cmd.run:
     - name: |
-        echo "Using Salt ${grains['saltversion']}" \
-             "from path {{grains['saltpath']}}."
+        echo &quot;Using Salt ${grains[&#39;saltversion&#39;]}&quot; \
+             &quot;from path {{grains[&#39;saltpath&#39;]}}.&quot;
     - cwd: /
 
-&lt;%doc&gt; ${...} is Mako's notation, and so is this comment. &lt;/%doc&gt;
-{#     Similarly, {{...}} is Jinja's notation, and so is this comment. #}</pre>
+&lt;%doc&gt; ${...} is Mako&#39;s notation, and so is this comment. &lt;/%doc&gt;
+{#     Similarly, {{...}} is Jinja&#39;s notation, and so is this comment. #}
+</pre></div>
 </div>
 <p>For backward compatibility, <tt class="docutils literal"><span class="pre">jinja</span> <span class="pre">|</span> <span class="pre">yaml</span></tt>  can also be written as
 <tt class="docutils literal"><span class="pre">yaml_jinja</span></tt>, and similarly, the <tt class="docutils literal"><span class="pre">yaml_mako</span></tt>, <tt class="docutils literal"><span class="pre">yaml_wempy</span></tt>,
@@ -237,7 +237,7 @@ renderers included with Salt can be found here:</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>

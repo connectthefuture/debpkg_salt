@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -283,27 +282,6 @@ function name.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="salt.client.LocalClient.run_job">
-<tt class="descname">run_job</tt><big>(</big><em>tgt</em>, <em>fun</em>, <em>arg=()</em>, <em>expr_form='glob'</em>, <em>ret=''</em>, <em>timeout=None</em>, <em>kwarg=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.client.LocalClient.run_job" title="Permalink to this definition">¶</a></dt>
-<dd><p>Asynchronously send a command to connected minions</p>
-<p>Prep the job directory and publish a command to any targeted minions.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A dictionary of (validated) <tt class="docutils literal"><span class="pre">pub_data</span></tt> or an empty
-dictionary on failure. The <tt class="docutils literal"><span class="pre">pub_data</span></tt> contains the job ID and a
-list of all minions that are expected to return data.</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">local</span><span class="o">.</span><span class="n">run_job</span><span class="p">(</span><span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="s">&#39;test.sleep&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">300</span><span class="p">])</span>
-<span class="go">{&#39;jid&#39;: &#39;20131219215650131543&#39;, &#39;minions&#39;: [&#39;jerry&#39;]}</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
 <dt id="salt.client.LocalClient.cmd_async">
 <tt class="descname">cmd_async</tt><big>(</big><em>tgt</em>, <em>fun</em>, <em>arg=()</em>, <em>expr_form='glob'</em>, <em>ret=''</em>, <em>kwarg=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.client.LocalClient.cmd_async" title="Permalink to this definition">¶</a></dt>
 <dd><p>Asynchronously send a command to connected minions</p>
@@ -319,26 +297,6 @@ following exceptions.</p>
 </table>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">local</span><span class="o">.</span><span class="n">cmd_async</span><span class="p">(</span><span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="s">&#39;test.sleep&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">300</span><span class="p">])</span>
 <span class="go">&#39;20131219215921857715&#39;</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="salt.client.LocalClient.cmd_subset">
-<tt class="descname">cmd_subset</tt><big>(</big><em>tgt</em>, <em>fun</em>, <em>arg=()</em>, <em>expr_form='glob'</em>, <em>ret=''</em>, <em>kwarg=None</em>, <em>sub=3</em>, <em>cli=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.client.LocalClient.cmd_subset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Execute a command on a random subset of the targeted systems</p>
-<p>The function signature is the same as <tt class="xref py py-meth docutils literal"><span class="pre">cmd()</span></tt> with the
-following exceptions.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sub</strong> -- The number of systems to execute on</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">SLC</span><span class="o">.</span><span class="n">cmd_subset</span><span class="p">(</span><span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="s">&#39;test.ping&#39;</span><span class="p">,</span> <span class="n">sub</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="go">{&#39;jerry&#39;: True}</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -395,6 +353,26 @@ to be injected in between minion returns.</td>
 </dd></dl>
 
 <dl class="method">
+<dt id="salt.client.LocalClient.cmd_subset">
+<tt class="descname">cmd_subset</tt><big>(</big><em>tgt</em>, <em>fun</em>, <em>arg=()</em>, <em>expr_form='glob'</em>, <em>ret=''</em>, <em>kwarg=None</em>, <em>sub=3</em>, <em>cli=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.client.LocalClient.cmd_subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a command on a random subset of the targeted systems</p>
+<p>The function signature is the same as <tt class="xref py py-meth docutils literal"><span class="pre">cmd()</span></tt> with the
+following exceptions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sub</strong> -- The number of systems to execute on</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">SLC</span><span class="o">.</span><span class="n">cmd_subset</span><span class="p">(</span><span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="s">&#39;test.ping&#39;</span><span class="p">,</span> <span class="n">sub</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">{&#39;jerry&#39;: True}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="salt.client.LocalClient.get_cli_returns">
 <tt class="descname">get_cli_returns</tt><big>(</big><em>jid</em>, <em>minions</em>, <em>timeout=None</em>, <em>tgt='*'</em>, <em>tgt_type='glob'</em>, <em>verbose=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.client.LocalClient.get_cli_returns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts a watcher looking at the return data for a specified JID</p>
@@ -413,6 +391,27 @@ to be injected in between minion returns.</td>
 <tt class="descname">get_event_iter_returns</tt><big>(</big><em>jid</em>, <em>minions</em>, <em>timeout=None</em><big>)</big><a class="headerlink" href="#salt.client.LocalClient.get_event_iter_returns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gather the return data from the event system, break hard when timeout
 is reached.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="salt.client.LocalClient.run_job">
+<tt class="descname">run_job</tt><big>(</big><em>tgt</em>, <em>fun</em>, <em>arg=()</em>, <em>expr_form='glob'</em>, <em>ret=''</em>, <em>timeout=None</em>, <em>kwarg=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.client.LocalClient.run_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asynchronously send a command to connected minions</p>
+<p>Prep the job directory and publish a command to any targeted minions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A dictionary of (validated) <tt class="docutils literal"><span class="pre">pub_data</span></tt> or an empty
+dictionary on failure. The <tt class="docutils literal"><span class="pre">pub_data</span></tt> contains the job ID and a
+list of all minions that are expected to return data.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">local</span><span class="o">.</span><span class="n">run_job</span><span class="p">(</span><span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="s">&#39;test.sleep&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">300</span><span class="p">])</span>
+<span class="go">{&#39;jid&#39;: &#39;20131219215650131543&#39;, &#39;minions&#39;: [&#39;jerry&#39;]}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -690,7 +689,7 @@ client.action(fun='show_image', provider='my-ec2-config', kwargs={'image': 'ami-
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>

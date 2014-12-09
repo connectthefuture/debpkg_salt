@@ -66,7 +66,7 @@ def _format_host(host, data):
             data = _strip_clean(data)
         # Verify that the needed data is present
         for tname, info in data.items():
-            if not '__run_num__' in info:
+            if '__run_num__' not in info:
                 err = ('The State execution failed to record the order '
                        'in which all states were executed. The state '
                        'return missing data is:')
@@ -137,8 +137,9 @@ def _format_host(host, data):
             }
             hstrs.extend([sline.format(**svars) for sline in state_lines])
             changes = '     Changes:   ' + ctext
-            hstrs.append(('{0}{1}{2[ENDC]}'
-                          .format(tcolor, changes, colors)))
+            hstrs.append(
+                u'{0}{1}{2[ENDC]}'.format(tcolor, changes, colors)
+            )
 
         # Append result counts to end of output
         colorfmt = '{0}{1}{2[ENDC]}'

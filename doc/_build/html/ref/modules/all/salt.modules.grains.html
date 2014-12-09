@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -125,8 +124,9 @@
 <dl class="function">
 <dt id="salt.modules.grains.append">
 <tt class="descclassname">salt.modules.grains.</tt><tt class="descname">append</tt><big>(</big><em>key</em>, <em>val</em><big>)</big><a class="headerlink" href="#salt.modules.grains.append" title="Permalink to this definition">¶</a></dt>
-<dd><p class="versionadded">
-<span class="versionmodified">New in version 0.17.0.</span></p>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
 <p>Append a value to a list in the grains config file</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> grains.append key val
@@ -137,8 +137,9 @@
 <dl class="function">
 <dt id="salt.modules.grains.delval">
 <tt class="descclassname">salt.modules.grains.</tt><tt class="descname">delval</tt><big>(</big><em>key</em>, <em>destructive=False</em><big>)</big><a class="headerlink" href="#salt.modules.grains.delval" title="Permalink to this definition">¶</a></dt>
-<dd><p class="versionadded">
-<span class="versionmodified">New in version 0.17.0.</span></p>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
 <p>Delete a grain from the grains config file</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -157,8 +158,9 @@
 <dl class="function">
 <dt id="salt.modules.grains.filter_by">
 <tt class="descclassname">salt.modules.grains.</tt><tt class="descname">filter_by</tt><big>(</big><em>lookup_dict</em>, <em>grain='os_family'</em>, <em>merge=None</em>, <em>default='default'</em><big>)</big><a class="headerlink" href="#salt.modules.grains.filter_by" title="Permalink to this definition">¶</a></dt>
-<dd><p class="versionadded">
-<span class="versionmodified">New in version 0.17.0.</span></p>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
 <p>Look up the given grain in a given dictionary for the current OS and return
 the result</p>
 <p>Although this may occasionally be useful at the CLI, the primary intent of
@@ -215,8 +217,9 @@ Python version from the default Python version provided by the OS
 (e.g., <tt class="docutils literal"><span class="pre">python26-mysql</span></tt> instead of <tt class="docutils literal"><span class="pre">python-mysql</span></tt>).</li>
 <li><strong>default</strong> -- <p>default lookup_dict's key used if the grain does not exists
 or if the grain value has no match on lookup_dict.</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2014.1.</span></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.</span></p>
+</div>
 </li>
 </ul>
 </td>
@@ -243,7 +246,8 @@ for the dict. This means that if a dict in grains looks like this:</p>
 </div>
 <p>To retrieve the value associated with the apache key in the pkg dict this
 key can be passed:</p>
-<div class="highlight-python"><pre>pkg:apache</pre>
+<div class="highlight-python"><div class="highlight"><pre>pkg:apache
+</pre></div>
 </div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> grains.get pkg:apache
@@ -281,7 +285,8 @@ single minion that don't need to be stored somewhere centrally.</p>
 </pre></div>
 </div>
 <p>One would determine if the apache key in the pkg dict exists by:</p>
-<div class="highlight-python"><pre>pkg:apache</pre>
+<div class="highlight-python"><div class="highlight"><pre>pkg:apache
+</pre></div>
 </div>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> grains.has_value pkg:apache
@@ -331,8 +336,9 @@ salt <span class="s1">&#39;*&#39;</span> grains.item os osrelease oscodename
 <dl class="function">
 <dt id="salt.modules.grains.remove">
 <tt class="descclassname">salt.modules.grains.</tt><tt class="descname">remove</tt><big>(</big><em>key</em>, <em>val</em><big>)</big><a class="headerlink" href="#salt.modules.grains.remove" title="Permalink to this definition">¶</a></dt>
-<dd><p class="versionadded">
-<span class="versionmodified">New in version 0.17.0.</span></p>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 0.17.0.</span></p>
+</div>
 <p>Remove a value from a list in the grains config file</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> grains.remove key val
@@ -366,7 +372,7 @@ salt <span class="s1">&#39;*&#39;</span> grains.setval key <span class="s2">&quo
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

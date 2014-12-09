@@ -1,35 +1,8 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "SALT" "1" "June 06, 2014" "2014.1.4" "Salt"
+.TH "SALT" "1" "December 09, 2014" "2014.1.0-n/a-3d3a1a6" "Salt"
 .SH NAME
 salt \- salt
-.
-.nr rst2man-indent-level 0
-.
-.de1 rstReportMargin
-\\$1 \\n[an-margin]
-level \\n[rst2man-indent-level]
-level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
--
-\\n[rst2man-indent0]
-\\n[rst2man-indent1]
-\\n[rst2man-indent2]
-..
-.de1 INDENT
-.\" .rstReportMargin pre:
-. RS \\$1
-. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
-. nr rst2man-indent-level +1
-.\" .rstReportMargin post:
-..
-.de UNINDENT
-. RE
-.\" indent \\n[an-margin]
-.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
-.nr rst2man-indent-level -1
-.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
-.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
-..
 .
 .nr rst2man-indent-level 0
 .
@@ -66,7 +39,7 @@ salt \-E \(aq.*\(aq [ options ] sys.doc cmd
 .sp
 salt \-G \(aqos:Arch.*\(aq [ options ] test.ping
 .sp
-salt \-C \fI\%'G@os\fP:Arch.* and webserv* or \fI\%G@kernel\fP:FreeBSD\(aq [ options ] test.ping
+salt \-C \fI\%\(aqG@os\fP:Arch.* and webserv* or \fI\%G@kernel\fP:FreeBSD\(aq [ options ] test.ping
 .UNINDENT
 .UNINDENT
 .SH DESCRIPTION
@@ -122,6 +95,7 @@ the started execution and complete.
 .TP
 .B \-\-state\-output=STATE_OUTPUT
 New in version 0.17.
+
 .sp
 Override the configured state_output value for minion output.  Default:
 full
@@ -256,11 +230,6 @@ takes a group of targets separated by \fBand\fP or \fBor\fP\&. The default match
 glob as usual. If something other than a glob is used, preface it with the
 letter denoting the type; example: \(aqwebserv* and \fI\%G@os\fP:Debian or \fI\%E@db*\fP\(aq
 Make sure that the compound target is encapsulated in quotes.
-.UNINDENT
-.INDENT 0.0
-.TP
-.B \-X, \-\-exsel
-Instead of using shell globs, use the return code of a function.
 .UNINDENT
 .INDENT 0.0
 .TP

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -123,7 +122,7 @@
 <span id="salt-states-dockerio"></span><h1>salt.states.dockerio<a class="headerlink" href="#module-salt.states.dockerio" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="manage-docker-containers">
 <h2>Manage Docker containers<a class="headerlink" href="#manage-docker-containers" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://docker.io">Docker</a>
+<p><a class="reference external" href="https://www.docker.io">Docker</a>
 is a lightweight, portable, self-sufficient software container
 wrapper. The base supported wrapper type is
 <a class="reference external" href="https://en.wikipedia.org/wiki/Linux_Containers">LXC</a>,
@@ -138,75 +137,86 @@ as to performance or functionality is yet present.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">This state module requires
 <a class="reference external" href="https://github.com/dotcloud/docker-py">docker-py</a>
-which supports <a class="reference external" href="https://docs.docker.io/en/latest/api/docker_remote_api_v1.6/">Docker Remote API version 1.6</a>.</p>
+which supports <a class="reference external" href="http://docs.docker.io/en/latest/reference/api/docker_remote_api_v1.6">Docker Remote API version 1.6</a>.</p>
 </div>
 <div class="section" id="available-functions">
 <h3>Available Functions<a class="headerlink" href="#available-functions" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p class="first">built</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">corp/mysuperdocker_img</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">docker.built</span><span class="p-Indicator">:</span>
-        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/path/to/dir/container/Dockerfile</span>
+  <span class="l-Scalar-Plain">docker.built</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/path/to/dir/container</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">pulled</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">ubuntu</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">docker.pulled</span>
+  <span class="l-Scalar-Plain">docker.pulled</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tag</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">latest</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">pushed</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">corp/mysuperdocker_img</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">docker.pushed</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">installed</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">mysuperdocker-container</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">docker.installed</span><span class="p-Indicator">:</span>
-        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysuperdocker</span>
-        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hostname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">superdocker</span>
-        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">corp/mysuperdocker_img</span>
+  <span class="l-Scalar-Plain">docker.installed</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysuperdocker</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hostname</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">superdocker</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">corp/mysuperdocker_img</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">running</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">my_service</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">docker.running</span><span class="p-Indicator">:</span>
-        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">container</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysuperdocker</span>
-        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">port_bindings</span><span class="p-Indicator">:</span>
-            <span class="s">&quot;5000/tcp&quot;</span><span class="p-Indicator">:</span>
-                <span class="l-Scalar-Plain">HostIp</span><span class="p-Indicator">:</span> <span class="s">&quot;&quot;</span>
-                <span class="l-Scalar-Plain">HostPort</span><span class="p-Indicator">:</span> <span class="s">&quot;5000&quot;</span>
+  <span class="l-Scalar-Plain">docker.running</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">container</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysuperdocker</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">port_bindings</span><span class="p-Indicator">:</span>
+        <span class="s">&quot;5000/tcp&quot;</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">HostIp</span><span class="p-Indicator">:</span> <span class="s">&quot;&quot;</span>
+            <span class="l-Scalar-Plain">HostPort</span><span class="p-Indicator">:</span> <span class="s">&quot;5000&quot;</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">port_bindings</span></tt> argument above is a dictionary. Note the
+double-indentation, this is required for PyYAML to load the data
+structure properly as a dictionary. More information can be found
+<a class="reference internal" href="../../../topics/troubleshooting/yaml_idiosyncrasies.html#nested-dict-indentation"><em>here</em></a></p>
 </div>
 </li>
 <li><p class="first">absent</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">mys_old_uperdocker</span><span class="p-Indicator">:</span>
-   <span class="l-Scalar-Plain">docker.absent</span>
+  <span class="l-Scalar-Plain">docker.absent</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">run</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">/finish-install.sh</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">docker.run</span><span class="p-Indicator">:</span>
-        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">container</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysuperdocker</span>
-        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">unless</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">grep -q something /var/log/foo</span>
-        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">docker_unless</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">grep -q done /install_log</span>
+  <span class="l-Scalar-Plain">docker.run</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">container</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysuperdocker</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">unless</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">grep -q something /var/log/foo</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">docker_unless</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">grep -q done /install_log</span>
 </pre></div>
 </div>
 </li>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>The docker modules are named <cite>dockerio</cite> because
+<p>The docker modules are named <tt class="docutils literal"><span class="pre">dockerio</span></tt> because
 the name 'docker' would conflict with the underlying docker-py library.</p>
 <p>We should add magic to all methods to also match containers by name
 now that the 'naming link' stuff has been merged in docker.
-This applies for exemple to:</p>
-<blockquote class="last">
-<div><ul class="simple">
+This applies for example to:</p>
+<ul class="last simple">
 <li>running</li>
 <li>absent</li>
 <li>run</li>
-<li>script</li>
 </ul>
-</div></blockquote>
 </div>
 <dl class="function">
 <dt id="salt.states.dockerio.absent">
@@ -225,7 +235,7 @@ will be killed and destroyed. (<cite>docker inspect</cite>)</p>
 <dd><p>Build a docker image from a path or URL to a dockerfile. (<cite>docker build</cite>)</p>
 <dl class="docutils">
 <dt>name</dt>
-<dd>Tag of the image</dd>
+<dd>Name of the image</dd>
 <dt>path</dt>
 <dd>URL (e.g. <cite>url/branch/docker_dir/dockerfile</cite>)
 or filesystem path to the dockerfile</dd>
@@ -248,7 +258,7 @@ if not, build a new container from the specified image.
 <dt>Environment variables for the container, either</dt>
 <dd><ul class="first last simple">
 <li>a mapping of key, values</li>
-<li>a list of mappings of key values</li>
+<li>a list of mappings of key, values</li>
 </ul>
 </dd>
 </dl>
@@ -296,20 +306,23 @@ is running the specified image.</p>
 
 <dl class="function">
 <dt id="salt.states.dockerio.pulled">
-<tt class="descclassname">salt.states.dockerio.</tt><tt class="descname">pulled</tt><big>(</big><em>name</em>, <em>force=False</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.dockerio.pulled" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.states.dockerio.</tt><tt class="descname">pulled</tt><big>(</big><em>name</em>, <em>tag=None</em>, <em>force=False</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.dockerio.pulled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pull an image from a docker registry. (<cite>docker pull</cite>)</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">See first the documentation for <cite>docker login</cite>, <cite>docker pull</cite>,
 <cite>docker push</cite>,
 and <a class="reference external" href="https://github.com/dotcloud/docker-py#api">docker.import_image</a>
-(<a class="reference external" href="http://docs.docker.io/en/latest/commandline/cli/#import">docker import</a>).
-NOTE that We added saltack a way to identify yourself via pillar,
-see in the salt.modules.dockerio execution module how to ident yourself
-via the pillar.</p>
+(<a class="reference external" href="http://docs.docker.io/en/latest/reference/commandline/cli/#import">docker import</a>).
+NOTE that we added in SaltStack a way to authenticate yourself with the
+Docker Hub Registry by supplying your credentials (username, email &amp; password)
+using pillars. For more information, see salt.modules.dockerio execution
+module.</p>
 </div>
 <dl class="docutils">
 <dt>name</dt>
+<dd>Name of the image</dd>
+<dt>tag</dt>
 <dd>Tag of the image</dd>
 <dt>force</dt>
 <dd>Pull even if the image is already pulled</dd>
@@ -317,8 +330,29 @@ via the pillar.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="salt.states.dockerio.pushed">
+<tt class="descclassname">salt.states.dockerio.</tt><tt class="descname">pushed</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.states.dockerio.pushed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Push an image from a docker registry. (<cite>docker push</cite>)</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See first the documentation for <cite>docker login</cite>, <cite>docker pull</cite>,
+<cite>docker push</cite>,
+and <a class="reference external" href="https://github.com/dotcloud/docker-py#api">docker.import_image</a>
+(<a class="reference external" href="http://docs.docker.io/en/latest/reference/commandline/cli/#import">docker import</a>).
+NOTE that we added in SaltStack a way to authenticate yourself with the
+Docker Hub Registry by supplying your credentials (username, email &amp; password)
+using pillars. For more information, see salt.modules.dockerio execution
+module.</p>
+</div>
+<dl class="docutils">
+<dt>name</dt>
+<dd>Name of the image</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="salt.states.dockerio.run">
-<tt class="descclassname">salt.states.dockerio.</tt><tt class="descname">run</tt><big>(</big><em>name</em>, <em>cid=None</em>, <em>hostname=None</em>, <em>stateful=False</em>, <em>onlyif=None</em>, <em>unless=None</em>, <em>docked_onlyif=None</em>, <em>docked_unless=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.dockerio.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.states.dockerio.</tt><tt class="descname">run</tt><big>(</big><em>name</em>, <em>cid=None</em>, <em>hostname=None</em>, <em>onlyif=None</em>, <em>unless=None</em>, <em>docked_onlyif=None</em>, <em>docked_unless=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.dockerio.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run a command in a specific container</p>
 <p>You can match by either name or hostname</p>
 <dl class="docutils">
@@ -328,8 +362,6 @@ via the pillar.</p>
 <dd>Container id</dd>
 <dt>state_id</dt>
 <dd>state_id</dd>
-<dt>stateful</dt>
-<dd>stateful mode</dd>
 <dt>onlyif</dt>
 <dd>Only execute cmd if statement on the host returns 0</dd>
 <dt>unless</dt>
@@ -343,7 +375,7 @@ via the pillar.</p>
 
 <dl class="function">
 <dt id="salt.states.dockerio.running">
-<tt class="descclassname">salt.states.dockerio.</tt><tt class="descname">running</tt><big>(</big><em>name</em>, <em>container=None</em>, <em>port_bindings=None</em>, <em>binds=None</em>, <em>publish_all_ports=False</em>, <em>links=None</em>, <em>lxc_conf=None</em>, <em>privileged=False</em><big>)</big><a class="headerlink" href="#salt.states.dockerio.running" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.states.dockerio.</tt><tt class="descname">running</tt><big>(</big><em>name</em>, <em>container=None</em>, <em>port_bindings=None</em>, <em>binds=None</em>, <em>publish_all_ports=False</em>, <em>links=None</em>, <em>lxc_conf=None</em>, <em>privileged=False</em>, <em>dns=None</em>, <em>volumes_from=None</em>, <em>network_mode=None</em>, <em>check_is_running=True</em><big>)</big><a class="headerlink" href="#salt.states.dockerio.running" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ensure that a container is running. (<cite>docker inspect</cite>)</p>
 <dl class="docutils">
 <dt>name</dt>
@@ -353,7 +385,7 @@ via the pillar.</p>
 <dt>binds</dt>
 <dd><p class="first">like -v of docker run command</p>
 <div class="last highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">binds</span><span class="p-Indicator">:</span>
-    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">/var/log/service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/log/service</span>
+    <span class="l-Scalar-Plain">/var/log/service</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/log/service</span>
 </pre></div>
 </div>
 </dd>
@@ -382,33 +414,60 @@ via the pillar.</p>
 </pre></div>
 </div>
 </dd>
+<dt>binds</dt>
+<dd><p class="first">List of volumes to mount</p>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">binds</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">/home/user1</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">bind</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/mnt/vol2</span>
+        <span class="l-Scalar-Plain">ro</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+    <span class="l-Scalar-Plain">/var/www</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">bind</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/mnt/vol1</span>
+        <span class="l-Scalar-Plain">ro</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+</dd>
+<dt>dns</dt>
+<dd><p class="first">List of DNS servers.</p>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">dns</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">127.0.0.1</span>
+</pre></div>
+</div>
+</dd>
+<dt>volumes_from</dt>
+<dd><p class="first">List of container names to get volumes definition from</p>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">dns</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name_other_container</span>
+</pre></div>
+</div>
+</dd>
+<dt>network_mode</dt>
+<dd><ul class="first simple">
+<li>'bridge': creates a new network stack for the container on the docker bridge</li>
+<li>'none': no networking for this container</li>
+<li>'container:[name|id]': reuses another container network stack)</li>
+<li>'host': use the host network stack inside the container</li>
+</ul>
+<div class="last highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">network_mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">host</span>
+</pre></div>
+</div>
+</dd>
+<dt>check_is_running</dt>
+<dd>Enable checking if a container should run or not.
+Useful for data-only containers that must be linked to another one.
+e.g. nginx &lt;- static-files</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.states.dockerio.script">
-<tt class="descclassname">salt.states.dockerio.</tt><tt class="descname">script</tt><big>(</big><em>name</em>, <em>cid=None</em>, <em>hostname=None</em>, <em>state_id=None</em>, <em>stateful=False</em>, <em>onlyif=None</em>, <em>unless=None</em>, <em>docked_onlyif=None</em>, <em>docked_unless=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.states.dockerio.script" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run a command in a specific container</p>
-<p>XXX: TODO: IMPLEMENT</p>
-<p>Matching can be done by either name or hostname</p>
-<dl class="docutils">
-<dt>name</dt>
-<dd>command to run in the docker</dd>
-<dt>cid</dt>
-<dd>Container id</dd>
-<dt>state_id</dt>
-<dd>State Id</dd>
-<dt>stateful</dt>
-<dd>stateful mode</dd>
-<dt>onlyif</dt>
-<dd>Only execute cmd if statement on the host return 0</dd>
-<dt>unless</dt>
-<dd>Do not execute cmd if statement on the host return 0</dd>
-<dt>docked_onlyif</dt>
-<dd>Only execute cmd if statement in the container returns 0</dd>
-<dt>docked_unless</dt>
-<dd>Do not execute cmd if statement in the container returns 0</dd>
-</dl>
+<tt class="descclassname">salt.states.dockerio.</tt><tt class="descname">script</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#salt.states.dockerio.script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Placeholder function for a cmd.script alike.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not yet implemented.
+Its implementation might be very similar from
+<a class="reference internal" href="#salt.states.dockerio.run" title="salt.states.dockerio.run"><tt class="xref py py-mod docutils literal"><span class="pre">salt.states.dockerio.run</span></tt></a></p>
+</div>
 </dd></dl>
 
 </div>
@@ -420,7 +479,7 @@ via the pillar.</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

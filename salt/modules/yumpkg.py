@@ -105,7 +105,7 @@ def _repoquery(repoquery_args, query_format=__QUERYFORMAT):
     '''
     Runs a repoquery command and returns a list of namedtuples
     '''
-    cmd = 'repoquery --queryformat="{0}" {1}'.format(
+    cmd = 'repoquery --plugins --queryformat="{0}" {1}'.format(
         query_format, repoquery_args
     )
     out = __salt__['cmd.run_stdout'](cmd, output_loglevel='debug')
@@ -232,7 +232,7 @@ def latest_version(*names, **kwargs):
     # Get updates for specified package(s)
     repo_arg = _get_repo_options(**kwargs)
     updates = _repoquery_pkginfo(
-        '{0} --pkgnarrow=available --plugins {1}'
+        '{0} --pkgnarrow=available {1}'
         .format(repo_arg, ' '.join(names))
     )
 
@@ -365,7 +365,7 @@ def list_repo_pkgs(*args, **kwargs):
 
     ret = {}
     for repo in repos:
-        repoquery_cmd = '--all --repoid="{0}" --plugins'.format(repo)
+        repoquery_cmd = '--all --repoid="{0}"'.format(repo)
         for arg in args:
             repoquery_cmd += ' "{0}"'.format(arg)
         all_pkgs = _repoquery_pkginfo(repoquery_cmd)
@@ -392,7 +392,7 @@ def list_upgrades(refresh=True, **kwargs):
 
     repo_arg = _get_repo_options(**kwargs)
     updates = _repoquery_pkginfo(
-        '{0} --all --pkgnarrow=updates --plugins'.format(repo_arg)
+        '{0} --all --pkgnarrow=updates'.format(repo_arg)
     )
     return dict([(x.name, x.version) for x in updates])
 
@@ -421,7 +421,7 @@ def check_db(*names, **kwargs):
     '''
     repo_arg = _get_repo_options(**kwargs)
     repoquery_base = \
-        '{0} --all --quiet --whatprovides --plugins'.format(repo_arg)
+        '{0} --all --quiet --whatprovides'.format(repo_arg)
 
     if 'pkg._avail' in __context__:
         avail = __context__['pkg._avail']
@@ -429,7 +429,7 @@ def check_db(*names, **kwargs):
         # get list of available packages
         avail = []
         lines = _repoquery(
-            '{0} --pkgnarrow=all --all --plugins'.format(repo_arg),
+            '{0} --pkgnarrow=all --all'.format(repo_arg),
             query_format='%{NAME}_|-%{ARCH}'
         )
         for line in lines:
@@ -445,8 +445,14 @@ def check_db(*names, **kwargs):
         ret.setdefault(name, {})['found'] = name in avail
         if not ret[name]['found']:
             repoquery_cmd = repoquery_base + ' {0}'.format(name)
-            provides = set(x.name for x in _repoquery_pkginfo(repoquery_cmd))
-            ret[name]['suggestions'] = sorted(provides)
+            provides = sorted(
+                set(x.name for x in _repoquery_pkginfo(repoquery_cmd))
+            )
+            if name in provides:
+                # Package was not in avail but was found by the repoquery_cmd
+                ret[name]['found'] = True
+            else:
+                ret[name]['suggestions'] = provides
     return ret
 
 
@@ -937,7 +943,7 @@ def group_info(name):
         'default packages': [],
         'description': ''
     }
-    cmd_template = 'repoquery --group --grouppkgs={0} --list {1!r}'
+    cmd_template = 'repoquery --plugins --group --grouppkgs={0} --list {1!r}'
 
     cmd = cmd_template.format('all', name)
     out = __salt__['cmd.run_stdout'](cmd, output_loglevel='debug')
@@ -961,7 +967,7 @@ def group_info(name):
     # considered to be conditional packages.
     ret['conditional packages'] = sorted(all_pkgs)
 
-    cmd = 'repoquery --group --info {0!r}'.format(name)
+    cmd = 'repoquery --plugins --group --info {0!r}'.format(name)
     out = __salt__['cmd.run_stdout'](cmd, output_loglevel='debug')
     if out:
         ret['description'] = '\n'.join(out.splitlines()[1:]).strip()
@@ -1135,8 +1141,11 @@ def mod_repo(repo, basedir=None, **kwargs):
         salt '*' pkg.mod_repo reponame basedir=/path/to/dir enabled=1
         salt '*' pkg.mod_repo reponame baseurl= mirrorlist=http://host.com/
     '''
-    # Filter out '__pub' arguments
-    repo_opts = dict((x, kwargs[x]) for x in kwargs if not x.startswith('__'))
+    # Filter out '__pub' arguments, as well as saltenv
+    repo_opts = dict(
+        (x, kwargs[x]) for x in kwargs
+        if not x.startswith('__') and x not in ('saltenv',)
+    )
 
     if all(x in repo_opts for x in ('mirrorlist', 'baseurl')):
         raise SaltInvocationError(

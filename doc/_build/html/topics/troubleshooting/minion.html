@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -143,23 +142,23 @@ on various platforms.</p>
 <p>If you have netcat installed, you can check port connectivity from the minion
 with the <tt class="docutils literal"><span class="pre">nc</span></tt> command:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>nc -v -z salt.master.ip.addr 4505
-Connection to salt.master.ip.addr 4505 port <span class="o">[</span>tcp/unknown<span class="o">]</span> succeeded!
+Connection to salt.master.ip.addr <span class="m">4505</span> port <span class="o">[</span>tcp/unknown<span class="o">]</span> succeeded!
 <span class="nv">$ </span>nc -v -z salt.master.ip.addr 4506
-Connection to salt.master.ip.addr 4506 port <span class="o">[</span>tcp/unknown<span class="o">]</span> succeeded!
+Connection to salt.master.ip.addr <span class="m">4506</span> port <span class="o">[</span>tcp/unknown<span class="o">]</span> succeeded!
 </pre></div>
 </div>
 <p>The <a class="reference external" href="http://nmap.org/">Nmap</a> utility can also be used to check if these ports are open:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="c"># nmap -sS -q -p 4505-4506 salt.master.ip.addr</span>
 
 Starting Nmap 6.40 <span class="o">(</span> http://nmap.org <span class="o">)</span> at 2013-12-29 19:44 CST
-Nmap scan report <span class="k">for </span>salt.master.ip.addr <span class="o">(</span>10.0.0.10<span class="o">)</span>
+Nmap scan report <span class="k">for</span> salt.master.ip.addr <span class="o">(</span>10.0.0.10<span class="o">)</span>
 Host is up <span class="o">(</span>0.0026s latency<span class="o">)</span>.
 PORT     STATE  SERVICE
 4505/tcp open   unknown
 4506/tcp open   unknown
 MAC Address: 00:11:22:AA:BB:CC <span class="o">(</span>Intel<span class="o">)</span>
 
-Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned in 1.64 seconds
+Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 1.64 seconds
 </pre></div>
 </div>
 <p>If you've opened the correct TCP ports and still aren't seeing connections,
@@ -212,7 +211,7 @@ with an unresponsive daemon, be sure to include this information if possible.</p
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>

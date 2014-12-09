@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -135,7 +134,7 @@
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
 <dl class="option">
 <dt id="cmdoption-r">
-<tt class="descname">-r</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--raw</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--raw-shell</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-r" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption--raw"></span><span id="cmdoption--raw-shell"></span><tt class="descname">-r</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--raw</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--raw-shell</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-r" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute a raw shell command.</p>
 </dd></dl>
 
@@ -148,7 +147,7 @@ scanner, or custom roster system is used. Default is the flat file roster.</p>
 
 <dl class="option">
 <dt id="cmdoption--refresh">
-<tt class="descname">--refresh</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--refresh-cache</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption--refresh" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption--refresh-cache"></span><tt class="descname">--refresh</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--refresh-cache</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption--refresh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Force a refresh of the master side data cache of the target's data. This
 is needed if a target's grains have been changed and the auto refresh
 timeframe has not been reached.</p>
@@ -191,13 +190,13 @@ very fast and easy.</p>
 
 <dl class="option">
 <dt id="cmdoption-salt-h">
-<tt class="descname">-h</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-h" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt--help"></span><tt class="descname">-h</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show the help message and exit</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-c">
-<tt class="descname">-c</tt><tt class="descclassname"> CONFIG_DIR</tt><tt class="descclassname">, </tt><tt class="descname">--config-dir</tt><tt class="descclassname">=CONFIG_dir</tt><a class="headerlink" href="#cmdoption-salt-c" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt--config-dir"></span><tt class="descname">-c</tt><tt class="descclassname"> CONFIG_DIR</tt><tt class="descclassname">, </tt><tt class="descname">--config-dir</tt><tt class="descclassname">=CONFIG_dir</tt><a class="headerlink" href="#cmdoption-salt-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>The location of the Salt configuration directory. This directory contains
 the configuration files for Salt master and minions. The default location
 on most systems is <tt class="docutils literal"><span class="pre">/etc/salt</span></tt>.</p>
@@ -207,21 +206,21 @@ on most systems is <tt class="docutils literal"><span class="pre">/etc/salt</spa
 <h3>Target Selection<a class="headerlink" href="#target-selection" title="Permalink to this headline">¶</a></h3>
 <dl class="option">
 <dt id="cmdoption-salt-E">
-<tt class="descname">-E</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--pcre</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-E" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt--pcre"></span><tt class="descname">-E</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--pcre</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-E" title="Permalink to this definition">¶</a></dt>
 <dd><p>The target expression will be interpreted as a PCRE regular expression
 rather than a shell glob.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-L">
-<tt class="descname">-L</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--list</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-L" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt--list"></span><tt class="descname">-L</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--list</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-L" title="Permalink to this definition">¶</a></dt>
 <dd><p>The target expression will be interpreted as a comma-delimited list;
 example: server1.foo.bar,server2.foo.bar,example7.quo.qux</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-G">
-<tt class="descname">-G</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--grain</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-G" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt--grain"></span><tt class="descname">-G</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--grain</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-G" title="Permalink to this definition">¶</a></dt>
 <dd><p>The target expression matches values returned by the Salt grains system on
 the minions. The target expression is in the format of '&lt;grain value&gt;:&lt;glob
 expression&gt;'; example: 'os:Arch*'</p>
@@ -240,14 +239,14 @@ regular expression&gt;'; example: 'os:Arch.*'</p>
 
 <dl class="option">
 <dt id="cmdoption-salt-N">
-<tt class="descname">-N</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--nodegroup</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-N" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt--nodegroup"></span><tt class="descname">-N</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--nodegroup</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-N" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use a predefined compound target defined in the Salt master configuration
 file.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-R">
-<tt class="descname">-R</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--range</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-R" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt--range"></span><tt class="descname">-R</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--range</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-R" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instead of using shell globs to evaluate the target, use a range expression
 to identify targets. Range expressions look like %cluster.</p>
 <p>Using the Range option requires that a range server is set up and the
@@ -261,7 +260,7 @@ file.</p>
 <p>Logging options which override any settings defined on the configuration files.</p>
 <dl class="option">
 <dt id="cmdoption-salt-l">
-<tt class="descname">-l</tt><tt class="descclassname"> LOG_LEVEL</tt><tt class="descclassname">, </tt><tt class="descname">--log-level</tt><tt class="descclassname">=LOG_LEVEL</tt><a class="headerlink" href="#cmdoption-salt-l" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt--log-level"></span><tt class="descname">-l</tt><tt class="descclassname"> LOG_LEVEL</tt><tt class="descclassname">, </tt><tt class="descname">--log-level</tt><tt class="descclassname">=LOG_LEVEL</tt><a class="headerlink" href="#cmdoption-salt-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Console logging log level. One of <tt class="docutils literal"><span class="pre">all</span></tt>, <tt class="docutils literal"><span class="pre">garbage</span></tt>, <tt class="docutils literal"><span class="pre">trace</span></tt>,
 <tt class="docutils literal"><span class="pre">debug</span></tt>, <tt class="docutils literal"><span class="pre">info</span></tt>, <tt class="docutils literal"><span class="pre">warning</span></tt>, <tt class="docutils literal"><span class="pre">error</span></tt>, <tt class="docutils literal"><span class="pre">quiet</span></tt>. Default:
 <tt class="docutils literal"><span class="pre">warning</span></tt>.</p>
@@ -308,7 +307,7 @@ to a JSON parser, use <tt class="docutils literal"><span class="pre">--static</s
 
 <dl class="option">
 <dt id="cmdoption-salt--out-indent">
-<tt class="descname">--out-indent</tt><tt class="descclassname"> OUTPUT_INDENT</tt><tt class="descclassname">, </tt><tt class="descname">--output-indent</tt><tt class="descclassname"> OUTPUT_INDENT</tt><a class="headerlink" href="#cmdoption-salt--out-indent" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt--output-indent"></span><tt class="descname">--out-indent</tt><tt class="descclassname"> OUTPUT_INDENT</tt><tt class="descclassname">, </tt><tt class="descname">--output-indent</tt><tt class="descclassname"> OUTPUT_INDENT</tt><a class="headerlink" href="#cmdoption-salt--out-indent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the output indented by the provided value in spaces. Negative values
 disable indentation. Only applicable in outputters that support
 indentation.</p>
@@ -316,7 +315,7 @@ indentation.</p>
 
 <dl class="option">
 <dt id="cmdoption-salt--out-file">
-<tt class="descname">--out-file</tt><tt class="descclassname">=OUTPUT_FILE</tt><tt class="descclassname">, </tt><tt class="descname">--output-file</tt><tt class="descclassname">=OUTPUT_FILE</tt><a class="headerlink" href="#cmdoption-salt--out-file" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt--output-file"></span><tt class="descname">--out-file</tt><tt class="descclassname">=OUTPUT_FILE</tt><tt class="descclassname">, </tt><tt class="descname">--output-file</tt><tt class="descclassname">=OUTPUT_FILE</tt><a class="headerlink" href="#cmdoption-salt--out-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write the output to the specified file.</p>
 </dd></dl>
 
@@ -347,7 +346,7 @@ indentation.</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>

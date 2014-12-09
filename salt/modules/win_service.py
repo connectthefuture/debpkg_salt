@@ -131,7 +131,7 @@ def missing(name):
 
         salt '*' service.missing <service name>
     '''
-    return not name in get_all()
+    return name not in get_all()
 
 
 def get_all():
@@ -233,6 +233,9 @@ def restart(name):
 
         salt '*' service.restart <service name>
     '''
+    if has_powershell():
+        cmd = 'Restart-Service {0}'.format(name)
+        return not __salt__['cmd.retcode'](cmd, shell='powershell')
     stop(name)
     return start(name)
 

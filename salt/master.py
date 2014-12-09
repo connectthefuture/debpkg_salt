@@ -176,13 +176,21 @@ class Master(SMaster):
         Create a salt master server instance
         '''
         # Warn if ZMQ < 3.2
-        if not(hasattr(zmq, 'zmq_version_info')) or \
-                zmq.zmq_version_info() < (3, 2):
-            # PyZMQ 2.1.9 does not have zmq_version_info
-            log.warning('You have a version of ZMQ less than ZMQ 3.2! There '
-                        'are known connection keep-alive issues with ZMQ < '
-                        '3.2 which may result in loss of contact with '
-                        'minions. Please upgrade your ZMQ!')
+        try:
+            zmq_version_info = zmq.zmq_version_info()
+        except AttributeError:
+            # PyZMQ <= 2.1.9 does not have zmq_version_info, fall back to
+            # using zmq.zmq_version() and build a version info tuple.
+            zmq_version_info = tuple(
+                [int(x) for x in zmq.zmq_version().split('.')]
+            )
+        if zmq_version_info < (3, 2):
+            log.warning(
+                'You have a version of ZMQ less than ZMQ 3.2! There are '
+                'known connection keep-alive issues with ZMQ < 3.2 which '
+                'may result in loss of contact with minions. Please '
+                'upgrade your ZMQ!'
+            )
         SMaster.__init__(self, opts)
 
     def _clear_old_jobs(self):
@@ -202,10 +210,32 @@ class Master(SMaster):
         event = salt.utils.event.MasterEvent(self.opts['sock_dir'])
 
         pillargitfs = []
+        git_pillars = []
         for opts_dict in [x for x in self.opts.get('ext_pillar', [])]:
             if 'git' in opts_dict:
-                br, loc = opts_dict['git'].strip().split()
-                pillargitfs.append(git_pillar.GitPillar(br, loc, self.opts))
+                git_pillars.append(opts_dict)
+
+        for idx, opts_dict in enumerate(git_pillars):
+
+            if 'git' in opts_dict:
+                parts = opts_dict['git'].strip().split()
+                br, loc = parts[0], parts[1]
+                if len(parts) > 2:
+                    key, _dir = parts[2].split('=')
+
+                    if key != 'root':
+                        log.error("malformed params, got: %s. Ignoring.", key)
+                        continue
+
+                    working_dir = os.path.join(self.opts['cachedir'],
+                                               'pillar_gitfs', str(idx))
+                    pillar_dir = os.path.normpath(os.path.join(
+                        working_dir, _dir))
+
+                    self.opts['pillar_roots'][br] = pillar_dir
+
+                p = git_pillar.GitPillar(br, loc, self.opts)
+                pillargitfs.append(p)
 
         # Clear remote fileserver backend env cache so it gets recreated during
         # the first loop_interval
@@ -242,13 +272,23 @@ class Master(SMaster):
                             if not os.path.isfile(jid_file):
                                 # No jid file means corrupted cache entry,
                                 # scrub it
-                                shutil.rmtree(f_path)
+                                try:
+                                    shutil.rmtree(f_path)
+                                except (os.error, IOError) as exc:
+                                    log.critical('Error while attempting to '
+                                                 'remove an entry from the '
+                                                 'job cache!  {0}'.format(exc))
                             else:
                                 with salt.utils.fopen(jid_file, 'r') as fn_:
                                     jid = fn_.read()
                                 if len(jid) < 18:
                                     # Invalid jid, scrub the dir
-                                    shutil.rmtree(f_path)
+                                    try:
+                                        shutil.rmtree(f_path)
+                                    except (os.error, IOError) as exc:
+                                        log.critical('Error while attempting to '
+                                                     'remove an entry from the '
+                                                     'job cache!  {0}'.format(exc))
                                 else:
                                     # Parse the jid into a proper datetime
                                     # object. We only parse down to the minute,
@@ -262,11 +302,21 @@ class Master(SMaster):
                                                                     int(jid[10:12]))
                                     except ValueError as e:
                                         # Invalid jid, scrub the dir
-                                        shutil.rmtree(f_path)
+                                        try:
+                                            shutil.rmtree(f_path)
+                                        except (os.error, IOError) as exc:
+                                            log.critical('Error while attempting to '
+                                                         'remove an entry from the '
+                                                         'job cache!  {0}'.format(exc))
                                     difference = cur - jidtime
-                                    hours_difference = difference.seconds / 3600.0
+                                    hours_difference = salt.utils.total_seconds(difference) / 3600.0
                                     if hours_difference > self.opts['keep_jobs']:
-                                        shutil.rmtree(f_path)
+                                        try:
+                                            shutil.rmtree(f_path)
+                                        except (os.error, IOError) as exc:
+                                            log.critical('Error while attempting to '
+                                                         'remove an entry from the '
+                                                         'job cache!  {0}'.format(exc))
 
             if self.opts.get('publish_session'):
                 if now - rotate >= self.opts['publish_session']:
@@ -937,37 +987,9 @@ class AESFuncs(object):
             )
             return {}
         load.pop('tok')
-        ret = {}
-        # The old ext_nodes method is set to be deprecated in 0.10.4
-        # and should be removed within 3-5 releases in favor of the
-        # "master_tops" system
-        if self.opts['external_nodes']:
-            if not salt.utils.which(self.opts['external_nodes']):
-                log.error(('Specified external nodes controller {0} is not'
-                           ' available, please verify that it is installed'
-                           '').format(self.opts['external_nodes']))
-                return {}
-            cmd = '{0} {1}'.format(self.opts['external_nodes'], load['id'])
-            ndata = yaml.safe_load(
-                    subprocess.Popen(
-                        cmd,
-                        shell=True,
-                        stdout=subprocess.PIPE
-                        ).communicate()[0])
-            if 'environment' in ndata:
-                saltenv = ndata['environment']
-            else:
-                saltenv = 'base'
 
-            if 'classes' in ndata:
-                if isinstance(ndata['classes'], dict):
-                    ret[saltenv] = list(ndata['classes'])
-                elif isinstance(ndata['classes'], list):
-                    ret[saltenv] = ndata['classes']
-                else:
-                    return ret
         # Evaluate all configured master_tops interfaces
-
+        ret = {}
         opts = {}
         grains = {}
         if 'opts' in load:
@@ -1274,14 +1296,15 @@ class AESFuncs(object):
         for mod in mods:
             sys.modules[mod].__grains__ = load['grains']
 
+        pillar_dirs = {}
         pillar = salt.pillar.Pillar(
-                self.opts,
-                load['grains'],
-                load['id'],
-                load.get('saltenv', load.get('env')),
-                load.get('ext'),
-                self.mminion.functions)
-        data = pillar.compile_pillar()
+            self.opts,
+            load['grains'],
+            load['id'],
+            load.get('saltenv', load.get('env')),
+            load.get('ext'),
+            self.mminion.functions)
+        data = pillar.compile_pillar(pillar_dirs=pillar_dirs)
         if self.opts.get('minion_data_cache', False):
             cdir = os.path.join(self.opts['cachedir'], 'minions', load['id'])
             if not os.path.isdir(cdir):
@@ -1647,7 +1670,7 @@ class AESFuncs(object):
                 if 'jid' in minion:
                     ret['__jid__'] = minion['jid']
         for key, val in self.local.get_cache_returns(ret['__jid__']).items():
-            if not key in ret:
+            if key not in ret:
                 ret[key] = val
         if clear_load.get('form', '') != 'full':
             ret.pop('__jid__')

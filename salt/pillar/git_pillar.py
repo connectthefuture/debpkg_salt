@@ -69,6 +69,7 @@ def __virtual__():
     Only load if gitpython is available
     '''
     ext_pillar_sources = [x for x in __opts__.get('ext_pillar', [])]
+
     if not any(['git' in x for x in ext_pillar_sources]):
         return False
     if not HAS_GIT:
@@ -97,44 +98,60 @@ class GitPillar(object):
         self.repo = None
 
         for idx, opts_dict in enumerate(self.opts['ext_pillar']):
-            if opts_dict.get('git', '') == '{0} {1}'.format(self.branch,
-                                                            self.rp_location):
-                rp_ = os.path.join(self.opts['cachedir'],
-                                   'pillar_gitfs', str(idx))
 
-                if not os.path.isdir(rp_):
-                    os.makedirs(rp_)
+            # self.opts['ext_pillar'] always contains the full list of
+            # ext_pillar options specified in the master config file.
+            # We iterate over that list until we find the branch and location
+            # that match the options passed in via the 'opts' variable.
+            # The reason this is done in a loop is to set the 'idx' variable,
+            # which is used to form the path to the cached local copy of the
+            # git repository.
+            parts = opts_dict.get('git', '').split()
 
-                try:
-                    self.repo = git.Repo.init(rp_)
-                except (git.exc.NoSuchPathError,
-                        git.exc.InvalidGitRepositoryError) as exc:
-                    log.error('GitPython exception caught while '
-                              'initializing the repo: {0}. Maybe '
-                              'git is not available.'.format(exc))
-
-                # Git directory we are working on
-                # Should be the same as self.repo.working_dir
-                self.working_dir = rp_
-
-                if isinstance(self.repo, git.Repo):
-                    if not self.repo.remotes:
-                        try:
-                            self.repo.create_remote('origin', self.rp_location)
-                            # ignore git ssl verification if requested
-                            if self.opts.get('pillar_gitfs_ssl_verify', True):
-                                self.repo.git.config('http.sslVerify', 'true')
-                            else:
-                                self.repo.git.config('http.sslVerify', 'false')
-                        except os.error:
-                            # This exception occurs when two processes are
-                            # trying to write to the git config at once, go
-                            # ahead and pass over it since this is the only
-                            # write.
-                            # This should place a lock down.
-                            pass
-
+            # expected option format:
+            # len(parts) = 2: 'master' 'git_repo_uri'
+            # len(parts) = 3: 'master' 'git_repo_uri' 'root=pillars_dir'
+            if len(parts) < 2 or len(parts) > 3:
+                log.error("Unable to initilize GitPillar with invalid \
+                          ext_pillar option format: %s",
+                          opts_dict.get('git', None))
                 break
+
+            if self.branch != parts[0] or self.rp_location != parts[1]:
+                continue
+
+            rp_ = os.path.join(self.opts['cachedir'],
+                               'pillar_gitfs', str(idx))
+
+            if not os.path.isdir(rp_):
+                os.makedirs(rp_)
+
+            try:
+                self.repo = git.Repo.init(rp_)
+            except (git.exc.NoSuchPathError,
+                    git.exc.InvalidGitRepositoryError) as exc:
+                log.error('GitPython exception caught while '
+                          'initializing the repo: {0}. Maybe '
+                          'git is not available.'.format(exc))
+
+            self.working_dir = rp_
+            if isinstance(self.repo, git.Repo):
+                if not self.repo.remotes:
+                    try:
+                        self.repo.create_remote('origin', self.rp_location)
+                        # ignore git ssl verification if requested
+                        if self.opts.get('pillar_gitfs_ssl_verify', True):
+                            self.repo.git.config('http.sslVerify', 'true')
+                        else:
+                            self.repo.git.config('http.sslVerify', 'false')
+                    except os.error:
+                        # This exception occurs when two processes are
+                        # trying to write to the git config at once, go
+                        # ahead and pass over it since this is the only
+                        # write.
+                        # This should place a lock down.
+                        pass
+            break
 
     def update(self):
         '''
@@ -200,28 +217,91 @@ def envs(branch, repo_location):
     return gitpil.envs()
 
 
-def ext_pillar(minion_id, pillar, repo_string):
+def _extract_key_val(kv, delim='='):
+    '''Extract key and value from key=val string.
+
+    Example:
+    >>> _extract_key_val('foo=bar')
+    ('foo', 'bar')
+    '''
+    delim = '='
+    pieces = kv.split(delim)
+    key = pieces[0]
+    val = delim.join(pieces[1:])
+    return key, val
+
+
+def _get_pillars_root_dir(parts, delim='='):
+    '''
+    Return the directory name from git repo to update pillars
+    '''
+    # NB: Only interested in pillar_roots, ignoring others.
+    if not parts:
+        return ''
+
+    if len(parts) > 1:
+        log.error("There are more K=V params than expected: %s", "".join(parts))
+        return ''
+
+    key, _dir = parts[0].split(delim)
+    if key != 'root':
+        log.warn("invalid extra key=val: %s=%s passed. Ignoring entry.",
+                 key, _dir)
+        return ''
+    return _dir
+
+
+def ext_pillar(minion_id,
+               repo_string,
+               pillar_dirs):
     '''
     Execute a command and read the output as YAML
     '''
-    # split the branch and repo name
-    branch, repo_location = repo_string.strip().split()
+    if pillar_dirs is None:
+        return
+    # split the branch, repo name and optional extra (key=val) parameters.
+    options = repo_string.strip().split()
+    branch = options[0]
+    repo_location = options[1]
+    root = ''
+
+    for extraopt in options[2:]:
+        # Support multiple key=val attributes as custom parameters.
+        DELIM = '='
+        if DELIM not in extraopt:
+            log.error('Incorrectly formatted extra parameter. '
+                      'Missing {0!r}: {1}'.format(DELIM, extraopt))
+        key, val = _extract_key_val(extraopt, DELIM)
+        if key == 'root':
+            root = val
+        else:
+            log.warning('Unrecognized extra parameter: {0}'.format(key))
 
     gitpil = GitPillar(branch, repo_location, __opts__)
 
     # environment is "different" from the branch
     branch = (branch == 'master' and 'base' or branch)
 
+    # normpath is needed to remove appended '/' if root is empty string.
+    pillar_dir = os.path.normpath(os.path.join(gitpil.working_dir, root))
+
+    pillar_dirs.setdefault(pillar_dir, {})
+
+    if pillar_dirs[pillar_dir].get(branch, False):
+        return {}  # we've already seen this combo
+
+    pillar_dirs[pillar_dir].setdefault(branch, True)
+
     # Don't recurse forever-- the Pillar object will re-call the ext_pillar
     # function
-    if __opts__['pillar_roots'].get(branch, []) == [gitpil.working_dir]:
+    if __opts__['pillar_roots'].get(branch, []) == [pillar_dir]:
         return {}
 
     gitpil.update()
 
     opts = deepcopy(__opts__)
 
-    opts['pillar_roots'][branch] = [gitpil.working_dir]
+    opts['pillar_roots'][branch] = [pillar_dir]
 
     pil = Pillar(opts, __grains__, minion_id, branch)
 

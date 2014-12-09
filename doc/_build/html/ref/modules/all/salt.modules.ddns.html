@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -135,8 +134,9 @@
 are a couple of optional configuration parameters made available to
 support this (the keyname is only needed if the keyring contains more
 than one key):</p>
-<div class="highlight-python"><pre>ddns.keyring: keyring file (default=None)
-ddns.keyname: key name in file (default=None)</pre>
+<div class="highlight-python"><div class="highlight"><pre>ddns.keyring: keyring file (default=None)
+ddns.keyname: key name in file (default=None)
+</pre></div>
 </div>
 <p>The keyring file needs to be in json format and the key name needs to end
 with an extra period in the file, similar to this:</p>
@@ -152,7 +152,7 @@ with an extra period in the file, similar to this:</p>
 <tt class="descclassname">salt.modules.ddns.</tt><tt class="descname">add_host</tt><big>(</big><em>zone</em>, <em>name</em>, <em>ttl</em>, <em>ip</em>, <em>nameserver='127.0.0.1'</em>, <em>replace=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.ddns.add_host" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add, replace, or update the A and PTR (reverse) records for a host.</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt ns1 ddns.add_host example.com host1 60 10.1.1.1
+<div class="highlight-bash"><div class="highlight"><pre>salt ns1 ddns.add_host example.com host1 <span class="m">60</span> 10.1.1.1
 </pre></div>
 </div>
 </dd></dl>
@@ -186,7 +186,7 @@ nameserver must be an IP address and the minion running this module
 must have update privileges on that server.
 If replace is true, first deletes all records for this name and type.</p>
 <p>CLI Example:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt ns1 ddns.update example.com host1 60 A 10.0.0.1
+<div class="highlight-bash"><div class="highlight"><pre>salt ns1 ddns.update example.com host1 <span class="m">60</span> A 10.0.0.1
 </pre></div>
 </div>
 </dd></dl>
@@ -198,7 +198,7 @@ If replace is true, first deletes all records for this name and type.</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

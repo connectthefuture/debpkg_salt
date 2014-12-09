@@ -1,3 +1,15 @@
+salt (2014.1.13-0iscoolent2~wheezy1) wheezy; urgency=low
+
+  * fix version
+
+ -- Xavier Barbosa <xavier.barbosa@iscool-e.com>  Tue, 09 Dec 2014 13:45:24 +0200
+
+salt (2014.1.13-0iscoolent1~wheezy1) wheezy; urgency=low
+
+  * Upgrade to 2014.1.13
+
+ -- Xavier Barbosa <xavier.barbosa@iscool-e.com>  Tue, 09 Dec 2014 10:57:34 +0200
+
 salt (2014.1.4-2iscoolent1) precise; urgency=low
 
   * Release for iscool

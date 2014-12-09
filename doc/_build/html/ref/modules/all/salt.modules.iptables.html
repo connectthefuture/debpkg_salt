@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -160,14 +159,14 @@ be used from the command line.</p>
 <p>CLI Examples:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> iptables.build_rule <span class="nv">match</span><span class="o">=</span>state <span class="se">\</span>
     <span class="nv">connstate</span><span class="o">=</span>RELATED,ESTABLISHED <span class="nv">jump</span><span class="o">=</span>ACCEPT
-salt <span class="s1">&#39;*&#39;</span> iptables.build_rule filter INPUT <span class="nb">command</span><span class="o">=</span>I <span class="nv">position</span><span class="o">=</span>3 <span class="se">\</span>
+salt <span class="s1">&#39;*&#39;</span> iptables.build_rule filter INPUT <span class="nb">command</span><span class="o">=</span>I <span class="nv">position</span><span class="o">=</span><span class="m">3</span> <span class="se">\</span>
     <span class="nv">full</span><span class="o">=</span>True <span class="nv">match</span><span class="o">=</span>state <span class="nv">state</span><span class="o">=</span>RELATED,ESTABLISHED <span class="nv">jump</span><span class="o">=</span>ACCEPT
 
 IPv6:
 salt <span class="s1">&#39;*&#39;</span> iptables.build_rule <span class="nv">match</span><span class="o">=</span>state <span class="se">\</span>
     <span class="nv">connstate</span><span class="o">=</span>RELATED,ESTABLISHED <span class="nv">jump</span><span class="o">=</span>ACCEPT <span class="se">\</span>
     <span class="nv">family</span><span class="o">=</span>ipv6
-salt <span class="s1">&#39;*&#39;</span> iptables.build_rule filter INPUT <span class="nb">command</span><span class="o">=</span>I <span class="nv">position</span><span class="o">=</span>3 <span class="se">\</span>
+salt <span class="s1">&#39;*&#39;</span> iptables.build_rule filter INPUT <span class="nb">command</span><span class="o">=</span>I <span class="nv">position</span><span class="o">=</span><span class="m">3</span> <span class="se">\</span>
     <span class="nv">full</span><span class="o">=</span>True <span class="nv">match</span><span class="o">=</span>state <span class="nv">state</span><span class="o">=</span>RELATED,ESTABLISHED <span class="nv">jump</span><span class="o">=</span>ACCEPT <span class="se">\</span>
     <span class="nv">family</span><span class="o">=</span>ipv6
 </pre></div>
@@ -199,8 +198,9 @@ salt <span class="s1">&#39;*&#39;</span> iptables.check filter INPUT <span class
 <dl class="function">
 <dt id="salt.modules.iptables.check_chain">
 <tt class="descclassname">salt.modules.iptables.</tt><tt class="descname">check_chain</tt><big>(</big><em>table='filter'</em>, <em>chain=None</em>, <em>family='ipv4'</em><big>)</big><a class="headerlink" href="#salt.modules.iptables.check_chain" title="Permalink to this definition">¶</a></dt>
-<dd><p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>Check for the existance of a chain in the table</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> iptables.check_chain filter INPUT
@@ -228,7 +228,7 @@ salt <span class="s1">&#39;*&#39;</span> iptables.delete filter INPUT <span clas
     <span class="nv">rule</span><span class="o">=</span><span class="s1">&#39;-m state --state RELATED,ESTABLISHED -j ACCEPT&#39;</span>
 
 IPv6:
-salt <span class="s1">&#39;*&#39;</span> iptables.delete filter INPUT <span class="nv">position</span><span class="o">=</span>3 <span class="nv">family</span><span class="o">=</span>ipv6
+salt <span class="s1">&#39;*&#39;</span> iptables.delete filter INPUT <span class="nv">position</span><span class="o">=</span><span class="m">3</span> <span class="nv">family</span><span class="o">=</span>ipv6
 salt <span class="s1">&#39;*&#39;</span> iptables.delete filter INPUT <span class="se">\</span>
     <span class="nv">rule</span><span class="o">=</span><span class="s1">&#39;-m state --state RELATED,ESTABLISHED -j ACCEPT&#39;</span> <span class="se">\</span>
     <span class="nv">family</span><span class="o">=</span>ipv6
@@ -239,8 +239,9 @@ salt <span class="s1">&#39;*&#39;</span> iptables.delete filter INPUT <span clas
 <dl class="function">
 <dt id="salt.modules.iptables.delete_chain">
 <tt class="descclassname">salt.modules.iptables.</tt><tt class="descname">delete_chain</tt><big>(</big><em>table='filter'</em>, <em>chain=None</em>, <em>family='ipv4'</em><big>)</big><a class="headerlink" href="#salt.modules.iptables.delete_chain" title="Permalink to this definition">¶</a></dt>
-<dd><p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>Delete custom chain to the specified table.</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> iptables.delete_chain filter CUSTOM_CHAIN
@@ -332,11 +333,11 @@ method of creating rules would be irritating at best, and we
 already have a parser that can handle it.</dd>
 </dl>
 <p>CLI Examples:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> iptables.insert filter INPUT <span class="nv">position</span><span class="o">=</span>3 <span class="se">\</span>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> iptables.insert filter INPUT <span class="nv">position</span><span class="o">=</span><span class="m">3</span> <span class="se">\</span>
     <span class="nv">rule</span><span class="o">=</span><span class="s1">&#39;-m state --state RELATED,ESTABLISHED -j ACCEPT&#39;</span>
 
 IPv6:
-salt <span class="s1">&#39;*&#39;</span> iptables.insert filter INPUT <span class="nv">position</span><span class="o">=</span>3 <span class="se">\</span>
+salt <span class="s1">&#39;*&#39;</span> iptables.insert filter INPUT <span class="nv">position</span><span class="o">=</span><span class="m">3</span> <span class="se">\</span>
     <span class="nv">rule</span><span class="o">=</span><span class="s1">&#39;-m state --state RELATED,ESTABLISHED -j ACCEPT&#39;</span> <span class="se">\</span>
     <span class="nv">family</span><span class="o">=</span>ipv6
 </pre></div>
@@ -346,8 +347,9 @@ salt <span class="s1">&#39;*&#39;</span> iptables.insert filter INPUT <span clas
 <dl class="function">
 <dt id="salt.modules.iptables.new_chain">
 <tt class="descclassname">salt.modules.iptables.</tt><tt class="descname">new_chain</tt><big>(</big><em>table='filter'</em>, <em>chain=None</em>, <em>family='ipv4'</em><big>)</big><a class="headerlink" href="#salt.modules.iptables.new_chain" title="Permalink to this definition">¶</a></dt>
-<dd><p class="versionadded">
-<span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 2014.1.0: </span>(Hydrogen)</p>
+</div>
 <p>Create new custom chain to the specified table.</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> iptables.new_chain filter CUSTOM_CHAIN
@@ -404,7 +406,7 @@ salt <span class="s1">&#39;*&#39;</span> iptables.version <span class="nv">famil
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

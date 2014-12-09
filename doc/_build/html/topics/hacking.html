@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -353,7 +352,8 @@ do this, add <tt class="docutils literal"><span class="pre">-l</span> <span clas
 If you would like to log to the console instead of to the log file, remove the
 <tt class="docutils literal"><span class="pre">-d</span></tt>.</p>
 <p>Once the minion starts, you may see an error like the following:</p>
-<div class="highlight-python"><pre>zmq.core.error.ZMQError: ipc path "/path/to/your/virtualenv/var/run/salt/minion/minion_event_7824dcbcfd7a8f6755939af70b96249f_pub.ipc" is longer than 107 characters (sizeof(sockaddr_un.sun_path)).</pre>
+<div class="highlight-python"><div class="highlight"><pre>zmq.core.error.ZMQError: ipc path &quot;/path/to/your/virtualenv/var/run/salt/minion/minion_event_7824dcbcfd7a8f6755939af70b96249f_pub.ipc&quot; is longer than 107 characters (sizeof(sockaddr_un.sun_path)).
+</pre></div>
 </div>
 <p>This means the the path to the socket the minion is using is too long. This is
 a system limitation, so the only workaround is to reduce the length of this
@@ -387,7 +387,7 @@ and 103 characters on BSD-based systems.</p>
 <p>If you are installing using <tt class="docutils literal"><span class="pre">easy_install</span></tt>, you will need to define a
 <strong>USE_SETUPTOOLS</strong> environment variable, otherwise dependencies will not
 be installed:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">USE_SETUPTOOLS</span><span class="o">=</span>1 easy_install salt
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">USE_SETUPTOOLS</span><span class="o">=</span><span class="m">1</span> easy_install salt
 </pre></div>
 </div>
 </div>
@@ -400,7 +400,7 @@ to a virtualenv using pip:</p>
 </pre></div>
 </div>
 <p>Change to salt documentation directory, then:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd </span>doc; make html
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd </span>doc<span class="p">;</span> make html
 </pre></div>
 </div>
 <ul class="simple">
@@ -429,7 +429,7 @@ must be installed from EPEL, and the following make command must be used:</li>
 </div>
 <p>Once you've updated the documentation, you can run the following command to
 launch a simple Python HTTP server to see your changes:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd </span>_build/html; python -m SimpleHTTPServer
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">cd </span>_build/html<span class="p">;</span> python -m SimpleHTTPServer
 </pre></div>
 </div>
 </div>
@@ -448,7 +448,7 @@ launch a simple Python HTTP server to see your changes:</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>

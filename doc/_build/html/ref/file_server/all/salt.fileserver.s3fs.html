@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -122,7 +121,7 @@
   <div class="section" id="module-salt.fileserver.s3fs">
 <span id="salt-fileserver-s3fs"></span><h1>salt.fileserver.s3fs<a class="headerlink" href="#module-salt.fileserver.s3fs" title="Permalink to this headline">¶</a></h1>
 <p>The backend for a fileserver based on Amazon S3</p>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><a class="reference internal" href="../index.html"><em>Salt File Server</em></a></p>
 </div>
@@ -169,7 +168,8 @@ instance metadata.</p>
 Salt, otherwise you may encounter <tt class="docutils literal"><span class="pre">SignatureDoesNotMatch</span></tt> errors.</p>
 <p>A multiple-environment bucket must adhere to the following root directory
 structure:</p>
-<div class="highlight-python"><pre>s3://&lt;bucket name&gt;/&lt;environment&gt;/&lt;files&gt;</pre>
+<div class="highlight-python"><div class="highlight"><pre>s3://&lt;bucket name&gt;/&lt;environment&gt;/&lt;files&gt;
+</pre></div>
 </div>
 <dl class="function">
 <dt id="salt.fileserver.s3fs.dir_list">
@@ -229,7 +229,7 @@ is missing, or if the MD5 does not match.</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

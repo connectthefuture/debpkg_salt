@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -140,12 +139,13 @@ services be enabled too? Probably not. But there should be a notice
 about this, at least.</p>
 <p>[1] <a class="reference external" href="http://upstart.ubuntu.com/cookbook/#disabling-a-job-from-automatically-starting">http://upstart.ubuntu.com/cookbook/#disabling-a-job-from-automatically-starting</a></p>
 <p>[2] example upstart configuration file:</p>
-<div class="highlight-python"><pre>lightdm
+<div class="highlight-python"><div class="highlight"><pre>lightdm
 emits login-session-start
 emits desktop-session-start
 emits desktop-shutdown
 start on ((((filesystem and runlevel [!06]) and started dbus) and (drm-device-added card0 PRIMARY_DEVICE_FOR_DISPLAY=1 or stopped udev-fallback-graphics)) or runlevel PREVLEVEL=S)
-stop on runlevel [016]</pre>
+stop on runlevel [016]
+</pre></div>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -268,8 +268,8 @@ Returns <tt class="docutils literal"><span class="pre">True</span></tt> if the s
 </dd></dl>
 
 <dl class="function">
-<dt id="salt.modules.upstart.reload">
-<tt class="descclassname">salt.modules.upstart.</tt><tt class="descname">reload</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.modules.upstart.reload" title="Permalink to this definition">¶</a></dt>
+<dt id="salt.modules.upstart.reload_">
+<tt class="descclassname">salt.modules.upstart.</tt><tt class="descname">reload_</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#salt.modules.upstart.reload_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reload the named service</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> service.reload &lt;service name&gt;
@@ -325,7 +325,7 @@ running.</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

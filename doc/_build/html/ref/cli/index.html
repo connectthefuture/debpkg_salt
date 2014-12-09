@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -129,7 +128,7 @@ to use.</p>
 the master or minion configuration file.  If this option is not provided and
 the default configuration file does not exist then Salt falls back to use the
 environment variables <tt class="docutils literal"><span class="pre">SALT_MASTER_CONFIG</span></tt> and <tt class="docutils literal"><span class="pre">SALT_MINION_CONFIG</span></tt>.</p>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><a class="reference internal" href="../../topics/configuration.html"><em>Configuring Salt</em></a></p>
 </div>
@@ -189,8 +188,9 @@ data on the minions.</p>
 </div>
 <div class="section" id="compound-targeting">
 <h4>Compound Targeting<a class="headerlink" href="#compound-targeting" title="Permalink to this headline">¶</a></h4>
-<p class="versionadded">
-<span class="versionmodified">New in version 0.9.5.</span></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.5.</span></p>
+</div>
 <p>Multiple target interfaces can be used in conjunction to determine the command
 targets. These targets can then be combined using and or or statements. This
 is well defined with an example:</p>
@@ -207,8 +207,9 @@ because it is a glob.</p>
 </div>
 <div class="section" id="node-group-targeting">
 <h4>Node Group Targeting<a class="headerlink" href="#node-group-targeting" title="Permalink to this headline">¶</a></h4>
-<p class="versionadded">
-<span class="versionmodified">New in version 0.9.5.</span></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.5.</span></p>
+</div>
 <p>Often the convenience of having a predefined group of minions to execute
 targets on is desired. This can be accomplished with the new nodegroups
 feature. Nodegroups allow for predefined compound targets to be declared in
@@ -224,14 +225,15 @@ the master configuration file:</p>
 <h3>Calling the Function<a class="headerlink" href="#calling-the-function" title="Permalink to this headline">¶</a></h3>
 <p>The function to call on the specified target is placed after the target
 specification.</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 0.9.8.</span></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.9.8.</span></p>
+</div>
 <p>Functions may also accept arguments, space-delimited:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> cmd.exec_code python <span class="s1">&#39;import sys; print sys.version&#39;</span>
 </pre></div>
 </div>
 <p>Optional, keyword arguments are also supported:</p>
-<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pip.install salt <span class="nv">timeout</span><span class="o">=</span>5 <span class="nv">upgrade</span><span class="o">=</span>True
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> pip.install salt <span class="nv">timeout</span><span class="o">=</span><span class="m">5</span> <span class="nv">upgrade</span><span class="o">=</span>True
 </pre></div>
 </div>
 <p>They are always in the form of <tt class="docutils literal"><span class="pre">kwarg=argument</span></tt>.</p>
@@ -298,7 +300,7 @@ spaces around the commas that separate arguments. For example:</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>

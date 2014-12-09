@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -152,15 +151,17 @@ to avoid duplicated state ids when the salt file is included by other salt
 files.</p>
 <p>For example, in the <cite>salt://some/file.sls</cite>, a state id such as <tt class="docutils literal"><span class="pre">.sls_params</span></tt>
 will be turned into <tt class="docutils literal"><span class="pre">some.file::sls_params</span></tt>. Example:</p>
-<div class="highlight-python"><pre>#!stateconf yaml . jinja
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
 
 .vim:
-  pkg.installed</pre>
+  pkg.installed
+</pre></div>
 </div>
 <p>Above will be translated into:</p>
-<div class="highlight-python"><pre>some.file::vim:
+<div class="highlight-python"><div class="highlight"><pre>some.file::vim:
   pkg.installed:
-    - name: vim</pre>
+    - name: vim
+</pre></div>
 </div>
 <p>Notice how that if a state under a dot-prefixed state id has no <tt class="docutils literal"><span class="pre">name</span></tt>
 argument then one will be added automatically by using the state id with
@@ -168,7 +169,7 @@ the leading dot stripped off.</p>
 <p>The leading dot trick can be used with extending state ids as well,
 so you can include relatively and extend relatively. For example, when
 extending a state in <cite>salt://some/other_file.sls</cite>, e.g.,:</p>
-<div class="highlight-python"><pre>#!stateconf yaml . jinja
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
 
 include:
   - .file
@@ -176,16 +177,18 @@ include:
 extend:
   .file::sls_params:
     stateconf.set:
-      - name1: something</pre>
+      - name1: something
+</pre></div>
 </div>
 <p>Above will be pre-processed into:</p>
-<div class="highlight-python"><pre>include:
+<div class="highlight-python"><div class="highlight"><pre>include:
   - some.file
 
 extend:
   some.file::sls_params:
     stateconf.set:
-      - name1: something</pre>
+      - name1: something
+</pre></div>
 </div>
 </li>
 <li><p class="first">Adds a <tt class="docutils literal"><span class="pre">sls_dir</span></tt> context variable that expands to the directory containing
@@ -195,7 +198,7 @@ reference templates files used by your salt file.</p>
 <li><p class="first">Recognizes the special state function, <tt class="docutils literal"><span class="pre">stateconf.set</span></tt>, that configures a
 default list of named arguments usable within the template context of
 the salt file. Example:</p>
-<div class="highlight-python"><pre>#!stateconf yaml . jinja
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
 
 .sls_params:
   stateconf.set:
@@ -213,10 +216,11 @@ the salt file. Example:</p>
 .output:
   cmd.run:
     - name: |
-        echo 'name1={{sls_params.name1}}
+        echo &#39;name1={{sls_params.name1}}
               name2={{sls_params.name2}}
               name3[1]={{sls_params.name3[1]}}
-        '</pre>
+        &#39;
+</pre></div>
 </div>
 <p>This even works with <tt class="docutils literal"><span class="pre">include</span></tt> + <tt class="docutils literal"><span class="pre">extend</span></tt> so that you can override
 the default configured arguments by including the salt file and then
@@ -230,59 +234,63 @@ file. The regex that matches such marker can be configured via the
 <p>Sometimes, you'd like to set a default argument value that's based on
 earlier arguments in the same <tt class="docutils literal"><span class="pre">stateconf.set</span></tt>. For example, you may be
 tempted to do something like this:</p>
-<div class="highlight-python"><pre>#!stateconf yaml . jinja
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
 
 .apache:
   stateconf.set:
     - host: localhost
     - port: 1234
-    - url: 'http://{{host}}:{{port}}/'
+    - url: &#39;http://{{host}}:{{port}}/&#39;
 
 # --- end of state config ---
 
 .test:
   cmd.run:
-    - name: echo '{{apache.url}}'
-    - cwd: /</pre>
+    - name: echo &#39;{{apache.url}}&#39;
+    - cwd: /
+</pre></div>
 </div>
 <p>However, this won't work, but can be worked around like so:</p>
-<div class="highlight-python"><pre>#!stateconf yaml . jinja
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
 
 .apache:
   stateconf.set:
     - host: localhost
     - port: 1234
-{#  - url: 'http://{{host}}:{{port}}/' #}
+{#  - url: &#39;http://{{host}}:{{port}}/&#39; #}
 
 # --- end of state config ---
-# {{ apache.setdefault('url', "http://%(host)s:%(port)s/" % apache) }}
+# {{ apache.setdefault(&#39;url&#39;, &quot;http://%(host)s:%(port)s/&quot; % apache) }}
 
 .test:
   cmd.run:
-    - name: echo '{{apache.url}}'
-    - cwd: /</pre>
+    - name: echo &#39;{{apache.url}}&#39;
+    - cwd: /
+</pre></div>
 </div>
 </li>
 <li><p class="first">Adds support for relative include and exclude of .sls files. Example:</p>
-<div class="highlight-python"><pre>#!stateconf yaml . jinja
+<div class="highlight-python"><div class="highlight"><pre>#!stateconf yaml . jinja
 
 include:
   - .apache
   - .db.mysql
 
 exclude:
-  - sls: .users</pre>
+  - sls: .users
+</pre></div>
 </div>
 <p>If the above is written in a salt file at <cite>salt://some/where.sls</cite> then
 it will include <cite>salt://some/apache.sls</cite> and <cite>salt://some/db/mysql.sls</cite>,
 and exclude <cite>salt://some/users.ssl</cite>. Actually, it does that by rewriting
 the above <tt class="docutils literal"><span class="pre">include</span></tt> and <tt class="docutils literal"><span class="pre">exclude</span></tt> into:</p>
-<div class="highlight-python"><pre>include:
+<div class="highlight-python"><div class="highlight"><pre>include:
   - some.apache
   - some.db.mysql
 
 exclude:
-  - sls: some.users</pre>
+  - sls: some.users
+</pre></div>
 </div>
 </li>
 <li><p class="first">Optionally (enabled by default, <em>disable</em> via the <cite>-G</cite> renderer option,
@@ -332,7 +340,7 @@ id <tt class="docutils literal"><span class="pre">X</span></tt>) in the includin
 <p>When writing sls files with this renderer, you should avoid using what can be
 defined in a <tt class="docutils literal"><span class="pre">name</span></tt> argument of a state as the state's id. That is, avoid
 writing your states like this:</p>
-<div class="highlight-python"><pre>/path/to/some/file:
+<div class="highlight-python"><div class="highlight"><pre>/path/to/some/file:
   file.managed:
     - source: salt://some/file
 
@@ -340,14 +348,15 @@ cp /path/to/some/file file2:
   cmd.run:
     - cwd: /
     - require:
-      - file: /path/to/some/file</pre>
+      - file: /path/to/some/file
+</pre></div>
 </div>
 <p>Instead, you should define the state id and the <tt class="docutils literal"><span class="pre">name</span></tt> argument separately
 for each state, and the id should be something meaningful and easy to reference
 within a requisite (which I think is a good habit anyway, and such extra
 indirection would also makes your sls file easier to modify later). Thus, the
 above states should be written like this:</p>
-<div class="highlight-python"><pre>add-some-file:
+<div class="highlight-python"><div class="highlight"><pre>add-some-file:
   file.managed:
     - name: /path/to/some/file
     - source: salt://some/file
@@ -357,7 +366,8 @@ copy-files:
     - name: cp /path/to/some/file file2
     - cwd: /
     - require:
-      - file: add-some-file</pre>
+      - file: add-some-file
+</pre></div>
 </div>
 <p>Moreover, when referencing a state from a requisite, you should reference the
 state's id plus the state name rather than the state name plus its <tt class="docutils literal"><span class="pre">name</span></tt>
@@ -373,7 +383,7 @@ then there's no way to reliably rewrite such reference.</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

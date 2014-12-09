@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -121,7 +120,9 @@
                         
   <div class="section" id="module-salt.modules.saltutil">
 <span id="salt-modules-saltutil"></span><h1>salt.modules.saltutil<a class="headerlink" href="#module-salt.modules.saltutil" title="Permalink to this headline">¶</a></h1>
-<p>The Saltutil module is used to manage the state of the salt minion itself. It is used to manage minion modules as well as automate updates to the salt minion.</p>
+<p>The Saltutil module is used to manage the state of the salt minion itself. It
+is used to manage minion modules as well as automate updates to the salt
+minion.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -133,6 +134,16 @@
 </tr>
 </tbody>
 </table>
+<dl class="function">
+<dt id="salt.modules.saltutil.cached">
+<tt class="descclassname">salt.modules.saltutil.</tt><tt class="descname">cached</tt><big>(</big><big>)</big><a class="headerlink" href="#salt.modules.saltutil.cached" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the data on all cached salt jobs on the minion</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> saltutil.cached
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="function">
 <dt id="salt.modules.saltutil.cmd">
 <tt class="descclassname">salt.modules.saltutil.</tt><tt class="descname">cmd</tt><big>(</big><em>tgt</em>, <em>fun</em>, <em>arg=()</em>, <em>timeout=None</em>, <em>expr_form='glob'</em>, <em>ret=''</em>, <em>kwarg=None</em>, <em>ssh=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#salt.modules.saltutil.cmd" title="Permalink to this definition">¶</a></dt>
@@ -149,6 +160,16 @@
 <dd><p>Assuming this minion is a master, execute a salt command</p>
 <p>CLI Example:</p>
 <div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> saltutil.cmd
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="salt.modules.saltutil.find_cached_job">
+<tt class="descclassname">salt.modules.saltutil.</tt><tt class="descname">find_cached_job</tt><big>(</big><em>jid</em><big>)</big><a class="headerlink" href="#salt.modules.saltutil.find_cached_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the data for a specific cached job id</p>
+<p>CLI Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre>salt <span class="s1">&#39;*&#39;</span> saltutil.find_cached_job &lt;job id&gt;
 </pre></div>
 </div>
 </dd></dl>
@@ -366,7 +387,7 @@ available at opts['update_url'].</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

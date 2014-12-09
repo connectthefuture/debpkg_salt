@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -124,15 +123,17 @@
 <p>This state uses the manager webapp to manage Apache tomcat webapps
 This state requires the manager webapp to be enabled</p>
 <p>The following grains/pillar should be set:</p>
-<div class="highlight-python"><pre>tomcat-manager.user: admin user name
-tomcat-manager.passwd: password</pre>
+<div class="highlight-python"><div class="highlight"><pre>tomcat-manager.user: admin user name
+tomcat-manager.passwd: password
+</pre></div>
 </div>
 <p>and also configure a user in the conf/tomcat-users.xml file:</p>
-<div class="highlight-python"><pre>&lt;?xml version='1.0' encoding='utf-8'?&gt;
+<div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf-8&#39;?&gt;
 &lt;tomcat-users&gt;
-    &lt;role rolename="manager-script"/&gt;
-    &lt;user username="tomcat" password="tomcat" roles="manager-script"/&gt;
-&lt;/tomcat-users&gt;</pre>
+    &lt;role rolename=&quot;manager-script&quot;/&gt;
+    &lt;user username=&quot;tomcat&quot; password=&quot;tomcat&quot; roles=&quot;manager-script&quot;/&gt;
+&lt;/tomcat-users&gt;
+</pre></div>
 </div>
 <p>Notes:</p>
 <ul>
@@ -196,7 +197,7 @@ well and ready for deployment</p>
 <dd>timeout for HTTP request to the tomcat manager</dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-python"><pre>tomcat-service:
+<div class="highlight-python"><div class="highlight"><pre>tomcat-service:
   service:
     - running
     - name: tomcat
@@ -215,13 +216,14 @@ jenkins:
     - name: /ran
     - war: salt://jenkins-1.2.4.war
     - require:
-      - tomcat: wait-for-tomcatmanager</pre>
+      - tomcat: wait-for-tomcatmanager
+</pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="salt.states.tomcat.war_deployed">
-<tt class="descclassname">salt.states.tomcat.</tt><tt class="descname">war_deployed</tt><big>(</big><em>name</em>, <em>war</em>, <em>url='http://localhost:8080/manager'</em>, <em>timeout=180</em><big>)</big><a class="headerlink" href="#salt.states.tomcat.war_deployed" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">salt.states.tomcat.</tt><tt class="descname">war_deployed</tt><big>(</big><em>name</em>, <em>war</em>, <em>force=False</em>, <em>url='http://localhost:8080/manager'</em>, <em>timeout=180</em><big>)</big><a class="headerlink" href="#salt.states.tomcat.war_deployed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enforce that the WAR will be deployed and started in the context path
 it will make use of WAR versions</p>
 <dl class="docutils">
@@ -232,18 +234,21 @@ it will make use of WAR versions</p>
 <dt>war</dt>
 <dd>absolute path to WAR file (should be accessible by the user running
 tomcat) or a path supported by the salt.modules.cp.get_url function</dd>
+<dt>force:</dt>
+<dd>force deploy even if version strings are the same, False by default.</dd>
 <dt>url <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="http://localhost:8080/manager">http://localhost:8080/manager</a></span></dt>
 <dd>the URL of the server manager webapp</dd>
 <dt>timeout <span class="classifier-delimiter">:</span> <span class="classifier">180</span></dt>
 <dd>timeout for HTTP request to the tomcat manager</dd>
 </dl>
 <p>Example:</p>
-<div class="highlight-python"><pre>jenkins:
+<div class="highlight-python"><div class="highlight"><pre>jenkins:
   tomcat.war_deployed:
     - name: /ran
     - war: salt://jenkins-1.2.4.war
     - require:
-      - service: application-service</pre>
+      - service: application-service
+</pre></div>
 </div>
 </dd></dl>
 
@@ -254,7 +259,7 @@ tomcat) or a path supported by the salt.modules.cp.get_url function</dd>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p><div id="module-funcs"></div>

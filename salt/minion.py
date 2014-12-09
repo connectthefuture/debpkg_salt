@@ -115,7 +115,10 @@ def resolve_dns(opts):
                     except SaltClientError:
                         pass
             else:
-                ret['master_ip'] = '127.0.0.1'
+                err = 'Master address: {0} could not be resolved and retry_dns is not set.  Invalid or unresolveable address.'.format(
+                    opts.get('master', 'Unknown'))
+                log.error(err)
+                raise SaltSystemExit(code=42, msg=err)
         except SaltSystemExit:
             err = 'Master address: {0} could not be resolved. Invalid or unresolveable address.'.format(
                 opts.get('master', 'Unknown'))
@@ -365,8 +368,12 @@ class MultiMinion(object):
             s_opts['master'] = master
             try:
                 minions.append(Minion(s_opts, 5, False))
-            except SaltClientError:
-                minions.append(s_opts)
+            except SaltClientError as exc:
+                log.error('Error while bringing up minion for multi-master. Is master at {0} responding?'.format(master))
+        if len(minions) == 0:
+            err = 'Error while bringing up minion for multi-master. All configured masters [{0}] are not responding!!!'.format(", ".join(map(str, set(self.opts['master']))))
+            log.error(err)
+            raise SaltClientError(err)
         return minions
 
     def minions(self):
@@ -458,16 +465,16 @@ class MultiMinion(object):
 
         while True:
             for minion in minions.values():
-                if isinstance(minion, dict):
-                    continue
-                if not hasattr(minion, 'schedule'):
+                # See the minions function above for the contents of a minions value
+                minion_obj = minion.get('minion')
+                if not hasattr(minion_obj, 'schedule'):
                     continue
                 try:
-                    minion.schedule.eval()
+                    minion_obj.schedule.eval()
                     # Check if scheduler requires lower loop interval than
                     # the loop_interval setting
-                    if minion.schedule.loop_interval < loop_interval:
-                        loop_interval = minion.schedule.loop_interval
+                    if minion_obj.schedule.loop_interval < loop_interval:
+                        loop_interval = minion_obj.schedule.loop_interval
                         log.debug(
                             'Overriding loop_interval because of scheduled jobs.'
                         )
@@ -529,13 +536,22 @@ class Minion(object):
         self._running = None
 
         # Warn if ZMQ < 3.2
-        if HAS_ZMQ and (not(hasattr(zmq, 'zmq_version_info')) or
-                        zmq.zmq_version_info() < (3, 2)):
-            # PyZMQ 2.1.9 does not have zmq_version_info
-            log.warning('You have a version of ZMQ less than ZMQ 3.2! There '
-                        'are known connection keep-alive issues with ZMQ < '
-                        '3.2 which may result in loss of contact with '
-                        'minions. Please upgrade your ZMQ!')
+        if HAS_ZMQ:
+            try:
+                zmq_version_info = zmq.zmq_version_info()
+            except AttributeError:
+                # PyZMQ <= 2.1.9 does not have zmq_version_info, fall back to
+                # using zmq.zmq_version() and build a version info tuple.
+                zmq_version_info = tuple(
+                    [int(x) for x in zmq.zmq_version().split('.')]
+                )
+            if zmq_version_info < (3, 2):
+                log.warning(
+                    'You have a version of ZMQ less than ZMQ 3.2! There are '
+                    'known connection keep-alive issues with ZMQ < 3.2 which '
+                    'may result in loss of contact with minions. Please '
+                    'upgrade your ZMQ!'
+                )
         # Late setup the of the opts grains, so we can log from the grains
         # module
         opts['grains'] = salt.loader.grains(opts)
@@ -978,6 +994,17 @@ class Minion(object):
             else:
                 if isinstance(oput, string_types):
                     load['out'] = oput
+        if self.opts['cache_jobs']:
+            # Local job cache has been enabled
+            fn_ = os.path.join(
+                self.opts['cachedir'],
+                'minion_jobs',
+                load['jid'],
+                'return.p')
+            jdir = os.path.dirname(fn_)
+            if not os.path.isdir(jdir):
+                os.makedirs(jdir)
+            salt.utils.fopen(fn_, 'w+b').write(self.serial.dumps(ret))
         try:
             ret_val = sreq.send('aes', self.crypticle.dumps(load))
         except SaltReqTimeoutError:
@@ -991,17 +1018,6 @@ class Minion(object):
             # The master AES key has changed, reauth
             self.authenticate()
             ret_val = sreq.send('aes', self.crypticle.dumps(load))
-        if self.opts['cache_jobs']:
-            # Local job cache has been enabled
-            fn_ = os.path.join(
-                self.opts['cachedir'],
-                'minion_jobs',
-                load['jid'],
-                'return.p')
-            jdir = os.path.dirname(fn_)
-            if not os.path.isdir(jdir):
-                os.makedirs(jdir)
-            salt.utils.fopen(fn_, 'w+b').write(self.serial.dumps(ret))
         return ret_val
 
     def _state_run(self):
@@ -1028,7 +1044,7 @@ class Minion(object):
         :return: None
         '''
         if '__update_grains' not in self.opts.get('schedule', {}):
-            if not 'schedule' in self.opts:
+            if 'schedule' not in self.opts:
                 self.opts['schedule'] = {}
             self.opts['schedule'].update({
                 '__update_grains':
@@ -1068,7 +1084,7 @@ class Minion(object):
         while True:
             creds = auth.sign_in(timeout, safe)
             if creds != 'retry':
-                log.info('Authentication with master successful!')
+                log.info('Authentication with master at {0} successful!'.format(self.opts['master_ip']))
                 break
             log.info('Waiting for minion key to be accepted by the master.')
             time.sleep(acceptance_wait_time)
@@ -1651,8 +1667,8 @@ class Syndic(Minion):
                         # Timeout reached
                         break
                     if salt.utils.is_jid(event['tag']) and 'return' in event['data']:
-                        if not event['tag'] in jids:
-                            if not 'jid' in event['data']:
+                        if event['tag'] not in jids:
+                            if 'jid' not in event['data']:
                                 # Not a job return
                                 continue
                             jids[event['tag']] = {}
@@ -1665,7 +1681,7 @@ class Syndic(Minion):
                         jids[event['tag']][event['data']['id']] = event['data']['return']
                     else:
                         # Add generic event aggregation here
-                        if not 'retcode' in event['data']:
+                        if 'retcode' not in event['data']:
                             raw_events.append(event)
                 if raw_events:
                     self._fire_master(events=raw_events, pretag=tagify(self.opts['id'], base='syndic'))
@@ -1797,14 +1813,6 @@ class Matcher(object):
             val,
             comps[1],
         ))
-
-    def exsel_match(self, tgt):
-        '''
-        Runs a function and return the exit code
-        '''
-        if tgt not in self.functions:
-            return False
-        return self.functions[tgt]()
 
     def pillar_match(self, tgt, delim=':'):
         '''
@@ -1940,13 +1948,22 @@ class ProxyMinion(Minion):
         '''
 
         # Warn if ZMQ < 3.2
-        if HAS_ZMQ and (not(hasattr(zmq, 'zmq_version_info')) or
-                        zmq.zmq_version_info() < (3, 2)):
-            # PyZMQ 2.1.9 does not have zmq_version_info
-            log.warning('You have a version of ZMQ less than ZMQ 3.2! There '
-                        'are known connection keep-alive issues with ZMQ < '
-                        '3.2 which may result in loss of contact with '
-                        'minions. Please upgrade your ZMQ!')
+        if HAS_ZMQ:
+            try:
+                zmq_version_info = zmq.zmq_version_info()
+            except AttributeError:
+                # PyZMQ <= 2.1.9 does not have zmq_version_info, fall back to
+                # using zmq.zmq_version() and build a version info tuple.
+                zmq_version_info = tuple(
+                    [int(x) for x in zmq.zmq_version().split('.')]
+                )
+            if zmq_version_info < (3, 2):
+                log.warning(
+                    'You have a version of ZMQ less than ZMQ 3.2! There are '
+                    'known connection keep-alive issues with ZMQ < 3.2 which '
+                    'may result in loss of contact with minions. Please '
+                    'upgrade your ZMQ!'
+                )
         # Late setup the of the opts grains, so we can log from the grains
         # module
         # print opts['proxymodule']

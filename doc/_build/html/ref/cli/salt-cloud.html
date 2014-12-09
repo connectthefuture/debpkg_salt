@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -39,7 +38,7 @@
     <script>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../../',
-            VERSION:     '2014.1.4',
+            VERSION:     '2014.1.7',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -123,11 +122,12 @@
 <p>Provision virtual machines in the cloud with Salt</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><pre>salt-cloud -m /etc/salt/cloud.map
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud -m /etc/salt/cloud.map
 
 salt-cloud -p PROFILE NAME
 
-salt-cloud -p PROFILE NAME1 NAME2 NAME3 NAME4 NAME5 NAME6</pre>
+salt-cloud -p PROFILE NAME1 NAME2 NAME3 NAME4 NAME5 NAME6
+</pre></div>
 </div>
 </div>
 <div class="section" id="description">
@@ -139,20 +139,20 @@ clouds via a cleanly controlled profile and mapping system.</p>
 <h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
 <dl class="option">
 <dt id="cmdoption-salt-cloud-h">
-<tt class="descname">-h</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-h" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--help"></span><tt class="descname">-h</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--help</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-h" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print a usage message briefly summarizing these command-line options.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-cloud-p">
-<tt class="descname">-p</tt><tt class="descclassname"> PROFILE</tt><tt class="descclassname">, </tt><tt class="descname">--profile</tt><tt class="descclassname">=PROFILE</tt><a class="headerlink" href="#cmdoption-salt-cloud-p" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--profile"></span><tt class="descname">-p</tt><tt class="descclassname"> PROFILE</tt><tt class="descclassname">, </tt><tt class="descname">--profile</tt><tt class="descclassname">=PROFILE</tt><a class="headerlink" href="#cmdoption-salt-cloud-p" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select a single profile to build the named cloud VMs from. The profile
 must be defined in the specified profiles file.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-cloud-m">
-<tt class="descname">-m</tt><tt class="descclassname"> MAP</tt><tt class="descclassname">, </tt><tt class="descname">--map</tt><tt class="descclassname">=MAP</tt><a class="headerlink" href="#cmdoption-salt-cloud-m" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--map"></span><tt class="descname">-m</tt><tt class="descclassname"> MAP</tt><tt class="descclassname">, </tt><tt class="descname">--map</tt><tt class="descclassname">=MAP</tt><a class="headerlink" href="#cmdoption-salt-cloud-m" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify a map file to use. If used without any other options, this option
 will ensure that all of the mapped VMs are created. If the named VM
 already exists then it will be skipped.</p>
@@ -160,7 +160,7 @@ already exists then it will be skipped.</p>
 
 <dl class="option">
 <dt id="cmdoption-salt-cloud-H">
-<tt class="descname">-H</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--hard</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-H" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--hard"></span><tt class="descname">-H</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--hard</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-H" title="Permalink to this definition">¶</a></dt>
 <dd><p>When specifying a map file, the default behavior is to ensure that all of
 the VMs specified in the map file are created. If the --hard option is
 set, then any VMs that exist on configured cloud providers that are
@@ -170,7 +170,7 @@ be a destructive operation and should be used with care.</p>
 
 <dl class="option">
 <dt id="cmdoption-salt-cloud-d">
-<tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--destroy</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-d" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--destroy"></span><tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--destroy</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pass in the name(s) of VMs to destroy, salt-cloud will search the
 configured cloud providers for the specified names and destroy the
 VMs. Be advised that this is a destructive operation and should be used
@@ -180,7 +180,7 @@ of VMs to be deleted.</p>
 
 <dl class="option">
 <dt id="cmdoption-salt-cloud-P">
-<tt class="descname">-P</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--parallel</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-P" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--parallel"></span><tt class="descname">-P</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--parallel</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-P" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normally when building many cloud VMs they are executed serially. The -P
 option will run each cloud vm build in a separate process allowing for
 large groups of VMs to be build at once.</p>
@@ -191,14 +191,14 @@ cloud provider carefully.</p>
 
 <dl class="option">
 <dt id="cmdoption-salt-cloud-Q">
-<tt class="descname">-Q</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--query</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-Q" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--query"></span><tt class="descname">-Q</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--query</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-Q" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute a query and print out information about all cloud VMs. Can be used
 in conjunction with -m to display only information about the specified map.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-cloud-F">
-<tt class="descname">-F</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--full-query</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-F" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--full-query"></span><tt class="descname">-F</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--full-query</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-F" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute a query and print out all available information about all cloud VMs.
 Can be used in conjunction with -m to display only information about the
 specified map.</p>
@@ -206,7 +206,7 @@ specified map.</p>
 
 <dl class="option">
 <dt id="cmdoption-salt-cloud-S">
-<tt class="descname">-S</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--select-query</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-S" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--select-query"></span><tt class="descname">-S</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--select-query</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-salt-cloud-S" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute a query and print out selected information about all cloud VMs.
 Can be used in conjunction with -m to display only information about the
 specified map.</p>
@@ -230,14 +230,14 @@ cloud provider that available sizes are desired on, aka &quot;aws&quot;, or pass
 
 <dl class="option">
 <dt id="cmdoption-salt-cloud-C">
-<tt class="descname">-C</tt><tt class="descclassname"> CLOUD_CONFIG</tt><tt class="descclassname">, </tt><tt class="descname">--cloud-config</tt><tt class="descclassname">=CLOUD_CONFIG</tt><a class="headerlink" href="#cmdoption-salt-cloud-C" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--cloud-config"></span><tt class="descname">-C</tt><tt class="descclassname"> CLOUD_CONFIG</tt><tt class="descclassname">, </tt><tt class="descname">--cloud-config</tt><tt class="descclassname">=CLOUD_CONFIG</tt><a class="headerlink" href="#cmdoption-salt-cloud-C" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify an alternative location for the salt cloud configuration file.
 Default location is /etc/salt/cloud.</p>
 </dd></dl>
 
 <dl class="option">
 <dt id="cmdoption-salt-cloud-M">
-<tt class="descname">-M</tt><tt class="descclassname"> MASTER_CONFIG</tt><tt class="descclassname">, </tt><tt class="descname">--master-config</tt><tt class="descclassname">=MASTER_CONFIG</tt><a class="headerlink" href="#cmdoption-salt-cloud-M" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--master-config"></span><tt class="descname">-M</tt><tt class="descclassname"> MASTER_CONFIG</tt><tt class="descclassname">, </tt><tt class="descname">--master-config</tt><tt class="descclassname">=MASTER_CONFIG</tt><a class="headerlink" href="#cmdoption-salt-cloud-M" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify an alternative location for the salt master configuration file.
 The salt master configuration file is used to determine how to handle the
 minion RSA keys. Default location is /etc/salt/master.</p>
@@ -245,7 +245,7 @@ minion RSA keys. Default location is /etc/salt/master.</p>
 
 <dl class="option">
 <dt id="cmdoption-salt-cloud-V">
-<tt class="descname">-V</tt><tt class="descclassname"> VM_CONFIG</tt><tt class="descclassname">, </tt><tt class="descname">--profiles</tt><tt class="descclassname">=VM_CONFIG</tt><tt class="descclassname">, </tt><tt class="descname">--vm_config</tt><tt class="descclassname">=VM_CONFIG</tt><a class="headerlink" href="#cmdoption-salt-cloud-V" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-salt-cloud--profiles"></span><span id="cmdoption-salt-cloud--vm_config"></span><tt class="descname">-V</tt><tt class="descclassname"> VM_CONFIG</tt><tt class="descclassname">, </tt><tt class="descname">--profiles</tt><tt class="descclassname">=VM_CONFIG</tt><tt class="descclassname">, </tt><tt class="descname">--vm_config</tt><tt class="descclassname">=VM_CONFIG</tt><a class="headerlink" href="#cmdoption-salt-cloud-V" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specify an alternative location for the salt cloud profiles file.
 Default location is /etc/salt/cloud.profiles.</p>
 </dd></dl>
@@ -286,7 +286,8 @@ an executing python script with eval.</p>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>To create 4 VMs named web1, web2, db1 and db2 from specified profiles:</p>
-<div class="highlight-python"><pre>salt-cloud -p fedora_rackspace web1 web2 db1 db2</pre>
+<div class="highlight-python"><div class="highlight"><pre>salt-cloud -p fedora_rackspace web1 web2 db1 db2
+</pre></div>
 </div>
 <p>To read in a map file and create all VMs specified therein:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">salt</span><span class="o">-</span><span class="n">cloud</span> <span class="o">-</span><span class="n">m</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">cloud</span><span class="o">.</span><span class="n">map</span>
@@ -323,7 +324,7 @@ an executing python script with eval.</p>
     <div class="span3">
     <div>
 
-        <p>Current Salt release: <a href="../../topics/releases/2014.1.4.html">2014.1.4</a></p>
+        <p>Current Salt release: <a href="../../topics/releases/2014.1.7.html">2014.1.7</a></p>
 
         <p class="muted">Docs for previous releases on
             <a href="http://salt.readthedocs.org">salt.rtfd.org</a>.</p>
